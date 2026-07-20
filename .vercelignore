@@ -1,0 +1,4 @@
+# Never upload local secrets or QA artifacts to the Vercel build
+.env*.local
+.review
+Plan_WIP.md

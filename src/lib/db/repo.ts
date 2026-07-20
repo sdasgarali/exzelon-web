@@ -125,32 +125,54 @@ function toPublicJob(doc: JobDoc): PublicJob {
   };
 }
 
+// Public reads degrade to empty/null if the DB is unreachable, so a transient
+// DB issue can't hard-fail the build (ISR revalidates with real data at runtime).
 export async function listPublicJobs(): Promise<PublicJob[]> {
-  const jobs = await jobsCollection();
-  const docs = await jobs.find({ status: "open" }).sort({ featured: -1, createdAt: -1 }).toArray();
-  return docs.map(toPublicJob);
+  try {
+    const jobs = await jobsCollection();
+    const docs = await jobs.find({ status: "open" }).sort({ featured: -1, createdAt: -1 }).toArray();
+    return docs.map(toPublicJob);
+  } catch (e) {
+    console.error("[db] listPublicJobs failed:", e);
+    return [];
+  }
 }
 
 export async function listFeaturedPublicJobs(limit = 3): Promise<PublicJob[]> {
-  const jobs = await jobsCollection();
-  const docs = await jobs
-    .find({ status: "open", featured: true })
-    .sort({ createdAt: -1 })
-    .limit(limit)
-    .toArray();
-  return docs.map(toPublicJob);
+  try {
+    const jobs = await jobsCollection();
+    const docs = await jobs
+      .find({ status: "open", featured: true })
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .toArray();
+    return docs.map(toPublicJob);
+  } catch (e) {
+    console.error("[db] listFeaturedPublicJobs failed:", e);
+    return [];
+  }
 }
 
 export async function listPublicJobsByIndustry(industry: string): Promise<PublicJob[]> {
-  const jobs = await jobsCollection();
-  const docs = await jobs.find({ status: "open", industry }).sort({ createdAt: -1 }).toArray();
-  return docs.map(toPublicJob);
+  try {
+    const jobs = await jobsCollection();
+    const docs = await jobs.find({ status: "open", industry }).sort({ createdAt: -1 }).toArray();
+    return docs.map(toPublicJob);
+  } catch (e) {
+    console.error("[db] listPublicJobsByIndustry failed:", e);
+    return [];
+  }
 }
 
 export async function getPublicJobBySlug(slug: string): Promise<PublicJob | null> {
-  const jobs = await jobsCollection();
-  const doc = await jobs.findOne({ slug });
-  return doc && doc.status === "open" ? toPublicJob(doc) : null;
+  try {
+    const jobs = await jobsCollection();
+    const doc = await jobs.findOne({ slug });
+    return doc && doc.status === "open" ? toPublicJob(doc) : null;
+  } catch (e) {
+    console.error("[db] getPublicJobBySlug failed:", e);
+    return null;
+  }
 }
 
 export async function listPublicJobsBySlugs(slugs: string[]): Promise<PublicJob[]> {

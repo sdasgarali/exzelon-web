@@ -43,3 +43,5 @@ next-env.d.ts
 # QA screenshots (Chrome DevTools MCP)
 .review/
 !.env.example
+
+.vercel
