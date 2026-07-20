@@ -1,26 +1,158 @@
 @import "tailwindcss";
 
+/*
+  Exzelon — NextGen Hires design system
+  Brand: deep navy + electric blue accent, warm amber highlight, cool neutrals.
+*/
+
+@theme {
+  /* Brand ramp (blue) */
+  --color-brand-50: #eef5ff;
+  --color-brand-100: #d9e8ff;
+  --color-brand-200: #bcd7ff;
+  --color-brand-300: #8ebdff;
+  --color-brand-400: #5897fb;
+  --color-brand-500: #2f6ff3;
+  --color-brand-600: #1a54e0;
+  --color-brand-700: #1642b5;
+  --color-brand-800: #183a90;
+  --color-brand-900: #0f234f;
+  --color-brand-950: #0a1631;
+
+  /* Ink / navy surfaces */
+  --color-ink-900: #0a1024;
+  --color-ink-800: #0e1630;
+  --color-ink-700: #16203f;
+
+  /* Accent (amber) */
+  --color-accent-400: #ffc24b;
+  --color-accent-500: #ffab19;
+  --color-accent-600: #f08c00;
+
+  /* Neutrals */
+  --color-sand-50: #f8fafc;
+  --color-sand-100: #f1f5f9;
+  --color-sand-200: #e2e8f0;
+  --color-sand-300: #cbd5e1;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-inter), ui-sans-serif, sans-serif;
+
+  --radius-4xl: 2rem;
+
+  --shadow-glow: 0 0 0 1px rgba(47, 111, 243, 0.15), 0 20px 60px -25px rgba(26, 84, 224, 0.55);
+  --shadow-card: 0 1px 2px rgba(15, 35, 79, 0.04), 0 12px 32px -18px rgba(15, 35, 79, 0.25);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0a1024;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    border-color: var(--color-sand-200);
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+  ::selection {
+    background: var(--color-brand-600);
+    color: #fff;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+
+  .container-x {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 80rem;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 640px) { .container-x { padding-inline: 2rem; } }
+  @media (min-width: 1024px) { .container-x { padding-inline: 2.5rem; } }
+
+  .display-1 { font-size: clamp(2.5rem, 1.5rem + 4.6vw, 5rem); line-height: 1.02; }
+  .display-2 { font-size: clamp(2rem, 1.3rem + 3vw, 3.4rem); line-height: 1.06; }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    font-size: 0.75rem;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 46px 46px;
+  }
+  .bg-dots {
+    background-image: radial-gradient(rgba(15,35,79,0.08) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  /* Emphasis for a keyword inside a heading. Solid brand-highlight color
+     (no gradient-clip text). Named for stability; used on dark headers. */
+  .text-gradient {
+    color: var(--color-accent-400);
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
