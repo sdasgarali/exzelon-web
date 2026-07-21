@@ -3,10 +3,15 @@
 ## SESSION_CONTEXT_RETRIEVAL
 > Rebuilt exzelon.com (source lost) as a modern animated Next.js marketing site + working forms,
 > THEN added a full auth + MongoDB layer: admin / employer / job-seeker accounts, dashboards,
-> and DB-driven jobs. Build + lint + typecheck green (46+ routes). Browser-verified end-to-end:
-> login→admin dashboard, middleware guards, contact form → MongoDB → admin Messages round-trip.
-> NEXT: rotate the Mongo password in Atlas (shared once in chat); optionally add real RESEND_API_KEY
-> + photography; deploy to VPS per ~/.claude/CLAUDE_REFERENCE/vps-deployment.md.
+> and DB-driven jobs. DEPLOYED to Vercel (project exzelon-web, team asgar-ali-sayeds-projects),
+> env vars set, but still behind the Vercel SSO/Deployment-Protection wall (not public yet).
+> LATEST: (1) removed the About "Meet the team" section; (2) sharpened the navbar logo
+> (higher intrinsic res + quality=90, next.config qualities:[75,90]); (3) NEW FEATURE — gated
+> job applications: applying now requires a signed-in seeker with a complete profile (name+email+
+> resume link). Rich profile (resume, links, fresher/experienced + LinkedIn-style experience &
+> education field-arrays) on /account/profile. See docs/FEATURE_apply-gating.md.
+> NEXT: commit+push the apply-gating feature (redeploys); still pending — rotate Mongo password,
+> remove demo-login hint before going public, optionally disable Deployment Protection to go live.
 
 ## Phase 2 — Auth + MongoDB (added on request)
 - Roles: admin / employer / seeker · JWT (jose) httpOnly cookie · bcryptjs · src/proxy.ts guards.
@@ -19,6 +24,10 @@
 Next.js 16 (App Router, TS) · Tailwind CSS v4 · Framer Motion · react-hook-form + zod · Resend · lucide-react
 
 ## Completed
+- [x] Apply-gating + rich seeker profile: auth+complete-profile required to apply; /account/profile
+      editable form (resume/links/experience/education); new /api/account/profile; /api/apply rewritten
+      to require seeker + complete profile. Verified end-to-end (Playwright). (2026-07-21)
+- [x] Removed About "Meet the team" section; sharpened navbar logo (2026-07-21)
 - [x] Scaffold + design tokens (globals.css theme, Inter/Sora fonts) (2026-07-20)
 - [x] Shared layout: Navbar (scroll-aware + mega-menu + mobile sheet), Footer, motion primitives (2026-07-20)
 - [x] Home page — hero (animated + job search), 4-step, industries, healthcare spotlight, featured jobs, services, testimonials, blog, CTA (2026-07-20)

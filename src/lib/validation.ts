@@ -15,20 +15,52 @@ export const contactSchema = z.object({
 
 export type ContactInput = z.infer<typeof contactSchema>;
 
+// Applying now uses the authenticated seeker's profile for identity + resume, so
+// the form itself only carries the job + an optional cover note (+ honeypot).
 export const applySchema = z.object({
   jobId: z.string().min(1),
   jobTitle: z.string().min(1),
-  name: z.string().min(2, "Please enter your name").max(80),
-  email: z.string().email("Enter a valid email address"),
-  phone: z.string().min(7, "Enter a valid phone number").max(30),
-  linkedin: z.string().url("Enter a valid URL").optional().or(z.literal("")),
-  resumeUrl: z.string().url("Enter a valid URL").optional().or(z.literal("")),
   coverLetter: z.string().max(2500).optional().or(z.literal("")),
   // honeypot
   company_website: z.string().max(0).optional(),
 });
 
 export type ApplyInput = z.infer<typeof applySchema>;
+
+/** ---------- Seeker profile ---------- */
+
+const urlOrEmpty = z.string().url("Enter a valid URL").optional().or(z.literal(""));
+
+export const experienceSchema = z.object({
+  title: z.string().min(1, "Role title is required").max(120),
+  company: z.string().min(1, "Company is required").max(120),
+  start: z.string().max(40).optional().or(z.literal("")),
+  end: z.string().max(40).optional().or(z.literal("")),
+  current: z.boolean().optional(),
+  summary: z.string().max(1000).optional().or(z.literal("")),
+});
+
+export const educationSchema = z.object({
+  school: z.string().min(1, "School/institution is required").max(120),
+  qualification: z.string().min(1, "Qualification is required").max(120),
+  field: z.string().max(120).optional().or(z.literal("")),
+  start: z.string().max(40).optional().or(z.literal("")),
+  end: z.string().max(40).optional().or(z.literal("")),
+});
+
+export const profileSchema = z.object({
+  resumeUrl: urlOrEmpty,
+  linkedin: urlOrEmpty,
+  otherLink: urlOrEmpty,
+  phone: z.string().max(30).optional().or(z.literal("")),
+  experienceLevel: z.enum(["fresher", "experienced"]).optional(),
+  experiences: z.array(experienceSchema).max(20).optional(),
+  education: z.array(educationSchema).max(20).optional(),
+});
+
+export type ProfileInput = z.infer<typeof profileSchema>;
+export type ExperienceInput = z.infer<typeof experienceSchema>;
+export type EducationInput = z.infer<typeof educationSchema>;
 
 /** ---------- Auth ---------- */
 

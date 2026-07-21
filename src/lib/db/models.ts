@@ -2,6 +2,9 @@ import "server-only";
 import { getDb } from "./mongodb";
 import type { Collection, Document } from "mongodb";
 import type { Role } from "@/lib/auth/jwt";
+import type { SeekerProfile } from "@/lib/profile";
+
+export type { SeekerProfile, ExperienceEntry, EducationEntry } from "@/lib/profile";
 
 /** ---------- Document shapes ---------- */
 
@@ -14,6 +17,7 @@ export type UserDoc = {
   company?: string; // employers
   phone?: string;
   savedJobs?: string[]; // seeker: job ids
+  profile?: SeekerProfile; // seeker
   createdAt: Date;
 };
 
@@ -44,9 +48,10 @@ export type ApplicationDoc = {
   applicantUserId: string | null;
   name: string;
   email: string;
-  phone: string;
+  phone?: string;
   linkedin?: string;
   resumeUrl?: string;
+  experienceLevel?: "fresher" | "experienced";
   coverLetter?: string;
   status: "new" | "reviewed" | "shortlisted" | "rejected";
   createdAt: Date;

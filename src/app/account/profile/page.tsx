@@ -1,51 +1,52 @@
-import { DashHeader, Panel } from "@/components/dashboard/ui";
-import { ButtonLink } from "@/components/ui/button";
+import { DashHeader } from "@/components/dashboard/ui";
 import { Icon } from "@/components/ui/icon";
+import { ProfileForm } from "@/components/account/profile-form";
 import { getCurrentUser } from "@/lib/auth/session";
 import { getUserById } from "@/lib/db/repo";
-import { timeAgo } from "@/lib/utils";
+import { isProfileComplete, profileMissingFields, type SeekerProfile } from "@/lib/profile";
+import type { ProfileInput } from "@/lib/validation";
 
 export default async function Profile() {
   const user = await getCurrentUser();
   const dbUser = await getUserById(user!.id);
+  const profile = (dbUser?.profile ?? {}) as SeekerProfile;
+  const account = { name: user!.name, email: user!.email };
+  const complete = isProfileComplete({ ...account, profile });
+  const missing = profileMissingFields({ ...account, profile });
 
-  const rows = [
-    { label: "Full name", value: user!.name, icon: "user-round" },
-    { label: "Email", value: user!.email, icon: "mail" },
-    { label: "Account type", value: "Job Seeker", icon: "briefcase" },
-    { label: "Member since", value: dbUser?.createdAt ? timeAgo(dbUser.createdAt) : "—", icon: "clock" },
-  ];
+  const initial: ProfileInput = {
+    resumeUrl: profile.resumeUrl ?? "",
+    linkedin: profile.linkedin ?? "",
+    otherLink: profile.otherLink ?? "",
+    phone: profile.phone ?? "",
+    experienceLevel: profile.experienceLevel,
+    experiences: profile.experiences ?? [],
+    education: profile.education ?? [],
+  };
 
   return (
     <>
-      <DashHeader title="Profile" subtitle="Your account details." />
+      <DashHeader title="Profile" subtitle="Complete your profile so you can apply to jobs." />
       <div className="max-w-2xl">
-        <Panel>
-          <div className="flex items-center gap-4 border-b border-sand-100 p-6">
-            <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-600 text-2xl font-bold text-white">
-              {user!.name.slice(0, 1).toUpperCase()}
-            </span>
-            <div>
-              <div className="text-lg font-bold text-ink-900">{user!.name}</div>
-              <div className="text-sm text-slate-500">{user!.email}</div>
+        {complete ? (
+          <div className="mb-6 flex items-start gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+            <Icon name="badge-check" className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
+            <div className="text-sm">
+              <p className="font-semibold text-emerald-800">Your profile is ready</p>
+              <p className="text-emerald-700">You can apply to any open role.</p>
             </div>
           </div>
-          <dl className="divide-y divide-sand-100">
-            {rows.map((r) => (
-              <div key={r.label} className="flex items-center gap-4 px-6 py-4">
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
-                  <Icon name={r.icon} className="h-4.5 w-4.5" />
-                </span>
-                <dt className="w-32 text-sm text-slate-500">{r.label}</dt>
-                <dd className="font-medium text-ink-900">{r.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </Panel>
-        <div className="mt-6 flex gap-3">
-          <ButtonLink href="/jobs" variant="primary">Browse jobs <Icon name="arrow-right" className="h-4 w-4" /></ButtonLink>
-          <ButtonLink href="/account/applications" variant="outline">My applications</ButtonLink>
-        </div>
+        ) : (
+          <div className="mb-6 flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4">
+            <Icon name="clock" className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+            <div className="text-sm">
+              <p className="font-semibold text-amber-800">Finish your profile to apply</p>
+              <p className="text-amber-700">Still needed: {missing.join(", ")}.</p>
+            </div>
+          </div>
+        )}
+
+        <ProfileForm account={account} initial={initial} />
       </div>
     </>
   );

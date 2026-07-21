@@ -62,9 +62,25 @@ lucide-react · Inter + Sora fonts.
 `robots.ts` · `sitemap.ts` · `opengraph-image.tsx` · `not-found`/`error`.
 
 ## Forms (the "working" part)
-- Client: `components/forms/{contact,apply}-form.tsx` — react-hook-form + zod, inline errors, honeypot.
+- Client: `components/forms/contact-form.tsx` + `components/forms/apply-panel.tsx` — react-hook-form +
+  zod, inline errors, honeypot.
 - API: `app/api/{contact,apply}/route.ts` — zod re-validation, per-IP rate limit
   (`lib/rate-limit.ts`), email via `lib/email.ts`.
+
+## Applying is gated (auth + complete profile)
+- **Only a signed-in `seeker` with a complete profile can apply.** "Complete" = name + email +
+  resume link (`lib/profile.ts` `isProfileComplete`/`profileMissingFields` — shared client+server).
+- **Apply UI** = `components/forms/apply-panel.tsx` (auth-aware): anon → sign in / create account ·
+  employer/admin → not-applicable · seeker+incomplete → "complete your profile" CTA ·
+  seeker+complete → resume summary + optional cover note + submit. Identity/resume come from the
+  profile, NOT a form. `POST /api/apply` re-enforces this (401 anon, 403 wrong role, 422
+  `code:"profile_incomplete"`).
+- **Seeker profile** = `UserDoc.profile` (`SeekerProfile` in `lib/profile.ts`): resume link, LinkedIn,
+  other link, phone, `experienceLevel` (fresher|experienced), `experiences[]` & `education[]`
+  (LinkedIn-style). Edited at `/account/profile` via `components/account/profile-form.tsx`
+  (react-hook-form `useFieldArray`). Read/written by `GET/PUT /api/account/profile`
+  (repo `updateUserProfile`). New seeker signup → redirected to `/account/profile` (carries `?next=`).
+- Design doc: `docs/FEATURE_apply-gating.md`.
 - **Email is env-driven**: with `RESEND_API_KEY` it sends via Resend; without it, the dev fallback
   logs the payload to the server console and returns success so the UX is testable. See `.env.example`.
 

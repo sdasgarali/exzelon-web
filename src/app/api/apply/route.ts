@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import { applySchema } from "@/lib/validation";
 import { sendNotificationEmail, escapeHtml } from "@/lib/email";
 import { rateLimit, clientIp } from "@/lib/rate-limit";
-import { createApplication } from "@/lib/db/repo";
-import { getCurrentUser } from "@/lib/auth/session";
+import { createApplication, getUserById } from "@/lib/db/repo";
+import { requireApiUser } from "@/lib/auth/api-guard";
+import { isProfileComplete, profileMissingFields } from "@/lib/profile";
 
 export async function POST(req: Request) {
   const ip = clientIp(req.headers);
@@ -14,6 +15,10 @@ export async function POST(req: Request) {
       { status: 429, headers: { "Retry-After": String(rl.retryAfter ?? 60) } }
     );
   }
+
+  // Must be signed in as a seeker to apply.
+  const guard = await requireApiUser(["seeker"]);
+  if ("error" in guard) return guard.error;
 
   let json: unknown;
   try {
@@ -32,22 +37,38 @@ export async function POST(req: Request) {
 
   const data = parsed.data;
 
+  // honeypot
   if (data.company_website) {
     return NextResponse.json({ ok: true });
   }
 
-  // Persist to MongoDB, linking to the logged-in seeker if there is one.
+  // Load the seeker + enforce a complete profile (name, email, resume link).
+  const dbUser = await getUserById(guard.user.id);
+  const account = { name: dbUser?.name ?? guard.user.name, email: dbUser?.email ?? guard.user.email };
+  const profile = dbUser?.profile ?? {};
+  if (!isProfileComplete({ ...account, profile })) {
+    return NextResponse.json(
+      {
+        error: "Complete your profile before applying.",
+        code: "profile_incomplete",
+        missing: profileMissingFields({ ...account, profile }),
+      },
+      { status: 422 }
+    );
+  }
+
+  // Snapshot the applicant's identity + resume from their profile at apply time.
   try {
-    const user = await getCurrentUser();
     await createApplication({
       jobSlug: data.jobId,
       jobTitle: data.jobTitle,
-      applicantUserId: user?.role === "seeker" ? user.id : null,
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      linkedin: data.linkedin || undefined,
-      resumeUrl: data.resumeUrl || undefined,
+      applicantUserId: guard.user.id,
+      name: account.name,
+      email: account.email,
+      phone: profile.phone,
+      linkedin: profile.linkedin,
+      resumeUrl: profile.resumeUrl,
+      experienceLevel: profile.experienceLevel,
       coverLetter: data.coverLetter || undefined,
     });
   } catch (err) {
@@ -57,11 +78,12 @@ export async function POST(req: Request) {
   const html = `
     <h2>New job application — ${escapeHtml(data.jobTitle)}</h2>
     <p><strong>Job ID:</strong> ${escapeHtml(data.jobId)}</p>
-    <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
-    <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
-    <p><strong>Phone:</strong> ${escapeHtml(data.phone)}</p>
-    <p><strong>LinkedIn:</strong> ${escapeHtml(data.linkedin || "—")}</p>
-    <p><strong>Resume:</strong> ${escapeHtml(data.resumeUrl || "—")}</p>
+    <p><strong>Name:</strong> ${escapeHtml(account.name)}</p>
+    <p><strong>Email:</strong> ${escapeHtml(account.email)}</p>
+    <p><strong>Phone:</strong> ${escapeHtml(profile.phone || "—")}</p>
+    <p><strong>Experience:</strong> ${escapeHtml(profile.experienceLevel || "—")}</p>
+    <p><strong>LinkedIn:</strong> ${escapeHtml(profile.linkedin || "—")}</p>
+    <p><strong>Resume:</strong> ${escapeHtml(profile.resumeUrl || "—")}</p>
     <hr />
     <p><strong>Cover note:</strong></p>
     <p>${escapeHtml(data.coverLetter || "—").replace(/\n/g, "<br/>")}</p>
@@ -70,7 +92,7 @@ export async function POST(req: Request) {
   const result = await sendNotificationEmail({
     subject: `[Exzelon] Application: ${data.jobTitle}`,
     html,
-    replyTo: data.email,
+    replyTo: account.email,
   });
 
   if (!result.ok) {

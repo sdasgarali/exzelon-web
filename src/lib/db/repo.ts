@@ -11,6 +11,7 @@ import {
   type JobDoc,
   type ApplicationDoc,
   type ContactDoc,
+  type SeekerProfile,
 } from "./models";
 import { getIndustry } from "@/content/industries";
 import type { Job as PublicJob } from "@/content/jobs";
@@ -82,6 +83,17 @@ export async function updateUserRole(id: string, role: Role) {
   if (!_id) return false;
   const users = await usersCollection();
   const res = await users.updateOne({ _id }, { $set: { role } });
+  return res.matchedCount > 0;
+}
+
+export async function updateUserProfile(userId: string, profile: SeekerProfile) {
+  const _id = oid(userId);
+  if (!_id) return false;
+  const users = await usersCollection();
+  const res = await users.updateOne(
+    { _id },
+    { $set: { profile: { ...profile, updatedAt: new Date() } } }
+  );
   return res.matchedCount > 0;
 }
 

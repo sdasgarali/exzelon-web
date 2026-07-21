@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, type RegisterInput } from "@/lib/validation";
@@ -10,10 +10,10 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 
-const HOME_FOR: Record<string, string> = { employer: "/employer", seeker: "/account" };
-
 export function RegisterForm() {
   const router = useRouter();
+  const params = useSearchParams();
+  const next = params.get("next");
   const [serverError, setServerError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
@@ -39,7 +39,15 @@ export function RegisterForm() {
       });
       const body = await res.json();
       if (!res.ok) throw new Error(body?.error ?? "Registration failed");
-      router.push(HOME_FOR[body.user.role] ?? "/");
+      const safeNext = next && next.startsWith("/") ? next : null;
+      let dest: string;
+      if (body.user.role === "seeker") {
+        // New candidates finish their profile first (carry `next` back to the job).
+        dest = safeNext ? `/account/profile?next=${encodeURIComponent(safeNext)}` : "/account/profile";
+      } else {
+        dest = safeNext ?? "/employer";
+      }
+      router.push(dest);
       router.refresh();
     } catch (err) {
       setServerError(err instanceof Error ? err.message : "Registration failed");

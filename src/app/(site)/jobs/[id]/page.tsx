@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/section";
 import { ButtonLink } from "@/components/ui/button";
 import { Reveal } from "@/components/motion/reveal";
 import { JobCard } from "@/components/cards/job-card";
-import { ApplyForm } from "@/components/forms/apply-form";
+import { ApplyPanel } from "@/components/forms/apply-panel";
 import { JobSaveButton } from "@/components/jobs/job-save-button";
 import { getPublicJobBySlug, listPublicJobsByIndustry } from "@/lib/db/repo";
 import { pageMetadata } from "@/lib/seo";
@@ -122,7 +122,7 @@ export default async function JobDetailPage({
               <JobSaveButton slug={job.id} />
             </div>
             <div className="mt-6">
-              <ApplyForm jobId={job.id} jobTitle={job.title} />
+              <ApplyPanel jobId={job.id} jobTitle={job.title} />
             </div>
           </div>
         </div>
