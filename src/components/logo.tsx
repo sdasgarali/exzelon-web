@@ -2,6 +2,11 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const RATIO = 1036 / 401;
+// Intrinsic size handed to next/image. The logo only *renders* at ~36px tall,
+// but the two-line "NextGen Hires" tagline needs far more pixels than a 36px
+// base yields to stay legible — so we request a larger candidate (~96px tall)
+// and let CSS downscale it, keeping the tagline crisp on hi-DPI screens.
+const BASE_HEIGHT = 96;
 
 /**
  * Exzelon brand logo (real artwork, background removed).
@@ -21,8 +26,9 @@ export function Logo({
     <Image
       src={invert ? "/brand/exzelon-logo-white.png" : "/brand/exzelon-logo.png"}
       alt="Exzelon — NextGen Hires"
-      width={Math.round(36 * RATIO)}
-      height={36}
+      width={Math.round(BASE_HEIGHT * RATIO)}
+      height={BASE_HEIGHT}
+      quality={90}
       priority={priority}
       className={cn("h-9 w-auto select-none", className)}
     />
