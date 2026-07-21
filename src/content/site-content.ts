@@ -1,4 +1,4 @@
-/** Misc marketing content: stats, values, leadership, testimonials, FAQs, employer logos, blog. */
+/** Misc marketing content: stats, values, testimonials, FAQs, employer logos, blog. */
 
 export const heroStats = [
   { value: 25000, suffix: "+", label: "Opportunities live" },
@@ -19,13 +19,6 @@ export const values = [
   { title: "Specialization", description: "Sector-specialist recruiters who understand the credentials, culture, and cadence of each industry.", icon: "target" },
   { title: "Partnership", description: "We build long-term relationships, not transactions — 85% of our clients hire with us again.", icon: "handshake" },
   { title: "Compliance", description: "Credentialing, licensing, and standards are non-negotiable. We get it right, every time.", icon: "badge-check" },
-];
-
-export const leadership = [
-  { name: "Aisha Rahman", role: "Founder & CEO", bio: "20+ years in workforce solutions, leading Exzelon's mission to modernize hiring across industries.", initials: "AR" },
-  { name: "Daniel Okafor", role: "Chief Operating Officer", bio: "Scales delivery and compliance so every placement is fast, fair, and fully credentialed.", initials: "DO" },
-  { name: "Priya Menon", role: "VP, Healthcare Recruiting", bio: "Clinician-turned-recruiter connecting nurses and allied health pros with the right facilities.", initials: "PM" },
-  { name: "Marcus Bell", role: "VP, Skilled Trades", bio: "Two decades in construction and electrical staffing, building safe and reliable crews.", initials: "MB" },
 ];
 
 export const testimonials = [

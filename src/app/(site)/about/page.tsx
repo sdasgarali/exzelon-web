@@ -6,12 +6,12 @@ import { MotionItem } from "@/components/motion/motion-item";
 import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
 import { CtaBanner } from "@/components/cta-banner";
-import { values, leadership } from "@/content/site-content";
+import { values } from "@/content/site-content";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "About Us",
-  description: "Who we are, our mission and vision, the values we hire by, and the leadership behind Exzelon — NextGen Hires.",
+  description: "Who we are, our mission and vision, and the values we hire by at Exzelon — NextGen Hires.",
   path: "/about",
 });
 
@@ -111,30 +111,6 @@ export default function AboutPage() {
                 </span>
                 <h3 className="mt-6 text-lg font-bold text-ink-900">{v.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">{v.description}</p>
-              </div>
-            </MotionItem>
-          ))}
-        </StaggerGroup>
-      </Section>
-
-      {/* Leadership */}
-      <Section id="leadership" className="bg-ink-900 text-white">
-        <SectionHeading
-          invert
-          align="center"
-          title="Meet the team behind Exzelon"
-          description="Experienced leaders across recruiting, operations, and sector specialties."
-        />
-        <StaggerGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {leadership.map((person) => (
-            <MotionItem key={person.name} variants={staggerItem}>
-              <div className="group h-full rounded-2xl border border-white/10 bg-white/5 p-6 text-center transition-colors hover:border-brand-400/50 hover:bg-white/10">
-                <span className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-2xl font-bold text-white shadow-[var(--shadow-glow)]">
-                  {person.initials}
-                </span>
-                <h3 className="mt-5 text-lg font-bold text-white">{person.name}</h3>
-                <p className="text-sm font-medium text-brand-300">{person.role}</p>
-                <p className="mt-3 text-sm leading-relaxed text-brand-100/70">{person.bio}</p>
               </div>
             </MotionItem>
           ))}
