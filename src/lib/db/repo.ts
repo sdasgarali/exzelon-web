@@ -86,6 +86,44 @@ export async function updateUserRole(id: string, role: Role) {
   return res.matchedCount > 0;
 }
 
+/** Update basic user fields. Returns a status code so the API can 409 on a taken email. */
+export async function updateUser(
+  id: string,
+  data: { name?: string; email?: string; company?: string }
+): Promise<"ok" | "not_found" | "email_taken"> {
+  const _id = oid(id);
+  if (!_id) return "not_found";
+  const users = await usersCollection();
+  const set: Record<string, unknown> = {};
+  if (data.name !== undefined) set.name = data.name.trim();
+  if (data.company !== undefined) set.company = data.company.trim();
+  if (data.email !== undefined) {
+    const email = data.email.toLowerCase().trim();
+    const existing = await users.findOne({ email });
+    if (existing && String(existing._id) !== id) return "email_taken";
+    set.email = email;
+  }
+  if (Object.keys(set).length === 0) return "ok";
+  const res = await users.updateOne({ _id }, { $set: set });
+  return res.matchedCount > 0 ? "ok" : "not_found";
+}
+
+export async function setUserPassword(id: string, passwordHash: string) {
+  const _id = oid(id);
+  if (!_id) return false;
+  const users = await usersCollection();
+  const res = await users.updateOne({ _id }, { $set: { passwordHash } });
+  return res.matchedCount > 0;
+}
+
+export async function deleteUser(id: string) {
+  const _id = oid(id);
+  if (!_id) return false;
+  const users = await usersCollection();
+  const res = await users.deleteOne({ _id });
+  return res.deletedCount > 0;
+}
+
 export async function updateUserProfile(userId: string, profile: SeekerProfile) {
   const _id = oid(userId);
   if (!_id) return false;

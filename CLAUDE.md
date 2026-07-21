@@ -31,6 +31,13 @@ lucide-react · Inter + Sora fonts.
   `users`, `jobs`, `applications`, `contacts`.
 - **Jobs are DB-driven:** public `/jobs`, `/jobs/[id]`, home featured, and opportunity pages read from
   Mongo (ISR `revalidate`). The seed migrates the static `content/jobs.ts` into the DB.
+- **Admin tables** (`/admin/{applications,messages,users}`) have client-side search + filters via
+  `components/dashboard/{applications,messages,users}-table.tsx` + shared `filters.tsx`
+  (`DashToolbar`/`FilterSelect`). Server page loads the full list → maps to a plain row type → client
+  filters in-browser. **User management:** `/admin/users` supports role change (inline), edit
+  (name/email/company + set new password, portal modal), and delete — via `PATCH`/`DELETE`
+  `/api/users/[id]` (repo `updateUser`/`setUserPassword`/`deleteUser`). Guards: can't change/delete
+  self; email-uniqueness → 409.
 - **Env:** `MONGODB_URI`, `MONGODB_DB`, `JWT_SECRET` in `.env.local` (gitignored). See `.env.example`.
   ⚠️ The Mongo password was shared in chat once — rotate it in Atlas and lock the IP allow-list.
 - **Demo logins** (from seed): `admin@exzelon.com`/`Admin@12345`, `employer@exzelon.com`/`Employer@123`,
