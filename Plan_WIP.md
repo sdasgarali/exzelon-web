@@ -29,7 +29,11 @@
       POST/DELETE `/api/account/resume`; authorized `GET /api/files/resume/[id]` (owner seeker /
       job-owning employer / admin); profile completeness = file OR link; profile PUT preserves file;
       resume snapshot on apply; file download surfaced in apply-panel + admin/employer applicant views.
-- [ ] **F4 — Server-side job search**: `/api/jobs` GET query (q/industry/type/remote/salary), pagination, structured salaryMin/Max.
+- [x] **F4 — Server-side job search**: DONE 2026-07-27. `searchPublicJobs` (Mongo query + skip/limit +
+      count); `/jobs` now force-dynamic, reads searchParams (q/loc/industry/type/remote/salaryMin/sort/page);
+      URL-driven `JobsFilters` (debounced text) + server `JobsPagination`; structured salaryMin/Max derived
+      from the salary string via `lib/salary.ts` (create/update/seed backfill) → salary filter works.
+      Removed client-only JobsExplorer.
 - [ ] **F5 — Employer company profile + job expiry**: public company page, employer branding fields, `expiresAt` auto-close.
 - [ ] **F6 — Admin analytics + audit log + CSV export**: charts on dashboard, audit trail collection + viewer, export endpoints.
 - [ ] **F7 — In-app messaging**: application-scoped threads employer <-> seeker.

@@ -37,6 +37,8 @@ export type JobDoc = {
   type: "Full-time" | "Contract" | "Travel" | "Part-time" | "Temp-to-hire";
   remote: "On-site" | "Hybrid" | "Remote";
   salary: string;
+  salaryMin?: number; // approx annual USD, derived from `salary` for filtering
+  salaryMax?: number;
   summary: string;
   responsibilities: string[];
   requirements: string[];
@@ -97,6 +99,7 @@ export async function ensureIndexes() {
   await jobs.createIndex({ slug: 1 }, { unique: true });
   await jobs.createIndex({ industry: 1 });
   await jobs.createIndex({ status: 1, createdAt: -1 });
+  await jobs.createIndex({ status: 1, salaryMax: -1 });
   const apps = await applicationsCollection();
   await apps.createIndex({ jobSlug: 1 });
   await apps.createIndex({ applicantUserId: 1 });

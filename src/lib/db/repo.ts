@@ -16,6 +16,7 @@ import {
 import { getIndustry } from "@/content/industries";
 import type { Job as PublicJob } from "@/content/jobs";
 import { timeAgo } from "@/lib/utils";
+import { parseSalary } from "@/lib/salary";
 import type { Role } from "@/lib/auth/jwt";
 
 /** ---------- helpers ---------- */
@@ -265,6 +266,74 @@ export async function listPublicJobs(): Promise<PublicJob[]> {
   }
 }
 
+export type JobSearchParams = {
+  q?: string;
+  loc?: string;
+  industry?: string;
+  type?: string;
+  remote?: string;
+  salaryMin?: number;
+  sort?: "recent" | "salary";
+  page?: number;
+  pageSize?: number;
+};
+
+export type JobSearchResult = {
+  jobs: PublicJob[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+};
+
+const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/**
+ * Server-side, paginated public job search. Filtering + pagination happen in
+ * Mongo so the page scales past a handful of jobs. Degrades to an empty result
+ * set on DB error (consistent with the other public reads).
+ */
+export async function searchPublicJobs(params: JobSearchParams): Promise<JobSearchResult> {
+  const page = Math.max(1, params.page ?? 1);
+  const pageSize = Math.min(48, Math.max(1, params.pageSize ?? 9));
+  try {
+    const jobs = await jobsCollection();
+    const query: Record<string, unknown> = { status: "open" };
+
+    if (params.q?.trim()) {
+      const rx = { $regex: escapeRegex(params.q.trim()), $options: "i" };
+      query.$or = [{ title: rx }, { industryName: rx }, { summary: rx }];
+    }
+    if (params.loc?.trim()) query.location = { $regex: escapeRegex(params.loc.trim()), $options: "i" };
+    if (params.industry && params.industry !== "all") query.industry = params.industry;
+    if (params.type && params.type !== "all") query.type = params.type;
+    if (params.remote && params.remote !== "all") query.remote = params.remote;
+    if (params.salaryMin && params.salaryMin > 0) query.salaryMax = { $gte: params.salaryMin };
+
+    const sort: Record<string, 1 | -1> =
+      params.sort === "salary" ? { salaryMax: -1, createdAt: -1 } : { featured: -1, createdAt: -1 };
+
+    const total = await jobs.countDocuments(query);
+    const docs = await jobs
+      .find(query)
+      .sort(sort)
+      .skip((page - 1) * pageSize)
+      .limit(pageSize)
+      .toArray();
+
+    return {
+      jobs: docs.map(toPublicJob),
+      total,
+      page,
+      pageSize,
+      totalPages: Math.max(1, Math.ceil(total / pageSize)),
+    };
+  } catch (e) {
+    console.error("[db] searchPublicJobs failed:", e);
+    return { jobs: [], total: 0, page, pageSize, totalPages: 1 };
+  }
+}
+
 export async function listFeaturedPublicJobs(limit = 3): Promise<PublicJob[]> {
   try {
     const jobs = await jobsCollection();
@@ -358,6 +427,7 @@ export async function createJob(data: {
   let n = 1;
   while (await jobs.findOne({ slug })) slug = `${base}-${n++}`;
 
+  const { min: salaryMin, max: salaryMax } = parseSalary(data.salary);
   const doc: JobDoc = {
     slug,
     title: data.title.trim(),
@@ -367,6 +437,8 @@ export async function createJob(data: {
     type: data.type,
     remote: data.remote,
     salary: data.salary.trim(),
+    ...(salaryMin !== undefined ? { salaryMin } : {}),
+    ...(salaryMax !== undefined ? { salaryMax } : {}),
     summary: data.summary.trim(),
     responsibilities: data.responsibilities,
     requirements: data.requirements,
@@ -389,6 +461,12 @@ export async function updateJob(
   const filter: Record<string, unknown> = { slug };
   if (ownerUserId) filter.postedByUserId = ownerUserId;
   if (data.industry) data.industryName = getIndustry(data.industry)?.name ?? data.industry;
+  // Keep derived salary bounds in sync when the salary string changes.
+  if (data.salary !== undefined) {
+    const { min, max } = parseSalary(data.salary);
+    data.salaryMin = min;
+    data.salaryMax = max;
+  }
   const res = await jobs.updateOne(filter, { $set: data });
   return res.matchedCount > 0;
 }

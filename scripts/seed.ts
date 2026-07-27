@@ -9,6 +9,7 @@
 import { MongoClient } from "mongodb";
 import bcrypt from "bcryptjs";
 import { jobs } from "../src/content/jobs";
+import { parseSalary } from "../src/lib/salary";
 
 const uri = process.env.MONGODB_URI;
 const dbName = process.env.MONGODB_DB || "exzelon";
@@ -49,6 +50,7 @@ async function main() {
   // Jobs (upsert by slug) — migrate the static seed data
   let count = 0;
   for (const j of jobs) {
+    const { min: salaryMin, max: salaryMax } = parseSalary(j.salary);
     await db.collection("jobs").updateOne(
       { slug: j.id },
       {
@@ -60,6 +62,8 @@ async function main() {
           type: j.type,
           remote: j.remote,
           salary: j.salary,
+          salaryMin: salaryMin ?? null,
+          salaryMax: salaryMax ?? null,
           summary: j.summary,
           responsibilities: j.responsibilities,
           requirements: j.requirements,
