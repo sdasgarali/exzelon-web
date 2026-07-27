@@ -190,6 +190,37 @@ export async function updateUserProfile(userId: string, profile: SeekerProfile) 
   return res.matchedCount > 0;
 }
 
+/** Update an employer's company name + branding profile. */
+export async function updateCompanyProfile(
+  userId: string,
+  data: { company?: string; profile: import("@/lib/company").CompanyProfile }
+) {
+  const _id = oid(userId);
+  if (!_id) return false;
+  const users = await usersCollection();
+  const set: Record<string, unknown> = {
+    companyProfile: { ...data.profile, updatedAt: new Date() },
+  };
+  if (data.company !== undefined) set.company = data.company.trim();
+  const res = await users.updateOne({ _id }, { $set: set });
+  return res.matchedCount > 0;
+}
+
+/** Public company view: an employer's open, non-expired jobs (mapped to PublicJob). */
+export async function listPublicJobsByOwner(userId: string): Promise<PublicJob[]> {
+  try {
+    const jobs = await jobsCollection();
+    const docs = await jobs
+      .find({ postedByUserId: userId, status: "open", ...notExpired() })
+      .sort({ featured: -1, createdAt: -1 })
+      .toArray();
+    return docs.map(toPublicJob);
+  } catch (e) {
+    console.error("[db] listPublicJobsByOwner failed:", e);
+    return [];
+  }
+}
+
 /** Update a subset of seeker-profile fields without replacing the whole object. */
 export async function updateProfileFields(userId: string, fields: Partial<SeekerProfile>) {
   const _id = oid(userId);
@@ -250,7 +281,19 @@ function toPublicJob(doc: JobDoc): PublicJob {
     responsibilities: doc.responsibilities,
     requirements: doc.requirements,
     featured: doc.featured,
+    ...(doc.postedByUserId ? { companyId: doc.postedByUserId } : {}),
+    company: doc.postedByName,
+    ...(doc.expiresAt ? { expiresAt: new Date(doc.expiresAt).toISOString() } : {}),
   };
+}
+
+/**
+ * Mongo clause matching jobs that haven't expired: no expiry set, or expiry in
+ * the future. Merged into every public read so expired roles disappear from the
+ * board without a background job.
+ */
+function notExpired(): Record<string, unknown> {
+  return { $or: [{ expiresAt: { $exists: false } }, { expiresAt: null }, { expiresAt: { $gt: new Date() } }] };
 }
 
 // Public reads degrade to empty/null if the DB is unreachable, so a transient
@@ -258,7 +301,7 @@ function toPublicJob(doc: JobDoc): PublicJob {
 export async function listPublicJobs(): Promise<PublicJob[]> {
   try {
     const jobs = await jobsCollection();
-    const docs = await jobs.find({ status: "open" }).sort({ featured: -1, createdAt: -1 }).toArray();
+    const docs = await jobs.find({ status: "open", ...notExpired() }).sort({ featured: -1, createdAt: -1 }).toArray();
     return docs.map(toPublicJob);
   } catch (e) {
     console.error("[db] listPublicJobs failed:", e);
@@ -298,11 +341,14 @@ export async function searchPublicJobs(params: JobSearchParams): Promise<JobSear
   const pageSize = Math.min(48, Math.max(1, params.pageSize ?? 9));
   try {
     const jobs = await jobsCollection();
-    const query: Record<string, unknown> = { status: "open" };
+    // `$and` composes the expiry-$or with the optional keyword-$or (two $or keys
+    // can't share one object).
+    const query: Record<string, unknown> = { status: "open", $and: [notExpired()] };
+    const and = query.$and as Record<string, unknown>[];
 
     if (params.q?.trim()) {
       const rx = { $regex: escapeRegex(params.q.trim()), $options: "i" };
-      query.$or = [{ title: rx }, { industryName: rx }, { summary: rx }];
+      and.push({ $or: [{ title: rx }, { industryName: rx }, { summary: rx }] });
     }
     if (params.loc?.trim()) query.location = { $regex: escapeRegex(params.loc.trim()), $options: "i" };
     if (params.industry && params.industry !== "all") query.industry = params.industry;
@@ -338,7 +384,7 @@ export async function listFeaturedPublicJobs(limit = 3): Promise<PublicJob[]> {
   try {
     const jobs = await jobsCollection();
     const docs = await jobs
-      .find({ status: "open", featured: true })
+      .find({ status: "open", featured: true, ...notExpired() })
       .sort({ createdAt: -1 })
       .limit(limit)
       .toArray();
@@ -352,7 +398,7 @@ export async function listFeaturedPublicJobs(limit = 3): Promise<PublicJob[]> {
 export async function listPublicJobsByIndustry(industry: string): Promise<PublicJob[]> {
   try {
     const jobs = await jobsCollection();
-    const docs = await jobs.find({ status: "open", industry }).sort({ createdAt: -1 }).toArray();
+    const docs = await jobs.find({ status: "open", industry, ...notExpired() }).sort({ createdAt: -1 }).toArray();
     return docs.map(toPublicJob);
   } catch (e) {
     console.error("[db] listPublicJobsByIndustry failed:", e);
@@ -364,7 +410,8 @@ export async function getPublicJobBySlug(slug: string): Promise<PublicJob | null
   try {
     const jobs = await jobsCollection();
     const doc = await jobs.findOne({ slug });
-    return doc && doc.status === "open" ? toPublicJob(doc) : null;
+    const expired = doc?.expiresAt ? new Date(doc.expiresAt).getTime() <= Date.now() : false;
+    return doc && doc.status === "open" && !expired ? toPublicJob(doc) : null;
   } catch (e) {
     console.error("[db] getPublicJobBySlug failed:", e);
     return null;
@@ -415,6 +462,7 @@ export async function createJob(data: {
   requirements: string[];
   featured?: boolean;
   status?: JobDoc["status"];
+  expiresAt?: Date | null;
   postedByUserId: string | null;
   postedByName: string;
 }) {
@@ -444,6 +492,7 @@ export async function createJob(data: {
     requirements: data.requirements,
     featured: !!data.featured,
     status: data.status ?? "open",
+    ...(data.expiresAt ? { expiresAt: data.expiresAt } : {}),
     postedByUserId: data.postedByUserId,
     postedByName: data.postedByName,
     createdAt: new Date(),

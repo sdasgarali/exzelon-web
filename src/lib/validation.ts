@@ -98,6 +98,19 @@ export const resetPasswordSchema = z.object({
 });
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
 
+/** ---------- Employer company profile ---------- */
+
+export const companySchema = z.object({
+  company: z.string().min(2, "Company name is required").max(120),
+  tagline: z.string().max(140).optional().or(z.literal("")),
+  about: z.string().max(2000).optional().or(z.literal("")),
+  website: z.string().url("Enter a valid URL").optional().or(z.literal("")),
+  location: z.string().max(120).optional().or(z.literal("")),
+  size: z.string().max(40).optional().or(z.literal("")),
+  logoUrl: z.string().url("Enter a valid URL").optional().or(z.literal("")),
+});
+export type CompanyInput = z.infer<typeof companySchema>;
+
 /** ---------- Job create/edit (employer + admin) ---------- */
 
 export const jobSchema = z.object({
@@ -112,5 +125,18 @@ export const jobSchema = z.object({
   requirements: z.string().min(3, "Add at least one requirement"),
   featured: z.boolean().optional(),
   status: z.enum(["open", "closed"]).optional(),
+  // yyyy-mm-dd from a <input type="date">, or empty for no expiry.
+  expiresAt: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Use a valid date")
+    .optional()
+    .or(z.literal("")),
 });
 export type JobInput = z.infer<typeof jobSchema>;
+
+/** Parse a yyyy-mm-dd form value into an end-of-day Date, or null when empty. */
+export function parseExpiryDate(value?: string): Date | null {
+  if (!value) return null;
+  const d = new Date(`${value}T23:59:59`);
+  return Number.isNaN(d.getTime()) ? null : d;
+}

@@ -12,6 +12,12 @@ export type Job = {
   responsibilities: string[];
   requirements: string[];
   featured?: boolean;
+  /** Owning employer user id (absent for Exzelon-posted/seed roles). */
+  companyId?: string;
+  /** Display name of the posting company. */
+  company?: string;
+  /** ISO closing date, if the role auto-closes. */
+  expiresAt?: string;
 };
 
 export const jobs: Job[] = [

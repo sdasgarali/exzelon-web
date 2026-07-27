@@ -3,8 +3,10 @@ import { getDb } from "./mongodb";
 import type { Collection, Document } from "mongodb";
 import type { Role } from "@/lib/auth/jwt";
 import type { SeekerProfile } from "@/lib/profile";
+import type { CompanyProfile } from "@/lib/company";
 
 export type { SeekerProfile, ExperienceEntry, EducationEntry } from "@/lib/profile";
+export type { CompanyProfile } from "@/lib/company";
 
 /** ---------- Document shapes ---------- */
 
@@ -14,7 +16,8 @@ export type UserDoc = {
   email: string; // stored lowercase, unique
   passwordHash: string;
   role: Role;
-  company?: string; // employers
+  company?: string; // employers: company name
+  companyProfile?: CompanyProfile; // employers: branding
   phone?: string;
   savedJobs?: string[]; // seeker: job ids
   profile?: SeekerProfile; // seeker
@@ -44,6 +47,7 @@ export type JobDoc = {
   requirements: string[];
   featured: boolean;
   status: "open" | "closed";
+  expiresAt?: Date | null; // optional auto-close date
   postedByUserId: string | null; // employer/admin user id, or null for seed
   postedByName: string; // company or "Exzelon"
   createdAt: Date;

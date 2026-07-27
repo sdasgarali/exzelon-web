@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { jobSchema } from "@/lib/validation";
+import { jobSchema, parseExpiryDate } from "@/lib/validation";
 import { requireApiUser } from "@/lib/auth/api-guard";
 import { updateJob, deleteJob, getUserById } from "@/lib/db/repo";
 
@@ -49,6 +49,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ slug: st
       responsibilities: toList(data.responsibilities),
       requirements: toList(data.requirements),
       status: data.status ?? "open",
+      expiresAt: parseExpiryDate(data.expiresAt),
       ...(user.role === "admin" ? { featured: !!data.featured } : {}),
       ...(postedByName ? { postedByName } : {}),
     },

@@ -34,7 +34,11 @@
       URL-driven `JobsFilters` (debounced text) + server `JobsPagination`; structured salaryMin/Max derived
       from the salary string via `lib/salary.ts` (create/update/seed backfill) → salary filter works.
       Removed client-only JobsExplorer.
-- [ ] **F5 — Employer company profile + job expiry**: public company page, employer branding fields, `expiresAt` auto-close.
+- [x] **F5 — Employer company profile + job expiry**: DONE 2026-07-27. Employer `companyProfile`
+      (tagline/about/website/location/size/logoUrl) at `/employer/company` + `PUT /api/employer/company`;
+      public `/companies/[id]` with branding + open roles; job cards/detail link to the company;
+      `expiresAt` on jobs (date input in job form) auto-hides expired roles from all public reads
+      (`notExpired()` clause) + "Expired" chip in employer job list + "Apply by" on job detail.
 - [ ] **F6 — Admin analytics + audit log + CSV export**: charts on dashboard, audit trail collection + viewer, export endpoints.
 - [ ] **F7 — In-app messaging**: application-scoped threads employer <-> seeker.
 

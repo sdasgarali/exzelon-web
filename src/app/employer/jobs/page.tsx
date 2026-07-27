@@ -5,7 +5,7 @@ import { Icon } from "@/components/ui/icon";
 import { JobRowActions } from "@/components/dashboard/actions";
 import { getCurrentUser } from "@/lib/auth/session";
 import { listJobsByOwner, countApplicationsByJobSlugs } from "@/lib/db/repo";
-import { timeAgo } from "@/lib/utils";
+import { timeAgo, isExpired } from "@/lib/utils";
 
 export default async function EmployerJobs() {
   const user = await getCurrentUser();
@@ -47,7 +47,14 @@ export default async function EmployerJobs() {
                     </Link>
                   </td>
                   <td className="px-5 py-3.5 text-slate-500">{timeAgo(j.createdAt)}</td>
-                  <td className="px-5 py-3.5"><StatusBadge status={j.status as string} /></td>
+                  <td className="px-5 py-3.5">
+                    <StatusBadge status={j.status as string} />
+                    {isExpired(j.expiresAt as string | undefined) && (
+                      <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">
+                        <Icon name="calendar" className="h-3 w-3" /> Expired
+                      </span>
+                    )}
+                  </td>
                   <td className="px-5 py-3.5"><JobRowActions slug={slug} editBase="/employer/jobs" /></td>
                 </tr>
               );
