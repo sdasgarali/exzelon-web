@@ -57,6 +57,8 @@ export type ApplicationDoc = {
   phone?: string;
   linkedin?: string;
   resumeUrl?: string;
+  resumeFileId?: string;
+  resumeFileName?: string;
   experienceLevel?: "fresher" | "experienced";
   coverLetter?: string;
   status: "new" | "reviewed" | "shortlisted" | "rejected";

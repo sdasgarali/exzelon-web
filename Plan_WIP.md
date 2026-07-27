@@ -25,7 +25,10 @@
       "Forgot password?"; dashboards show unverified banner; seed marks demo users verified; stronger
       password rule (letter+number). Build+lint+tsc green.
 - [ ] **F2 — Transactional emails**: apply-confirmation to seeker, new-application alert to employer, status-change email to seeker.
-- [ ] **F3 — Resume file upload**: GridFS-backed upload (PDF/DOC), served via route; profile keeps link OR file.
+- [x] **F3 — Resume file upload**: DONE 2026-07-27. GridFS (`lib/db/files.ts`, 5MB, PDF/DOC/DOCX);
+      POST/DELETE `/api/account/resume`; authorized `GET /api/files/resume/[id]` (owner seeker /
+      job-owning employer / admin); profile completeness = file OR link; profile PUT preserves file;
+      resume snapshot on apply; file download surfaced in apply-panel + admin/employer applicant views.
 - [ ] **F4 — Server-side job search**: `/api/jobs` GET query (q/industry/type/remote/salary), pagination, structured salaryMin/Max.
 - [ ] **F5 — Employer company profile + job expiry**: public company page, employer branding fields, `expiresAt` auto-close.
 - [ ] **F6 — Admin analytics + audit log + CSV export**: charts on dashboard, audit trail collection + viewer, export endpoints.

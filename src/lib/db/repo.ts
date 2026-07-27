@@ -189,6 +189,29 @@ export async function updateUserProfile(userId: string, profile: SeekerProfile) 
   return res.matchedCount > 0;
 }
 
+/** Update a subset of seeker-profile fields without replacing the whole object. */
+export async function updateProfileFields(userId: string, fields: Partial<SeekerProfile>) {
+  const _id = oid(userId);
+  if (!_id) return false;
+  const users = await usersCollection();
+  const set: Record<string, unknown> = { "profile.updatedAt": new Date() };
+  for (const [k, v] of Object.entries(fields)) set[`profile.${k}`] = v;
+  const res = await users.updateOne({ _id }, { $set: set });
+  return res.matchedCount > 0;
+}
+
+/** Remove resume-file fields from a seeker profile (used when deleting a file). */
+export async function clearResumeFileFields(userId: string) {
+  const _id = oid(userId);
+  if (!_id) return false;
+  const users = await usersCollection();
+  const res = await users.updateOne(
+    { _id },
+    { $unset: { "profile.resumeFileId": "", "profile.resumeFileName": "" }, $set: { "profile.updatedAt": new Date() } }
+  );
+  return res.matchedCount > 0;
+}
+
 export async function toggleSavedJob(userId: string, jobSlug: string) {
   const _id = oid(userId);
   if (!_id) return null;
@@ -442,6 +465,19 @@ export async function updateApplicationStatus(id: string, status: ApplicationDoc
   const apps = await applicationsCollection();
   const res = await apps.updateOne({ _id }, { $set: { status } });
   return res.matchedCount > 0;
+}
+
+/**
+ * True if the employer may download the resume file `fileId`: there exists an
+ * application carrying that file whose job is owned by this employer.
+ */
+export async function employerCanAccessResume(employerId: string, fileId: string): Promise<boolean> {
+  const apps = await applicationsCollection();
+  const app = await apps.findOne({ resumeFileId: fileId });
+  if (!app) return false;
+  const jobs = await jobsCollection();
+  const job = await jobs.findOne({ slug: app.jobSlug });
+  return !!job && job.postedByUserId === employerId;
 }
 
 /** ---------- contacts ---------- */

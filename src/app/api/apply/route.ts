@@ -69,6 +69,8 @@ export async function POST(req: Request) {
       phone: profile.phone,
       linkedin: profile.linkedin,
       resumeUrl: profile.resumeUrl,
+      resumeFileId: profile.resumeFileId,
+      resumeFileName: profile.resumeFileName,
       experienceLevel: profile.experienceLevel,
       coverLetter: data.coverLetter || undefined,
     });

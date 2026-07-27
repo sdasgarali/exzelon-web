@@ -14,6 +14,8 @@ export default async function AdminApplications() {
     status: String(a.status ?? "new"),
     createdAt: String(a.createdAt ?? ""),
     resumeUrl: a.resumeUrl ? String(a.resumeUrl) : "",
+    resumeFileId: a.resumeFileId ? String(a.resumeFileId) : undefined,
+    resumeFileName: a.resumeFileName ? String(a.resumeFileName) : undefined,
   }));
 
   return (

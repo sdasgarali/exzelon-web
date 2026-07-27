@@ -62,17 +62,21 @@ export default async function EmployerJobApplicants({ params }: { params: Promis
                 </td>
                 <td className="px-5 py-3.5">
                   <div className="flex gap-2">
-                    {(a.resumeUrl as string) && (
+                    {(a.resumeFileId as string) ? (
+                      <a href={`/api/files/resume/${a.resumeFileId}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:underline">
+                        <Icon name="download" className="h-3.5 w-3.5" /> Resume
+                      </a>
+                    ) : (a.resumeUrl as string) ? (
                       <a href={a.resumeUrl as string} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:underline">
                         <Icon name="file-text" className="h-3.5 w-3.5" /> Resume
                       </a>
-                    )}
+                    ) : null}
                     {(a.linkedin as string) && (
                       <a href={a.linkedin as string} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:underline">
                         <Icon name="external-link" className="h-3.5 w-3.5" /> LinkedIn
                       </a>
                     )}
-                    {!(a.resumeUrl as string) && !(a.linkedin as string) && <span className="text-xs text-slate-400">—</span>}
+                    {!(a.resumeUrl as string) && !(a.resumeFileId as string) && !(a.linkedin as string) && <span className="text-xs text-slate-400">—</span>}
                   </div>
                 </td>
                 <td className="px-5 py-3.5 text-slate-500">{timeAgo(a.createdAt)}</td>

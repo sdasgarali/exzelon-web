@@ -23,11 +23,15 @@ export default async function EmployerApplications() {
               <tr key={a.id as string}>
                 <td className="px-5 py-3.5">
                   <div className="font-semibold text-ink-900">{a.name as string}</div>
-                  {(a.resumeUrl as string) && (
+                  {(a.resumeFileId as string) ? (
+                    <a href={`/api/files/resume/${a.resumeFileId}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs text-brand-600 hover:underline">
+                      <Icon name="download" className="h-3 w-3" /> Resume
+                    </a>
+                  ) : (a.resumeUrl as string) ? (
                     <a href={a.resumeUrl as string} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs text-brand-600 hover:underline">
                       <Icon name="external-link" className="h-3 w-3" /> Resume
                     </a>
-                  )}
+                  ) : null}
                 </td>
                 <td className="px-5 py-3.5 text-slate-600">
                   <div>{a.email as string}</div>

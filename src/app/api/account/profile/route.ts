@@ -39,10 +39,16 @@ export async function PUT(req: Request) {
     );
   }
 
+  // Preserve any uploaded resume file — it's managed by /api/account/resume,
+  // not by this JSON form, so it must survive a profile save.
+  const existing = (await getUserById(guard.user.id))?.profile as SeekerProfile | undefined;
+
   // Normalise: strip empty strings, drop blank experience/education rows.
   const p = parsed.data;
   const profile: SeekerProfile = {
     resumeUrl: p.resumeUrl?.trim() || undefined,
+    resumeFileId: existing?.resumeFileId,
+    resumeFileName: existing?.resumeFileName,
     linkedin: p.linkedin?.trim() || undefined,
     otherLink: p.otherLink?.trim() || undefined,
     phone: p.phone?.trim() || undefined,

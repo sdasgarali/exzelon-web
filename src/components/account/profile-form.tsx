@@ -8,14 +8,24 @@ import { profileSchema, type ProfileInput } from "@/lib/validation";
 import { Input, Textarea, Label, FieldError } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
+import { ResumeUpload } from "@/components/account/resume-upload";
 import { cn } from "@/lib/utils";
 
 type Account = { name: string; email: string };
+type ResumeFile = { id?: string; name?: string };
 
 const emptyExperience = { title: "", company: "", start: "", end: "", current: false, summary: "" };
 const emptyEducation = { school: "", qualification: "", field: "", start: "", end: "" };
 
-export function ProfileForm({ account, initial }: { account: Account; initial: ProfileInput }) {
+export function ProfileForm({
+  account,
+  initial,
+  resumeFile,
+}: {
+  account: Account;
+  initial: ProfileInput;
+  resumeFile?: ResumeFile;
+}) {
   const router = useRouter();
   const search = useSearchParams();
   const next = search.get("next");
@@ -92,8 +102,9 @@ export function ProfileForm({ account, initial }: { account: Account; initial: P
       <section className="rounded-2xl border border-sand-200 bg-white p-6">
         <h3 className="text-sm font-bold text-ink-900">Resume &amp; links</h3>
         <div className="mt-4 space-y-4">
+          <ResumeUpload initialFileId={resumeFile?.id} initialFileName={resumeFile?.name} />
           <div>
-            <Label htmlFor="resumeUrl" required>Resume link</Label>
+            <Label htmlFor="resumeUrl">Resume link</Label>
             <Input
               id="resumeUrl"
               aria-invalid={!!errors.resumeUrl}
@@ -101,7 +112,7 @@ export function ProfileForm({ account, initial }: { account: Account; initial: P
               placeholder="Link to your resume (Google Drive, Dropbox…)"
             />
             <FieldError message={errors.resumeUrl?.message} />
-            <p className="mt-1 text-xs text-slate-400">Required before you can apply to jobs.</p>
+            <p className="mt-1 text-xs text-slate-400">Optional if you uploaded a file above.</p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
