@@ -2,6 +2,7 @@ import Link from "next/link";
 import { DashHeader, StatCard, Panel, Table, StatusBadge, EmptyState } from "@/components/dashboard/ui";
 import { ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
+import { VerifyEmailBanner } from "@/components/auth/verify-email-banner";
 import { getCurrentUser } from "@/lib/auth/session";
 import { listApplicationsByUser, getUserById } from "@/lib/db/repo";
 import { timeAgo } from "@/lib/utils";
@@ -17,6 +18,7 @@ export default async function AccountOverview() {
 
   return (
     <>
+      {dbUser && !dbUser.emailVerified && <VerifyEmailBanner />}
       <DashHeader
         title={`Hi, ${user!.name.split(" ")[0]}`}
         subtitle="Track your applications and saved jobs."

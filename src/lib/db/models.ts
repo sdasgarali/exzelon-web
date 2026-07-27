@@ -18,6 +18,12 @@ export type UserDoc = {
   phone?: string;
   savedJobs?: string[]; // seeker: job ids
   profile?: SeekerProfile; // seeker
+  emailVerified?: boolean;
+  // Single-use token hashes (never store the raw token). See lib/auth/tokens.ts.
+  verifyTokenHash?: string;
+  verifyTokenExpires?: Date;
+  resetTokenHash?: string;
+  resetTokenExpires?: Date;
   createdAt: Date;
 };
 

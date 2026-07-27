@@ -1,6 +1,11 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> ACTIVE WORK (2026-07-27): Portal-completion roadmap on branch `feature/portal-completion`.
+> Closing the 7-tier gap analysis, one feature per slice, committing after each. See "Portal
+> Completion Roadmap" below. Currently: starting F1 (auth completeness).
+>
+> PRIOR CONTEXT —
 > Rebuilt exzelon.com (source lost) as a modern animated Next.js marketing site + working forms,
 > THEN added a full auth + MongoDB layer: admin / employer / job-seeker accounts, dashboards,
 > and DB-driven jobs. DEPLOYED to Vercel (project exzelon-web, team asgar-ali-sayeds-projects),
@@ -12,6 +17,24 @@
 > education field-arrays) on /account/profile. See docs/FEATURE_apply-gating.md.
 > NEXT: commit+push the apply-gating feature (redeploys); still pending — rotate Mongo password,
 > remove demo-login hint before going public, optionally disable Deployment Protection to go live.
+
+## Portal Completion Roadmap (implement 1-by-1) — ACTIVE
+- [x] **F1 — Auth completeness**: forgot/reset password + email verification (+resend). DONE 2026-07-27.
+      Tokens (`lib/auth/tokens.ts`, sha256-hashed, TTL) + repo fns; routes forgot/reset/verify/resend;
+      pages /forgot-password /reset-password /verify-email; register sends verify email; login has
+      "Forgot password?"; dashboards show unverified banner; seed marks demo users verified; stronger
+      password rule (letter+number). Build+lint+tsc green.
+- [ ] **F2 — Transactional emails**: apply-confirmation to seeker, new-application alert to employer, status-change email to seeker.
+- [ ] **F3 — Resume file upload**: GridFS-backed upload (PDF/DOC), served via route; profile keeps link OR file.
+- [ ] **F4 — Server-side job search**: `/api/jobs` GET query (q/industry/type/remote/salary), pagination, structured salaryMin/Max.
+- [ ] **F5 — Employer company profile + job expiry**: public company page, employer branding fields, `expiresAt` auto-close.
+- [ ] **F6 — Admin analytics + audit log + CSV export**: charts on dashboard, audit trail collection + viewer, export endpoints.
+- [ ] **F7 — In-app messaging**: application-scoped threads employer <-> seeker.
+
+Groundwork (inside F1): generalize `lib/email.ts` to accept optional `to`; add `lib/auth/tokens.ts`
+(random token + sha256 + expiry); extend `UserDoc` with emailVerified + verify/reset token fields.
+Constraints: no heavy new deps — Mongo GridFS for resumes, CSS bars for charts, manual CSV.
+Every slice: `npm run lint` + `npx tsc --noEmit` before commit.
 
 ## Phase 2 — Auth + MongoDB (added on request)
 - Roles: admin / employer / seeker · JWT (jose) httpOnly cookie · bcryptjs · src/proxy.ts guards.

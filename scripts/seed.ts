@@ -38,7 +38,7 @@ async function main() {
     await db.collection("users").updateOne(
       { email: u.email },
       {
-        $set: { name: u.name, role: u.role, passwordHash, ...(u.role === "employer" ? { company: u.company } : {}) },
+        $set: { name: u.name, role: u.role, passwordHash, emailVerified: true, ...(u.role === "employer" ? { company: u.company } : {}) },
         $setOnInsert: { email: u.email, createdAt: new Date(), savedJobs: [] },
       },
       { upsert: true }

@@ -70,14 +70,33 @@ export const loginSchema = z.object({
 });
 export type LoginInput = z.infer<typeof loginSchema>;
 
+/** Shared strong-password rule: 8+ chars with at least one letter and one number. */
+export const passwordField = z
+  .string()
+  .min(8, "Password must be at least 8 characters")
+  .max(100)
+  .regex(/[A-Za-z]/, "Include at least one letter")
+  .regex(/[0-9]/, "Include at least one number");
+
 export const registerSchema = z.object({
   name: z.string().min(2, "Please enter your name").max(80),
   email: z.string().email("Enter a valid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters").max(100),
+  password: passwordField,
   role: z.enum(["employer", "seeker"]), // admins are created via seed, not public signup
   company: z.string().max(120).optional().or(z.literal("")),
 });
 export type RegisterInput = z.infer<typeof registerSchema>;
+
+export const forgotPasswordSchema = z.object({
+  email: z.string().email("Enter a valid email address"),
+});
+export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
+
+export const resetPasswordSchema = z.object({
+  token: z.string().min(10, "Invalid reset link"),
+  password: passwordField,
+});
+export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
 
 /** ---------- Job create/edit (employer + admin) ---------- */
 

@@ -124,6 +124,60 @@ export async function deleteUser(id: string) {
   return res.deletedCount > 0;
 }
 
+/** ---------- email verification & password reset ---------- */
+
+/** Store a hashed verification token + expiry on a user (by id). */
+export async function setVerifyToken(id: string, hash: string, expires: Date) {
+  const _id = oid(id);
+  if (!_id) return false;
+  const users = await usersCollection();
+  const res = await users.updateOne(
+    { _id },
+    { $set: { verifyTokenHash: hash, verifyTokenExpires: expires } }
+  );
+  return res.matchedCount > 0;
+}
+
+/** Consume a verification token: marks the user verified and clears the token. */
+export async function verifyEmailByTokenHash(hash: string): Promise<boolean> {
+  const users = await usersCollection();
+  const user = await users.findOne({ verifyTokenHash: hash });
+  if (!user || !user.verifyTokenExpires || user.verifyTokenExpires.getTime() < Date.now()) {
+    return false;
+  }
+  await users.updateOne(
+    { _id: user._id },
+    { $set: { emailVerified: true }, $unset: { verifyTokenHash: "", verifyTokenExpires: "" } }
+  );
+  return true;
+}
+
+/** Store a hashed reset token + expiry, looked up by email. Returns the user (or null). */
+export async function setResetTokenByEmail(email: string, hash: string, expires: Date) {
+  const users = await usersCollection();
+  const user = await users.findOne({ email: email.toLowerCase().trim() });
+  if (!user) return null;
+  await users.updateOne(
+    { _id: user._id },
+    { $set: { resetTokenHash: hash, resetTokenExpires: expires } }
+  );
+  return user;
+}
+
+/** Consume a reset token: sets a new password hash and clears the token. */
+export async function resetPasswordByTokenHash(hash: string, passwordHash: string): Promise<boolean> {
+  const users = await usersCollection();
+  const user = await users.findOne({ resetTokenHash: hash });
+  if (!user || !user.resetTokenExpires || user.resetTokenExpires.getTime() < Date.now()) {
+    return false;
+  }
+  await users.updateOne(
+    { _id: user._id },
+    { $set: { passwordHash }, $unset: { resetTokenHash: "", resetTokenExpires: "" } }
+  );
+  return true;
+}
+
 export async function updateUserProfile(userId: string, profile: SeekerProfile) {
   const _id = oid(userId);
   if (!_id) return false;
