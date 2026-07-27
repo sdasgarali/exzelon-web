@@ -2,9 +2,10 @@ import { NextResponse } from "next/server";
 import { applySchema } from "@/lib/validation";
 import { sendNotificationEmail, escapeHtml } from "@/lib/email";
 import { rateLimit, clientIp } from "@/lib/rate-limit";
-import { createApplication, getUserById } from "@/lib/db/repo";
+import { createApplication, getUserById, getJobBySlug } from "@/lib/db/repo";
 import { requireApiUser } from "@/lib/auth/api-guard";
 import { isProfileComplete, profileMissingFields } from "@/lib/profile";
+import { sendApplicationConfirmation, sendEmployerNewApplication } from "@/lib/notifications";
 
 export async function POST(req: Request) {
   const ip = clientIp(req.headers);
@@ -100,6 +101,25 @@ export async function POST(req: Request) {
       { error: "We couldn't submit your application right now. Please try again." },
       { status: 502 }
     );
+  }
+
+  // Best-effort transactional emails — never block the applicant's success response.
+  try {
+    await sendApplicationConfirmation({ to: account.email, name: account.name, jobTitle: data.jobTitle });
+    const job = await getJobBySlug(data.jobId);
+    if (job?.postedByUserId) {
+      const employer = await getUserById(job.postedByUserId as string);
+      if (employer?.email) {
+        await sendEmployerNewApplication({
+          to: employer.email,
+          applicantName: account.name,
+          jobTitle: data.jobTitle,
+          jobSlug: data.jobId,
+        });
+      }
+    }
+  } catch (err) {
+    console.error("[apply] transactional email failed:", err);
   }
 
   return NextResponse.json({ ok: true, delivered: result.delivered });
