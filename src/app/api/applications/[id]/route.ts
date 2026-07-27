@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { requireApiUser } from "@/lib/auth/api-guard";
-import { getApplicationById, updateApplicationStatus, getJobBySlug } from "@/lib/db/repo";
+import { getApplicationById, updateApplicationStatus, getJobBySlug, logAudit } from "@/lib/db/repo";
 import { sendApplicationStatusEmail } from "@/lib/notifications";
 
 const patchSchema = z.object({
@@ -37,6 +37,16 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   const nextStatus = parsed.data.status;
   const changed = (app.status as string) !== nextStatus;
   await updateApplicationStatus(id, nextStatus);
+
+  if (changed) {
+    await logAudit({
+      actorId: user.id,
+      actorName: user.name,
+      action: "application.status",
+      target: `${app.name} · ${app.jobTitle}`,
+      detail: `${app.status} → ${nextStatus}`,
+    });
+  }
 
   // Notify the applicant when their status meaningfully changes (best-effort).
   if (changed) {

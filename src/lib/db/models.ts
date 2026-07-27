@@ -83,6 +83,16 @@ export type ContactDoc = {
   createdAt: Date;
 };
 
+export type AuditLogDoc = {
+  _id?: import("mongodb").ObjectId;
+  actorId: string;
+  actorName: string;
+  action: string; // e.g. "user.delete", "job.delete", "application.status"
+  target?: string; // human-readable target (name/title/email)
+  detail?: string; // extra context (e.g. "new → shortlisted")
+  createdAt: Date;
+};
+
 /** ---------- Collection accessors ---------- */
 
 async function collection<T extends Document>(name: string): Promise<Collection<T>> {
@@ -94,6 +104,7 @@ export const usersCollection = () => collection<UserDoc>("users");
 export const jobsCollection = () => collection<JobDoc>("jobs");
 export const applicationsCollection = () => collection<ApplicationDoc>("applications");
 export const contactsCollection = () => collection<ContactDoc>("contacts");
+export const auditLogsCollection = () => collection<AuditLogDoc>("auditLogs");
 
 /** Ensure indexes exist (idempotent). Safe to call from seed or on first write. */
 export async function ensureIndexes() {
@@ -110,6 +121,8 @@ export async function ensureIndexes() {
   await apps.createIndex({ createdAt: -1 });
   const contacts = await contactsCollection();
   await contacts.createIndex({ createdAt: -1 });
+  const audit = await auditLogsCollection();
+  await audit.createIndex({ createdAt: -1 });
 }
 
 /** Serialize a Mongo document to a plain JSON-safe object (ObjectId/Date → string). */

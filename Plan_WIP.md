@@ -39,7 +39,11 @@
       public `/companies/[id]` with branding + open roles; job cards/detail link to the company;
       `expiresAt` on jobs (date input in job form) auto-hides expired roles from all public reads
       (`notExpired()` clause) + "Expired" chip in employer job list + "Apply by" on job detail.
-- [ ] **F6 — Admin analytics + audit log + CSV export**: charts on dashboard, audit trail collection + viewer, export endpoints.
+- [x] **F6 — Admin analytics + audit log + CSV export**: DONE 2026-07-27. `/admin/analytics` (CSS-bar
+      charts: apps/14 days, funnel, jobs by industry, top roles) via `getAnalytics`; `auditLogs`
+      collection + `logAudit`/`listAuditLogs`, wired into user role/delete, job delete, application
+      status; `/admin/audit` viewer; CSV export `/api/admin/export/{applications,users}` (admin-only)
+      + export buttons. No chart/CSV deps.
 - [ ] **F7 — In-app messaging**: application-scoped threads employer <-> seeker.
 
 Groundwork (inside F1): generalize `lib/email.ts` to accept optional `to`; add `lib/auth/tokens.ts`

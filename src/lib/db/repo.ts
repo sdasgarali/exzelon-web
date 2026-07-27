@@ -5,12 +5,14 @@ import {
   jobsCollection,
   applicationsCollection,
   contactsCollection,
+  auditLogsCollection,
   ensureIndexes,
   serialize,
   type UserDoc,
   type JobDoc,
   type ApplicationDoc,
   type ContactDoc,
+  type AuditLogDoc,
   type SeekerProfile,
 } from "./models";
 import { getIndustry } from "@/content/industries";
@@ -632,6 +634,83 @@ export async function markContactRead(id: string) {
 }
 
 /** ---------- stats ---------- */
+
+/** ---------- audit log ---------- */
+
+export async function logAudit(entry: Omit<AuditLogDoc, "_id" | "createdAt">) {
+  try {
+    const audit = await auditLogsCollection();
+    await audit.insertOne({ ...entry, createdAt: new Date() });
+  } catch (e) {
+    console.error("[db] logAudit failed:", e);
+  }
+}
+
+export async function listAuditLogs(limit = 200) {
+  const audit = await auditLogsCollection();
+  const docs = await audit.find({}).sort({ createdAt: -1 }).limit(limit).toArray();
+  return docs.map(serialize);
+}
+
+/** ---------- analytics ---------- */
+
+export type Analytics = {
+  appsByDay: { date: string; count: number }[];
+  appsByStatus: Record<string, number>;
+  jobsByIndustry: { industry: string; count: number }[];
+  topJobs: { title: string; count: number }[];
+};
+
+export async function getAnalytics(days = 14): Promise<Analytics> {
+  const apps = await applicationsCollection();
+  const jobs = await jobsCollection();
+
+  const since = new Date(Date.now() - days * 86_400_000);
+
+  const [dayRows, statusRows, industryRows, topRows] = await Promise.all([
+    apps
+      .aggregate<{ _id: string; count: number }>([
+        { $match: { createdAt: { $gte: since } } },
+        { $group: { _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } }, count: { $sum: 1 } } },
+      ])
+      .toArray(),
+    apps
+      .aggregate<{ _id: string; count: number }>([{ $group: { _id: "$status", count: { $sum: 1 } } }])
+      .toArray(),
+    jobs
+      .aggregate<{ _id: string; count: number }>([
+        { $match: { status: "open" } },
+        { $group: { _id: "$industryName", count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+      ])
+      .toArray(),
+    apps
+      .aggregate<{ _id: string; count: number; title: string }>([
+        { $group: { _id: "$jobSlug", count: { $sum: 1 }, title: { $first: "$jobTitle" } } },
+        { $sort: { count: -1 } },
+        { $limit: 5 },
+      ])
+      .toArray(),
+  ]);
+
+  // Fill a continuous day series so the chart has no gaps.
+  const dayMap = new Map(dayRows.map((r) => [r._id, r.count]));
+  const appsByDay: { date: string; count: number }[] = [];
+  for (let i = days - 1; i >= 0; i--) {
+    const d = new Date(Date.now() - i * 86_400_000).toISOString().slice(0, 10);
+    appsByDay.push({ date: d, count: dayMap.get(d) ?? 0 });
+  }
+
+  const appsByStatus: Record<string, number> = { new: 0, reviewed: 0, shortlisted: 0, rejected: 0 };
+  for (const r of statusRows) appsByStatus[r._id] = r.count;
+
+  return {
+    appsByDay,
+    appsByStatus,
+    jobsByIndustry: industryRows.map((r) => ({ industry: r._id, count: r.count })),
+    topJobs: topRows.map((r) => ({ title: r.title, count: r.count })),
+  };
+}
 
 export async function getAdminStats() {
   const [users, jobs, apps, contacts] = await Promise.all([
