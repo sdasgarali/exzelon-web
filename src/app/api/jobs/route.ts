@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { jobSchema } from "@/lib/validation";
+import { jobSchema, parseExpiryDate } from "@/lib/validation";
 import { requireApiUser } from "@/lib/auth/api-guard";
 import { createJob, getUserById } from "@/lib/db/repo";
 
@@ -45,6 +45,7 @@ export async function POST(req: Request) {
     requirements: toList(data.requirements),
     featured: user.role === "admin" ? !!data.featured : false,
     status: data.status ?? "open",
+    expiresAt: parseExpiryDate(data.expiresAt),
     postedByUserId: user.id,
     postedByName,
   });

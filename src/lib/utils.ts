@@ -35,3 +35,10 @@ export function timeAgo(input: Date | string): string {
   }
   return `${value} ${label}${value === 1 ? "" : "s"} ago`;
 }
+
+/** True if the given expiry date (ISO string or Date) is in the past. */
+export function isExpired(value?: string | Date | null): boolean {
+  if (!value) return false;
+  const t = new Date(value).getTime();
+  return !Number.isNaN(t) && t <= Date.now();
+}

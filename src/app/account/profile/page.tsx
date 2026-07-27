@@ -46,7 +46,11 @@ export default async function Profile() {
           </div>
         )}
 
-        <ProfileForm account={account} initial={initial} />
+        <ProfileForm
+          account={account}
+          initial={initial}
+          resumeFile={{ id: profile.resumeFileId, name: profile.resumeFileName }}
+        />
       </div>
     </>
   );

@@ -102,8 +102,35 @@ export default async function JobDetailPage({
             </div>
           </Reveal>
 
-          <div className="mt-10 flex items-center gap-3 text-sm text-slate-500">
+          {job.company && (
+            <div className="mt-8 flex items-center gap-3 rounded-2xl border border-sand-200 bg-sand-50 p-4">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-600/10 text-brand-700">
+                <Icon name="building-2" className="h-5 w-5" />
+              </span>
+              <div className="min-w-0">
+                <div className="text-xs text-slate-500">Posted by</div>
+                {job.companyId ? (
+                  <Link href={`/companies/${job.companyId}`} className="font-semibold text-brand-700 hover:text-brand-800">
+                    {job.company}
+                  </Link>
+                ) : (
+                  <span className="font-semibold text-ink-900">{job.company}</span>
+                )}
+              </div>
+            </div>
+          )}
+
+          <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-slate-500">
             <Icon name="clock" className="h-4 w-4" /> Posted {job.posted}
+            {job.expiresAt && (
+              <>
+                <span>·</span>
+                <span className="inline-flex items-center gap-1.5 font-medium text-amber-700">
+                  <Icon name="calendar" className="h-4 w-4" /> Apply by{" "}
+                  {new Date(job.expiresAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                </span>
+              </>
+            )}
             <span>·</span>
             <Link href={`/opportunities/${job.industry}`} className="font-semibold text-brand-600 hover:text-brand-700">
               More {job.industryName} roles

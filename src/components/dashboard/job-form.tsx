@@ -135,13 +135,19 @@ export function JobForm({
             </div>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2">
+          <div className="grid gap-5 sm:grid-cols-3">
             <div>
               <Label htmlFor="status">Status</Label>
               <Select id="status" {...register("status")}>
                 <option value="open">Open</option>
                 <option value="closed">Closed</option>
               </Select>
+            </div>
+            <div>
+              <Label htmlFor="expiresAt">Closes on (optional)</Label>
+              <Input id="expiresAt" type="date" aria-invalid={!!errors.expiresAt} {...register("expiresAt")} />
+              <FieldError message={errors.expiresAt?.message} />
+              <p className="mt-1 text-xs text-slate-400">Auto-closes after this date.</p>
             </div>
             {isAdmin && (
               <label className="flex items-center gap-3 self-end rounded-xl border border-sand-200 px-4 py-3">

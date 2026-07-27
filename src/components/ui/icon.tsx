@@ -6,7 +6,8 @@ import {
   Quote, Clock, Building2,
   Sparkles, TrendingUp, Users, Award, MessageCircle, UserRound,
   LayoutDashboard, LogOut, Plus, Pencil, Trash2, Eye, Inbox, Bookmark,
-  Filter, ExternalLink, type LucideIcon,
+  Filter, ExternalLink, AlertTriangle, Download, MessageSquare, Calendar,
+  BarChart3, Upload, type LucideIcon,
 } from "lucide-react";
 
 /** Brand/social glyphs (removed from lucide-react) as lightweight inline SVGs. */
@@ -80,6 +81,12 @@ const map: Record<string, LucideIcon> = {
   bookmark: Bookmark,
   filter: Filter,
   "external-link": ExternalLink,
+  "alert-triangle": AlertTriangle,
+  download: Download,
+  "message-square": MessageSquare,
+  calendar: Calendar,
+  "bar-chart": BarChart3,
+  upload: Upload,
 };
 
 export function Icon({

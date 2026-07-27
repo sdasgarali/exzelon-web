@@ -28,6 +28,7 @@ export default async function AdminEditJob({ params }: { params: Promise<{ slug:
           requirements: (job.requirements as string[]).join("\n"),
           status: job.status as never,
           featured: job.featured as boolean,
+          expiresAt: job.expiresAt ? String(job.expiresAt).slice(0, 10) : "",
         }}
       />
     </>

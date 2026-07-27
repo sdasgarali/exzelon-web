@@ -2,13 +2,14 @@ import Link from "next/link";
 import { DashHeader, StatCard, Panel, Table, StatusBadge, EmptyState } from "@/components/dashboard/ui";
 import { ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
+import { VerifyEmailBanner } from "@/components/auth/verify-email-banner";
 import { getCurrentUser } from "@/lib/auth/session";
-import { listJobsByOwner, listApplicationsByJobSlugs } from "@/lib/db/repo";
+import { listJobsByOwner, listApplicationsByJobSlugs, getUserById } from "@/lib/db/repo";
 import { timeAgo } from "@/lib/utils";
 
 export default async function EmployerOverview() {
   const user = await getCurrentUser();
-  const jobs = await listJobsByOwner(user!.id);
+  const [jobs, dbUser] = await Promise.all([listJobsByOwner(user!.id), getUserById(user!.id)]);
   const slugs = jobs.map((j) => j.slug as string);
   const apps = await listApplicationsByJobSlugs(slugs);
   const openJobs = jobs.filter((j) => (j.status as string) === "open").length;
@@ -16,6 +17,7 @@ export default async function EmployerOverview() {
 
   return (
     <>
+      {dbUser && !dbUser.emailVerified && <VerifyEmailBanner />}
       <DashHeader
         title={`Welcome, ${user!.name.split(" ")[0]}`}
         subtitle="Manage your job postings and review applicants."

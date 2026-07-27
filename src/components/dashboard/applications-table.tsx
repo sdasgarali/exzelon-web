@@ -16,6 +16,8 @@ export type AdminApplication = {
   status: string;
   createdAt: string;
   resumeUrl: string;
+  resumeFileId?: string;
+  resumeFileName?: string;
 };
 
 const STATUS_OPTIONS = [
@@ -71,11 +73,15 @@ export function ApplicationsTable({ apps }: { apps: AdminApplication[] }) {
               <tr key={a.id}>
                 <td className="px-5 py-3.5">
                   <div className="font-semibold text-ink-900">{a.name}</div>
-                  {a.resumeUrl && (
+                  {a.resumeFileId ? (
+                    <a href={`/api/files/resume/${a.resumeFileId}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs text-brand-600 hover:underline">
+                      <Icon name="download" className="h-3 w-3" /> Resume
+                    </a>
+                  ) : a.resumeUrl ? (
                     <a href={a.resumeUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs text-brand-600 hover:underline">
                       <Icon name="external-link" className="h-3 w-3" /> Resume
                     </a>
-                  )}
+                  ) : null}
                 </td>
                 <td className="px-5 py-3.5 text-slate-600">
                   <div>{a.email}</div>

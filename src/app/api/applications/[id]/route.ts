@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { requireApiUser } from "@/lib/auth/api-guard";
-import { getApplicationById, updateApplicationStatus, getJobBySlug } from "@/lib/db/repo";
+import { getApplicationById, updateApplicationStatus, getJobBySlug, logAudit } from "@/lib/db/repo";
+import { sendApplicationStatusEmail } from "@/lib/notifications";
 
 const patchSchema = z.object({
   status: z.enum(["new", "reviewed", "shortlisted", "rejected"]),
@@ -33,6 +34,33 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     }
   }
 
-  await updateApplicationStatus(id, parsed.data.status);
+  const nextStatus = parsed.data.status;
+  const changed = (app.status as string) !== nextStatus;
+  await updateApplicationStatus(id, nextStatus);
+
+  if (changed) {
+    await logAudit({
+      actorId: user.id,
+      actorName: user.name,
+      action: "application.status",
+      target: `${app.name} · ${app.jobTitle}`,
+      detail: `${app.status} → ${nextStatus}`,
+    });
+  }
+
+  // Notify the applicant when their status meaningfully changes (best-effort).
+  if (changed) {
+    try {
+      await sendApplicationStatusEmail({
+        to: app.email as string,
+        name: app.name as string,
+        jobTitle: app.jobTitle as string,
+        status: nextStatus,
+      });
+    } catch (err) {
+      console.error("[applications] status email failed:", err);
+    }
+  }
+
   return NextResponse.json({ ok: true });
 }

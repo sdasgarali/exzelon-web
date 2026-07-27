@@ -1,6 +1,13 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> ACTIVE WORK (2026-07-27): Portal-completion roadmap on branch `feature/portal-completion`.
+> ALL 7 FEATURES DONE (F1–F7), each committed with lint+tsc+build green. See "Portal Completion
+> Roadmap" below (all checked). NEXT: open a PR for `feature/portal-completion`; run `npm run db:seed`
+> to backfill salaryMin/Max + emailVerified on existing data; set RESEND_API_KEY + NEXT_PUBLIC_SITE_URL
+> in prod so emails/links resolve. Still pending from before: rotate Mongo password, remove demo-login hint.
+>
+> PRIOR CONTEXT —
 > Rebuilt exzelon.com (source lost) as a modern animated Next.js marketing site + working forms,
 > THEN added a full auth + MongoDB layer: admin / employer / job-seeker accounts, dashboards,
 > and DB-driven jobs. DEPLOYED to Vercel (project exzelon-web, team asgar-ali-sayeds-projects),
@@ -12,6 +19,43 @@
 > education field-arrays) on /account/profile. See docs/FEATURE_apply-gating.md.
 > NEXT: commit+push the apply-gating feature (redeploys); still pending — rotate Mongo password,
 > remove demo-login hint before going public, optionally disable Deployment Protection to go live.
+
+## Portal Completion Roadmap (implement 1-by-1) — ACTIVE
+- [x] **F1 — Auth completeness**: forgot/reset password + email verification (+resend). DONE 2026-07-27.
+      Tokens (`lib/auth/tokens.ts`, sha256-hashed, TTL) + repo fns; routes forgot/reset/verify/resend;
+      pages /forgot-password /reset-password /verify-email; register sends verify email; login has
+      "Forgot password?"; dashboards show unverified banner; seed marks demo users verified; stronger
+      password rule (letter+number). Build+lint+tsc green.
+- [ ] **F2 — Transactional emails**: apply-confirmation to seeker, new-application alert to employer, status-change email to seeker.
+- [x] **F3 — Resume file upload**: DONE 2026-07-27. GridFS (`lib/db/files.ts`, 5MB, PDF/DOC/DOCX);
+      POST/DELETE `/api/account/resume`; authorized `GET /api/files/resume/[id]` (owner seeker /
+      job-owning employer / admin); profile completeness = file OR link; profile PUT preserves file;
+      resume snapshot on apply; file download surfaced in apply-panel + admin/employer applicant views.
+- [x] **F4 — Server-side job search**: DONE 2026-07-27. `searchPublicJobs` (Mongo query + skip/limit +
+      count); `/jobs` now force-dynamic, reads searchParams (q/loc/industry/type/remote/salaryMin/sort/page);
+      URL-driven `JobsFilters` (debounced text) + server `JobsPagination`; structured salaryMin/Max derived
+      from the salary string via `lib/salary.ts` (create/update/seed backfill) → salary filter works.
+      Removed client-only JobsExplorer.
+- [x] **F5 — Employer company profile + job expiry**: DONE 2026-07-27. Employer `companyProfile`
+      (tagline/about/website/location/size/logoUrl) at `/employer/company` + `PUT /api/employer/company`;
+      public `/companies/[id]` with branding + open roles; job cards/detail link to the company;
+      `expiresAt` on jobs (date input in job form) auto-hides expired roles from all public reads
+      (`notExpired()` clause) + "Expired" chip in employer job list + "Apply by" on job detail.
+- [x] **F6 — Admin analytics + audit log + CSV export**: DONE 2026-07-27. `/admin/analytics` (CSS-bar
+      charts: apps/14 days, funnel, jobs by industry, top roles) via `getAnalytics`; `auditLogs`
+      collection + `logAudit`/`listAuditLogs`, wired into user role/delete, job delete, application
+      status; `/admin/audit` viewer; CSV export `/api/admin/export/{applications,users}` (admin-only)
+      + export buttons. No chart/CSV deps.
+- [x] **F7 — In-app messaging**: DONE 2026-07-27. `messages` collection + `getThreadContext`/`listMessages`/
+      `createMessage`; `GET/POST /api/applications/[id]/messages` authorized to the applicant (seeker) +
+      job-owning employer (admin read-only); `MessageThread` client component; thread pages
+      `/account/messages/[id]` + `/employer/messages/[id]`; "Message(s)" links from seeker + employer
+      application lists.
+
+Groundwork (inside F1): generalize `lib/email.ts` to accept optional `to`; add `lib/auth/tokens.ts`
+(random token + sha256 + expiry); extend `UserDoc` with emailVerified + verify/reset token fields.
+Constraints: no heavy new deps — Mongo GridFS for resumes, CSS bars for charts, manual CSV.
+Every slice: `npm run lint` + `npx tsc --noEmit` before commit.
 
 ## Phase 2 — Auth + MongoDB (added on request)
 - Roles: admin / employer / seeker · JWT (jose) httpOnly cookie · bcryptjs · src/proxy.ts guards.

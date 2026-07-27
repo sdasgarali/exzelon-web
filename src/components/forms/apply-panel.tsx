@@ -12,6 +12,8 @@ type ProfileData = {
   complete: boolean;
   missing: string[];
   resumeUrl?: string;
+  resumeFileId?: string;
+  resumeFileName?: string;
   name?: string;
   email?: string;
 };
@@ -38,6 +40,8 @@ export function ApplyPanel({ jobId, jobTitle }: { jobId: string; jobTitle: strin
           complete: !!d.complete,
           missing: d.missing ?? [],
           resumeUrl: d.profile?.resumeUrl,
+          resumeFileId: d.profile?.resumeFileId,
+          resumeFileName: d.profile?.resumeFileName,
           name: d.account?.name,
           email: d.account?.email,
         });
@@ -158,7 +162,16 @@ export function ApplyPanel({ jobId, jobTitle }: { jobId: string; jobTitle: strin
           <Icon name="user-round" className="h-4 w-4 text-brand-600" /> {profile.name}
         </div>
         <div className="mt-1 text-slate-500">{profile.email}</div>
-        {profile.resumeUrl && (
+        {profile.resumeFileId ? (
+          <a
+            href={`/api/files/resume/${profile.resumeFileId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-flex items-center gap-1.5 font-medium text-brand-600 hover:text-brand-700"
+          >
+            <Icon name="file-text" className="h-4 w-4" /> {profile.resumeFileName || "View resume"}
+          </a>
+        ) : profile.resumeUrl ? (
           <a
             href={profile.resumeUrl}
             target="_blank"
@@ -167,7 +180,7 @@ export function ApplyPanel({ jobId, jobTitle }: { jobId: string; jobTitle: strin
           >
             <Icon name="file-text" className="h-4 w-4" /> View resume
           </a>
-        )}
+        ) : null}
         <Link href="/account/profile" className="mt-2 block text-xs text-slate-400 hover:text-slate-600">
           Edit profile
         </Link>

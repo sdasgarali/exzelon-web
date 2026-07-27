@@ -22,6 +22,9 @@ export type EducationEntry = {
 
 export type SeekerProfile = {
   resumeUrl?: string;
+  /** GridFS id of an uploaded resume file (alternative to resumeUrl). */
+  resumeFileId?: string;
+  resumeFileName?: string;
   linkedin?: string;
   otherLink?: string;
   phone?: string;
@@ -31,7 +34,12 @@ export type SeekerProfile = {
   updatedAt?: string | Date;
 };
 
-/** The only fields that gate applying: name, email, and a resume link. */
+/** True when the profile has a resume — either an uploaded file or a link. */
+export function hasResume(profile?: SeekerProfile | null): boolean {
+  return !!(profile?.resumeFileId || profile?.resumeUrl?.trim());
+}
+
+/** The only fields that gate applying: name, email, and a resume (file or link). */
 export function profileMissingFields(input: {
   name?: string | null;
   email?: string | null;
@@ -40,7 +48,7 @@ export function profileMissingFields(input: {
   const missing: string[] = [];
   if (!input.name?.trim()) missing.push("name");
   if (!input.email?.trim()) missing.push("email");
-  if (!input.profile?.resumeUrl?.trim()) missing.push("resume link");
+  if (!hasResume(input.profile)) missing.push("resume (upload or link)");
   return missing;
 }
 

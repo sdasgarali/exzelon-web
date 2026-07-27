@@ -4,6 +4,7 @@ import { getUserByEmail, createUser } from "@/lib/db/repo";
 import { hashPassword } from "@/lib/auth/password";
 import { createSessionCookie } from "@/lib/auth/session";
 import { rateLimit, clientIp } from "@/lib/rate-limit";
+import { issueAndSendVerification } from "@/lib/auth/email-flows";
 
 export async function POST(req: Request) {
   const ip = clientIp(req.headers);
@@ -40,6 +41,13 @@ export async function POST(req: Request) {
     role: data.role,
     company: data.role === "employer" ? data.company || undefined : undefined,
   });
+
+  // Fire off an email-verification link (best-effort — never blocks signup).
+  try {
+    await issueAndSendVerification(String(user._id), user.name, user.email);
+  } catch (err) {
+    console.error("[register] verification email failed:", err);
+  }
 
   const sessionUser = { id: String(user._id), name: user.name, email: user.email, role: user.role };
   await createSessionCookie(sessionUser);

@@ -70,14 +70,53 @@ export const loginSchema = z.object({
 });
 export type LoginInput = z.infer<typeof loginSchema>;
 
+/** Shared strong-password rule: 8+ chars with at least one letter and one number. */
+export const passwordField = z
+  .string()
+  .min(8, "Password must be at least 8 characters")
+  .max(100)
+  .regex(/[A-Za-z]/, "Include at least one letter")
+  .regex(/[0-9]/, "Include at least one number");
+
 export const registerSchema = z.object({
   name: z.string().min(2, "Please enter your name").max(80),
   email: z.string().email("Enter a valid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters").max(100),
+  password: passwordField,
   role: z.enum(["employer", "seeker"]), // admins are created via seed, not public signup
   company: z.string().max(120).optional().or(z.literal("")),
 });
 export type RegisterInput = z.infer<typeof registerSchema>;
+
+export const forgotPasswordSchema = z.object({
+  email: z.string().email("Enter a valid email address"),
+});
+export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
+
+export const resetPasswordSchema = z.object({
+  token: z.string().min(10, "Invalid reset link"),
+  password: passwordField,
+});
+export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
+
+/** ---------- Messaging ---------- */
+
+export const messageSchema = z.object({
+  body: z.string().min(1, "Write a message").max(2000, "Message is too long"),
+});
+export type MessageInput = z.infer<typeof messageSchema>;
+
+/** ---------- Employer company profile ---------- */
+
+export const companySchema = z.object({
+  company: z.string().min(2, "Company name is required").max(120),
+  tagline: z.string().max(140).optional().or(z.literal("")),
+  about: z.string().max(2000).optional().or(z.literal("")),
+  website: z.string().url("Enter a valid URL").optional().or(z.literal("")),
+  location: z.string().max(120).optional().or(z.literal("")),
+  size: z.string().max(40).optional().or(z.literal("")),
+  logoUrl: z.string().url("Enter a valid URL").optional().or(z.literal("")),
+});
+export type CompanyInput = z.infer<typeof companySchema>;
 
 /** ---------- Job create/edit (employer + admin) ---------- */
 
@@ -93,5 +132,18 @@ export const jobSchema = z.object({
   requirements: z.string().min(3, "Add at least one requirement"),
   featured: z.boolean().optional(),
   status: z.enum(["open", "closed"]).optional(),
+  // yyyy-mm-dd from a <input type="date">, or empty for no expiry.
+  expiresAt: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Use a valid date")
+    .optional()
+    .or(z.literal("")),
 });
 export type JobInput = z.infer<typeof jobSchema>;
+
+/** Parse a yyyy-mm-dd form value into an end-of-day Date, or null when empty. */
+export function parseExpiryDate(value?: string): Date | null {
+  if (!value) return null;
+  const d = new Date(`${value}T23:59:59`);
+  return Number.isNaN(d.getTime()) ? null : d;
+}

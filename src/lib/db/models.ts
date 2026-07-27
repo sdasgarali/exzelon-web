@@ -3,8 +3,10 @@ import { getDb } from "./mongodb";
 import type { Collection, Document } from "mongodb";
 import type { Role } from "@/lib/auth/jwt";
 import type { SeekerProfile } from "@/lib/profile";
+import type { CompanyProfile } from "@/lib/company";
 
 export type { SeekerProfile, ExperienceEntry, EducationEntry } from "@/lib/profile";
+export type { CompanyProfile } from "@/lib/company";
 
 /** ---------- Document shapes ---------- */
 
@@ -14,10 +16,17 @@ export type UserDoc = {
   email: string; // stored lowercase, unique
   passwordHash: string;
   role: Role;
-  company?: string; // employers
+  company?: string; // employers: company name
+  companyProfile?: CompanyProfile; // employers: branding
   phone?: string;
   savedJobs?: string[]; // seeker: job ids
   profile?: SeekerProfile; // seeker
+  emailVerified?: boolean;
+  // Single-use token hashes (never store the raw token). See lib/auth/tokens.ts.
+  verifyTokenHash?: string;
+  verifyTokenExpires?: Date;
+  resetTokenHash?: string;
+  resetTokenExpires?: Date;
   createdAt: Date;
 };
 
@@ -31,11 +40,14 @@ export type JobDoc = {
   type: "Full-time" | "Contract" | "Travel" | "Part-time" | "Temp-to-hire";
   remote: "On-site" | "Hybrid" | "Remote";
   salary: string;
+  salaryMin?: number; // approx annual USD, derived from `salary` for filtering
+  salaryMax?: number;
   summary: string;
   responsibilities: string[];
   requirements: string[];
   featured: boolean;
   status: "open" | "closed";
+  expiresAt?: Date | null; // optional auto-close date
   postedByUserId: string | null; // employer/admin user id, or null for seed
   postedByName: string; // company or "Exzelon"
   createdAt: Date;
@@ -51,6 +63,8 @@ export type ApplicationDoc = {
   phone?: string;
   linkedin?: string;
   resumeUrl?: string;
+  resumeFileId?: string;
+  resumeFileName?: string;
   experienceLevel?: "fresher" | "experienced";
   coverLetter?: string;
   status: "new" | "reviewed" | "shortlisted" | "rejected";
@@ -69,6 +83,25 @@ export type ContactDoc = {
   createdAt: Date;
 };
 
+export type MessageDoc = {
+  _id?: import("mongodb").ObjectId;
+  applicationId: string; // thread key
+  senderId: string;
+  senderRole: "employer" | "seeker";
+  body: string;
+  createdAt: Date;
+};
+
+export type AuditLogDoc = {
+  _id?: import("mongodb").ObjectId;
+  actorId: string;
+  actorName: string;
+  action: string; // e.g. "user.delete", "job.delete", "application.status"
+  target?: string; // human-readable target (name/title/email)
+  detail?: string; // extra context (e.g. "new → shortlisted")
+  createdAt: Date;
+};
+
 /** ---------- Collection accessors ---------- */
 
 async function collection<T extends Document>(name: string): Promise<Collection<T>> {
@@ -80,6 +113,8 @@ export const usersCollection = () => collection<UserDoc>("users");
 export const jobsCollection = () => collection<JobDoc>("jobs");
 export const applicationsCollection = () => collection<ApplicationDoc>("applications");
 export const contactsCollection = () => collection<ContactDoc>("contacts");
+export const messagesCollection = () => collection<MessageDoc>("messages");
+export const auditLogsCollection = () => collection<AuditLogDoc>("auditLogs");
 
 /** Ensure indexes exist (idempotent). Safe to call from seed or on first write. */
 export async function ensureIndexes() {
@@ -89,12 +124,17 @@ export async function ensureIndexes() {
   await jobs.createIndex({ slug: 1 }, { unique: true });
   await jobs.createIndex({ industry: 1 });
   await jobs.createIndex({ status: 1, createdAt: -1 });
+  await jobs.createIndex({ status: 1, salaryMax: -1 });
   const apps = await applicationsCollection();
   await apps.createIndex({ jobSlug: 1 });
   await apps.createIndex({ applicantUserId: 1 });
   await apps.createIndex({ createdAt: -1 });
   const contacts = await contactsCollection();
   await contacts.createIndex({ createdAt: -1 });
+  const audit = await auditLogsCollection();
+  await audit.createIndex({ createdAt: -1 });
+  const messages = await messagesCollection();
+  await messages.createIndex({ applicationId: 1, createdAt: 1 });
 }
 
 /** Serialize a Mongo document to a plain JSON-safe object (ObjectId/Date → string). */

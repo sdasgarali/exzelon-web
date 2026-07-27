@@ -5,17 +5,22 @@ import {
   jobsCollection,
   applicationsCollection,
   contactsCollection,
+  auditLogsCollection,
+  messagesCollection,
   ensureIndexes,
   serialize,
   type UserDoc,
   type JobDoc,
   type ApplicationDoc,
   type ContactDoc,
+  type AuditLogDoc,
+  type MessageDoc,
   type SeekerProfile,
 } from "./models";
 import { getIndustry } from "@/content/industries";
 import type { Job as PublicJob } from "@/content/jobs";
 import { timeAgo } from "@/lib/utils";
+import { parseSalary } from "@/lib/salary";
 import type { Role } from "@/lib/auth/jwt";
 
 /** ---------- helpers ---------- */
@@ -124,6 +129,60 @@ export async function deleteUser(id: string) {
   return res.deletedCount > 0;
 }
 
+/** ---------- email verification & password reset ---------- */
+
+/** Store a hashed verification token + expiry on a user (by id). */
+export async function setVerifyToken(id: string, hash: string, expires: Date) {
+  const _id = oid(id);
+  if (!_id) return false;
+  const users = await usersCollection();
+  const res = await users.updateOne(
+    { _id },
+    { $set: { verifyTokenHash: hash, verifyTokenExpires: expires } }
+  );
+  return res.matchedCount > 0;
+}
+
+/** Consume a verification token: marks the user verified and clears the token. */
+export async function verifyEmailByTokenHash(hash: string): Promise<boolean> {
+  const users = await usersCollection();
+  const user = await users.findOne({ verifyTokenHash: hash });
+  if (!user || !user.verifyTokenExpires || user.verifyTokenExpires.getTime() < Date.now()) {
+    return false;
+  }
+  await users.updateOne(
+    { _id: user._id },
+    { $set: { emailVerified: true }, $unset: { verifyTokenHash: "", verifyTokenExpires: "" } }
+  );
+  return true;
+}
+
+/** Store a hashed reset token + expiry, looked up by email. Returns the user (or null). */
+export async function setResetTokenByEmail(email: string, hash: string, expires: Date) {
+  const users = await usersCollection();
+  const user = await users.findOne({ email: email.toLowerCase().trim() });
+  if (!user) return null;
+  await users.updateOne(
+    { _id: user._id },
+    { $set: { resetTokenHash: hash, resetTokenExpires: expires } }
+  );
+  return user;
+}
+
+/** Consume a reset token: sets a new password hash and clears the token. */
+export async function resetPasswordByTokenHash(hash: string, passwordHash: string): Promise<boolean> {
+  const users = await usersCollection();
+  const user = await users.findOne({ resetTokenHash: hash });
+  if (!user || !user.resetTokenExpires || user.resetTokenExpires.getTime() < Date.now()) {
+    return false;
+  }
+  await users.updateOne(
+    { _id: user._id },
+    { $set: { passwordHash }, $unset: { resetTokenHash: "", resetTokenExpires: "" } }
+  );
+  return true;
+}
+
 export async function updateUserProfile(userId: string, profile: SeekerProfile) {
   const _id = oid(userId);
   if (!_id) return false;
@@ -131,6 +190,60 @@ export async function updateUserProfile(userId: string, profile: SeekerProfile) 
   const res = await users.updateOne(
     { _id },
     { $set: { profile: { ...profile, updatedAt: new Date() } } }
+  );
+  return res.matchedCount > 0;
+}
+
+/** Update an employer's company name + branding profile. */
+export async function updateCompanyProfile(
+  userId: string,
+  data: { company?: string; profile: import("@/lib/company").CompanyProfile }
+) {
+  const _id = oid(userId);
+  if (!_id) return false;
+  const users = await usersCollection();
+  const set: Record<string, unknown> = {
+    companyProfile: { ...data.profile, updatedAt: new Date() },
+  };
+  if (data.company !== undefined) set.company = data.company.trim();
+  const res = await users.updateOne({ _id }, { $set: set });
+  return res.matchedCount > 0;
+}
+
+/** Public company view: an employer's open, non-expired jobs (mapped to PublicJob). */
+export async function listPublicJobsByOwner(userId: string): Promise<PublicJob[]> {
+  try {
+    const jobs = await jobsCollection();
+    const docs = await jobs
+      .find({ postedByUserId: userId, status: "open", ...notExpired() })
+      .sort({ featured: -1, createdAt: -1 })
+      .toArray();
+    return docs.map(toPublicJob);
+  } catch (e) {
+    console.error("[db] listPublicJobsByOwner failed:", e);
+    return [];
+  }
+}
+
+/** Update a subset of seeker-profile fields without replacing the whole object. */
+export async function updateProfileFields(userId: string, fields: Partial<SeekerProfile>) {
+  const _id = oid(userId);
+  if (!_id) return false;
+  const users = await usersCollection();
+  const set: Record<string, unknown> = { "profile.updatedAt": new Date() };
+  for (const [k, v] of Object.entries(fields)) set[`profile.${k}`] = v;
+  const res = await users.updateOne({ _id }, { $set: set });
+  return res.matchedCount > 0;
+}
+
+/** Remove resume-file fields from a seeker profile (used when deleting a file). */
+export async function clearResumeFileFields(userId: string) {
+  const _id = oid(userId);
+  if (!_id) return false;
+  const users = await usersCollection();
+  const res = await users.updateOne(
+    { _id },
+    { $unset: { "profile.resumeFileId": "", "profile.resumeFileName": "" }, $set: { "profile.updatedAt": new Date() } }
   );
   return res.matchedCount > 0;
 }
@@ -172,7 +285,19 @@ function toPublicJob(doc: JobDoc): PublicJob {
     responsibilities: doc.responsibilities,
     requirements: doc.requirements,
     featured: doc.featured,
+    ...(doc.postedByUserId ? { companyId: doc.postedByUserId } : {}),
+    company: doc.postedByName,
+    ...(doc.expiresAt ? { expiresAt: new Date(doc.expiresAt).toISOString() } : {}),
   };
+}
+
+/**
+ * Mongo clause matching jobs that haven't expired: no expiry set, or expiry in
+ * the future. Merged into every public read so expired roles disappear from the
+ * board without a background job.
+ */
+function notExpired(): Record<string, unknown> {
+  return { $or: [{ expiresAt: { $exists: false } }, { expiresAt: null }, { expiresAt: { $gt: new Date() } }] };
 }
 
 // Public reads degrade to empty/null if the DB is unreachable, so a transient
@@ -180,7 +305,7 @@ function toPublicJob(doc: JobDoc): PublicJob {
 export async function listPublicJobs(): Promise<PublicJob[]> {
   try {
     const jobs = await jobsCollection();
-    const docs = await jobs.find({ status: "open" }).sort({ featured: -1, createdAt: -1 }).toArray();
+    const docs = await jobs.find({ status: "open", ...notExpired() }).sort({ featured: -1, createdAt: -1 }).toArray();
     return docs.map(toPublicJob);
   } catch (e) {
     console.error("[db] listPublicJobs failed:", e);
@@ -188,11 +313,82 @@ export async function listPublicJobs(): Promise<PublicJob[]> {
   }
 }
 
+export type JobSearchParams = {
+  q?: string;
+  loc?: string;
+  industry?: string;
+  type?: string;
+  remote?: string;
+  salaryMin?: number;
+  sort?: "recent" | "salary";
+  page?: number;
+  pageSize?: number;
+};
+
+export type JobSearchResult = {
+  jobs: PublicJob[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+};
+
+const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/**
+ * Server-side, paginated public job search. Filtering + pagination happen in
+ * Mongo so the page scales past a handful of jobs. Degrades to an empty result
+ * set on DB error (consistent with the other public reads).
+ */
+export async function searchPublicJobs(params: JobSearchParams): Promise<JobSearchResult> {
+  const page = Math.max(1, params.page ?? 1);
+  const pageSize = Math.min(48, Math.max(1, params.pageSize ?? 9));
+  try {
+    const jobs = await jobsCollection();
+    // `$and` composes the expiry-$or with the optional keyword-$or (two $or keys
+    // can't share one object).
+    const query: Record<string, unknown> = { status: "open", $and: [notExpired()] };
+    const and = query.$and as Record<string, unknown>[];
+
+    if (params.q?.trim()) {
+      const rx = { $regex: escapeRegex(params.q.trim()), $options: "i" };
+      and.push({ $or: [{ title: rx }, { industryName: rx }, { summary: rx }] });
+    }
+    if (params.loc?.trim()) query.location = { $regex: escapeRegex(params.loc.trim()), $options: "i" };
+    if (params.industry && params.industry !== "all") query.industry = params.industry;
+    if (params.type && params.type !== "all") query.type = params.type;
+    if (params.remote && params.remote !== "all") query.remote = params.remote;
+    if (params.salaryMin && params.salaryMin > 0) query.salaryMax = { $gte: params.salaryMin };
+
+    const sort: Record<string, 1 | -1> =
+      params.sort === "salary" ? { salaryMax: -1, createdAt: -1 } : { featured: -1, createdAt: -1 };
+
+    const total = await jobs.countDocuments(query);
+    const docs = await jobs
+      .find(query)
+      .sort(sort)
+      .skip((page - 1) * pageSize)
+      .limit(pageSize)
+      .toArray();
+
+    return {
+      jobs: docs.map(toPublicJob),
+      total,
+      page,
+      pageSize,
+      totalPages: Math.max(1, Math.ceil(total / pageSize)),
+    };
+  } catch (e) {
+    console.error("[db] searchPublicJobs failed:", e);
+    return { jobs: [], total: 0, page, pageSize, totalPages: 1 };
+  }
+}
+
 export async function listFeaturedPublicJobs(limit = 3): Promise<PublicJob[]> {
   try {
     const jobs = await jobsCollection();
     const docs = await jobs
-      .find({ status: "open", featured: true })
+      .find({ status: "open", featured: true, ...notExpired() })
       .sort({ createdAt: -1 })
       .limit(limit)
       .toArray();
@@ -206,7 +402,7 @@ export async function listFeaturedPublicJobs(limit = 3): Promise<PublicJob[]> {
 export async function listPublicJobsByIndustry(industry: string): Promise<PublicJob[]> {
   try {
     const jobs = await jobsCollection();
-    const docs = await jobs.find({ status: "open", industry }).sort({ createdAt: -1 }).toArray();
+    const docs = await jobs.find({ status: "open", industry, ...notExpired() }).sort({ createdAt: -1 }).toArray();
     return docs.map(toPublicJob);
   } catch (e) {
     console.error("[db] listPublicJobsByIndustry failed:", e);
@@ -218,7 +414,8 @@ export async function getPublicJobBySlug(slug: string): Promise<PublicJob | null
   try {
     const jobs = await jobsCollection();
     const doc = await jobs.findOne({ slug });
-    return doc && doc.status === "open" ? toPublicJob(doc) : null;
+    const expired = doc?.expiresAt ? new Date(doc.expiresAt).getTime() <= Date.now() : false;
+    return doc && doc.status === "open" && !expired ? toPublicJob(doc) : null;
   } catch (e) {
     console.error("[db] getPublicJobBySlug failed:", e);
     return null;
@@ -269,6 +466,7 @@ export async function createJob(data: {
   requirements: string[];
   featured?: boolean;
   status?: JobDoc["status"];
+  expiresAt?: Date | null;
   postedByUserId: string | null;
   postedByName: string;
 }) {
@@ -281,6 +479,7 @@ export async function createJob(data: {
   let n = 1;
   while (await jobs.findOne({ slug })) slug = `${base}-${n++}`;
 
+  const { min: salaryMin, max: salaryMax } = parseSalary(data.salary);
   const doc: JobDoc = {
     slug,
     title: data.title.trim(),
@@ -290,11 +489,14 @@ export async function createJob(data: {
     type: data.type,
     remote: data.remote,
     salary: data.salary.trim(),
+    ...(salaryMin !== undefined ? { salaryMin } : {}),
+    ...(salaryMax !== undefined ? { salaryMax } : {}),
     summary: data.summary.trim(),
     responsibilities: data.responsibilities,
     requirements: data.requirements,
     featured: !!data.featured,
     status: data.status ?? "open",
+    ...(data.expiresAt ? { expiresAt: data.expiresAt } : {}),
     postedByUserId: data.postedByUserId,
     postedByName: data.postedByName,
     createdAt: new Date(),
@@ -312,6 +514,12 @@ export async function updateJob(
   const filter: Record<string, unknown> = { slug };
   if (ownerUserId) filter.postedByUserId = ownerUserId;
   if (data.industry) data.industryName = getIndustry(data.industry)?.name ?? data.industry;
+  // Keep derived salary bounds in sync when the salary string changes.
+  if (data.salary !== undefined) {
+    const { min, max } = parseSalary(data.salary);
+    data.salaryMin = min;
+    data.salaryMax = max;
+  }
   const res = await jobs.updateOne(filter, { $set: data });
   return res.matchedCount > 0;
 }
@@ -390,6 +598,58 @@ export async function updateApplicationStatus(id: string, status: ApplicationDoc
   return res.matchedCount > 0;
 }
 
+/**
+ * True if the employer may download the resume file `fileId`: there exists an
+ * application carrying that file whose job is owned by this employer.
+ */
+export async function employerCanAccessResume(employerId: string, fileId: string): Promise<boolean> {
+  const apps = await applicationsCollection();
+  const app = await apps.findOne({ resumeFileId: fileId });
+  if (!app) return false;
+  const jobs = await jobsCollection();
+  const job = await jobs.findOne({ slug: app.jobSlug });
+  return !!job && job.postedByUserId === employerId;
+}
+
+/** ---------- messaging (application-scoped threads) ---------- */
+
+export type ThreadContext = {
+  application: ReturnType<typeof serialize>;
+  seekerId: string | null;
+  employerId: string | null;
+  jobTitle: string;
+};
+
+/**
+ * Load the participants + metadata for an application's message thread, so
+ * callers can authorize the seeker (applicant) and employer (job owner).
+ */
+export async function getThreadContext(applicationId: string): Promise<ThreadContext | null> {
+  const app = await getApplicationById(applicationId);
+  if (!app) return null;
+  const job = await getJobBySlug(app.jobSlug as string);
+  return {
+    application: app,
+    seekerId: (app.applicantUserId as string) ?? null,
+    employerId: (job?.postedByUserId as string) ?? null,
+    jobTitle: (app.jobTitle as string) ?? "",
+  };
+}
+
+export async function listMessages(applicationId: string) {
+  const messages = await messagesCollection();
+  const docs = await messages.find({ applicationId }).sort({ createdAt: 1 }).toArray();
+  return docs.map(serialize);
+}
+
+export async function createMessage(data: Omit<MessageDoc, "_id" | "createdAt">) {
+  await ensureIndexes();
+  const messages = await messagesCollection();
+  const doc: MessageDoc = { ...data, createdAt: new Date() };
+  const res = await messages.insertOne(doc);
+  return serialize({ ...doc, _id: res.insertedId });
+}
+
 /** ---------- contacts ---------- */
 
 export async function createContact(data: Omit<ContactDoc, "_id" | "status" | "createdAt">) {
@@ -415,6 +675,83 @@ export async function markContactRead(id: string) {
 }
 
 /** ---------- stats ---------- */
+
+/** ---------- audit log ---------- */
+
+export async function logAudit(entry: Omit<AuditLogDoc, "_id" | "createdAt">) {
+  try {
+    const audit = await auditLogsCollection();
+    await audit.insertOne({ ...entry, createdAt: new Date() });
+  } catch (e) {
+    console.error("[db] logAudit failed:", e);
+  }
+}
+
+export async function listAuditLogs(limit = 200) {
+  const audit = await auditLogsCollection();
+  const docs = await audit.find({}).sort({ createdAt: -1 }).limit(limit).toArray();
+  return docs.map(serialize);
+}
+
+/** ---------- analytics ---------- */
+
+export type Analytics = {
+  appsByDay: { date: string; count: number }[];
+  appsByStatus: Record<string, number>;
+  jobsByIndustry: { industry: string; count: number }[];
+  topJobs: { title: string; count: number }[];
+};
+
+export async function getAnalytics(days = 14): Promise<Analytics> {
+  const apps = await applicationsCollection();
+  const jobs = await jobsCollection();
+
+  const since = new Date(Date.now() - days * 86_400_000);
+
+  const [dayRows, statusRows, industryRows, topRows] = await Promise.all([
+    apps
+      .aggregate<{ _id: string; count: number }>([
+        { $match: { createdAt: { $gte: since } } },
+        { $group: { _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } }, count: { $sum: 1 } } },
+      ])
+      .toArray(),
+    apps
+      .aggregate<{ _id: string; count: number }>([{ $group: { _id: "$status", count: { $sum: 1 } } }])
+      .toArray(),
+    jobs
+      .aggregate<{ _id: string; count: number }>([
+        { $match: { status: "open" } },
+        { $group: { _id: "$industryName", count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+      ])
+      .toArray(),
+    apps
+      .aggregate<{ _id: string; count: number; title: string }>([
+        { $group: { _id: "$jobSlug", count: { $sum: 1 }, title: { $first: "$jobTitle" } } },
+        { $sort: { count: -1 } },
+        { $limit: 5 },
+      ])
+      .toArray(),
+  ]);
+
+  // Fill a continuous day series so the chart has no gaps.
+  const dayMap = new Map(dayRows.map((r) => [r._id, r.count]));
+  const appsByDay: { date: string; count: number }[] = [];
+  for (let i = days - 1; i >= 0; i--) {
+    const d = new Date(Date.now() - i * 86_400_000).toISOString().slice(0, 10);
+    appsByDay.push({ date: d, count: dayMap.get(d) ?? 0 });
+  }
+
+  const appsByStatus: Record<string, number> = { new: 0, reviewed: 0, shortlisted: 0, rejected: 0 };
+  for (const r of statusRows) appsByStatus[r._id] = r.count;
+
+  return {
+    appsByDay,
+    appsByStatus,
+    jobsByIndustry: industryRows.map((r) => ({ industry: r._id, count: r.count })),
+    topJobs: topRows.map((r) => ({ title: r.title, count: r.count })),
+  };
+}
 
 export async function getAdminStats() {
   const [users, jobs, apps, contacts] = await Promise.all([

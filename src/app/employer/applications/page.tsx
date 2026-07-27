@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { DashHeader, Panel, Table, EmptyState } from "@/components/dashboard/ui";
 import { ApplicationStatusSelect } from "@/components/dashboard/actions";
 import { Icon } from "@/components/ui/icon";
@@ -18,16 +19,20 @@ export default async function EmployerApplications() {
         <EmptyState title="No applications yet" description="Applications to your job postings will appear here." />
       ) : (
         <Panel>
-          <Table head={["Candidate", "Contact", "Role", "Applied", "Status"]}>
+          <Table head={["Candidate", "Contact", "Role", "Applied", "Status", ""]}>
             {apps.map((a) => (
               <tr key={a.id as string}>
                 <td className="px-5 py-3.5">
                   <div className="font-semibold text-ink-900">{a.name as string}</div>
-                  {(a.resumeUrl as string) && (
+                  {(a.resumeFileId as string) ? (
+                    <a href={`/api/files/resume/${a.resumeFileId}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs text-brand-600 hover:underline">
+                      <Icon name="download" className="h-3 w-3" /> Resume
+                    </a>
+                  ) : (a.resumeUrl as string) ? (
                     <a href={a.resumeUrl as string} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs text-brand-600 hover:underline">
                       <Icon name="external-link" className="h-3 w-3" /> Resume
                     </a>
-                  )}
+                  ) : null}
                 </td>
                 <td className="px-5 py-3.5 text-slate-600">
                   <div>{a.email as string}</div>
@@ -36,6 +41,11 @@ export default async function EmployerApplications() {
                 <td className="px-5 py-3.5 text-slate-600">{a.jobTitle as string}</td>
                 <td className="px-5 py-3.5 text-slate-500">{timeAgo(a.createdAt)}</td>
                 <td className="px-5 py-3.5"><ApplicationStatusSelect id={a.id as string} status={a.status as string} /></td>
+                <td className="px-5 py-3.5">
+                  <Link href={`/employer/messages/${a.id}`} className="inline-flex items-center gap-1 text-sm font-semibold text-brand-600 hover:text-brand-700">
+                    <Icon name="message-square" className="h-4 w-4" /> Message
+                  </Link>
+                </td>
               </tr>
             ))}
           </Table>

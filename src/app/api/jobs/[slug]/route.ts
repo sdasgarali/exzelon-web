@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { jobSchema } from "@/lib/validation";
+import { jobSchema, parseExpiryDate } from "@/lib/validation";
 import { requireApiUser } from "@/lib/auth/api-guard";
-import { updateJob, deleteJob, getUserById } from "@/lib/db/repo";
+import { updateJob, deleteJob, getUserById, logAudit } from "@/lib/db/repo";
 
 const toList = (s: string) => s.split("\n").map((x) => x.trim()).filter(Boolean);
 
@@ -49,6 +49,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ slug: st
       responsibilities: toList(data.responsibilities),
       requirements: toList(data.requirements),
       status: data.status ?? "open",
+      expiresAt: parseExpiryDate(data.expiresAt),
       ...(user.role === "admin" ? { featured: !!data.featured } : {}),
       ...(postedByName ? { postedByName } : {}),
     },
@@ -68,5 +69,6 @@ export async function DELETE(_req: Request, { params }: { params: Promise<{ slug
   const ownerScope = user.role === "employer" ? user.id : undefined;
   const ok = await deleteJob(slug, ownerScope);
   if (!ok) return NextResponse.json({ error: "Job not found or not permitted." }, { status: 404 });
+  await logAudit({ actorId: user.id, actorName: user.name, action: "job.delete", target: slug });
   return NextResponse.json({ ok: true });
 }

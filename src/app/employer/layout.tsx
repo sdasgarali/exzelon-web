@@ -9,6 +9,7 @@ const nav: NavItem[] = [
   { label: "My Jobs", href: "/employer/jobs", icon: "briefcase" },
   { label: "Post a Job", href: "/employer/jobs/new", icon: "plus" },
   { label: "Applications", href: "/employer/applications", icon: "inbox" },
+  { label: "Company", href: "/employer/company", icon: "building-2" },
 ];
 
 export default async function EmployerLayout({ children }: { children: React.ReactNode }) {

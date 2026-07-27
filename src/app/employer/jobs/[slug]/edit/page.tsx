@@ -29,6 +29,7 @@ export default async function EmployerEditJob({ params }: { params: Promise<{ sl
           responsibilities: (job.responsibilities as string[]).join("\n"),
           requirements: (job.requirements as string[]).join("\n"),
           status: job.status as never,
+          expiresAt: job.expiresAt ? String(job.expiresAt).slice(0, 10) : "",
         }}
       />
     </>

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { requireApiUser } from "@/lib/auth/api-guard";
-import { updateUserRole, updateUser, setUserPassword, deleteUser } from "@/lib/db/repo";
+import { updateUserRole, updateUser, setUserPassword, deleteUser, getUserById, logAudit } from "@/lib/db/repo";
 import { hashPassword } from "@/lib/auth/password";
 
 const patchSchema = z.object({
@@ -40,6 +40,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     }
     const ok = await updateUserRole(id, data.role);
     if (!ok) return NextResponse.json({ error: "User not found." }, { status: 404 });
+    await logAudit({ actorId: user.id, actorName: user.name, action: "user.role", target: id, detail: `→ ${data.role}` });
   }
 
   // Basic profile fields.
@@ -73,7 +74,14 @@ export async function DELETE(_req: Request, { params }: { params: Promise<{ id: 
     return NextResponse.json({ error: "You can't delete your own account." }, { status: 400 });
   }
 
+  const victim = await getUserById(id);
   const ok = await deleteUser(id);
   if (!ok) return NextResponse.json({ error: "User not found." }, { status: 404 });
+  await logAudit({
+    actorId: user.id,
+    actorName: user.name,
+    action: "user.delete",
+    target: victim?.email ?? id,
+  });
   return NextResponse.json({ ok: true });
 }
