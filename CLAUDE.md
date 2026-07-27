@@ -43,6 +43,28 @@ lucide-react · Inter + Sora fonts.
 - **Demo logins** (from seed): `admin@exzelon.com`/`Admin@12345`, `employer@exzelon.com`/`Employer@123`,
   `seeker@exzelon.com`/`Seeker@12345`. The login page lists these — remove that hint before production.
 
+## Portal features (added on top of the base auth/DB layer)
+- **Auth completeness** — forgot/reset password (`/forgot-password`, `/reset-password`) + email
+  verification (`/verify-email`, resend banner on dashboards). Single-use sha256-hashed tokens in
+  `src/lib/auth/tokens.ts`; flows in `src/lib/auth/email-flows.ts`. `UserDoc` carries
+  `emailVerified` + verify/reset token hashes. Passwords now require a letter + a number.
+- **Transactional email** — `src/lib/notifications.ts`: application-received (seeker), new-applicant
+  (employer), and status-change (seeker) emails. `src/lib/email.ts` gained `to`, `emailLayout`,
+  `emailButton`, `siteBaseUrl`.
+- **Resume upload** — GridFS (`src/lib/db/files.ts`, bucket `resumes`, PDF/DOC/DOCX ≤5MB).
+  `POST/DELETE /api/account/resume`; authorized download `GET /api/files/resume/[id]` (owner seeker /
+  job-owning employer / admin). Profile completeness = uploaded file **or** link. Apply snapshots the file.
+- **Server-side job search** — `searchPublicJobs` (Mongo filter+paginate); `/jobs` is `force-dynamic`
+  and reads `searchParams` (q/loc/industry/type/remote/salaryMin/sort/page). `JobsFilters` (URL-driven)
+  + `JobsPagination`. Structured `salaryMin/Max` derived from the salary string via `src/lib/salary.ts`.
+- **Company profiles + job expiry** — employer `companyProfile` at `/employer/company`
+  (`PUT /api/employer/company`); public `/companies/[id]`. Jobs have optional `expiresAt`; the
+  `notExpired()` clause hides expired roles from every public read.
+- **Admin analytics/audit/export** — `/admin/analytics` (CSS-bar charts via `getAnalytics`), `auditLogs`
+  collection (`logAudit`) surfaced at `/admin/audit`, CSV export `/api/admin/export/{applications,users}`.
+- **In-app messaging** — `messages` collection, `GET/POST /api/applications/[id]/messages` (participant-
+  authorized), `MessageThread` component, threads at `/account/messages/[id]` + `/employer/messages/[id]`.
+
 ## Route groups
 - `(site)/` — marketing pages, owns the public Navbar/Footer.
 - `(auth)/` — `/login`, `/register` (no marketing chrome).

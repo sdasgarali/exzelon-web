@@ -27,7 +27,10 @@ export default async function MyApplications() {
                 <td className="px-5 py-3.5 text-slate-500">{timeAgo(a.createdAt)}</td>
                 <td className="px-5 py-3.5"><StatusBadge status={a.status as string} /></td>
                 <td className="px-5 py-3.5 text-right">
-                  <Link href={`/jobs/${a.jobSlug}`} className="text-sm font-semibold text-brand-600 hover:text-brand-700">View role</Link>
+                  <span className="inline-flex gap-4">
+                    <Link href={`/account/messages/${a.id}`} className="text-sm font-semibold text-brand-600 hover:text-brand-700">Messages</Link>
+                    <Link href={`/jobs/${a.jobSlug}`} className="text-sm font-semibold text-slate-500 hover:text-ink-900">View role</Link>
+                  </span>
                 </td>
               </tr>
             ))}

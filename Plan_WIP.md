@@ -2,8 +2,10 @@
 
 ## SESSION_CONTEXT_RETRIEVAL
 > ACTIVE WORK (2026-07-27): Portal-completion roadmap on branch `feature/portal-completion`.
-> Closing the 7-tier gap analysis, one feature per slice, committing after each. See "Portal
-> Completion Roadmap" below. Currently: starting F1 (auth completeness).
+> ALL 7 FEATURES DONE (F1–F7), each committed with lint+tsc+build green. See "Portal Completion
+> Roadmap" below (all checked). NEXT: open a PR for `feature/portal-completion`; run `npm run db:seed`
+> to backfill salaryMin/Max + emailVerified on existing data; set RESEND_API_KEY + NEXT_PUBLIC_SITE_URL
+> in prod so emails/links resolve. Still pending from before: rotate Mongo password, remove demo-login hint.
 >
 > PRIOR CONTEXT —
 > Rebuilt exzelon.com (source lost) as a modern animated Next.js marketing site + working forms,
@@ -44,7 +46,11 @@
       collection + `logAudit`/`listAuditLogs`, wired into user role/delete, job delete, application
       status; `/admin/audit` viewer; CSV export `/api/admin/export/{applications,users}` (admin-only)
       + export buttons. No chart/CSV deps.
-- [ ] **F7 — In-app messaging**: application-scoped threads employer <-> seeker.
+- [x] **F7 — In-app messaging**: DONE 2026-07-27. `messages` collection + `getThreadContext`/`listMessages`/
+      `createMessage`; `GET/POST /api/applications/[id]/messages` authorized to the applicant (seeker) +
+      job-owning employer (admin read-only); `MessageThread` client component; thread pages
+      `/account/messages/[id]` + `/employer/messages/[id]`; "Message(s)" links from seeker + employer
+      application lists.
 
 Groundwork (inside F1): generalize `lib/email.ts` to accept optional `to`; add `lib/auth/tokens.ts`
 (random token + sha256 + expiry); extend `UserDoc` with emailVerified + verify/reset token fields.

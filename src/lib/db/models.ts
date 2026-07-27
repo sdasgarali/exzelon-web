@@ -83,6 +83,15 @@ export type ContactDoc = {
   createdAt: Date;
 };
 
+export type MessageDoc = {
+  _id?: import("mongodb").ObjectId;
+  applicationId: string; // thread key
+  senderId: string;
+  senderRole: "employer" | "seeker";
+  body: string;
+  createdAt: Date;
+};
+
 export type AuditLogDoc = {
   _id?: import("mongodb").ObjectId;
   actorId: string;
@@ -104,6 +113,7 @@ export const usersCollection = () => collection<UserDoc>("users");
 export const jobsCollection = () => collection<JobDoc>("jobs");
 export const applicationsCollection = () => collection<ApplicationDoc>("applications");
 export const contactsCollection = () => collection<ContactDoc>("contacts");
+export const messagesCollection = () => collection<MessageDoc>("messages");
 export const auditLogsCollection = () => collection<AuditLogDoc>("auditLogs");
 
 /** Ensure indexes exist (idempotent). Safe to call from seed or on first write. */
@@ -123,6 +133,8 @@ export async function ensureIndexes() {
   await contacts.createIndex({ createdAt: -1 });
   const audit = await auditLogsCollection();
   await audit.createIndex({ createdAt: -1 });
+  const messages = await messagesCollection();
+  await messages.createIndex({ applicationId: 1, createdAt: 1 });
 }
 
 /** Serialize a Mongo document to a plain JSON-safe object (ObjectId/Date → string). */

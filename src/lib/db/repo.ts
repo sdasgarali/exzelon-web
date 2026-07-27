@@ -6,6 +6,7 @@ import {
   applicationsCollection,
   contactsCollection,
   auditLogsCollection,
+  messagesCollection,
   ensureIndexes,
   serialize,
   type UserDoc,
@@ -13,6 +14,7 @@ import {
   type ApplicationDoc,
   type ContactDoc,
   type AuditLogDoc,
+  type MessageDoc,
   type SeekerProfile,
 } from "./models";
 import { getIndustry } from "@/content/industries";
@@ -607,6 +609,45 @@ export async function employerCanAccessResume(employerId: string, fileId: string
   const jobs = await jobsCollection();
   const job = await jobs.findOne({ slug: app.jobSlug });
   return !!job && job.postedByUserId === employerId;
+}
+
+/** ---------- messaging (application-scoped threads) ---------- */
+
+export type ThreadContext = {
+  application: ReturnType<typeof serialize>;
+  seekerId: string | null;
+  employerId: string | null;
+  jobTitle: string;
+};
+
+/**
+ * Load the participants + metadata for an application's message thread, so
+ * callers can authorize the seeker (applicant) and employer (job owner).
+ */
+export async function getThreadContext(applicationId: string): Promise<ThreadContext | null> {
+  const app = await getApplicationById(applicationId);
+  if (!app) return null;
+  const job = await getJobBySlug(app.jobSlug as string);
+  return {
+    application: app,
+    seekerId: (app.applicantUserId as string) ?? null,
+    employerId: (job?.postedByUserId as string) ?? null,
+    jobTitle: (app.jobTitle as string) ?? "",
+  };
+}
+
+export async function listMessages(applicationId: string) {
+  const messages = await messagesCollection();
+  const docs = await messages.find({ applicationId }).sort({ createdAt: 1 }).toArray();
+  return docs.map(serialize);
+}
+
+export async function createMessage(data: Omit<MessageDoc, "_id" | "createdAt">) {
+  await ensureIndexes();
+  const messages = await messagesCollection();
+  const doc: MessageDoc = { ...data, createdAt: new Date() };
+  const res = await messages.insertOne(doc);
+  return serialize({ ...doc, _id: res.insertedId });
 }
 
 /** ---------- contacts ---------- */

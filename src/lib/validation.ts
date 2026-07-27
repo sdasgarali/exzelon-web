@@ -98,6 +98,13 @@ export const resetPasswordSchema = z.object({
 });
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
 
+/** ---------- Messaging ---------- */
+
+export const messageSchema = z.object({
+  body: z.string().min(1, "Write a message").max(2000, "Message is too long"),
+});
+export type MessageInput = z.infer<typeof messageSchema>;
+
 /** ---------- Employer company profile ---------- */
 
 export const companySchema = z.object({
