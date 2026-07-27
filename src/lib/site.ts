@@ -9,7 +9,7 @@ export const site = {
     "Exzelon — NextGen Hires connects skilled professionals with careers across healthcare, construction, electrical, tax & legal, and IT — and helps employers hire faster with expert recruitment and staffing.",
   url: "https://www.exzelon.com",
   email: "contactus@exzelon.com",
-  phone: "+1 (872) 358-010",
+  phone: "+1 (872) 358-0100",
   phoneHref: "tel:+18723580100",
   whatsapp: "https://wa.me/18723580100",
   address: {
