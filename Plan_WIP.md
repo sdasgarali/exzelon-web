@@ -1,6 +1,18 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> ANALYTICS PULL API (2026-07-29, PR #13, LIVE): Exzelon now exposes first-party visitor analytics that
+> AccessHub PULLS (push tracker was CORP-blocked). Same-origin VisitorTracker (root layout) → POST
+> /api/analytics/track → Mongo visitorLogs + visitorDailyStats (hashed IP, consent from cookie notice).
+> GET /api/v1/analytics?days=N&source=exz-web (Authorization: Bearer <key>) → { api_key_name, totals,
+> daily[{date,page_views,unique_visitors,consented}], sources[], meta } — exact AccessHub/neuraforz shape.
+> Admin mints keys at /admin/api-keys (raw shown once, sha256-stored; GET/POST /api/admin/api-keys, DELETE
+> /api/admin/api-keys/[id]). Verified live end-to-end (login→mint→track→pull 200 w/ data, 401 w/o key).
+> TO CONNECT in AccessHub → Websites → Connect API: URL https://www.exzelon.com/api/v1/analytics,
+> Source exz-web, API key from /admin/api-keys. Contract confirmed vs accesshub-pro site-pull.ts. Repo:
+> repo.ts recordVisit/getVisitorAnalytics/createAnalyticsApiKey/etc. Design: docs/FEATURE_analytics-pull-api.md.
+>
+
 > SEO/SITEMAP (2026-07-28, PR #9 then PR #10, LIVE): canonical domain = https://www.exzelon.com (WWW —
 > reversed from non-www per user "no add www"). site.url env-driven (NEXT_PUBLIC_SITE_URL ||
 > https://www.exzelon.com); Vercel prod NEXT_PUBLIC_SITE_URL = https://www.exzelon.com. next.config:
