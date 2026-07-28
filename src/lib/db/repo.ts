@@ -888,7 +888,10 @@ export async function createJob(data: {
 }) {
   await ensureIndexes();
   const jobs = await jobsCollection();
-  const industry = getIndustry(data.industry);
+  // Known industry → its canonical slug + name; a custom one → slugified key + the typed name.
+  const known = getIndustry(data.industry);
+  const industrySlug = known ? data.industry : slugify(data.industry) || data.industry.trim();
+  const industryName = known?.name ?? data.industry.trim();
   // unique slug
   const base = slugify(data.title) || "job";
   let slug = base;
@@ -899,8 +902,8 @@ export async function createJob(data: {
   const doc: JobDoc = {
     slug,
     title: data.title.trim(),
-    industry: data.industry,
-    industryName: industry?.name ?? data.industry,
+    industry: industrySlug,
+    industryName,
     location: data.location.trim(),
     type: data.type,
     remote: data.remote,
@@ -929,7 +932,12 @@ export async function updateJob(
   const jobs = await jobsCollection();
   const filter: Record<string, unknown> = { slug };
   if (ownerUserId) filter.postedByUserId = ownerUserId;
-  if (data.industry) data.industryName = getIndustry(data.industry)?.name ?? data.industry;
+  if (data.industry) {
+    const raw = data.industry;
+    const known = getIndustry(raw);
+    data.industry = known ? raw : slugify(raw) || raw.trim();
+    data.industryName = known?.name ?? raw.trim();
+  }
   // Keep derived salary bounds in sync when the salary string changes.
   if (data.salary !== undefined) {
     const { min, max } = parseSalary(data.salary);
