@@ -62,6 +62,17 @@ export default function RootLayout({
           data-source="exz-web"
           strategy="afterInteractive"
         />
+        {/* Google Analytics (GA4) — loads on every page. */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-KMSE0KNWXF"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-KMSE0KNWXF');`}
+        </Script>
       </body>
     </html>
   );
