@@ -1,33 +1,9 @@
-import { DashHeader, StatCard, Panel, Table, EmptyState } from "@/components/dashboard/ui";
+import { DashHeader, StatCard } from "@/components/dashboard/ui";
+import { ConsentTable } from "@/components/dashboard/consent-table";
+import { Icon } from "@/components/ui/icon";
 import { getConsentSummary, listConsentedVisitors } from "@/lib/db/repo";
 
 export const dynamic = "force-dynamic";
-
-function fmt(iso: string | null) {
-  if (!iso) return "—";
-  return new Date(iso).toLocaleString(undefined, {
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-
-const dash = <span className="text-slate-400">—</span>;
-
-function location(v: { city: string | null; country: string | null }) {
-  const parts = [v.city, v.country].filter(Boolean);
-  return parts.length ? parts.join(", ") : null;
-}
-
-function referrerHost(referrer: string | null) {
-  if (!referrer) return null;
-  try {
-    return new URL(referrer).hostname.replace(/^www\./, "");
-  } catch {
-    return referrer.slice(0, 40);
-  }
-}
 
 /** Admin view of visitors who accepted the cookie banner (+ any name/email they left). */
 export default async function AdminConsentPage() {
@@ -38,6 +14,17 @@ export default async function AdminConsentPage() {
       <DashHeader
         title="Cookie Consent"
         subtitle="Visitors who accepted cookies, and the optional contact details they shared."
+        action={
+          visitors.length > 0 ? (
+            <a
+              href="/api/admin/export/consent"
+              className="inline-flex items-center gap-2 rounded-xl border border-sand-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-brand-300 hover:text-brand-700"
+            >
+              <Icon name="download" className="h-4 w-4" />
+              Export CSV
+            </a>
+          ) : undefined
+        }
       />
 
       <div className="mb-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -47,53 +34,7 @@ export default async function AdminConsentPage() {
         <StatCard label="Consent rate" value={`${summary.consentRate}%`} icon="badge-check" tone="amber" />
       </div>
 
-      {visitors.length === 0 ? (
-        <EmptyState
-          icon="shield-check"
-          title="No consents yet"
-          description="When visitors accept the cookie banner, they'll appear here — with any name/email they choose to share."
-        />
-      ) : (
-        <Panel>
-          <Table head={["Name", "Email", "Location", "Device", "Referrer", "Visits", "Consented"]}>
-            {visitors.map((v) => {
-              const loc = location(v);
-              const device = [v.browser, v.os].filter(Boolean).join(" · ");
-              const ref = referrerHost(v.referrer);
-              return (
-                <tr key={v.id} className="text-slate-700">
-                  <td className="px-5 py-3.5 font-medium text-ink-900">{v.name || dash}</td>
-                  <td className="px-5 py-3.5">
-                    {v.email ? (
-                      <a href={`mailto:${v.email}`} className="text-brand-600 hover:underline">{v.email}</a>
-                    ) : (
-                      dash
-                    )}
-                  </td>
-                  <td className="px-5 py-3.5 text-sm">{loc || dash}</td>
-                  <td className="px-5 py-3.5 text-sm">
-                    {device ? (
-                      <span className="flex items-center gap-1.5">
-                        {device}
-                        {v.deviceType && (
-                          <span className="rounded bg-sand-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-slate-500">
-                            {v.deviceType}
-                          </span>
-                        )}
-                      </span>
-                    ) : (
-                      dash
-                    )}
-                  </td>
-                  <td className="px-5 py-3.5 text-sm">{ref ?? <span className="text-slate-400">Direct</span>}</td>
-                  <td className="px-5 py-3.5">{v.visitCount}</td>
-                  <td className="px-5 py-3.5 text-sm">{fmt(v.consentedAt)}</td>
-                </tr>
-              );
-            })}
-          </Table>
-        </Panel>
-      )}
+      <ConsentTable initial={visitors} />
     </div>
   );
 }

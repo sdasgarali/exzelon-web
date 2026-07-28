@@ -435,6 +435,17 @@ export async function listConsentedVisitors(limit = 500) {
   }));
 }
 
+/** Delete a visitor log (used to clear a consent row). Returns the doc's contact for the audit. */
+export async function deleteVisitorLog(id: string): Promise<{ name?: string; email?: string } | null> {
+  const _id = oid(id);
+  if (!_id) return null;
+  const logs = await visitorLogsCollection();
+  const doc = await logs.findOne({ _id });
+  if (!doc) return null;
+  await logs.deleteOne({ _id });
+  return { name: doc.visitorName, email: doc.visitorEmail };
+}
+
 /** Summary counters for the Cookie Consent header. */
 export async function getConsentSummary() {
   const logs = await visitorLogsCollection();
