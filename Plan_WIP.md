@@ -1,6 +1,17 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> RESUME STORAGE ON BACKBLAZE B2 (2026-07-28, PR #5 438c1ca, LIVE): resumes moved off GridFS to a
+> PRIVATE B2 bucket "29959k" via B2's NATIVE API (src/lib/storage/b2.ts) — chosen because B2's
+> S3-compatible API rejects the master key (user opted to use the master key). Upload through API →
+> b2_get_upload_url; download = 302 to a 60s prefix-scoped b2_get_download_authorization URL on
+> f005.backblazeb2.com; delete via list+delete_file_version. Legacy 24-hex GridFS ids still stream
+> (fallback). Vercel prod env set: B2_KEY_ID / B2_APPLICATION_KEY / B2_BUCKET. Verified live end-to-end
+> (login seeker → upload 200 → download 302→200 pdf → delete 200 → 403). Design: docs/FEATURE_b2-resume-storage.md.
+> ⚠️ SECURITY: using the B2 MASTER key (per user). It was shared in chat → regenerate later + ideally
+> switch to a bucket-scoped key. Master key now in local .env.local (gitignored) + Vercel.
+>
+
 > IN PROGRESS (2026-07-28): Registration is now OTP-GATED — no account created until the emailed code
 > is confirmed. Register → pendingRegistrations collection (unique email + 1h TTL) + signed exz_pending
 > cookie (lib/auth/pending.ts) + signup OTP email; redirect to /verify-account. complete-registration
