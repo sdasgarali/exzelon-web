@@ -1,6 +1,15 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> COOKIE NOTICE + ACCESSHUB TRACKING (2026-07-28, PR #7 3c53dc5, LIVE): root layout.tsx loads
+> AccessHub tracker <Script src="https://accesshub.neuraforz.com/api/track.js" data-source="exz-web"
+> afterInteractive> on ALL pages. Informational cookie banner (components/cookie-notice.tsx) — first-
+> party cookie exz_cookie_notice=1 remembers dismissal; re-open via footer "Cookie notice" link
+> (exz:open-cookie-notice event). Tracker ALWAYS loads (banner informational, per decision), not
+> consent-gated (can upgrade later). Verified live (track.js in HTML + data-source=exz-web). Resume
+> upload cap now 2MB (PR #6). Design: docs/FEATURE_cookie-notice-tracking.md.
+>
+
 > RESUME STORAGE ON BACKBLAZE B2 (2026-07-28, PR #5 438c1ca, LIVE): resumes moved off GridFS to a
 > PRIVATE B2 bucket "29959k" via B2's NATIVE API (src/lib/storage/b2.ts) — chosen because B2's
 > S3-compatible API rejects the master key (user opted to use the master key). Upload through API →
