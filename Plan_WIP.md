@@ -1,6 +1,12 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> VISITOR ENRICHMENT (2026-07-29, PR #15, LIVE): each visitor now auto-captures location (country/city/
+> region via Vercel x-vercel-ip-* edge headers), device (browser/os/deviceType via lib/user-agent.ts),
+> referrer + landingPage, language (Accept-Language) — set once via $setOnInsert in recordVisit. Admin
+> Cookie Consent table shows Location/Device/Referrer columns. Verified live. Two TEST rows in prod
+> consent data: "QA Test Lead"/qa-test@example.com + "Enrich QA"/enrich-qa@example.com (no delete UI yet).
+>
 > COOKIE CONSENT + LEADS (2026-07-29, PR #14, LIVE): cookie banner now Accept/Decline + optional
 > name/email → POST /api/analytics/consent → recordConsent (sets consentStatus, visitorName/Email,
 > consentedAt on visitorLogs; daily consentedCount++). Admin /admin/consent ("Cookie Consent" nav)
