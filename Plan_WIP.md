@@ -1,6 +1,15 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> SEO/SITEMAP (2026-07-28, PR #9, LIVE): canonical domain = https://exzelon.com (NO www). site.url now
+> env-driven (NEXT_PUBLIC_SITE_URL || https://exzelon.com); Vercel prod NEXT_PUBLIC_SITE_URL set to
+> https://exzelon.com. next.config: permanent www→non-www redirect (verified 308). sitemap.ts now async
+> + DB-driven (listPublicJobs, open/non-expired, id=slug), revalidate=3600. Verified: robots + all 34
+> sitemap URLs use exzelon.com; 14 job URLs from DB. Google verification file public/google449fdb1233c51045.html
+> live (PR #8). NEXT for user: register GSC property https://exzelon.com (URL-prefix), verify, submit
+> sitemap.xml. Google file method needs the URL-prefix property (not Domain/DNS).
+>
+
 > COOKIE NOTICE + ACCESSHUB TRACKING (2026-07-28, PR #7 3c53dc5, LIVE): root layout.tsx loads
 > AccessHub tracker <Script src="https://accesshub.neuraforz.com/api/track.js" data-source="exz-web"
 > afterInteractive> on ALL pages. Informational cookie banner (components/cookie-notice.tsx) — first-
