@@ -2,12 +2,14 @@ import { NextResponse } from "next/server";
 import { requireApiUser } from "@/lib/auth/api-guard";
 import { rateLimit, clientIp } from "@/lib/rate-limit";
 import { getUserById, updateProfileFields, clearResumeFileFields } from "@/lib/db/repo";
-import {
-  uploadResume,
-  deleteResume,
-  MAX_RESUME_BYTES,
-  ALLOWED_RESUME_TYPES,
-} from "@/lib/db/files";
+import { deleteResume as deleteGridfsResume, MAX_RESUME_BYTES, ALLOWED_RESUME_TYPES } from "@/lib/db/files";
+import { uploadResumeToB2, deleteResumeFromB2, isB2Configured, isLegacyGridfsId } from "@/lib/storage/b2";
+
+/** Delete a stored resume regardless of backend (new B2 key or legacy GridFS id). */
+async function deleteStoredResume(id: string) {
+  if (isLegacyGridfsId(id)) return deleteGridfsResume(id);
+  return deleteResumeFromB2(id);
+}
 
 /** Upload (or replace) the signed-in seeker's resume file. */
 export async function POST(req: Request) {
@@ -18,6 +20,13 @@ export async function POST(req: Request) {
 
   const guard = await requireApiUser(["seeker"]);
   if ("error" in guard) return guard.error;
+
+  if (!isB2Configured()) {
+    return NextResponse.json(
+      { error: "Resume storage is not configured. Please try again later." },
+      { status: 503 }
+    );
+  }
 
   let form: FormData;
   try {
@@ -46,15 +55,15 @@ export async function POST(req: Request) {
   const user = await getUserById(guard.user.id);
   const oldFileId = user?.profile?.resumeFileId;
 
-  const fileId = await uploadResume(buffer, {
+  const fileId = await uploadResumeToB2(buffer, {
     filename: safeName,
     contentType: file.type,
     ownerUserId: guard.user.id,
   });
   await updateProfileFields(guard.user.id, { resumeFileId: fileId, resumeFileName: safeName });
 
-  // Clean up the previous file after the new one is committed.
-  if (oldFileId && oldFileId !== fileId) await deleteResume(oldFileId);
+  // Clean up the previous file after the new one is committed (handles legacy GridFS too).
+  if (oldFileId && oldFileId !== fileId) await deleteStoredResume(oldFileId);
 
   return NextResponse.json({ ok: true, fileId, fileName: safeName });
 }
@@ -67,7 +76,7 @@ export async function DELETE() {
   const user = await getUserById(guard.user.id);
   const fileId = user?.profile?.resumeFileId;
   if (fileId) {
-    await deleteResume(fileId);
+    await deleteStoredResume(fileId);
     await clearResumeFileFields(guard.user.id);
   }
   return NextResponse.json({ ok: true });
