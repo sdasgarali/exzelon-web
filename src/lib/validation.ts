@@ -138,7 +138,8 @@ export type CompanyInput = z.infer<typeof companySchema>;
 
 export const jobSchema = z.object({
   title: z.string().min(3, "Title is required").max(120),
-  industry: z.enum(["healthcare", "construction", "electrical", "tax-legal", "it"]),
+  // Existing industry slug OR a custom industry name an admin adds — not capped to a fixed set.
+  industry: z.string().trim().min(2, "Select or enter an industry").max(60),
   location: z.string().min(2, "Location is required").max(120),
   type: z.enum(["Full-time", "Contract", "Travel", "Part-time", "Temp-to-hire"]),
   remote: z.enum(["On-site", "Hybrid", "Remote"]),

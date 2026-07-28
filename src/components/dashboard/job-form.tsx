@@ -8,8 +8,10 @@ import { jobSchema, type JobInput } from "@/lib/validation";
 import { Input, Textarea, Select, Label, FieldError } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
-import { industries } from "@/content/industries";
+import { industries, getIndustry } from "@/content/industries";
 import { jobTypes, workModes } from "@/content/jobs";
+
+const CUSTOM_INDUSTRY = "__other__";
 
 export type JobFormValues = Partial<JobInput> & { slug?: string };
 
@@ -31,6 +33,18 @@ export function JobForm({
   const [serverError, setServerError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
+  // A job may already carry a custom industry (not in the static list) — surface it on edit.
+  const initialCustomIndustry =
+    initial?.industry && !getIndustry(initial.industry) ? initial.industry : "";
+  const [customIndustry, setCustomIndustry] = useState(initialCustomIndustry);
+  const [industryError, setIndustryError] = useState<string | null>(null);
+
+  const defaultIndustry = initial?.industry
+    ? getIndustry(initial.industry)
+      ? initial.industry
+      : CUSTOM_INDUSTRY
+    : "healthcare";
+
   const {
     register,
     handleSubmit,
@@ -38,16 +52,33 @@ export function JobForm({
   } = useForm<JobInput>({
     resolver: zodResolver(jobSchema),
     defaultValues: {
-      industry: "healthcare",
       type: "Full-time",
       remote: "On-site",
       status: "open",
       featured: false,
       ...initial,
+      industry: defaultIndustry,
     },
   });
 
+  // Admins can add a brand-new industry; the "add" option also appears when editing a custom one.
+  const showAddIndustry = isAdmin || !!initialCustomIndustry;
+  const [industrySel, setIndustrySel] = useState(defaultIndustry);
+  const isCustomIndustry = industrySel === CUSTOM_INDUSTRY;
+  const industryReg = register("industry");
+
   const onSubmit = async (data: JobInput) => {
+    // Resolve the "add new industry" choice into the typed value.
+    let industry = data.industry;
+    if (industry === CUSTOM_INDUSTRY) {
+      const custom = customIndustry.trim();
+      if (custom.length < 2) {
+        setIndustryError("Enter an industry name (2+ characters).");
+        return;
+      }
+      industry = custom;
+    }
+    setIndustryError(null);
     setPending(true);
     setServerError(null);
     try {
@@ -56,7 +87,7 @@ export function JobForm({
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, industry }),
       });
       const body = await res.json();
       if (!res.ok) throw new Error(body?.error ?? "Something went wrong");
@@ -81,11 +112,30 @@ export function JobForm({
           <div className="grid gap-5 sm:grid-cols-2">
             <div>
               <Label htmlFor="industry" required>Industry</Label>
-              <Select id="industry" {...register("industry")}>
+              <Select
+                id="industry"
+                {...industryReg}
+                onChange={(e) => {
+                  industryReg.onChange(e);
+                  setIndustrySel(e.target.value);
+                }}
+              >
                 {industries.map((i) => (
                   <option key={i.slug} value={i.slug}>{i.name}</option>
                 ))}
+                {showAddIndustry && <option value={CUSTOM_INDUSTRY}>+ Add new industry…</option>}
               </Select>
+              {isCustomIndustry && (
+                <div className="mt-2">
+                  <Input
+                    aria-label="New industry name"
+                    placeholder="New industry (e.g. Marketing)"
+                    value={customIndustry}
+                    onChange={(e) => setCustomIndustry(e.target.value)}
+                  />
+                  <FieldError message={industryError ?? undefined} />
+                </div>
+              )}
             </div>
             <div>
               <Label htmlFor="location" required>Location</Label>
