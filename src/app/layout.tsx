@@ -56,7 +56,17 @@ export default function RootLayout({
         />
         {children}
         <CookieNotice />
-        {/* AccessHub site analytics (Neuraforz) — loads on every page. */}
+        {/* AccessHub site analytics (Neuraforz) — loads on every page.
+            Frameworks must set window.AHP_TRACK_SOURCE/BASE because next/script injects the
+            tag dynamically, so track.js's `document.currentScript` (how it reads data-source)
+            is null. NOTE: the tracker only loads once accesshub.neuraforz.com serves track.js
+            with `Cross-Origin-Resource-Policy: cross-origin` (currently `same-origin` → blocked). */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "window.AHP_TRACK_SOURCE='exz-web';window.AHP_TRACK_BASE='https://accesshub.neuraforz.com/api';",
+          }}
+        />
         <Script
           src="https://accesshub.neuraforz.com/api/track.js"
           data-source="exz-web"
