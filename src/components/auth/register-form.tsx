@@ -39,15 +39,14 @@ export function RegisterForm() {
       });
       const body = await res.json();
       if (!res.ok) throw new Error(body?.error ?? "Registration failed");
+      // No account exists yet — the user must confirm the emailed code first.
+      // Carry `next` through so we can land them on the right page after verifying.
       const safeNext = next && next.startsWith("/") ? next : null;
-      let dest: string;
-      if (body.user.role === "seeker") {
-        // New candidates finish their profile first (carry `next` back to the job).
-        dest = safeNext ? `/account/profile?next=${encodeURIComponent(safeNext)}` : "/account/profile";
-      } else {
-        dest = safeNext ?? "/employer";
-      }
-      router.push(dest);
+      const params = new URLSearchParams();
+      if (body.email) params.set("email", body.email);
+      if (safeNext) params.set("next", safeNext);
+      const qs = params.toString();
+      router.push(`/verify-account${qs ? `?${qs}` : ""}`);
       router.refresh();
     } catch (err) {
       setServerError(err instanceof Error ? err.message : "Registration failed");

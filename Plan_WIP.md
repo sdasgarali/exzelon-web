@@ -1,7 +1,16 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
-> LIVE (2026-07-28): OTP email verification shipped (PR #3, ef43774) + deployed. Verify email now
+> IN PROGRESS (2026-07-28): Registration is now OTP-GATED — no account created until the emailed code
+> is confirmed. Register → pendingRegistrations collection (unique email + 1h TTL) + signed exz_pending
+> cookie (lib/auth/pending.ts) + signup OTP email; redirect to /verify-account. complete-registration
+> confirms OTP → createUser(emailVerified:true) + session. resend-registration reissues. Build+lint+tsc
+> green; NOT yet committed/deployed at time of writing. Design: docs/FEATURE_otp-verification.md.
+> ⚠️ EMAIL DELIVERY BLOCKER: Resend from = onboarding@resend.dev only delivers to the Resend account
+> owner's own email. To send to real users, verify a domain in Resend + set CONTACT_FROM_EMAIL. User
+> chose to defer domain verification and test with the account-owner email for now.
+>
+> PRIOR — OTP email verification shipped (PR #3, ef43774) + deployed. Verify email now
 > carries BOTH a 6-digit code (15-min TTL, hashed, session-scoped via /api/auth/verify-email `{otp}`)
 > AND the existing magic link. Banner has an "Enter code →" link to /verify-email. Forgot-PASSWORD
 > flow already existed — unchanged. Design: docs/FEATURE_otp-verification.md. Post-signup flow kept

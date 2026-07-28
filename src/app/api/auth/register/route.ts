@@ -1,11 +1,17 @@
 import { NextResponse } from "next/server";
 import { registerSchema } from "@/lib/validation";
-import { getUserByEmail, createUser } from "@/lib/db/repo";
+import { getUserByEmail, upsertPendingRegistration } from "@/lib/db/repo";
 import { hashPassword } from "@/lib/auth/password";
-import { createSessionCookie } from "@/lib/auth/session";
+import { createOtp, VERIFY_OTP_TTL_MS } from "@/lib/auth/tokens";
+import { createPendingCookie } from "@/lib/auth/pending";
 import { rateLimit, clientIp } from "@/lib/rate-limit";
-import { issueAndSendVerification } from "@/lib/auth/email-flows";
+import { sendRegistrationOtpEmail } from "@/lib/auth/email-flows";
 
+/**
+ * Registration is OTP-gated: this does NOT create an account. It holds the signup in
+ * escrow (pendingRegistrations) and emails a 6-digit code. The account is only created
+ * once the code is confirmed at POST /api/auth/complete-registration.
+ */
 export async function POST(req: Request) {
   const ip = clientIp(req.headers);
   if (!rateLimit(`register:${ip}`, 6, 60_000).ok) {
@@ -34,22 +40,24 @@ export async function POST(req: Request) {
   }
 
   const passwordHash = await hashPassword(data.password);
-  const user = await createUser({
+  const otp = createOtp(VERIFY_OTP_TTL_MS);
+  const pendingId = await upsertPendingRegistration({
     name: data.name,
     email: data.email,
     passwordHash,
     role: data.role,
     company: data.role === "employer" ? data.company || undefined : undefined,
+    otpHash: otp.hash,
+    otpExpires: otp.expires,
   });
 
-  // Fire off an email-verification link (best-effort — never blocks signup).
+  // Deliver the code (best-effort — never leaks whether the mailbox exists).
   try {
-    await issueAndSendVerification(String(user._id), user.name, user.email);
+    await sendRegistrationOtpEmail(data.email, data.name, otp.code);
   } catch (err) {
-    console.error("[register] verification email failed:", err);
+    console.error("[register] signup OTP email failed:", err);
   }
 
-  const sessionUser = { id: String(user._id), name: user.name, email: user.email, role: user.role };
-  await createSessionCookie(sessionUser);
-  return NextResponse.json({ ok: true, user: sessionUser });
+  await createPendingCookie(pendingId);
+  return NextResponse.json({ ok: true, email: data.email });
 }
