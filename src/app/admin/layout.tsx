@@ -12,6 +12,7 @@ const nav: NavItem[] = [
   { label: "Messages", href: "/admin/messages", icon: "message-circle" },
   { label: "Users", href: "/admin/users", icon: "users" },
   { label: "Audit log", href: "/admin/audit", icon: "shield-check" },
+  { label: "Analytics API", href: "/admin/api-keys", icon: "code" },
 ];
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {

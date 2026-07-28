@@ -1,5 +1,6 @@
 import "server-only";
 import { ObjectId } from "mongodb";
+import { createHash, randomBytes } from "crypto";
 import {
   usersCollection,
   jobsCollection,
@@ -8,10 +9,15 @@ import {
   auditLogsCollection,
   messagesCollection,
   pendingRegistrationsCollection,
+  visitorLogsCollection,
+  visitorDailyStatsCollection,
+  analyticsApiKeysCollection,
   ensureIndexes,
   serialize,
   type UserDoc,
   type PendingRegistrationDoc,
+  type AnalyticsApiKeyDoc,
+  type VisitorLogDoc,
   type JobDoc,
   type ApplicationDoc,
   type ContactDoc,
@@ -260,6 +266,176 @@ export async function deletePendingRegistration(id: string) {
   const pending = await pendingRegistrationsCollection();
   const res = await pending.deleteOne({ _id });
   return res.deletedCount > 0;
+}
+
+/** ---------- first-party visitor analytics ---------- */
+
+const sha256 = (s: string) => createHash("sha256").update(s).digest("hex");
+const utcDay = (d = new Date()) => d.toISOString().slice(0, 10);
+
+/**
+ * Record a page view: upsert the (sessionId, source) visitor log and bump the
+ * (day, source) daily counters. Never throws — a tracking beacon must not break a page.
+ */
+export async function recordVisit(input: {
+  sessionId: string;
+  source: string;
+  path?: string;
+  ipHash?: string;
+  userAgent?: string;
+  consent: boolean;
+}): Promise<void> {
+  try {
+    await ensureIndexes();
+    const source = (input.source || "exz-web").slice(0, 60);
+    const logs = await visitorLogsCollection();
+    const daily = await visitorDailyStatsCollection();
+    const now = new Date();
+    const day = utcDay(now);
+
+    const existing = await logs.findOne({ sessionId: input.sessionId, source });
+    const isNew = !existing;
+    const wasConsented = existing?.consentStatus === "accepted";
+    const newlyConsented = input.consent && !wasConsented;
+    const consentStatus: VisitorLogDoc["consentStatus"] = input.consent
+      ? "accepted"
+      : existing?.consentStatus ?? "pending";
+
+    await logs.updateOne(
+      { sessionId: input.sessionId, source },
+      {
+        $set: {
+          pagePath: (input.path || "/").slice(0, 300),
+          consentStatus,
+          lastSeenAt: now,
+          ...(input.ipHash ? { ipHash: input.ipHash } : {}),
+          ...(input.userAgent ? { userAgent: input.userAgent.slice(0, 400) } : {}),
+        },
+        $inc: { visitCount: 1 },
+        $setOnInsert: { firstSeenAt: now },
+      },
+      { upsert: true }
+    );
+
+    await daily.updateOne(
+      { day, source },
+      {
+        $inc: {
+          totalVisits: 1,
+          uniqueVisitors: isNew ? 1 : 0,
+          consentedCount: newlyConsented ? 1 : 0,
+        },
+      },
+      { upsert: true }
+    );
+  } catch (e) {
+    console.error("[analytics] recordVisit failed:", e);
+  }
+}
+
+/** Build the analytics payload (neuraforz-compatible) for the public pull API. */
+export async function getVisitorAnalytics(params: { days: number; source?: string }) {
+  const days = Math.min(Math.max(Math.floor(params.days) || 30, 1), 90);
+  const daily = await visitorDailyStatsCollection();
+  const logs = await visitorLogsCollection();
+  const today = utcDay();
+  const cutoff = utcDay(new Date(Date.now() - (days - 1) * 86_400_000));
+
+  const match: Record<string, unknown> = { day: { $gte: cutoff } };
+  if (params.source) match.source = params.source;
+  const rows = await daily.find(match).sort({ day: -1 }).toArray();
+
+  const logFilter: Record<string, unknown> = {};
+  if (params.source) logFilter.source = params.source;
+  const [allTimeVisitors, consentedUsers] = await Promise.all([
+    logs.countDocuments(logFilter),
+    logs.countDocuments({ ...logFilter, consentStatus: "accepted" }),
+  ]);
+
+  let todayPv = 0;
+  let todayUnique = 0;
+  const bySource = new Map<string, number>();
+  for (const r of rows) {
+    if (r.day === today) {
+      todayPv += r.totalVisits;
+      todayUnique += r.uniqueVisitors;
+    }
+    bySource.set(r.source, (bySource.get(r.source) ?? 0) + r.totalVisits);
+  }
+
+  return {
+    totals: {
+      all_time_visitors: allTimeVisitors,
+      today_unique: todayUnique,
+      today_pageviews: todayPv,
+      consented_users: consentedUsers,
+    },
+    daily: rows.map((r) => ({
+      date: r.day,
+      source: r.source,
+      page_views: r.totalVisits,
+      unique_visitors: r.uniqueVisitors,
+      consented: r.consentedCount,
+    })),
+    sources: [...bySource.entries()]
+      .map(([source, count]) => ({ source, count }))
+      .sort((a, b) => b.count - a.count),
+    meta: { period_days: days },
+  };
+}
+
+/** ---------- analytics API keys (for AccessHub pull) ---------- */
+
+type PublicApiKey = { id: string; name: string; keyPreview: string; active: boolean; createdAt: string; lastUsedAt?: string };
+
+function publicApiKey(doc: AnalyticsApiKeyDoc & { _id?: ObjectId }): PublicApiKey {
+  return {
+    id: String(doc._id),
+    name: doc.name,
+    keyPreview: doc.keyPreview,
+    active: doc.active,
+    createdAt: doc.createdAt.toISOString(),
+    ...(doc.lastUsedAt ? { lastUsedAt: doc.lastUsedAt.toISOString() } : {}),
+  };
+}
+
+/** Mint a new API key. Returns the raw key ONCE — only its hash is stored. */
+export async function createAnalyticsApiKey(name: string) {
+  await ensureIndexes();
+  const rawKey = "exz_" + randomBytes(32).toString("hex");
+  const doc: AnalyticsApiKeyDoc = {
+    name: (name || "").trim().slice(0, 80) || "API key",
+    keyHash: sha256(rawKey),
+    keyPreview: rawKey.slice(0, 12) + "…",
+    active: true,
+    createdAt: new Date(),
+  };
+  const col = await analyticsApiKeysCollection();
+  const res = await col.insertOne(doc);
+  return { rawKey, key: publicApiKey({ ...doc, _id: res.insertedId }) };
+}
+
+export async function listAnalyticsApiKeys(): Promise<PublicApiKey[]> {
+  const col = await analyticsApiKeysCollection();
+  const docs = await col.find({}).sort({ createdAt: -1 }).toArray();
+  return docs.map(publicApiKey);
+}
+
+export async function revokeAnalyticsApiKey(id: string) {
+  const _id = oid(id);
+  if (!_id) return false;
+  const col = await analyticsApiKeysCollection();
+  const res = await col.updateOne({ _id }, { $set: { active: false } });
+  return res.matchedCount > 0;
+}
+
+/** Validate a raw key from an Authorization header; returns the key name or null. */
+export async function validateAnalyticsApiKey(rawKey: string): Promise<{ name: string } | null> {
+  const col = await analyticsApiKeysCollection();
+  const doc = await col.findOne({ keyHash: sha256(rawKey), active: true });
+  if (!doc) return null;
+  void col.updateOne({ _id: doc._id }, { $set: { lastUsedAt: new Date() } }).catch(() => {});
+  return { name: doc.name };
 }
 
 /** Store a hashed reset token + expiry, looked up by email. Returns the user (or null). */

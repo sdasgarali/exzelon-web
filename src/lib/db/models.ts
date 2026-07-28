@@ -104,6 +104,43 @@ export type AuditLogDoc = {
   createdAt: Date;
 };
 
+/** ---------- first-party visitor analytics (AccessHub-pullable) ---------- */
+
+/** One row per (sessionId, source): a returning visitor's rolling record. */
+export type VisitorLogDoc = {
+  _id?: import("mongodb").ObjectId;
+  sessionId: string;
+  source: string; // e.g. "exz-web"
+  pagePath?: string;
+  ipHash?: string; // sha256(ip).slice(0,16) — no raw IPs
+  userAgent?: string;
+  consentStatus: "pending" | "accepted" | "declined";
+  visitCount: number;
+  firstSeenAt: Date;
+  lastSeenAt: Date;
+};
+
+/** One row per (day, source): pre-aggregated daily counters for fast API reads. */
+export type VisitorDailyStatDoc = {
+  _id?: import("mongodb").ObjectId;
+  day: string; // 'YYYY-MM-DD' (UTC)
+  source: string;
+  totalVisits: number;
+  uniqueVisitors: number;
+  consentedCount: number;
+};
+
+/** An API key that lets an external system (AccessHub) pull /api/v1/analytics. */
+export type AnalyticsApiKeyDoc = {
+  _id?: import("mongodb").ObjectId;
+  name: string;
+  keyHash: string; // sha256 of the raw key (raw shown once, never stored)
+  keyPreview: string; // e.g. "exz_1a2b3c4d…"
+  active: boolean;
+  createdAt: Date;
+  lastUsedAt?: Date;
+};
+
 /**
  * A signup held in escrow until its email OTP is confirmed. No `users` row exists
  * until verification succeeds — so an unverified email never becomes an account.
@@ -136,6 +173,11 @@ export const messagesCollection = () => collection<MessageDoc>("messages");
 export const auditLogsCollection = () => collection<AuditLogDoc>("auditLogs");
 export const pendingRegistrationsCollection = () =>
   collection<PendingRegistrationDoc>("pendingRegistrations");
+export const visitorLogsCollection = () => collection<VisitorLogDoc>("visitorLogs");
+export const visitorDailyStatsCollection = () =>
+  collection<VisitorDailyStatDoc>("visitorDailyStats");
+export const analyticsApiKeysCollection = () =>
+  collection<AnalyticsApiKeyDoc>("analyticsApiKeys");
 
 /** Ensure indexes exist (idempotent). Safe to call from seed or on first write. */
 export async function ensureIndexes() {
@@ -160,6 +202,12 @@ export async function ensureIndexes() {
   await pending.createIndex({ email: 1 }, { unique: true });
   // TTL: sweep abandoned signups an hour after they were started.
   await pending.createIndex({ createdAt: 1 }, { expireAfterSeconds: 3600 });
+  const vlogs = await visitorLogsCollection();
+  await vlogs.createIndex({ sessionId: 1, source: 1 }, { unique: true });
+  const vdaily = await visitorDailyStatsCollection();
+  await vdaily.createIndex({ day: 1, source: 1 }, { unique: true });
+  const apiKeys = await analyticsApiKeysCollection();
+  await apiKeys.createIndex({ keyHash: 1 }, { unique: true });
 }
 
 /** Serialize a Mongo document to a plain JSON-safe object (ObjectId/Date → string). */
