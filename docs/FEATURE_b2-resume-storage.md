@@ -1,27 +1,28 @@
 # Feature — Resume storage on Backblaze B2
 
-Move resume file storage off MongoDB GridFS onto **Backblaze B2** (S3-compatible API).
-Accepted types unchanged (PDF / DOC / DOCX, ≤5MB). Bucket is **private**; downloads are
-served as short-lived **presigned URLs**.
+Move resume file storage off MongoDB GridFS onto **Backblaze B2** via its **native API**
+(chosen so the master application key works — B2's S3-compatible API rejects the master key).
+Accepted types unchanged (PDF / DOC / DOCX, ≤5MB). Bucket is **private**; downloads are served as
+short-lived **authorized URLs**.
 
 ## Why
 Keep large binaries out of the app DB; offload download bandwidth from the Vercel function
-(presigned URL → browser fetches straight from B2, sidestepping the ~4.5MB function response path).
+(authorized URL → browser fetches straight from B2, sidestepping the ~4.5MB function response path).
 
 ## Config (env — secrets only in .env.local / Vercel)
-- `B2_KEY_ID`, `B2_APPLICATION_KEY` — a **bucket-scoped** application key (listFiles, readFiles,
-  writeFiles, deleteFiles, shareFiles). **Not** the master key.
-- `B2_BUCKET` — private bucket name.
-- `B2_REGION` — e.g. `us-west-004`.
-- `B2_ENDPOINT` — optional; defaults to `https://s3.<region>.backblazeb2.com`.
+- `B2_KEY_ID`, `B2_APPLICATION_KEY` — application key id + secret. **Master key is accepted** by the
+  native API. Bucket must be private.
+- `B2_BUCKET` — private bucket name. (No region/endpoint — `b2_authorize_account` returns them.)
 
 ## Design
-- `src/lib/storage/b2.ts` — `S3Client` (cached) pointed at the B2 endpoint.
-  - `uploadResumeToB2(buf, {filename,contentType,ownerUserId})` → **flat** key `resume_<uuid>.<ext>`
-    (no "/" so it slots into the existing `/api/files/resume/[id]` segment). Sets `ContentType` +
-    inline `ContentDisposition` at PUT so presigned GETs render correctly.
-  - `getResumeDownloadUrl(key)` → presigned GET, 60s TTL.
-  - `deleteResumeFromB2(key)`, `isB2Configured()`, `isLegacyGridfsId(id)`.
+- `src/lib/storage/b2.ts` — native B2 API over `fetch`, with cached auth token (23h) + bucketId.
+  - `authorize()` → `b2_authorize_account` (Basic keyId:appKey) → apiUrl/downloadUrl/token/accountId.
+  - `uploadResumeToB2(buf, {filename,contentType,ownerUserId})` → `b2_get_upload_url` → POST bytes with
+    `X-Bz-Content-Sha1`; **flat** key `resume_<uuid>.<ext>` (no "/" → slots into `/api/files/resume/[id]`);
+    bakes in Content-Type + inline `b2-content-disposition` so downloads render. One retry on 401/503.
+  - `getResumeDownloadUrl(key)` → `b2_get_download_authorization` (60s, prefix-scoped) → `downloadUrl/file/<bucket>/<key>?Authorization=…`.
+  - `deleteResumeFromB2(key)` → `b2_list_file_names` (find fileId) → `b2_delete_file_version`.
+  - `isB2Configured()`, `isLegacyGridfsId(id)`.
 - `profile.resumeFileId` (and the application snapshot) now hold the **B2 key** instead of a GridFS id.
   Authorization is unchanged — it compares the stored id against the requested id.
 - **Backward compatible:** any legacy 24-hex GridFS id still streams from GridFS (upload/delete/download
