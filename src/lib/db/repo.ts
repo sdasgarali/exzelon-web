@@ -284,6 +284,15 @@ export async function recordVisit(input: {
   ipHash?: string;
   userAgent?: string;
   consent: boolean;
+  // Auto-derived details (recorded once, on first sight of the session).
+  referrer?: string;
+  country?: string;
+  city?: string;
+  region?: string;
+  browser?: string;
+  os?: string;
+  deviceType?: string;
+  language?: string;
 }): Promise<void> {
   try {
     await ensureIndexes();
@@ -292,6 +301,7 @@ export async function recordVisit(input: {
     const daily = await visitorDailyStatsCollection();
     const now = new Date();
     const day = utcDay(now);
+    const path = (input.path || "/").slice(0, 300);
 
     const existing = await logs.findOne({ sessionId: input.sessionId, source });
     const isNew = !existing;
@@ -301,18 +311,33 @@ export async function recordVisit(input: {
       ? "accepted"
       : existing?.consentStatus ?? "pending";
 
+    // Fields captured a single time, when the session is first seen.
+    const onInsert: Record<string, unknown> = { firstSeenAt: now, landingPage: path };
+    const clip = (v: string | undefined, n: number) => (v && v.trim() ? v.trim().slice(0, n) : undefined);
+    const details: Record<string, string | undefined> = {
+      referrer: clip(input.referrer, 500),
+      country: clip(input.country, 4),
+      city: clip(input.city, 120),
+      region: clip(input.region, 120),
+      browser: clip(input.browser, 40),
+      os: clip(input.os, 40),
+      deviceType: clip(input.deviceType, 20),
+      language: clip(input.language, 40),
+    };
+    for (const [k, v] of Object.entries(details)) if (v !== undefined) onInsert[k] = v;
+
     await logs.updateOne(
       { sessionId: input.sessionId, source },
       {
         $set: {
-          pagePath: (input.path || "/").slice(0, 300),
+          pagePath: path,
           consentStatus,
           lastSeenAt: now,
           ...(input.ipHash ? { ipHash: input.ipHash } : {}),
           ...(input.userAgent ? { userAgent: input.userAgent.slice(0, 400) } : {}),
         },
         $inc: { visitCount: 1 },
-        $setOnInsert: { firstSeenAt: now },
+        $setOnInsert: onInsert,
       },
       { upsert: true }
     );
@@ -394,6 +419,15 @@ export async function listConsentedVisitors(limit = 500) {
     email: d.visitorEmail ?? null,
     source: d.source,
     lastPage: d.pagePath ?? null,
+    landingPage: d.landingPage ?? null,
+    referrer: d.referrer ?? null,
+    country: d.country ?? null,
+    city: d.city ?? null,
+    region: d.region ?? null,
+    browser: d.browser ?? null,
+    os: d.os ?? null,
+    deviceType: d.deviceType ?? null,
+    language: d.language ?? null,
     visitCount: d.visitCount ?? 0,
     consentedAt: d.consentedAt ? d.consentedAt.toISOString() : null,
     firstSeenAt: d.firstSeenAt ? d.firstSeenAt.toISOString() : null,
