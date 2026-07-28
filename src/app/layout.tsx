@@ -5,6 +5,7 @@ import "./globals.css";
 import { site } from "@/lib/site";
 import { organizationJsonLd } from "@/lib/seo";
 import { CookieNotice } from "@/components/cookie-notice";
+import { VisitorTracker } from "@/components/analytics/visitor-tracker";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -55,6 +56,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
         />
         {children}
+        <VisitorTracker />
         <CookieNotice />
         {/* AccessHub site analytics (Neuraforz) — loads on every page.
             Frameworks must set window.AHP_TRACK_SOURCE/BASE because next/script injects the
