@@ -1,7 +1,13 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
-> LIVE (2026-07-28): Site deployed to Vercel production and public at https://exzelon.com (HTTP 200,
+> LIVE (2026-07-28): OTP email verification shipped (PR #3, ef43774) + deployed. Verify email now
+> carries BOTH a 6-digit code (15-min TTL, hashed, session-scoped via /api/auth/verify-email `{otp}`)
+> AND the existing magic link. Banner has an "Enter code →" link to /verify-email. Forgot-PASSWORD
+> flow already existed — unchanged. Design: docs/FEATURE_otp-verification.md. Post-signup flow kept
+> (seeker→profile, employer→dashboard) + banner (chosen UX). Redeployed to prod; /verify-email = 200.
+>
+> Site deployed to Vercel production and public at https://exzelon.com (HTTP 200,
 > no SSO wall on the custom domain; *.vercel.app previews still behind Deployment Protection).
 > Portal-completion PR #1 merged; demo-login hint removed (PR #2, merged 3f4f0ba). All 6 prod env
 > vars set (MONGODB_URI/DB, JWT_SECRET, RESEND_API_KEY, NEXT_PUBLIC_SITE_URL, CONTACT_FROM_EMAIL).
