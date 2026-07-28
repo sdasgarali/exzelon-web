@@ -13,6 +13,22 @@ function fmt(iso: string | null) {
   });
 }
 
+const dash = <span className="text-slate-400">—</span>;
+
+function location(v: { city: string | null; country: string | null }) {
+  const parts = [v.city, v.country].filter(Boolean);
+  return parts.length ? parts.join(", ") : null;
+}
+
+function referrerHost(referrer: string | null) {
+  if (!referrer) return null;
+  try {
+    return new URL(referrer).hostname.replace(/^www\./, "");
+  } catch {
+    return referrer.slice(0, 40);
+  }
+}
+
 /** Admin view of visitors who accepted the cookie banner (+ any name/email they left). */
 export default async function AdminConsentPage() {
   const [summary, visitors] = await Promise.all([getConsentSummary(), listConsentedVisitors()]);
@@ -39,24 +55,42 @@ export default async function AdminConsentPage() {
         />
       ) : (
         <Panel>
-          <Table head={["Name", "Email", "Source", "Visits", "Last page", "Consented", "Last seen"]}>
-            {visitors.map((v) => (
-              <tr key={v.id} className="text-slate-700">
-                <td className="px-5 py-3.5 font-medium text-ink-900">{v.name || <span className="text-slate-400">—</span>}</td>
-                <td className="px-5 py-3.5">
-                  {v.email ? (
-                    <a href={`mailto:${v.email}`} className="text-brand-600 hover:underline">{v.email}</a>
-                  ) : (
-                    <span className="text-slate-400">—</span>
-                  )}
-                </td>
-                <td className="px-5 py-3.5"><code className="text-xs">{v.source}</code></td>
-                <td className="px-5 py-3.5">{v.visitCount}</td>
-                <td className="px-5 py-3.5"><code className="text-xs text-slate-500">{v.lastPage || "—"}</code></td>
-                <td className="px-5 py-3.5 text-sm">{fmt(v.consentedAt)}</td>
-                <td className="px-5 py-3.5 text-sm">{fmt(v.lastSeenAt)}</td>
-              </tr>
-            ))}
+          <Table head={["Name", "Email", "Location", "Device", "Referrer", "Visits", "Consented"]}>
+            {visitors.map((v) => {
+              const loc = location(v);
+              const device = [v.browser, v.os].filter(Boolean).join(" · ");
+              const ref = referrerHost(v.referrer);
+              return (
+                <tr key={v.id} className="text-slate-700">
+                  <td className="px-5 py-3.5 font-medium text-ink-900">{v.name || dash}</td>
+                  <td className="px-5 py-3.5">
+                    {v.email ? (
+                      <a href={`mailto:${v.email}`} className="text-brand-600 hover:underline">{v.email}</a>
+                    ) : (
+                      dash
+                    )}
+                  </td>
+                  <td className="px-5 py-3.5 text-sm">{loc || dash}</td>
+                  <td className="px-5 py-3.5 text-sm">
+                    {device ? (
+                      <span className="flex items-center gap-1.5">
+                        {device}
+                        {v.deviceType && (
+                          <span className="rounded bg-sand-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-slate-500">
+                            {v.deviceType}
+                          </span>
+                        )}
+                      </span>
+                    ) : (
+                      dash
+                    )}
+                  </td>
+                  <td className="px-5 py-3.5 text-sm">{ref ?? <span className="text-slate-400">Direct</span>}</td>
+                  <td className="px-5 py-3.5">{v.visitCount}</td>
+                  <td className="px-5 py-3.5 text-sm">{fmt(v.consentedAt)}</td>
+                </tr>
+              );
+            })}
           </Table>
         </Panel>
       )}

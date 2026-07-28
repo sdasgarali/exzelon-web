@@ -118,6 +118,16 @@ export type VisitorLogDoc = {
   visitorName?: string; // captured on consent (optional)
   visitorEmail?: string; // captured on consent (optional)
   consentedAt?: Date;
+  // Auto-derived details (set once, on first sight of the session).
+  referrer?: string;
+  landingPage?: string;
+  country?: string;
+  city?: string;
+  region?: string;
+  browser?: string;
+  os?: string;
+  deviceType?: string; // mobile | tablet | desktop
+  language?: string;
   visitCount: number;
   firstSeenAt: Date;
   lastSeenAt: Date;

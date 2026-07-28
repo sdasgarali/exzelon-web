@@ -50,6 +50,7 @@ export function VisitorTracker() {
         path: pathname,
         source: SOURCE,
         consent: hasConsent(),
+        referrer: typeof document !== "undefined" ? document.referrer || undefined : undefined,
       }),
     }).catch(() => {
       /* never break the page */
