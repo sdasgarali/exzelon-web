@@ -1,6 +1,12 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> FULL DATA VIA API KEY (2026-07-29, PR #17, LIVE): /api/v1/analytics now returns contacts[] (full lead
+> detail: name/email/country/city/region/browser/os/device/language/referrer/landing_page/last_page/
+> visits/consented_at/first_seen/last_seen) + contacts_count, alongside totals/daily/sources. Source-
+> filtered, cap 2000. listConsentedVisitors({source,limit}). AccessHub still only reads daily[] (ignores
+> contacts) — to show contacts in AccessHub needs an accesshub-pro-side change. Verified live.
+>
 > CONSENT EXPORT + DELETE (2026-07-29, PR #16, LIVE): Cookie Consent page has an Export CSV button
 > (GET /api/admin/export/consent, full lead+detail CSV via toCsv) + per-row Delete (client ConsentTable
 > → DELETE /api/admin/consent/[id], admin-guarded, audited consent.delete; repo deleteVisitorLog).
