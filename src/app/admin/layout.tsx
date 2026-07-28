@@ -11,6 +11,7 @@ const nav: NavItem[] = [
   { label: "Applications", href: "/admin/applications", icon: "inbox" },
   { label: "Messages", href: "/admin/messages", icon: "message-circle" },
   { label: "Users", href: "/admin/users", icon: "users" },
+  { label: "Cookie Consent", href: "/admin/consent", icon: "user-check" },
   { label: "Audit log", href: "/admin/audit", icon: "shield-check" },
   { label: "Analytics API", href: "/admin/api-keys", icon: "code" },
 ];
