@@ -1,6 +1,13 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> CONSENT EXPORT + DELETE (2026-07-29, PR #16, LIVE): Cookie Consent page has an Export CSV button
+> (GET /api/admin/export/consent, full lead+detail CSV via toCsv) + per-row Delete (client ConsentTable
+> → DELETE /api/admin/consent/[id], admin-guarded, audited consent.delete; repo deleteVisitorLog).
+> Verified live (CSV 200 with data; delete 404 bogus / 401 unauth). CLEANUP TODO: 2 test rows still in
+> prod consent list — "QA Test Lead"/qa-test@example.com + "Enrich QA"/enrich-qa@example.com — deletable
+> via the new UI Delete button.
+>
 > VISITOR ENRICHMENT (2026-07-29, PR #15, LIVE): each visitor now auto-captures location (country/city/
 > region via Vercel x-vercel-ip-* edge headers), device (browser/os/deviceType via lib/user-agent.ts),
 > referrer + landingPage, language (Accept-Language) — set once via $setOnInsert in recordVisit. Admin
