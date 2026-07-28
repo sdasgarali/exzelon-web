@@ -104,6 +104,23 @@ export type AuditLogDoc = {
   createdAt: Date;
 };
 
+/**
+ * A signup held in escrow until its email OTP is confirmed. No `users` row exists
+ * until verification succeeds — so an unverified email never becomes an account.
+ * Auto-expires via a TTL index on `createdAt` (see ensureIndexes).
+ */
+export type PendingRegistrationDoc = {
+  _id?: import("mongodb").ObjectId;
+  name: string;
+  email: string; // stored lowercase, unique
+  passwordHash: string;
+  role: "employer" | "seeker";
+  company?: string;
+  otpHash: string; // 6-digit code (hashed)
+  otpExpires: Date;
+  createdAt: Date;
+};
+
 /** ---------- Collection accessors ---------- */
 
 async function collection<T extends Document>(name: string): Promise<Collection<T>> {
@@ -117,6 +134,8 @@ export const applicationsCollection = () => collection<ApplicationDoc>("applicat
 export const contactsCollection = () => collection<ContactDoc>("contacts");
 export const messagesCollection = () => collection<MessageDoc>("messages");
 export const auditLogsCollection = () => collection<AuditLogDoc>("auditLogs");
+export const pendingRegistrationsCollection = () =>
+  collection<PendingRegistrationDoc>("pendingRegistrations");
 
 /** Ensure indexes exist (idempotent). Safe to call from seed or on first write. */
 export async function ensureIndexes() {
@@ -137,6 +156,10 @@ export async function ensureIndexes() {
   await audit.createIndex({ createdAt: -1 });
   const messages = await messagesCollection();
   await messages.createIndex({ applicationId: 1, createdAt: 1 });
+  const pending = await pendingRegistrationsCollection();
+  await pending.createIndex({ email: 1 }, { unique: true });
+  // TTL: sweep abandoned signups an hour after they were started.
+  await pending.createIndex({ createdAt: 1 }, { expireAfterSeconds: 3600 });
 }
 
 /** Serialize a Mongo document to a plain JSON-safe object (ObjectId/Date → string). */

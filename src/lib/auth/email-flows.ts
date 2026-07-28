@@ -47,6 +47,25 @@ export async function issueAndSendVerification(userId: string, name: string, ema
 }
 
 /**
+ * Email a signup OTP for an in-escrow registration (no account/link yet — code only).
+ * The code itself is generated + stored by the caller; this just delivers it.
+ */
+export async function sendRegistrationOtpEmail(email: string, name: string, code: string) {
+  const html = emailLayout(`
+    <h2 style="margin:0 0 12px;font-size:20px">Confirm your email to finish signing up</h2>
+    <p style="margin:0 0 16px;color:#475569;font-size:14px;line-height:1.6">
+      Hi ${escapeHtml(name || "there")}, enter this code on the Exzelon signup page to create your account:
+    </p>
+    <p style="margin:0 0 8px;text-align:center">
+      <span style="display:inline-block;font-size:32px;font-weight:700;letter-spacing:10px;color:#0f172a;background:#f1f5f9;border-radius:12px;padding:16px 24px">${code}</span>
+    </p>
+    <p style="margin:0 0 20px;text-align:center;color:#94a3b8;font-size:12px">This code expires in 15 minutes.</p>
+    <p style="margin:0;color:#94a3b8;font-size:12px">If you didn't try to sign up, you can ignore this email — no account is created until the code is entered.</p>
+  `);
+  return sendNotificationEmail({ to: email, subject: "Your Exzelon signup code", html });
+}
+
+/**
  * Issue a reset token for the given email and send a reset link, IF the account exists.
  * Always resolves quietly (no account enumeration) — callers respond 200 regardless.
  */

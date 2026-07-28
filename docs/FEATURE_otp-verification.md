@@ -1,3 +1,23 @@
+# UPDATE (2026-07-28) — Registration is now OTP-GATED
+
+Per follow-up: **no account is created until the emailed OTP is confirmed.**
+- `POST /api/auth/register` no longer creates a user/session. It hashes the password, generates a
+  6-digit OTP, stores the signup in a **`pendingRegistrations`** collection (unique email + 1h TTL
+  index), emails the code (`sendRegistrationOtpEmail`), and sets a signed httpOnly **`exz_pending`**
+  cookie (`src/lib/auth/pending.ts`, jose, holds only the pending id).
+- Register form → redirects to **`/verify-account?email=&next=`** (no session yet).
+- **`POST /api/auth/complete-registration`** `{otp}`: reads the pending cookie, checks the code +
+  expiry, then `createUser({emailVerified:true})`, deletes the pending record, clears the cookie, and
+  sets the session. Races handled (email taken meanwhile → 409; duplicate-key 11000 caught).
+- **`POST /api/auth/resend-registration`** reissues the code for the pending cookie.
+- Passwords are only ever stored hashed (in the pending record, then copied to the user).
+
+The pre-existing signed-in `/verify-email` link/OTP flow is untouched (legacy/seed users). Forgot
+**password** untouched. Email delivery still requires a verified Resend domain — deferred; for now
+test by registering with the Resend-account owner email (`onboarding@resend.dev` only delivers there).
+
+---
+
 # Feature — OTP email verification (alongside existing link)
 
 ## Goal

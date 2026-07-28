@@ -7,9 +7,11 @@ import {
   contactsCollection,
   auditLogsCollection,
   messagesCollection,
+  pendingRegistrationsCollection,
   ensureIndexes,
   serialize,
   type UserDoc,
+  type PendingRegistrationDoc,
   type JobDoc,
   type ApplicationDoc,
   type ContactDoc,
@@ -61,6 +63,7 @@ export async function createUser(data: {
   passwordHash: string;
   role: Role;
   company?: string;
+  emailVerified?: boolean;
 }) {
   await ensureIndexes();
   const users = await usersCollection();
@@ -70,6 +73,7 @@ export async function createUser(data: {
     passwordHash: data.passwordHash,
     role: data.role,
     ...(data.company ? { company: data.company.trim() } : {}),
+    ...(data.emailVerified ? { emailVerified: true } : {}),
     savedJobs: [],
     createdAt: new Date(),
   };
@@ -197,6 +201,65 @@ export async function verifyEmailByOtp(userId: string, otpHash: string): Promise
     { $set: { emailVerified: true }, $unset: CLEAR_VERIFY_FIELDS }
   );
   return true;
+}
+
+/** ---------- pending registrations (OTP-gated signup) ---------- */
+
+/**
+ * Create or replace the pending registration for an email, returning its id.
+ * One pending record per email (unique index) — re-submitting overwrites the prior code.
+ */
+export async function upsertPendingRegistration(data: {
+  name: string;
+  email: string;
+  passwordHash: string;
+  role: "employer" | "seeker";
+  company?: string;
+  otpHash: string;
+  otpExpires: Date;
+}): Promise<string> {
+  await ensureIndexes();
+  const pending = await pendingRegistrationsCollection();
+  const email = data.email.toLowerCase().trim();
+  const doc: PendingRegistrationDoc = {
+    name: data.name.trim(),
+    email,
+    passwordHash: data.passwordHash,
+    role: data.role,
+    ...(data.company ? { company: data.company.trim() } : {}),
+    otpHash: data.otpHash,
+    otpExpires: data.otpExpires,
+    createdAt: new Date(),
+  };
+  const res = await pending.findOneAndReplace({ email }, doc, {
+    upsert: true,
+    returnDocument: "after",
+  });
+  return String(res?._id);
+}
+
+export async function getPendingRegistration(id: string) {
+  const _id = oid(id);
+  if (!_id) return null;
+  const pending = await pendingRegistrationsCollection();
+  return pending.findOne({ _id });
+}
+
+/** Reissue the OTP for an existing pending registration (resend). */
+export async function setPendingOtp(id: string, otpHash: string, otpExpires: Date) {
+  const _id = oid(id);
+  if (!_id) return false;
+  const pending = await pendingRegistrationsCollection();
+  const res = await pending.updateOne({ _id }, { $set: { otpHash, otpExpires } });
+  return res.matchedCount > 0;
+}
+
+export async function deletePendingRegistration(id: string) {
+  const _id = oid(id);
+  if (!_id) return false;
+  const pending = await pendingRegistrationsCollection();
+  const res = await pending.deleteOne({ _id });
+  return res.deletedCount > 0;
 }
 
 /** Store a hashed reset token + expiry, looked up by email. Returns the user (or null). */
