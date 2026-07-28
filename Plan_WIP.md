@@ -1,6 +1,16 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> COOKIE CONSENT + LEADS (2026-07-29, PR #14, LIVE): cookie banner now Accept/Decline + optional
+> name/email → POST /api/analytics/consent → recordConsent (sets consentStatus, visitorName/Email,
+> consentedAt on visitorLogs; daily consentedCount++). Admin /admin/consent ("Cookie Consent" nav)
+> shows consented visitors + summary (accepted/withContact/declined/consentRate). Tracker consent flag
+> now = exz_cookie_notice=accepted. Verified live (accept w/ lead → shows on admin page). NOTE: a test
+> lead "QA Test Lead"/qa-test@example.com exists in prod visitorLogs (no delete endpoint). Data captured
+> per consent: status + optional name/email + behavioral (path, visitCount, first/last seen) + technical
+> (hashed IP, UA); no raw IP, first-party only.
+>
+
 > ANALYTICS PULL API (2026-07-29, PR #13, LIVE): Exzelon now exposes first-party visitor analytics that
 > AccessHub PULLS (push tracker was CORP-blocked). Same-origin VisitorTracker (root layout) → POST
 > /api/analytics/track → Mongo visitorLogs + visitorDailyStats (hashed IP, consent from cookie notice).
