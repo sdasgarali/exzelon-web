@@ -2,7 +2,7 @@
 
 Move resume file storage off MongoDB GridFS onto **Backblaze B2** via its **native API**
 (chosen so the master application key works — B2's S3-compatible API rejects the master key).
-Accepted types unchanged (PDF / DOC / DOCX, ≤5MB). Bucket is **private**; downloads are served as
+Accepted types unchanged (PDF / DOC / DOCX, ≤2MB). Bucket is **private**; downloads are served as
 short-lived **authorized URLs**.
 
 ## Why
@@ -41,8 +41,8 @@ Keep large binaries out of the app DB; offload download bandwidth from the Verce
 - Master key must NOT be used; the one shared in chat should be regenerated. Use a bucket-scoped key.
 
 ## Known limits / future
-- Upload still flows through the function → Vercel's ~4.5MB request cap applies (most resumes are
-  <1MB). A future presigned-PUT (browser → B2 direct) would lift that to the full 5MB.
+- Upload flows through the function, but the 2MB cap sits well under Vercel's ~4.5MB request limit,
+  so that's a non-issue. Client-side size guard rejects >2MB before the request even leaves the browser.
 
 ## Verification
 - `npm run lint` + `npx tsc --noEmit` + `npm run build` green.
