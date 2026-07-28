@@ -6,6 +6,8 @@ import { Icon } from "@/components/ui/icon";
 
 type Props = { initialFileId?: string; initialFileName?: string };
 
+const MAX_RESUME_BYTES = 2 * 1024 * 1024; // 2MB — mirrors the server limit
+
 /**
  * Self-contained resume file uploader. Uploads/deletes via /api/account/resume
  * (multipart) independently of the profile form's JSON save, then refreshes the
@@ -22,6 +24,11 @@ export function ResumeUpload({ initialFileId, initialFileName }: Props) {
   const onPick = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    if (file.size > MAX_RESUME_BYTES) {
+      setError("File is too large — please upload a PDF or DOC under 2 MB.");
+      if (inputRef.current) inputRef.current.value = "";
+      return;
+    }
     setBusy(true);
     setError(null);
     try {
@@ -108,7 +115,7 @@ export function ResumeUpload({ initialFileId, initialFileName }: Props) {
         className="hidden"
       />
       <p className="mt-1 text-xs text-slate-400">
-        Upload a file <strong>or</strong> paste a link below — either one lets you apply. Max 5&nbsp;MB.
+        Upload a file <strong>or</strong> paste a link below — either one lets you apply. Max 2&nbsp;MB.
       </p>
       {error && <p className="mt-1 text-xs font-medium text-rose-600">{error}</p>}
     </div>

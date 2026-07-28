@@ -46,7 +46,7 @@ export async function POST(req: Request) {
     );
   }
   if (file.size === 0 || file.size > MAX_RESUME_BYTES) {
-    return NextResponse.json({ error: "File must be between 1 byte and 5 MB." }, { status: 422 });
+    return NextResponse.json({ error: "File must be between 1 byte and 2 MB." }, { status: 422 });
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());

@@ -51,7 +51,8 @@ lucide-react · Inter + Sora fonts.
 - **Transactional email** — `src/lib/notifications.ts`: application-received (seeker), new-applicant
   (employer), and status-change (seeker) emails. `src/lib/email.ts` gained `to`, `emailLayout`,
   `emailButton`, `siteBaseUrl`.
-- **Resume upload** — GridFS (`src/lib/db/files.ts`, bucket `resumes`, PDF/DOC/DOCX ≤5MB).
+- **Resume upload** — Backblaze B2 (`src/lib/storage/b2.ts`, native API, private bucket, PDF/DOC/DOCX ≤2MB;
+  legacy GridFS `src/lib/db/files.ts` still read as a fallback).
   `POST/DELETE /api/account/resume`; authorized download `GET /api/files/resume/[id]` (owner seeker /
   job-owning employer / admin). Profile completeness = uploaded file **or** link. Apply snapshots the file.
 - **Server-side job search** — `searchPublicJobs` (Mongo filter+paginate); `/jobs` is `force-dynamic`

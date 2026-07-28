@@ -7,7 +7,7 @@ import { getDb } from "./mongodb";
  * the app needs no extra object-storage infra. Files are small (<= MAX_RESUME_BYTES).
  */
 
-export const MAX_RESUME_BYTES = 5 * 1024 * 1024; // 5MB
+export const MAX_RESUME_BYTES = 2 * 1024 * 1024; // 2MB
 export const ALLOWED_RESUME_TYPES: Record<string, string> = {
   "application/pdf": "pdf",
   "application/msword": "doc",
