@@ -1,13 +1,13 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
-> SEO/SITEMAP (2026-07-28, PR #9, LIVE): canonical domain = https://exzelon.com (NO www). site.url now
-> env-driven (NEXT_PUBLIC_SITE_URL || https://exzelon.com); Vercel prod NEXT_PUBLIC_SITE_URL set to
-> https://exzelon.com. next.config: permanent www→non-www redirect (verified 308). sitemap.ts now async
-> + DB-driven (listPublicJobs, open/non-expired, id=slug), revalidate=3600. Verified: robots + all 34
-> sitemap URLs use exzelon.com; 14 job URLs from DB. Google verification file public/google449fdb1233c51045.html
-> live (PR #8). NEXT for user: register GSC property https://exzelon.com (URL-prefix), verify, submit
-> sitemap.xml. Google file method needs the URL-prefix property (not Domain/DNS).
+> SEO/SITEMAP (2026-07-28, PR #9 then PR #10, LIVE): canonical domain = https://www.exzelon.com (WWW —
+> reversed from non-www per user "no add www"). site.url env-driven (NEXT_PUBLIC_SITE_URL ||
+> https://www.exzelon.com); Vercel prod NEXT_PUBLIC_SITE_URL = https://www.exzelon.com. next.config:
+> permanent bare-domain→www redirect (verified exzelon.com 308→www). sitemap.ts async + DB-driven
+> (listPublicJobs, open/non-expired, id=slug), revalidate=3600. Verified: robots + all 34 sitemap URLs
+> use www.exzelon.com; google449fdb1233c51045.html serves on www (200). NEXT for user: register GSC
+> property https://www.exzelon.com (URL-prefix), verify via the HTML file, submit sitemap.xml.
 >
 
 > COOKIE NOTICE + ACCESSHUB TRACKING (2026-07-28, PR #7 3c53dc5, LIVE): root layout.tsx loads
