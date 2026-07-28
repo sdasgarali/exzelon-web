@@ -333,6 +333,93 @@ export async function recordVisit(input: {
   }
 }
 
+/**
+ * Record a consent decision from the cookie banner. On "accepted" with details, capture
+ * the visitor's name/email as a lead and bump the day's consentedCount (once per visitor).
+ */
+export async function recordConsent(input: {
+  sessionId: string;
+  source: string;
+  status: "accepted" | "declined";
+  name?: string;
+  email?: string;
+}): Promise<void> {
+  try {
+    await ensureIndexes();
+    const source = (input.source || "exz-web").slice(0, 60);
+    const logs = await visitorLogsCollection();
+    const now = new Date();
+
+    const existing = await logs.findOne({ sessionId: input.sessionId, source });
+    const wasConsented = existing?.consentStatus === "accepted";
+
+    const set: Record<string, unknown> = { consentStatus: input.status, lastSeenAt: now };
+    if (input.status === "accepted") {
+      set.consentedAt = now;
+      if (input.name?.trim()) set.visitorName = input.name.trim().slice(0, 120);
+      if (input.email?.trim()) set.visitorEmail = input.email.trim().toLowerCase().slice(0, 160);
+    }
+
+    await logs.updateOne(
+      { sessionId: input.sessionId, source },
+      { $set: set, $setOnInsert: { firstSeenAt: now, visitCount: 0 } },
+      { upsert: true }
+    );
+
+    // Count this visitor as consented in today's bucket only on the first accept.
+    if (input.status === "accepted" && !wasConsented) {
+      const daily = await visitorDailyStatsCollection();
+      await daily.updateOne(
+        { day: utcDay(now), source },
+        { $inc: { consentedCount: 1, totalVisits: 0, uniqueVisitors: 0 } },
+        { upsert: true }
+      );
+    }
+  } catch (e) {
+    console.error("[analytics] recordConsent failed:", e);
+  }
+}
+
+/** Consented visitors (leads) for the admin Cookie Consent view, newest first. */
+export async function listConsentedVisitors(limit = 500) {
+  const logs = await visitorLogsCollection();
+  const docs = await logs
+    .find({ consentStatus: "accepted" })
+    .sort({ consentedAt: -1, lastSeenAt: -1 })
+    .limit(limit)
+    .toArray();
+  return docs.map((d) => ({
+    id: String(d._id),
+    name: d.visitorName ?? null,
+    email: d.visitorEmail ?? null,
+    source: d.source,
+    lastPage: d.pagePath ?? null,
+    visitCount: d.visitCount ?? 0,
+    consentedAt: d.consentedAt ? d.consentedAt.toISOString() : null,
+    firstSeenAt: d.firstSeenAt ? d.firstSeenAt.toISOString() : null,
+    lastSeenAt: d.lastSeenAt ? d.lastSeenAt.toISOString() : null,
+  }));
+}
+
+/** Summary counters for the Cookie Consent header. */
+export async function getConsentSummary() {
+  const logs = await visitorLogsCollection();
+  const [total, accepted, declined, withContact] = await Promise.all([
+    logs.countDocuments({}),
+    logs.countDocuments({ consentStatus: "accepted" }),
+    logs.countDocuments({ consentStatus: "declined" }),
+    logs.countDocuments({ consentStatus: "accepted", visitorEmail: { $exists: true, $ne: "" } }),
+  ]);
+  const decided = accepted + declined;
+  return {
+    totalVisitors: total,
+    accepted,
+    declined,
+    withContact,
+    consentRate: decided > 0 ? Math.round((accepted / decided) * 100) : 0,
+  };
+}
+
 /** Build the analytics payload (neuraforz-compatible) for the public pull API. */
 export async function getVisitorAnalytics(params: { days: number; source?: string }) {
   const days = Math.min(Math.max(Math.floor(params.days) || 30, 1), 90);

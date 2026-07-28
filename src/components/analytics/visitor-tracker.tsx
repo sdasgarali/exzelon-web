@@ -27,8 +27,8 @@ function getSessionId(): string {
 
 function hasConsent(): boolean {
   try {
-    // The cookie notice sets exz_cookie_notice=1 on acknowledge ("By continuing… you agree").
-    return document.cookie.split("; ").some((c) => c === "exz_cookie_notice=1");
+    // The cookie notice sets exz_cookie_notice=accepted when the visitor accepts.
+    return document.cookie.split("; ").some((c) => c === "exz_cookie_notice=accepted");
   } catch {
     return false;
   }

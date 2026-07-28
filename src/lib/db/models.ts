@@ -115,6 +115,9 @@ export type VisitorLogDoc = {
   ipHash?: string; // sha256(ip).slice(0,16) — no raw IPs
   userAgent?: string;
   consentStatus: "pending" | "accepted" | "declined";
+  visitorName?: string; // captured on consent (optional)
+  visitorEmail?: string; // captured on consent (optional)
+  consentedAt?: Date;
   visitCount: number;
   firstSeenAt: Date;
   lastSeenAt: Date;

@@ -104,6 +104,16 @@ export const verifyOtpSchema = z.object({
 });
 export type VerifyOtpInput = z.infer<typeof verifyOtpSchema>;
 
+/** Cookie-consent decision from the banner (name/email optional, only on accept). */
+export const consentSchema = z.object({
+  sessionId: z.string().min(1).max(120),
+  source: z.string().max(60).optional(),
+  status: z.enum(["accepted", "declined"]),
+  name: z.string().max(120).optional().or(z.literal("")),
+  email: z.string().email("Enter a valid email").max(160).optional().or(z.literal("")),
+});
+export type ConsentInput = z.infer<typeof consentSchema>;
+
 /** ---------- Messaging ---------- */
 
 export const messageSchema = z.object({
