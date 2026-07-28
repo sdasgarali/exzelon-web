@@ -8,7 +8,7 @@ export async function GET() {
   const guard = await requireApiUser(["admin"]);
   if ("error" in guard) return guard.error;
 
-  const visitors = await listConsentedVisitors(5000);
+  const visitors = await listConsentedVisitors({ limit: 5000 });
   const rows = visitors.map((v) => ({
     name: v.name ?? "",
     email: v.email ?? "",

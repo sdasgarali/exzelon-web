@@ -405,11 +405,14 @@ export async function recordConsent(input: {
   }
 }
 
-/** Consented visitors (leads) for the admin Cookie Consent view, newest first. */
-export async function listConsentedVisitors(limit = 500) {
+/** Consented visitors (leads) for the admin view + API, newest first. */
+export async function listConsentedVisitors(opts: { source?: string; limit?: number } = {}) {
+  const limit = Math.min(Math.max(opts.limit ?? 500, 1), 5000);
   const logs = await visitorLogsCollection();
+  const query: Record<string, unknown> = { consentStatus: "accepted" };
+  if (opts.source) query.source = opts.source;
   const docs = await logs
-    .find({ consentStatus: "accepted" })
+    .find(query)
     .sort({ consentedAt: -1, lastSeenAt: -1 })
     .limit(limit)
     .toArray();
