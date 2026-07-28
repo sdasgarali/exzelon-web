@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter, Sora } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { organizationJsonLd } from "@/lib/seo";
+import { CookieNotice } from "@/components/cookie-notice";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -53,6 +55,13 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
         />
         {children}
+        <CookieNotice />
+        {/* AccessHub site analytics (Neuraforz) — loads on every page. */}
+        <Script
+          src="https://accesshub.neuraforz.com/api/track.js"
+          data-source="exz-web"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

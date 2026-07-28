@@ -4,6 +4,7 @@ import { industries } from "@/content/industries";
 import { Logo } from "@/components/logo";
 import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
+import { CookieNoticeLink } from "@/components/cookie-notice-link";
 
 const columns = [
   {
@@ -130,6 +131,7 @@ export function Footer() {
             <Link href="/resources/compliance" className="hover:text-white">Privacy</Link>
             <Link href="/resources/compliance" className="hover:text-white">Terms</Link>
             <Link href="/resources/compliance" className="hover:text-white">Compliance</Link>
+            <CookieNoticeLink />
           </div>
         </div>
       </div>
