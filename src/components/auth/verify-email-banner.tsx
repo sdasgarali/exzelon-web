@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Icon } from "@/components/ui/icon";
 
 /** Dismissible banner shown to signed-in users whose email isn't verified yet. */
@@ -26,14 +27,22 @@ export function VerifyEmailBanner() {
           : "Please verify your email address to secure your account."}
       </span>
       {state !== "sent" && (
-        <button
-          type="button"
-          onClick={resend}
-          disabled={state === "sending"}
-          className="rounded-lg bg-amber-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-amber-700 disabled:opacity-60"
-        >
-          {state === "sending" ? "Sending…" : state === "error" ? "Retry" : "Resend link"}
-        </button>
+        <span className="flex items-center gap-3">
+          <Link
+            href="/verify-email"
+            className="text-xs font-semibold text-amber-800 underline underline-offset-2 hover:text-amber-900"
+          >
+            Enter code →
+          </Link>
+          <button
+            type="button"
+            onClick={resend}
+            disabled={state === "sending"}
+            className="rounded-lg bg-amber-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-amber-700 disabled:opacity-60"
+          >
+            {state === "sending" ? "Sending…" : state === "error" ? "Retry" : "Resend email"}
+          </button>
+        </span>
       )}
     </div>
   );

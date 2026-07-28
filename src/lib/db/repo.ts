@@ -131,19 +131,37 @@ export async function deleteUser(id: string) {
 
 /** ---------- email verification & password reset ---------- */
 
-/** Store a hashed verification token + expiry on a user (by id). */
-export async function setVerifyToken(id: string, hash: string, expires: Date) {
+/** Store hashed verification credentials (magic-link token + 6-digit OTP) on a user (by id). */
+export async function setVerifyCredentials(
+  id: string,
+  creds: { tokenHash: string; tokenExpires: Date; otpHash: string; otpExpires: Date }
+) {
   const _id = oid(id);
   if (!_id) return false;
   const users = await usersCollection();
   const res = await users.updateOne(
     { _id },
-    { $set: { verifyTokenHash: hash, verifyTokenExpires: expires } }
+    {
+      $set: {
+        verifyTokenHash: creds.tokenHash,
+        verifyTokenExpires: creds.tokenExpires,
+        verifyOtpHash: creds.otpHash,
+        verifyOtpExpires: creds.otpExpires,
+      },
+    }
   );
   return res.matchedCount > 0;
 }
 
-/** Consume a verification token: marks the user verified and clears the token. */
+/** Fields cleared once an email is verified — both the link token and the OTP. */
+const CLEAR_VERIFY_FIELDS = {
+  verifyTokenHash: "",
+  verifyTokenExpires: "",
+  verifyOtpHash: "",
+  verifyOtpExpires: "",
+} as const;
+
+/** Consume a verification link token: marks the user verified and clears both credentials. */
 export async function verifyEmailByTokenHash(hash: string): Promise<boolean> {
   const users = await usersCollection();
   const user = await users.findOne({ verifyTokenHash: hash });
@@ -152,7 +170,31 @@ export async function verifyEmailByTokenHash(hash: string): Promise<boolean> {
   }
   await users.updateOne(
     { _id: user._id },
-    { $set: { emailVerified: true }, $unset: { verifyTokenHash: "", verifyTokenExpires: "" } }
+    { $set: { emailVerified: true }, $unset: CLEAR_VERIFY_FIELDS }
+  );
+  return true;
+}
+
+/**
+ * Consume a verification OTP for a specific (signed-in) user: marks verified and clears both
+ * credentials. Scoped by userId so a code is only valid for the account that requested it.
+ */
+export async function verifyEmailByOtp(userId: string, otpHash: string): Promise<boolean> {
+  const _id = oid(userId);
+  if (!_id) return false;
+  const users = await usersCollection();
+  const user = await users.findOne({ _id });
+  if (
+    !user ||
+    user.verifyOtpHash !== otpHash ||
+    !user.verifyOtpExpires ||
+    user.verifyOtpExpires.getTime() < Date.now()
+  ) {
+    return false;
+  }
+  await users.updateOne(
+    { _id: user._id },
+    { $set: { emailVerified: true }, $unset: CLEAR_VERIFY_FIELDS }
   );
   return true;
 }

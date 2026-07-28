@@ -25,6 +25,8 @@ export type UserDoc = {
   // Single-use token hashes (never store the raw token). See lib/auth/tokens.ts.
   verifyTokenHash?: string;
   verifyTokenExpires?: Date;
+  verifyOtpHash?: string; // 6-digit email-verification code (hashed)
+  verifyOtpExpires?: Date;
   resetTokenHash?: string;
   resetTokenExpires?: Date;
   createdAt: Date;

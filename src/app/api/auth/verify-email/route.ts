@@ -2,9 +2,13 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { rateLimit, clientIp } from "@/lib/rate-limit";
 import { hashToken } from "@/lib/auth/tokens";
-import { verifyEmailByTokenHash } from "@/lib/db/repo";
+import { getCurrentUser } from "@/lib/auth/session";
+import { verifyOtpSchema } from "@/lib/validation";
+import { verifyEmailByTokenHash, verifyEmailByOtp } from "@/lib/db/repo";
 
-const schema = z.object({ token: z.string().min(10) });
+// Accept either a magic-link token (unauthenticated, from the email link) or a
+// 6-digit OTP typed by the currently signed-in user.
+const bodySchema = z.union([z.object({ token: z.string().min(10) }), verifyOtpSchema]);
 
 export async function POST(req: Request) {
   const ip = clientIp(req.headers);
@@ -19,11 +23,28 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const parsed = schema.safeParse(json);
+  const parsed = bodySchema.safeParse(json);
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid verification link." }, { status: 422 });
+    return NextResponse.json({ error: "Invalid verification request." }, { status: 422 });
   }
 
+  // OTP path — must be signed in; the code is only valid for that account.
+  if ("otp" in parsed.data) {
+    const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ error: "Please sign in to verify with a code." }, { status: 401 });
+    }
+    const ok = await verifyEmailByOtp(user.id, hashToken(parsed.data.otp));
+    if (!ok) {
+      return NextResponse.json(
+        { error: "That code is incorrect or has expired." },
+        { status: 400 }
+      );
+    }
+    return NextResponse.json({ ok: true });
+  }
+
+  // Magic-link path — token carries its own identity, no session required.
   const ok = await verifyEmailByTokenHash(hashToken(parsed.data.token));
   if (!ok) {
     return NextResponse.json(
