@@ -69,10 +69,6 @@ export function LoginForm() {
         {pending ? "Signing in…" : "Sign in"}
         {!pending && <Icon name="arrow-right" className="h-4 w-4" />}
       </Button>
-
-      <p className="rounded-lg bg-sand-100 px-4 py-3 text-xs text-slate-500">
-        <strong>Demo logins:</strong> admin@exzelon.com / Admin@12345 · employer@exzelon.com / Employer@123 · seeker@exzelon.com / Seeker@12345
-      </p>
     </form>
   );
 }
