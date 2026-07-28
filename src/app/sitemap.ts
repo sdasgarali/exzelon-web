@@ -1,10 +1,13 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 import { industries } from "@/content/industries";
-import { jobs } from "@/content/jobs";
 import { blogPosts } from "@/content/site-content";
+import { listPublicJobs } from "@/lib/db/repo";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+// Refresh the sitemap hourly so newly posted jobs get picked up without a redeploy.
+export const revalidate = 3600;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = site.url;
 
   const staticRoutes = [
@@ -22,6 +25,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  // Live, open, non-expired jobs from the DB (falls back to [] if the DB is unreachable).
+  const jobs = await listPublicJobs();
   const jobRoutes = jobs.map((j) => ({
     url: `${base}/jobs/${j.id}`,
     changeFrequency: "daily" as const,
