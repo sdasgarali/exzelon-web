@@ -1,11 +1,14 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
-> ACTIVE WORK (2026-07-27): Portal-completion roadmap on branch `feature/portal-completion`.
-> ALL 7 FEATURES DONE (F1–F7), each committed with lint+tsc+build green. See "Portal Completion
-> Roadmap" below (all checked). NEXT: open a PR for `feature/portal-completion`; run `npm run db:seed`
-> to backfill salaryMin/Max + emailVerified on existing data; set RESEND_API_KEY + NEXT_PUBLIC_SITE_URL
-> in prod so emails/links resolve. Still pending from before: rotate Mongo password, remove demo-login hint.
+> LIVE (2026-07-28): Site deployed to Vercel production and public at https://exzelon.com (HTTP 200,
+> no SSO wall on the custom domain; *.vercel.app previews still behind Deployment Protection).
+> Portal-completion PR #1 merged; demo-login hint removed (PR #2, merged 3f4f0ba). All 6 prod env
+> vars set (MONGODB_URI/DB, JWT_SECRET, RESEND_API_KEY, NEXT_PUBLIC_SITE_URL, CONTACT_FROM_EMAIL).
+> STILL PENDING (security/ops): rotate the Mongo password (leaked in chat) + lock Atlas IP allow-list;
+> optionally run `npm run db:seed` to backfill salaryMin/Max + emailVerified on any pre-existing docs.
+>
+> PRIOR: ALL 7 FEATURES DONE (F1–F7). See "Portal Completion Roadmap" below (all checked).
 >
 > PRIOR CONTEXT —
 > Rebuilt exzelon.com (source lost) as a modern animated Next.js marketing site + working forms,

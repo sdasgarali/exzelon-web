@@ -11,7 +11,7 @@ export default function VerifyEmailPage() {
   return (
     <AuthShell
       title="Email verification"
-      subtitle="Confirming your email address."
+      subtitle="Confirm your email with the 6-digit code or the link we sent."
       footer={
         <Link href="/" className="font-semibold text-brand-600 hover:text-brand-700">
           Back to home

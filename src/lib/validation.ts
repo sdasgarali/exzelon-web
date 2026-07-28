@@ -98,6 +98,12 @@ export const resetPasswordSchema = z.object({
 });
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
 
+/** 6-digit email-verification code (typed by the signed-in user on /verify-email). */
+export const verifyOtpSchema = z.object({
+  otp: z.string().regex(/^\d{6}$/, "Enter the 6-digit code"),
+});
+export type VerifyOtpInput = z.infer<typeof verifyOtpSchema>;
+
 /** ---------- Messaging ---------- */
 
 export const messageSchema = z.object({
