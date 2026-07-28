@@ -6,9 +6,10 @@
 > cookie (lib/auth/pending.ts) + signup OTP email; redirect to /verify-account. complete-registration
 > confirms OTP → createUser(emailVerified:true) + session. resend-registration reissues. Build+lint+tsc
 > green; NOT yet committed/deployed at time of writing. Design: docs/FEATURE_otp-verification.md.
-> ⚠️ EMAIL DELIVERY BLOCKER: Resend from = onboarding@resend.dev only delivers to the Resend account
-> owner's own email. To send to real users, verify a domain in Resend + set CONTACT_FROM_EMAIL. User
-> chose to defer domain verification and test with the account-owner email for now.
+> EMAIL DELIVERY FIXED (2026-07-28): exzelon.com is Verified in Resend (Hostinger DNS). Set prod
+> CONTACT_FROM_EMAIL="Exzelon <noreply@exzelon.com>" in Vercel + redeployed. Test send to
+> delivered@resend.dev → register 200, no Resend error in logs. Transactional email (signup OTP,
+> reset, notifications) now reaches real inboxes.
 >
 > PRIOR — OTP email verification shipped (PR #3, ef43774) + deployed. Verify email now
 > carries BOTH a 6-digit code (15-min TTL, hashed, session-scoped via /api/auth/verify-email `{otp}`)
