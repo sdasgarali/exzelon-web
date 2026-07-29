@@ -9,7 +9,13 @@
 import { MongoClient } from "mongodb";
 import bcrypt from "bcryptjs";
 import { jobs } from "../src/content/jobs";
+import { blogSeed } from "../src/content/blog-seed";
 import { parseSalary } from "../src/lib/salary";
+
+const readingTime = (body: string) => {
+  const words = body.trim().split(/\s+/).filter(Boolean).length;
+  return `${Math.max(1, Math.round(words / 200))} min read`;
+};
 
 const uri = process.env.MONGODB_URI;
 const dbName = process.env.MONGODB_DB || "exzelon";
@@ -79,6 +85,36 @@ async function main() {
     count++;
   }
   console.log(`  jobs upserted: ${count}`);
+
+  // Blog posts (upsert by slug) — migrate the static seed data into `posts`
+  await db.collection("posts").createIndex({ slug: 1 }, { unique: true });
+  await db.collection("posts").createIndex({ status: 1, publishedAt: -1 });
+  let postCount = 0;
+  for (const p of blogSeed) {
+    const publishedAt = new Date(`${p.date}T12:00:00Z`);
+    await db.collection("posts").updateOne(
+      { slug: p.slug },
+      {
+        $set: {
+          title: p.title,
+          excerpt: p.excerpt,
+          category: p.category,
+          body: p.body,
+          author: p.author,
+          readingTime: readingTime(p.body),
+          status: "published",
+          featured: false,
+          authorUserId: null,
+          publishedAt,
+          updatedAt: new Date(),
+        },
+        $setOnInsert: { slug: p.slug, createdAt: publishedAt },
+      },
+      { upsert: true }
+    );
+    postCount++;
+  }
+  console.log(`  posts upserted: ${postCount}`);
 
   await client.close();
   console.log("Seed complete.");

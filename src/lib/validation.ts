@@ -158,6 +158,20 @@ export const jobSchema = z.object({
 });
 export type JobInput = z.infer<typeof jobSchema>;
 
+/** ---------- Blog post create/edit (admin) ---------- */
+
+export const postSchema = z.object({
+  title: z.string().min(3, "Title is required").max(140),
+  excerpt: z.string().min(20, "Add a short excerpt (20+ chars)").max(300),
+  category: z.string().min(2, "Category is required").max(40),
+  body: z.string().min(50, "Write a longer post (50+ chars)").max(50000),
+  coverImageUrl: z.string().url("Enter a valid image URL").optional().or(z.literal("")),
+  author: z.string().max(80).optional().or(z.literal("")),
+  status: z.enum(["draft", "published"]).optional(),
+  featured: z.boolean().optional(),
+});
+export type PostInput = z.infer<typeof postSchema>;
+
 /** Parse a yyyy-mm-dd form value into an end-of-day Date, or null when empty. */
 export function parseExpiryDate(value?: string): Date | null {
   if (!value) return null;

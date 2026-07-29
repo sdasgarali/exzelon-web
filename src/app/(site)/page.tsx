@@ -11,8 +11,7 @@ import { CtaBanner } from "@/components/cta-banner";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 import { industries } from "@/content/industries";
 import { steps, services } from "@/content/services";
-import { blogPosts } from "@/content/site-content";
-import { listFeaturedPublicJobs } from "@/lib/db/repo";
+import { listFeaturedPublicJobs, listPublishedPosts } from "@/lib/db/repo";
 import { MotionItem } from "@/components/motion/motion-item";
 
 export const revalidate = 60;
@@ -20,6 +19,7 @@ export const revalidate = 60;
 export default async function HomePage() {
   const healthcare = industries[0];
   const featured = await listFeaturedPublicJobs(6);
+  const posts = (await listPublishedPosts()).slice(0, 3);
 
   return (
     <>
@@ -247,49 +247,57 @@ export default async function HomePage() {
       </Section>
 
       {/* Blog preview */}
-      <Section>
-        <div className="flex flex-col items-end justify-between gap-6 md:flex-row">
-          <SectionHeading
-            title="Career &amp; hiring resources"
-            description="Guides, tips, and industry insight from our recruiting team."
-          />
-          <Reveal delay={0.1}>
-            <ButtonLink href="/resources/blog" variant="outline">
-              Read the blog
-              <Icon name="arrow-right" className="h-4 w-4" />
-            </ButtonLink>
-          </Reveal>
-        </div>
-        <StaggerGroup className="mt-14 grid gap-6 md:grid-cols-3">
-          {blogPosts.slice(0, 3).map((post) => (
-            <MotionItem key={post.slug} variants={staggerItem}>
-              <Link
-                href={`/resources/blog/${post.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-sand-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[var(--shadow-card)]"
-              >
-                <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-brand-500 to-brand-700">
-                  <div className="absolute inset-0 bg-grid opacity-30" />
-                  <span className="absolute left-4 top-4">
-                    <Badge className="border-white/20 bg-white/15 text-white backdrop-blur">{post.category}</Badge>
-                  </span>
-                  <Icon name="sparkles" className="absolute bottom-4 right-4 h-10 w-10 text-white/40" />
-                </div>
-                <div className="flex flex-1 flex-col p-6">
-                  <h3 className="text-lg font-bold text-ink-900 transition-colors group-hover:text-brand-700">
-                    {post.title}
-                  </h3>
-                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">{post.excerpt}</p>
-                  <div className="mt-auto flex items-center gap-3 pt-6 text-xs text-slate-500">
-                    <span className="flex items-center gap-1"><Icon name="clock" className="h-3.5 w-3.5" /> {post.readingTime}</span>
-                    <span>·</span>
-                    <span>{post.author}</span>
+      {posts.length > 0 && (
+        <Section>
+          <div className="flex flex-col items-end justify-between gap-6 md:flex-row">
+            <SectionHeading
+              title="Career &amp; hiring resources"
+              description="Guides, tips, and industry insight from our recruiting team."
+            />
+            <Reveal delay={0.1}>
+              <ButtonLink href="/resources/blog" variant="outline">
+                Read the blog
+                <Icon name="arrow-right" className="h-4 w-4" />
+              </ButtonLink>
+            </Reveal>
+          </div>
+          <StaggerGroup className="mt-14 grid gap-6 md:grid-cols-3">
+            {posts.map((post) => (
+              <MotionItem key={post.slug} variants={staggerItem}>
+                <Link
+                  href={`/resources/blog/${post.slug}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-sand-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[var(--shadow-card)]"
+                >
+                  <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-brand-500 to-brand-700">
+                    {post.coverImageUrl ? (
+                      <Image src={post.coverImageUrl} alt="" fill unoptimized className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                    ) : (
+                      <>
+                        <div className="absolute inset-0 bg-grid opacity-30" />
+                        <Icon name="sparkles" className="absolute bottom-4 right-4 h-10 w-10 text-white/40" />
+                      </>
+                    )}
+                    <span className="absolute left-4 top-4">
+                      <Badge className="border-white/20 bg-white/15 text-white backdrop-blur">{post.category}</Badge>
+                    </span>
                   </div>
-                </div>
-              </Link>
-            </MotionItem>
-          ))}
-        </StaggerGroup>
-      </Section>
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="text-lg font-bold text-ink-900 transition-colors group-hover:text-brand-700">
+                      {post.title}
+                    </h3>
+                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">{post.excerpt}</p>
+                    <div className="mt-auto flex items-center gap-3 pt-6 text-xs text-slate-500">
+                      <span className="flex items-center gap-1"><Icon name="clock" className="h-3.5 w-3.5" /> {post.readingTime}</span>
+                      <span>·</span>
+                      <span>{post.author}</span>
+                    </div>
+                  </div>
+                </Link>
+              </MotionItem>
+            ))}
+          </StaggerGroup>
+        </Section>
+      )}
 
       <CtaBanner />
     </>

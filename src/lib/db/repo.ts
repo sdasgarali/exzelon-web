@@ -6,6 +6,7 @@ import {
   jobsCollection,
   applicationsCollection,
   contactsCollection,
+  postsCollection,
   auditLogsCollection,
   messagesCollection,
   pendingRegistrationsCollection,
@@ -21,6 +22,7 @@ import {
   type JobDoc,
   type ApplicationDoc,
   type ContactDoc,
+  type PostDoc,
   type AuditLogDoc,
   type MessageDoc,
   type SeekerProfile,
@@ -29,6 +31,7 @@ import { getIndustry } from "@/content/industries";
 import type { Job as PublicJob } from "@/content/jobs";
 import { timeAgo } from "@/lib/utils";
 import { parseSalary } from "@/lib/salary";
+import { readingTime } from "@/lib/markdown";
 import type { Role } from "@/lib/auth/jwt";
 
 /** ---------- helpers ---------- */
@@ -953,6 +956,140 @@ export async function deleteJob(slug: string, ownerUserId?: string) {
   const filter: Record<string, unknown> = { slug };
   if (ownerUserId) filter.postedByUserId = ownerUserId;
   const res = await jobs.deleteOne(filter);
+  return res.deletedCount > 0;
+}
+
+/** ---------- blog posts ---------- */
+
+function mapPost(doc: PostDoc) {
+  return serialize(doc as unknown as Record<string, unknown>) as ReturnType<typeof serialize> & {
+    slug: string;
+    title: string;
+    excerpt: string;
+    category: string;
+    body: string;
+    coverImageUrl?: string;
+    author: string;
+    readingTime: string;
+    status: PostDoc["status"];
+    featured: boolean;
+  };
+}
+
+/** All posts (admin), newest first. */
+export async function listPosts() {
+  const posts = await postsCollection();
+  const docs = await posts.find({}).sort({ createdAt: -1 }).toArray();
+  return docs.map(mapPost);
+}
+
+/** Published posts for the public blog, featured first then newest published. */
+export async function listPublishedPosts() {
+  try {
+    const posts = await postsCollection();
+    const docs = await posts
+      .find({ status: "published" })
+      .sort({ featured: -1, publishedAt: -1, createdAt: -1 })
+      .toArray();
+    return docs.map(mapPost);
+  } catch (e) {
+    console.error("[db] listPublishedPosts failed:", e);
+    return [];
+  }
+}
+
+/** A single published post by slug (public). */
+export async function getPublishedPostBySlug(slug: string) {
+  const posts = await postsCollection();
+  const doc = await posts.findOne({ slug, status: "published" });
+  return doc ? mapPost(doc) : null;
+}
+
+/** A single post by slug regardless of status (admin edit). */
+export async function getPostForAdmin(slug: string) {
+  const posts = await postsCollection();
+  const doc = await posts.findOne({ slug });
+  return doc ? mapPost(doc) : null;
+}
+
+export async function createPost(data: {
+  title: string;
+  excerpt: string;
+  category: string;
+  body: string;
+  coverImageUrl?: string;
+  author: string;
+  status: PostDoc["status"];
+  featured: boolean;
+  authorUserId: string | null;
+}) {
+  await ensureIndexes();
+  const posts = await postsCollection();
+  const base = slugify(data.title) || "post";
+  let slug = base;
+  let n = 1;
+  while (await posts.findOne({ slug })) slug = `${base}-${n++}`;
+
+  const now = new Date();
+  const doc: PostDoc = {
+    slug,
+    title: data.title,
+    excerpt: data.excerpt,
+    category: data.category,
+    body: data.body,
+    coverImageUrl: data.coverImageUrl || undefined,
+    author: data.author,
+    readingTime: readingTime(data.body),
+    status: data.status,
+    featured: data.featured,
+    authorUserId: data.authorUserId,
+    publishedAt: data.status === "published" ? now : null,
+    createdAt: now,
+    updatedAt: now,
+  };
+  const res = await posts.insertOne(doc);
+  return mapPost({ ...doc, _id: res.insertedId });
+}
+
+export async function updatePost(
+  slug: string,
+  data: {
+    title: string;
+    excerpt: string;
+    category: string;
+    body: string;
+    coverImageUrl?: string;
+    author: string;
+    status: PostDoc["status"];
+    featured: boolean;
+  }
+) {
+  const posts = await postsCollection();
+  const existing = await posts.findOne({ slug });
+  if (!existing) return false;
+
+  const set: Partial<PostDoc> = {
+    title: data.title,
+    excerpt: data.excerpt,
+    category: data.category,
+    body: data.body,
+    coverImageUrl: data.coverImageUrl || undefined,
+    author: data.author,
+    readingTime: readingTime(data.body),
+    status: data.status,
+    featured: data.featured,
+    updatedAt: new Date(),
+  };
+  // Stamp publishedAt the first time a post goes public.
+  if (data.status === "published" && !existing.publishedAt) set.publishedAt = new Date();
+
+  const res = await posts.updateOne({ slug }, { $set: set });
+  return res.matchedCount > 0;
+}
+
+export async function deletePost(slug: string) {
+  const posts = await postsCollection();
+  const res = await posts.deleteOne({ slug });
   return res.deletedCount > 0;
 }
 

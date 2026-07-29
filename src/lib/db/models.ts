@@ -94,6 +94,24 @@ export type MessageDoc = {
   createdAt: Date;
 };
 
+export type PostDoc = {
+  _id?: import("mongodb").ObjectId;
+  slug: string; // stable public id (unique)
+  title: string;
+  excerpt: string;
+  category: string;
+  body: string; // markdown-lite (see lib/markdown.ts)
+  coverImageUrl?: string;
+  author: string; // display name
+  readingTime: string; // e.g. "6 min read" (derived from body)
+  status: "draft" | "published";
+  featured: boolean;
+  authorUserId: string | null;
+  publishedAt?: Date | null; // set on first publish
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export type AuditLogDoc = {
   _id?: import("mongodb").ObjectId;
   actorId: string;
@@ -182,6 +200,7 @@ export const usersCollection = () => collection<UserDoc>("users");
 export const jobsCollection = () => collection<JobDoc>("jobs");
 export const applicationsCollection = () => collection<ApplicationDoc>("applications");
 export const contactsCollection = () => collection<ContactDoc>("contacts");
+export const postsCollection = () => collection<PostDoc>("posts");
 export const messagesCollection = () => collection<MessageDoc>("messages");
 export const auditLogsCollection = () => collection<AuditLogDoc>("auditLogs");
 export const pendingRegistrationsCollection = () =>
@@ -207,6 +226,9 @@ export async function ensureIndexes() {
   await apps.createIndex({ createdAt: -1 });
   const contacts = await contactsCollection();
   await contacts.createIndex({ createdAt: -1 });
+  const posts = await postsCollection();
+  await posts.createIndex({ slug: 1 }, { unique: true });
+  await posts.createIndex({ status: 1, publishedAt: -1 });
   const audit = await auditLogsCollection();
   await audit.createIndex({ createdAt: -1 });
   const messages = await messagesCollection();

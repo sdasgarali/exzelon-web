@@ -90,6 +90,8 @@ const statusTones: Record<string, string> = {
   read: "bg-slate-100 text-slate-600 border-slate-200",
   open: "bg-emerald-50 text-emerald-700 border-emerald-100",
   closed: "bg-slate-100 text-slate-600 border-slate-200",
+  published: "bg-emerald-50 text-emerald-700 border-emerald-100",
+  draft: "bg-amber-50 text-amber-700 border-amber-100",
   admin: "bg-purple-50 text-purple-700 border-purple-100",
   employer: "bg-brand-50 text-brand-700 border-brand-100",
   seeker: "bg-emerald-50 text-emerald-700 border-emerald-100",

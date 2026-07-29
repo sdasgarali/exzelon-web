@@ -50,6 +50,39 @@ export function JobRowActions({ slug, editBase }: { slug: string; editBase: stri
   );
 }
 
+export function PostRowActions({ slug, status }: { slug: string; status: string }) {
+  const router = useRouter();
+  const [busy, setBusy] = useState(false);
+
+  const onDelete = async () => {
+    if (!confirm("Delete this post? This cannot be undone.")) return;
+    setBusy(true);
+    try {
+      await send(`/api/posts/${slug}`, "DELETE");
+      router.refresh();
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Failed to delete");
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="flex items-center justify-end gap-1">
+      {status === "published" && (
+        <Link href={`/resources/blog/${slug}`} target="_blank" className="rounded-lg p-2 text-slate-400 hover:bg-sand-100 hover:text-brand-600" title="View">
+          <Icon name="eye" className="h-4 w-4" />
+        </Link>
+      )}
+      <Link href={`/admin/posts/${slug}/edit`} className="rounded-lg p-2 text-slate-400 hover:bg-sand-100 hover:text-brand-600" title="Edit">
+        <Icon name="pencil" className="h-4 w-4" />
+      </Link>
+      <button onClick={onDelete} disabled={busy} className="rounded-lg p-2 text-slate-400 hover:bg-rose-50 hover:text-rose-600 disabled:opacity-50" title="Delete">
+        <Icon name="trash-2" className="h-4 w-4" />
+      </button>
+    </div>
+  );
+}
+
 const APP_STATUSES = ["new", "reviewed", "shortlisted", "rejected"] as const;
 
 export function ApplicationStatusSelect({ id, status }: { id: string; status: string }) {
