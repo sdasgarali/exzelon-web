@@ -1,6 +1,22 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> BLOG CONTENT API (2026-07-29, feature/blog-content-api, committed — PR pending): Write-capable REST API
+> so AccessHub Pro can list/read/create/edit/publish/delete blog posts via an API key. Endpoints (Bearer
+> + CORS + OPTIONS): GET/POST /api/v1/posts (list/create), GET/PUT/PATCH/DELETE /api/v1/posts/[slug].
+> snake_case contract (toApiPost/ApiPost: cover_image_url/reading_time/published_at/url). Repo:
+> apiListPosts/apiGetPost/apiCreatePost/apiUpdatePost + insertPost refactor. SCOPED KEYS: AnalyticsApiKeyDoc
+> gained scopes[] (analytics:read/posts:read/posts:write); legacy keys→[analytics:read] (backward compat,
+> no silent blog-write). Shared guard src/lib/auth/api-key.ts requireApiKey(req,scope) (401/403).
+> /api/v1/analytics now requires analytics:read. Admin /admin/api-keys ("API access" nav) mints keys with
+> scope checkboxes + shows scopes col + Blog Content API connect panel; POST /api/admin/api-keys accepts
+> scopes. VERIFIED (dev server, real minted key): no-key=401, list 200 (4 posts), create 201 (draft, url
+> present), read 200, analytics-only key on posts=403 (scope enforced), PATCH publish→published+featured+
+> published_at→public 200, PUT 200, bad body=422, DELETE 200→public 404. lint+tsc+build green. Test post +
+> 3 test keys cleaned (keys soft-revoked; 3 revoked "E2E…" rows remain in prod key list — harmless).
+> NEXT: push + PR + merge + verify live. AccessHub connect: URL https://www.exzelon.com/api/v1/posts, key
+> w/ posts:read+posts:write from /admin/api-keys. Design: docs/FEATURE_blog-content-api.md.
+>
 > ADMIN BLOG (2026-07-29, PR #19, LIVE): Blog is now
 > DB-driven + admin-authored. New `posts` collection + repo CRUD (createPost/updatePost/
 > listPublishedPosts/getPublishedPostBySlug/getPostForAdmin/deletePost; readingTime derived, publishedAt
