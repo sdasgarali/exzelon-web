@@ -1,8 +1,7 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 import { industries } from "@/content/industries";
-import { blogPosts } from "@/content/site-content";
-import { listPublicJobs } from "@/lib/db/repo";
+import { listPublicJobs, listPublishedPosts } from "@/lib/db/repo";
 
 // Refresh the sitemap hourly so newly posted jobs get picked up without a redeploy.
 export const revalidate = 3600;
@@ -33,7 +32,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  const blogRoutes = blogPosts.map((p) => ({
+  // Published blog posts from the DB (falls back to [] if unreachable).
+  const posts = await listPublishedPosts();
+  const blogRoutes = posts.map((p) => ({
     url: `${base}/resources/blog/${p.slug}`,
     changeFrequency: "monthly" as const,
     priority: 0.5,

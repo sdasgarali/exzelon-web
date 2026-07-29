@@ -37,46 +37,8 @@ export const faqs = [
   { q: "I'm an employer — how do I start hiring with Exzelon?", a: "Head to our For Clients page or contact us directly. We'll learn your needs and start matching qualified, pre-vetted candidates right away." },
 ];
 
-export const blogPosts = [
-  {
-    slug: "elevate-your-healthcare-career",
-    title: "Elevate Your Healthcare Career with Exzelon Solutions",
-    excerpt: "From travel nursing to permanent clinical roles, here's how to level up your healthcare career in 2026 — and how the right staffing partner accelerates it.",
-    category: "Healthcare",
-    date: "2026-06-18",
-    readingTime: "6 min read",
-    author: "Priya Menon",
-  },
-  {
-    slug: "working-in-the-usa-guide",
-    title: "Working in the USA: A Practical Guide for Skilled Professionals",
-    excerpt: "Licensing, credentials, and culture — everything skilled professionals should know before starting a career in the United States.",
-    category: "Career",
-    date: "2026-05-30",
-    readingTime: "8 min read",
-    author: "Daniel Okafor",
-  },
-  {
-    slug: "5-steps-to-a-standout-resume",
-    title: "5 Steps to a Standout Resume That Gets Interviews",
-    excerpt: "Recruiters spend seconds on each resume. Make yours count with these five field-tested tips from our recruiting team.",
-    category: "Career",
-    date: "2026-05-12",
-    readingTime: "5 min read",
-    author: "Aisha Rahman",
-  },
-  {
-    slug: "how-employers-win-the-talent-race",
-    title: "How Employers Win the Talent Race in a Tight Market",
-    excerpt: "Speed, transparency, and a great candidate experience — the three levers that help employers land top talent first.",
-    category: "Hiring",
-    date: "2026-04-28",
-    readingTime: "7 min read",
-    author: "Marcus Bell",
-  },
-];
-
-export const getPost = (slug: string) => blogPosts.find((p) => p.slug === slug);
+// Blog posts moved to MongoDB (collection `posts`) — managed at /admin/posts.
+// Initial content lives in src/content/blog-seed.ts and is loaded by `npm run db:seed`.
 
 export const complianceItems = [
   { title: "License Verification", description: "Primary-source verification of every professional license and certification before placement." },

@@ -1,6 +1,21 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> ADMIN BLOG (2026-07-29, feature/admin-blog-posts, committed — PR OPEN, awaiting deploy): Blog is now
+> DB-driven + admin-authored. New `posts` collection + repo CRUD (createPost/updatePost/
+> listPublishedPosts/getPublishedPostBySlug/getPostForAdmin/deletePost; readingTime derived, publishedAt
+> stamped on first publish). Admin-only POST /api/posts + PUT/DELETE /api/posts/[slug] (audited).
+> Authoring UI at /admin/posts (list + new + [slug]/edit) via post-form.tsx (draft/publish, cover-image
+> URL, featured). Bodies = markdown-lite rendered by src/lib/markdown.tsx (zero-dep: ##/### headings,
+> paragraphs, - bullets, > quotes, **bold**, [links]; React-escaped). Public /resources/blog + [slug] +
+> homepage preview + sitemap.ts now read published posts from DB. Static blogPosts REMOVED from
+> site-content.ts; 4 legacy posts migrated (full bodies, ORIGINAL slugs preserved) via
+> src/content/blog-seed.ts + npm run db:seed. Verified: lint+tsc+build green; seed ran (4 posts upserted
+> to prod DB); dev-server E2E — list shows 4 posts, detail renders markdown (h2/blockquote/bullets),
+> admin create-draft(private 404)→publish(public 200)→delete(404) all pass, unauth create=401. Also
+> deleted stray probe-exz-contacts.js. NEXT: push branch + open PR; after merge/deploy verify live +
+> optionally feature a post. Design: docs/FEATURE_admin-blog.md.
+>
 > FULL DATA VIA API KEY (2026-07-29, PR #17, LIVE): /api/v1/analytics now returns contacts[] (full lead
 > detail: name/email/country/city/region/browser/os/device/language/referrer/landing_page/last_page/
 > visits/consented_at/first_seen/last_seen) + contacts_count, alongside totals/daily/sources. Source-

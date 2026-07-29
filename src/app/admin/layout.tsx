@@ -8,6 +8,7 @@ const nav: NavItem[] = [
   { label: "Overview", href: "/admin", icon: "layout-dashboard", exact: true },
   { label: "Analytics", href: "/admin/analytics", icon: "bar-chart" },
   { label: "Jobs", href: "/admin/jobs", icon: "briefcase" },
+  { label: "Blog", href: "/admin/posts", icon: "file-text" },
   { label: "Applications", href: "/admin/applications", icon: "inbox" },
   { label: "Messages", href: "/admin/messages", icon: "message-circle" },
   { label: "Users", href: "/admin/users", icon: "users" },

@@ -27,8 +27,8 @@ lucide-react · Inter + Sora fonts.
 - **Auth code:** `src/lib/auth/` — `jwt.ts` (edge-safe sign/verify, imported by proxy), `session.ts`
   (cookie helpers, `getCurrentUser`), `password.ts` (bcrypt), `api-guard.ts` (`requireApiUser(roles)`).
 - **DB:** `src/lib/db/` — `mongodb.ts` (cached client), `models.ts` (collections + `serialize`),
-  `repo.ts` (ALL queries — users/jobs/applications/contacts + public-job mappers). Collections:
-  `users`, `jobs`, `applications`, `contacts`.
+  `repo.ts` (ALL queries — users/jobs/applications/contacts/posts + public-job mappers). Collections:
+  `users`, `jobs`, `applications`, `contacts`, `posts`.
 - **Jobs are DB-driven:** public `/jobs`, `/jobs/[id]`, home featured, and opportunity pages read from
   Mongo (ISR `revalidate`). The seed migrates the static `content/jobs.ts` into the DB.
 - **Admin tables** (`/admin/{applications,messages,users}`) have client-side search + filters via
@@ -65,6 +65,15 @@ lucide-react · Inter + Sora fonts.
   collection (`logAudit`) surfaced at `/admin/audit`, CSV export `/api/admin/export/{applications,users}`.
 - **In-app messaging** — `messages` collection, `GET/POST /api/applications/[id]/messages` (participant-
   authorized), `MessageThread` component, threads at `/account/messages/[id]` + `/employer/messages/[id]`.
+- **Admin blog (DB-driven posts)** — `posts` collection + repo CRUD (`createPost`/`updatePost`/
+  `listPublishedPosts`/`getPublishedPostBySlug`/`getPostForAdmin`/`deletePost`; `readingTime` derived,
+  `publishedAt` stamped on first publish). Admin-only `POST /api/posts` + `PUT/DELETE /api/posts/[slug]`
+  (audited). Authoring UI at `/admin/posts` (list + new + `[slug]/edit`) via shared `post-form.tsx`
+  (draft/publish, optional cover image URL, `featured`). Bodies are **markdown-lite** rendered by
+  `src/lib/markdown.tsx` (zero-dep: `##`/`###`, paragraphs, `-` bullets, `>` quotes, `**bold**`,
+  `[links]`; React-escaped). Public `/resources/blog` + `/resources/blog/[slug]` + the homepage preview
+  + `sitemap.ts` all read published posts from the DB. Seed migrates the 4 legacy posts (with full
+  bodies, original slugs preserved) from `src/content/blog-seed.ts`. Design: `docs/FEATURE_admin-blog.md`.
 
 ## Route groups
 - `(site)/` — marketing pages, owns the public Navbar/Footer.
