@@ -1,7 +1,7 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
-> BLOG CONTENT API (2026-07-29, feature/blog-content-api, committed — PR pending): Write-capable REST API
+> BLOG CONTENT API (2026-07-29, PR #20, LIVE): Write-capable REST API
 > so AccessHub Pro can list/read/create/edit/publish/delete blog posts via an API key. Endpoints (Bearer
 > + CORS + OPTIONS): GET/POST /api/v1/posts (list/create), GET/PUT/PATCH/DELETE /api/v1/posts/[slug].
 > snake_case contract (toApiPost/ApiPost: cover_image_url/reading_time/published_at/url). Repo:
@@ -14,8 +14,10 @@
 > present), read 200, analytics-only key on posts=403 (scope enforced), PATCH publish→published+featured+
 > published_at→public 200, PUT 200, bad body=422, DELETE 200→public 404. lint+tsc+build green. Test post +
 > 3 test keys cleaned (keys soft-revoked; 3 revoked "E2E…" rows remain in prod key list — harmless).
-> NEXT: push + PR + merge + verify live. AccessHub connect: URL https://www.exzelon.com/api/v1/posts, key
-> w/ posts:read+posts:write from /admin/api-keys. Design: docs/FEATURE_blog-content-api.md.
+> MERGED (squash --admin) + Vercel deployed; VERIFIED LIVE on www.exzelon.com: OPTIONS preflight 204 +
+> CORS headers, bogus key 401 on both /api/v1/posts and /[slug], analytics still guarded (401). AccessHub
+> connect: URL https://www.exzelon.com/api/v1/posts, key w/ posts:read+posts:write from /admin/api-keys.
+> Design: docs/FEATURE_blog-content-api.md.
 >
 > ADMIN BLOG (2026-07-29, PR #19, LIVE): Blog is now
 > DB-driven + admin-authored. New `posts` collection + repo CRUD (createPost/updatePost/
