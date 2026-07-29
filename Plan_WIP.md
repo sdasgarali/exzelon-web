@@ -1,7 +1,7 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
-> ADMIN BLOG (2026-07-29, feature/admin-blog-posts, committed — PR OPEN, awaiting deploy): Blog is now
+> ADMIN BLOG (2026-07-29, PR #19, LIVE): Blog is now
 > DB-driven + admin-authored. New `posts` collection + repo CRUD (createPost/updatePost/
 > listPublishedPosts/getPublishedPostBySlug/getPostForAdmin/deletePost; readingTime derived, publishedAt
 > stamped on first publish). Admin-only POST /api/posts + PUT/DELETE /api/posts/[slug] (audited).
@@ -13,8 +13,10 @@
 > src/content/blog-seed.ts + npm run db:seed. Verified: lint+tsc+build green; seed ran (4 posts upserted
 > to prod DB); dev-server E2E — list shows 4 posts, detail renders markdown (h2/blockquote/bullets),
 > admin create-draft(private 404)→publish(public 200)→delete(404) all pass, unauth create=401. Also
-> deleted stray probe-exz-contacts.js. NEXT: push branch + open PR; after merge/deploy verify live +
-> optionally feature a post. Design: docs/FEATURE_admin-blog.md.
+> deleted stray probe-exz-contacts.js. MERGED (squash --admin) + Vercel deployed; VERIFIED LIVE on
+> www.exzelon.com: blog list 200 w/ 4 posts, detail renders new DB markdown body, /api/posts unauth=401,
+> sitemap lists 4 blog URLs. Admin writes posts at www.exzelon.com/admin/posts (admin@exzelon.com).
+> Design: docs/FEATURE_admin-blog.md.
 >
 > FULL DATA VIA API KEY (2026-07-29, PR #17, LIVE): /api/v1/analytics now returns contacts[] (full lead
 > detail: name/email/country/city/region/browser/os/device/language/referrer/landing_page/last_page/
