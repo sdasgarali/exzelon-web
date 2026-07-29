@@ -15,13 +15,15 @@ export async function POST(req: Request) {
   if ("error" in guard) return guard.error;
 
   let name = "API key";
+  let scopes: string[] | undefined;
   try {
     const body = await req.json();
     if (typeof body?.name === "string" && body.name.trim()) name = body.name.trim();
+    if (Array.isArray(body?.scopes)) scopes = body.scopes.filter((s: unknown) => typeof s === "string");
   } catch {
-    /* default name */
+    /* defaults */
   }
 
-  const { rawKey, key } = await createAnalyticsApiKey(name);
+  const { rawKey, key } = await createAnalyticsApiKey(name, scopes);
   return NextResponse.json({ key, rawKey });
 }

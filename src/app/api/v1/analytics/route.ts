@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { validateAnalyticsApiKey, getVisitorAnalytics, listConsentedVisitors } from "@/lib/db/repo";
+import { getVisitorAnalytics, listConsentedVisitors } from "@/lib/db/repo";
+import { requireApiKey } from "@/lib/auth/api-key";
 
 /**
  * Public analytics pull API — AccessHub-compatible (mirrors neuraforz-web's contract).
@@ -20,19 +21,9 @@ export function OPTIONS() {
 }
 
 export async function GET(req: Request) {
-  const auth = req.headers.get("authorization") || "";
-  const token = auth.startsWith("Bearer ") ? auth.slice(7).trim() : "";
-  if (!token) {
-    return NextResponse.json(
-      { error: "Missing API key. Pass: Authorization: Bearer <your-key>" },
-      { status: 401, headers: CORS }
-    );
-  }
-
-  const key = await validateAnalyticsApiKey(token);
-  if (!key) {
-    return NextResponse.json({ error: "Invalid or revoked API key" }, { status: 401, headers: CORS });
-  }
+  const guard = await requireApiKey(req, "analytics:read");
+  if ("error" in guard) return guard.error;
+  const { key } = guard;
 
   const url = new URL(req.url);
   const days = Number(url.searchParams.get("days")) || 30;

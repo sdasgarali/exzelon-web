@@ -162,11 +162,15 @@ export type VisitorDailyStatDoc = {
 };
 
 /** An API key that lets an external system (AccessHub) pull /api/v1/analytics. */
+/** Access scopes an API key can carry. Legacy keys (no scopes) default to ["analytics:read"]. */
+export type ApiKeyScope = "analytics:read" | "posts:read" | "posts:write";
+
 export type AnalyticsApiKeyDoc = {
   _id?: import("mongodb").ObjectId;
   name: string;
   keyHash: string; // sha256 of the raw key (raw shown once, never stored)
   keyPreview: string; // e.g. "exz_1a2b3c4d…"
+  scopes?: ApiKeyScope[]; // absent → treated as ["analytics:read"] (backward compatible)
   active: boolean;
   createdAt: Date;
   lastUsedAt?: Date;
