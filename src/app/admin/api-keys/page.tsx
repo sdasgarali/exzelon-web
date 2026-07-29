@@ -4,16 +4,17 @@ import { site } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
-/** Admin page to mint the analytics API key AccessHub uses to pull Exzelon's visitor data. */
+/** Admin page to mint the API keys AccessHub uses to pull analytics and manage the blog. */
 export default function AdminApiKeysPage() {
   const endpoint = `${site.url}/api/v1/analytics`;
+  const postsEndpoint = `${site.url}/api/v1/posts`;
   return (
     <div>
       <DashHeader
-        title="Analytics API"
-        subtitle="Expose Exzelon's first-party visitor analytics so AccessHub (or any system) can pull it."
+        title="API access"
+        subtitle="Expose Exzelon's visitor analytics and blog content so AccessHub (or any system) can connect."
       />
-      <ApiKeysManager endpoint={endpoint} source="exz-web" />
+      <ApiKeysManager endpoint={endpoint} source="exz-web" postsEndpoint={postsEndpoint} />
     </div>
   );
 }

@@ -14,7 +14,7 @@ const nav: NavItem[] = [
   { label: "Users", href: "/admin/users", icon: "users" },
   { label: "Cookie Consent", href: "/admin/consent", icon: "user-check" },
   { label: "Audit log", href: "/admin/audit", icon: "shield-check" },
-  { label: "Analytics API", href: "/admin/api-keys", icon: "code" },
+  { label: "API access", href: "/admin/api-keys", icon: "code" },
 ];
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {

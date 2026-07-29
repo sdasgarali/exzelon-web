@@ -8,10 +8,17 @@ type ApiKey = {
   id: string;
   name: string;
   keyPreview: string;
+  scopes?: string[];
   active: boolean;
   createdAt: string;
   lastUsedAt?: string;
 };
+
+const SCOPE_OPTIONS: { value: string; label: string; hint: string }[] = [
+  { value: "analytics:read", label: "Analytics (read)", hint: "Pull visitor analytics + leads" },
+  { value: "posts:read", label: "Blog (read)", hint: "List & read blog posts" },
+  { value: "posts:write", label: "Blog (write)", hint: "Create, edit & delete blog posts" },
+];
 
 function CopyField({ label, value }: { label: string; value: string }) {
   const [copied, setCopied] = useState(false);
@@ -43,13 +50,25 @@ function CopyField({ label, value }: { label: string; value: string }) {
   );
 }
 
-export function ApiKeysManager({ endpoint, source }: { endpoint: string; source: string }) {
+export function ApiKeysManager({
+  endpoint,
+  source,
+  postsEndpoint,
+}: {
+  endpoint: string;
+  source: string;
+  postsEndpoint?: string;
+}) {
   const [keys, setKeys] = useState<ApiKey[]>([]);
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState("");
+  const [scopes, setScopes] = useState<string[]>(["analytics:read", "posts:read", "posts:write"]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [revealed, setRevealed] = useState<{ name: string; rawKey: string } | null>(null);
+
+  const toggleScope = (value: string) =>
+    setScopes((prev) => (prev.includes(value) ? prev.filter((s) => s !== value) : [...prev, value]));
 
   const load = async () => {
     try {
@@ -71,13 +90,17 @@ export function ApiKeysManager({ endpoint, source }: { endpoint: string; source:
 
   const create = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (scopes.length === 0) {
+      setError("Select at least one scope for the key.");
+      return;
+    }
     setBusy(true);
     setError(null);
     try {
       const res = await fetch("/api/admin/api-keys", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name, scopes }),
       });
       const body = await res.json();
       if (!res.ok) throw new Error(body?.error ?? "Could not create key");
@@ -110,10 +133,33 @@ export function ApiKeysManager({ endpoint, source }: { endpoint: string; source:
           Paste these into AccessHub&apos;s pull configuration, then generate a key below for the API key field.
         </p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <CopyField label="API URL" value={endpoint} />
+          <CopyField label="Analytics API URL" value={endpoint} />
           <CopyField label="Source" value={source} />
         </div>
       </Panel>
+
+      {/* Blog Content API */}
+      {postsEndpoint && (
+        <Panel className="p-6">
+          <h2 className="text-sm font-bold text-ink-900">Blog Content API</h2>
+          <p className="mt-1 text-sm text-slate-500">
+            Let AccessHub (or any system) list, create, edit &amp; publish blog posts. Use a key with the
+            <span className="font-semibold"> Blog (read)</span> and <span className="font-semibold">Blog (write)</span> scopes.
+            Auth: <code className="rounded bg-sand-100 px-1">Authorization: Bearer &lt;key&gt;</code>.
+          </p>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <CopyField label="Base URL" value={postsEndpoint} />
+            <CopyField label="Single post" value={`${postsEndpoint}/{slug}`} />
+          </div>
+          <p className="mt-3 text-xs text-slate-500">
+            <span className="font-semibold text-slate-600">GET</span> list ·
+            <span className="font-semibold text-slate-600"> POST</span> create ·
+            <span className="font-semibold text-slate-600"> GET</span> /{`{slug}`} read ·
+            <span className="font-semibold text-slate-600"> PUT/PATCH</span> /{`{slug}`} edit ·
+            <span className="font-semibold text-slate-600"> DELETE</span> /{`{slug}`} remove
+          </p>
+        </Panel>
+      )}
 
       {/* Reveal a freshly-created key (shown once) */}
       {revealed && (
@@ -147,13 +193,40 @@ export function ApiKeysManager({ endpoint, source }: { endpoint: string; source:
       {/* Create a key */}
       <Panel className="p-6">
         <h2 className="text-sm font-bold text-ink-900">Generate an API key</h2>
-        <form onSubmit={create} className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <form onSubmit={create} className="mt-3 space-y-4">
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Key name (e.g. AccessHub)"
-            className="flex-1 rounded-xl border border-sand-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100"
+            className="w-full rounded-xl border border-sand-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100"
           />
+          <div>
+            <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Scopes</div>
+            <div className="grid gap-2 sm:grid-cols-3">
+              {SCOPE_OPTIONS.map((s) => (
+                <label
+                  key={s.value}
+                  className={
+                    "flex cursor-pointer items-start gap-2.5 rounded-xl border px-3 py-2.5 text-sm transition-colors " +
+                    (scopes.includes(s.value)
+                      ? "border-brand-300 bg-brand-50"
+                      : "border-sand-200 hover:border-brand-200")
+                  }
+                >
+                  <input
+                    type="checkbox"
+                    checked={scopes.includes(s.value)}
+                    onChange={() => toggleScope(s.value)}
+                    className="mt-0.5 h-4 w-4 rounded border-sand-300 text-brand-600"
+                  />
+                  <span>
+                    <span className="block font-semibold text-ink-900">{s.label}</span>
+                    <span className="block text-xs text-slate-500">{s.hint}</span>
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
           <button
             type="submit"
             disabled={busy}
@@ -175,11 +248,20 @@ export function ApiKeysManager({ endpoint, source }: { endpoint: string; source:
           <EmptyState icon="code" title="No API keys yet" description="Generate a key above to let AccessHub pull analytics." />
         ) : (
           <Panel>
-            <Table head={["Name", "Key", "Created", "Last used", "Status", ""]}>
+            <Table head={["Name", "Key", "Scopes", "Created", "Last used", "Status", ""]}>
               {keys.map((k) => (
                 <tr key={k.id} className="text-slate-700">
                   <td className="px-5 py-3.5 font-medium text-ink-900">{k.name}</td>
                   <td className="px-5 py-3.5"><code className="text-xs">{k.keyPreview}</code></td>
+                  <td className="px-5 py-3.5">
+                    <div className="flex flex-wrap gap-1">
+                      {(k.scopes ?? ["analytics:read"]).map((s) => (
+                        <span key={s} className="inline-flex items-center rounded-md border border-sand-200 bg-sand-50 px-1.5 py-0.5 text-[11px] font-medium text-slate-600">
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
                   <td className="px-5 py-3.5 text-sm">{new Date(k.createdAt).toLocaleDateString()}</td>
                   <td className="px-5 py-3.5 text-sm">
                     {k.lastUsedAt ? new Date(k.lastUsedAt).toLocaleString() : "—"}

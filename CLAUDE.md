@@ -65,6 +65,15 @@ lucide-react · Inter + Sora fonts.
   collection (`logAudit`) surfaced at `/admin/audit`, CSV export `/api/admin/export/{applications,users}`.
 - **In-app messaging** — `messages` collection, `GET/POST /api/applications/[id]/messages` (participant-
   authorized), `MessageThread` component, threads at `/account/messages/[id]` + `/employer/messages/[id]`.
+- **Blog Content API (AccessHub Pro)** — write-capable REST API keyed by scoped API keys.
+  Endpoints (Bearer + CORS): `GET/POST /api/v1/posts`, `GET/PUT/PATCH/DELETE /api/v1/posts/[slug]`
+  (snake_case contract via `toApiPost`/`ApiPost`; repo `apiListPosts`/`apiGetPost`/`apiCreatePost`/
+  `apiUpdatePost` + `deletePost`). **Scoped keys:** `AnalyticsApiKeyDoc.scopes[]` ∈
+  `analytics:read`/`posts:read`/`posts:write`; legacy keys (no scopes) default to `analytics:read`
+  (backward compat — no silent blog-write). Shared guard `src/lib/auth/api-key.ts`
+  `requireApiKey(req, scope)` (401 missing/invalid, 403 missing scope). `/api/v1/analytics` now
+  requires `analytics:read`. Admin mints keys with scope checkboxes at `/admin/api-keys` ("API access"
+  nav). Design: `docs/FEATURE_blog-content-api.md`.
 - **Admin blog (DB-driven posts)** — `posts` collection + repo CRUD (`createPost`/`updatePost`/
   `listPublishedPosts`/`getPublishedPostBySlug`/`getPostForAdmin`/`deletePost`; `readingTime` derived,
   `publishedAt` stamped on first publish). Admin-only `POST /api/posts` + `PUT/DELETE /api/posts/[slug]`

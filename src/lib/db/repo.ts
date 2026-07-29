@@ -18,6 +18,7 @@ import {
   type UserDoc,
   type PendingRegistrationDoc,
   type AnalyticsApiKeyDoc,
+  type ApiKeyScope,
   type VisitorLogDoc,
   type JobDoc,
   type ApplicationDoc,
@@ -28,6 +29,7 @@ import {
   type SeekerProfile,
 } from "./models";
 import { getIndustry } from "@/content/industries";
+import { site } from "@/lib/site";
 import type { Job as PublicJob } from "@/content/jobs";
 import { timeAgo } from "@/lib/utils";
 import { parseSalary } from "@/lib/salary";
@@ -42,6 +44,11 @@ export function slugify(input: string) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, 60);
+}
+
+/** Escape a user string for safe use inside a RegExp. */
+function escapeRegExp(input: string) {
+  return input.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 const oid = (id: string) => {
@@ -524,13 +531,22 @@ export async function getVisitorAnalytics(params: { days: number; source?: strin
 
 /** ---------- analytics API keys (for AccessHub pull) ---------- */
 
-type PublicApiKey = { id: string; name: string; keyPreview: string; active: boolean; createdAt: string; lastUsedAt?: string };
+type PublicApiKey = { id: string; name: string; keyPreview: string; scopes: ApiKeyScope[]; active: boolean; createdAt: string; lastUsedAt?: string };
+
+const DEFAULT_SCOPES: ApiKeyScope[] = ["analytics:read"];
+const ALL_SCOPES: ApiKeyScope[] = ["analytics:read", "posts:read", "posts:write"];
+
+/** Legacy keys stored without scopes are read-only analytics keys. */
+function keyScopes(doc: Pick<AnalyticsApiKeyDoc, "scopes">): ApiKeyScope[] {
+  return doc.scopes && doc.scopes.length ? doc.scopes : DEFAULT_SCOPES;
+}
 
 function publicApiKey(doc: AnalyticsApiKeyDoc & { _id?: ObjectId }): PublicApiKey {
   return {
     id: String(doc._id),
     name: doc.name,
     keyPreview: doc.keyPreview,
+    scopes: keyScopes(doc),
     active: doc.active,
     createdAt: doc.createdAt.toISOString(),
     ...(doc.lastUsedAt ? { lastUsedAt: doc.lastUsedAt.toISOString() } : {}),
@@ -538,13 +554,18 @@ function publicApiKey(doc: AnalyticsApiKeyDoc & { _id?: ObjectId }): PublicApiKe
 }
 
 /** Mint a new API key. Returns the raw key ONCE — only its hash is stored. */
-export async function createAnalyticsApiKey(name: string) {
+export async function createAnalyticsApiKey(name: string, scopes?: string[]) {
   await ensureIndexes();
   const rawKey = "exz_" + randomBytes(32).toString("hex");
+  // Keep only valid, known scopes; fall back to analytics-read if none valid.
+  const clean = (scopes ?? []).filter((s): s is ApiKeyScope =>
+    (ALL_SCOPES as string[]).includes(s)
+  );
   const doc: AnalyticsApiKeyDoc = {
     name: (name || "").trim().slice(0, 80) || "API key",
     keyHash: sha256(rawKey),
     keyPreview: rawKey.slice(0, 12) + "…",
+    scopes: clean.length ? clean : DEFAULT_SCOPES,
     active: true,
     createdAt: new Date(),
   };
@@ -574,6 +595,17 @@ export async function validateAnalyticsApiKey(rawKey: string): Promise<{ name: s
   if (!doc) return null;
   void col.updateOne({ _id: doc._id }, { $set: { lastUsedAt: new Date() } }).catch(() => {});
   return { name: doc.name };
+}
+
+/** Validate a raw key and return its name + scopes (for scope-gated APIs). */
+export async function validateApiKey(
+  rawKey: string
+): Promise<{ name: string; scopes: ApiKeyScope[] } | null> {
+  const col = await analyticsApiKeysCollection();
+  const doc = await col.findOne({ keyHash: sha256(rawKey), active: true });
+  if (!doc) return null;
+  void col.updateOne({ _id: doc._id }, { $set: { lastUsedAt: new Date() } }).catch(() => {});
+  return { name: doc.name, scopes: keyScopes(doc) };
 }
 
 /** Store a hashed reset token + expiry, looked up by email. Returns the user (or null). */
@@ -1012,7 +1044,7 @@ export async function getPostForAdmin(slug: string) {
   return doc ? mapPost(doc) : null;
 }
 
-export async function createPost(data: {
+type NewPost = {
   title: string;
   excerpt: string;
   category: string;
@@ -1022,7 +1054,10 @@ export async function createPost(data: {
   status: PostDoc["status"];
   featured: boolean;
   authorUserId: string | null;
-}) {
+};
+
+/** Insert a post with a unique slug; returns the stored doc (with _id). */
+async function insertPost(data: NewPost): Promise<PostDoc & { _id: ObjectId }> {
   await ensureIndexes();
   const posts = await postsCollection();
   const base = slugify(data.title) || "post";
@@ -1048,7 +1083,11 @@ export async function createPost(data: {
     updatedAt: now,
   };
   const res = await posts.insertOne(doc);
-  return mapPost({ ...doc, _id: res.insertedId });
+  return { ...doc, _id: res.insertedId };
+}
+
+export async function createPost(data: NewPost) {
+  return mapPost(await insertPost(data));
 }
 
 export async function updatePost(
@@ -1091,6 +1130,132 @@ export async function deletePost(slug: string) {
   const posts = await postsCollection();
   const res = await posts.deleteOne({ slug });
   return res.deletedCount > 0;
+}
+
+/** ---------- blog posts: external REST API (snake_case contract) ---------- */
+
+/** Stable, snake_case JSON shape returned by /api/v1/posts. */
+export type ApiPost = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  body: string;
+  cover_image_url: string | null;
+  author: string;
+  reading_time: string;
+  status: PostDoc["status"];
+  featured: boolean;
+  published_at: string | null;
+  created_at: string;
+  updated_at: string;
+  url: string;
+};
+
+function toApiPost(doc: PostDoc): ApiPost {
+  return {
+    slug: doc.slug,
+    title: doc.title,
+    excerpt: doc.excerpt,
+    category: doc.category,
+    body: doc.body,
+    cover_image_url: doc.coverImageUrl ?? null,
+    author: doc.author,
+    reading_time: doc.readingTime,
+    status: doc.status,
+    featured: doc.featured,
+    published_at: doc.publishedAt ? new Date(doc.publishedAt).toISOString() : null,
+    created_at: new Date(doc.createdAt).toISOString(),
+    updated_at: new Date(doc.updatedAt).toISOString(),
+    url: `${site.url}/resources/blog/${doc.slug}`,
+  };
+}
+
+/** List posts for the API. Filter by status + free-text; paginated. */
+export async function apiListPosts(opts: {
+  status?: PostDoc["status"];
+  q?: string;
+  page?: number;
+  limit?: number;
+}): Promise<{ posts: ApiPost[]; total: number; page: number; perPage: number }> {
+  const posts = await postsCollection();
+  const page = Math.max(1, opts.page || 1);
+  const perPage = Math.min(100, Math.max(1, opts.limit || 20));
+  const query: Record<string, unknown> = {};
+  if (opts.status) query.status = opts.status;
+  if (opts.q && opts.q.trim()) {
+    const rx = new RegExp(escapeRegExp(opts.q.trim()), "i");
+    query.$or = [{ title: rx }, { excerpt: rx }, { category: rx }];
+  }
+  const total = await posts.countDocuments(query);
+  const docs = await posts
+    .find(query)
+    .sort({ createdAt: -1 })
+    .skip((page - 1) * perPage)
+    .limit(perPage)
+    .toArray();
+  return { posts: docs.map(toApiPost), total, page, perPage };
+}
+
+/** Single post by slug for the API (any status). */
+export async function apiGetPost(slug: string): Promise<ApiPost | null> {
+  const posts = await postsCollection();
+  const doc = await posts.findOne({ slug });
+  return doc ? toApiPost(doc) : null;
+}
+
+/** Create a post via the API. Returns the created ApiPost. */
+export async function apiCreatePost(data: {
+  title: string;
+  excerpt: string;
+  category: string;
+  body: string;
+  coverImageUrl?: string;
+  author: string;
+  status: PostDoc["status"];
+  featured: boolean;
+}): Promise<ApiPost> {
+  const doc = await insertPost({ ...data, authorUserId: null });
+  return toApiPost(doc);
+}
+
+/** Partial (PATCH) or full (PUT) update via the API. Returns updated ApiPost or null. */
+export async function apiUpdatePost(
+  slug: string,
+  data: Partial<{
+    title: string;
+    excerpt: string;
+    category: string;
+    body: string;
+    coverImageUrl: string;
+    author: string;
+    status: PostDoc["status"];
+    featured: boolean;
+  }>
+): Promise<ApiPost | null> {
+  const posts = await postsCollection();
+  const existing = await posts.findOne({ slug });
+  if (!existing) return null;
+
+  const set: Partial<PostDoc> = { updatedAt: new Date() };
+  if (data.title !== undefined) set.title = data.title;
+  if (data.excerpt !== undefined) set.excerpt = data.excerpt;
+  if (data.category !== undefined) set.category = data.category;
+  if (data.body !== undefined) {
+    set.body = data.body;
+    set.readingTime = readingTime(data.body);
+  }
+  if (data.coverImageUrl !== undefined) set.coverImageUrl = data.coverImageUrl || undefined;
+  if (data.author !== undefined) set.author = data.author;
+  if (data.featured !== undefined) set.featured = data.featured;
+  if (data.status !== undefined) {
+    set.status = data.status;
+    if (data.status === "published" && !existing.publishedAt) set.publishedAt = new Date();
+  }
+
+  await posts.updateOne({ slug }, { $set: set });
+  const updated = await posts.findOne({ slug });
+  return updated ? toApiPost(updated) : null;
 }
 
 /** ---------- applications ---------- */
