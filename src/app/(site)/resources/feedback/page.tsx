@@ -3,7 +3,6 @@ import { PageHeader } from "@/components/page-header";
 import { Icon } from "@/components/ui/icon";
 import { ContactForm } from "@/components/forms/contact-form";
 import { testimonials } from "@/content/site-content";
-import { site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -26,10 +25,10 @@ export default function FeedbackPage() {
         <div>
           <div className="rounded-2xl bg-ink-900 p-8 text-white">
             <div className="flex items-center gap-2">
-              <Icon name="star" className="h-6 w-6 fill-accent-500 text-accent-500" />
-              <span className="text-2xl font-extrabold">{site.rating.score}/{site.rating.outOf}</span>
+              <Icon name="quote" className="h-6 w-6 text-accent-500" />
+              <span className="text-2xl font-extrabold">In their words</span>
             </div>
-            <p className="mt-1 text-sm text-brand-100/70">Average rating on {site.rating.source}</p>
+            <p className="mt-1 text-sm text-brand-100/70">What candidates and clients tell us.</p>
             <div className="mt-8 space-y-6">
               {testimonials.slice(0, 3).map((t) => (
                 <blockquote key={t.name} className="border-l-2 border-brand-500 pl-4">

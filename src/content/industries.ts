@@ -15,7 +15,7 @@ export const industries: Industry[] = [
     slug: "healthcare",
     name: "Healthcare",
     short: "Nurses, allied health, and clinical support across the U.S.",
-    headline: "Elevate Your Healthcare Career with Exzelon Solutions",
+    headline: "Healthcare & Travel Nurse Staffing",
     description:
       "From registered nurses and allied health professionals to per-diem and travel assignments, we place compassionate, credentialed talent where care is needed most — with competitive pay, full compliance support, and dedicated recruiters who know the sector.",
     icon: "heart-pulse",
@@ -31,7 +31,7 @@ export const industries: Industry[] = [
     slug: "construction",
     name: "Construction",
     short: "Skilled trades, supervisors, and site management.",
-    headline: "Build Your Future in Construction",
+    headline: "Construction Staffing & Skilled Trades Jobs",
     description:
       "We connect general laborers, skilled tradespeople, foremen, and project managers with commercial and residential builders — matching the right hands to the right sites, safely and on schedule.",
     icon: "hard-hat",
@@ -47,7 +47,7 @@ export const industries: Industry[] = [
     slug: "electrical",
     name: "Electrical",
     short: "Licensed electricians, technicians, and field engineers.",
-    headline: "Power Your Career in the Electrical Trade",
+    headline: "Electrical Staffing — Electricians & Technicians",
     description:
       "Journeyman and master electricians, industrial technicians, and field engineers — placed on commercial, industrial, and infrastructure projects with employers who value certified, safety-first talent.",
     icon: "zap",
@@ -63,7 +63,7 @@ export const industries: Industry[] = [
     slug: "tax-legal",
     name: "Tax & Legal",
     short: "Accounting, tax, compliance, and counsel professionals.",
-    headline: "Advance Your Tax & Legal Career",
+    headline: "Tax, Accounting & Legal Staffing",
     description:
       "Accountants, tax specialists, paralegals, and corporate counsel — matched with firms and in-house teams that need precision, discretion, and deep domain expertise, seasonally or full-time.",
     icon: "scale",
@@ -79,7 +79,7 @@ export const industries: Industry[] = [
     slug: "it",
     name: "Information Technology",
     short: "Software, data, cloud, and infrastructure talent.",
-    headline: "Level Up Your Tech Career",
+    headline: "IT & Technology Staffing",
     description:
       "Software engineers, data professionals, cloud and DevOps specialists, and IT support — placed with startups and enterprises alike through recruiters who speak the language of modern tech.",
     icon: "code",

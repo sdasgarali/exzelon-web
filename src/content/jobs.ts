@@ -18,6 +18,8 @@ export type Job = {
   company?: string;
   /** ISO closing date, if the role auto-closes. */
   expiresAt?: string;
+  /** ISO creation date — used for JobPosting `datePosted` (DB-mapped jobs only). */
+  createdAtIso?: string;
 };
 
 export const jobs: Job[] = [

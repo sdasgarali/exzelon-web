@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/motion/reveal";
 import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
+import { breadcrumbJsonLd } from "@/lib/seo";
 
 export type Crumb = { label: string; href?: string };
 
@@ -22,6 +23,14 @@ export function PageHeader({
 }) {
   return (
     <section className="relative overflow-hidden bg-ink-900 pt-32 pb-16 text-white sm:pt-40 sm:pb-20">
+      {crumbs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(breadcrumbJsonLd(crumbs)).replace(/</g, "\\u003c"),
+          }}
+        />
+      )}
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
       <div className="pointer-events-none absolute -left-32 -top-24 h-80 w-80 rounded-full bg-brand-600/30 blur-3xl" />
       <div className="pointer-events-none absolute right-0 top-10 h-72 w-72 rounded-full bg-accent-500/15 blur-3xl" />

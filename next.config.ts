@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    // Serve AVIF/WebP (with automatic fallback) so raster assets ship far fewer bytes.
+    formats: ["image/avif", "image/webp"],
     // Allow the higher-quality logo render (see src/components/logo.tsx).
     qualities: [75, 90],
   },

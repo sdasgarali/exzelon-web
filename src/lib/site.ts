@@ -17,10 +17,13 @@ export const site = {
     line1: "6422 N Maplewood Ave",
     city: "Chicago",
     state: "Illinois",
+    stateCode: "IL",
     zip: "60645",
     country: "USA",
+    // Approx. geo for the office (verify to street-level before relying on it for Maps).
+    lat: 41.99872,
+    lng: -87.70451,
   },
-  rating: { score: 4.4, outOf: 5, source: "AmbitionBox" },
   socials: [
     { label: "LinkedIn", href: "https://www.linkedin.com/company/exzelon", icon: "linkedin" },
     { label: "Facebook", href: "https://facebook.com/exzelon", icon: "facebook" },

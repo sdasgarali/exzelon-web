@@ -28,17 +28,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const jobs = await listPublicJobs();
   const jobRoutes = jobs.map((j) => ({
     url: `${base}/jobs/${j.id}`,
+    ...(j.createdAtIso ? { lastModified: new Date(j.createdAtIso) } : {}),
     changeFrequency: "daily" as const,
     priority: 0.6,
   }));
 
-  // Published blog posts from the DB (falls back to [] if unreachable).
+  // Published blog posts from the DB (falls back to [] if unreachable). Blog posts
+  // are prime AI-citation surfaces, so they carry a higher priority than the default.
   const posts = await listPublishedPosts();
-  const blogRoutes = posts.map((p) => ({
-    url: `${base}/resources/blog/${p.slug}`,
-    changeFrequency: "monthly" as const,
-    priority: 0.5,
-  }));
+  const blogRoutes = posts.map((p) => {
+    const lastMod = (p.updatedAt as string | undefined) ?? (p.publishedAt as string | null) ?? undefined;
+    return {
+      url: `${base}/resources/blog/${p.slug}`,
+      ...(lastMod ? { lastModified: new Date(lastMod) } : {}),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    };
+  });
 
   return [...staticRoutes, ...industryRoutes, ...jobRoutes, ...blogRoutes];
 }

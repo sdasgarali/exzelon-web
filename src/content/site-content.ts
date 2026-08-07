@@ -1,11 +1,4 @@
-/** Misc marketing content: stats, values, testimonials, FAQs, employer logos, blog. */
-
-export const heroStats = [
-  { value: 25000, suffix: "+", label: "Opportunities live" },
-  { value: 1200, suffix: "+", label: "Employers hiring" },
-  { value: 98, suffix: "%", label: "Candidate satisfaction" },
-  { value: 5, suffix: "", label: "Industries served" },
-];
+/** Misc marketing content: values, testimonials, FAQs, employer logos, blog. */
 
 export const employerLogos = [
   "Google", "Microsoft", "Amazon", "Northwestern Medicine", "AbbVie",

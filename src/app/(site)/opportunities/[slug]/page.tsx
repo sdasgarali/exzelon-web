@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/page-header";
 import { Section, SectionHeading } from "@/components/ui/section";
@@ -52,7 +53,7 @@ export default async function IndustryPage({
         title={industry.headline}
         description={industry.short}
       >
-        <ButtonLink href="/jobs" variant="accent" size="lg">View open roles</ButtonLink>
+        <ButtonLink href={`/jobs?industry=${industry.slug}`} variant="accent" size="lg">View open roles</ButtonLink>
         <ButtonLink href="/contact" variant="light" size="lg">Talk to a recruiter</ButtonLink>
       </PageHeader>
 
@@ -68,9 +69,13 @@ export default async function IndustryPage({
             <h3 className="mt-10 text-sm font-semibold uppercase tracking-wide text-slate-500">Roles we place</h3>
             <div className="mt-4 flex flex-wrap gap-2">
               {industry.roles.map((r) => (
-                <span key={r} className="rounded-full border border-sand-200 bg-sand-50 px-4 py-2 text-sm font-medium text-slate-700">
+                <Link
+                  key={r}
+                  href={`/jobs?industry=${industry.slug}&q=${encodeURIComponent(r)}`}
+                  className="rounded-full border border-sand-200 bg-sand-50 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
+                >
                   {r}
-                </span>
+                </Link>
               ))}
             </div>
           </div>
@@ -120,7 +125,7 @@ export default async function IndustryPage({
       <CtaBanner
         title={`Ready for your next ${industry.name.toLowerCase()} role?`}
         subtitle="Upload your resume and let a specialist recruiter match you to the right opportunity."
-        primary={{ label: "Browse Jobs", href: "/jobs" }}
+        primary={{ label: `Browse ${industry.name} Jobs`, href: `/jobs?industry=${industry.slug}` }}
         secondary={{ label: "Submit Resume", href: "/contact" }}
       />
     </>

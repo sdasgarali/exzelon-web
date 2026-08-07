@@ -50,10 +50,17 @@ export default function RootLayout({
       className={`${inter.variable} ${sora.variable} h-full antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        {/* Warm up the third-party analytics origins so their (deferred) scripts
+            don't pay DNS+TLS on a cold connection during early interaction. */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://accesshub.neuraforz.com" />
+      </head>
       <body className="min-h-full flex flex-col bg-white text-ink-900">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()).replace(/</g, "\\u003c") }}
         />
         {children}
         <VisitorTracker />
@@ -74,10 +81,11 @@ export default function RootLayout({
           data-source="exz-web"
           strategy="afterInteractive"
         />
-        {/* Google Analytics (GA4) — loads on every page. */}
+        {/* Google Analytics (GA4) — loads on every page, deferred to idle so it stays
+            off the critical-interaction path (protects INP). */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-KMSE0KNWXF"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
         <Script id="ga4-init" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];

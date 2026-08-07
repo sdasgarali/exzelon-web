@@ -8,7 +8,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { CtaBanner } from "@/components/cta-banner";
 import { getPublishedPostBySlug, listPublishedPosts } from "@/lib/db/repo";
 import { renderMarkdown } from "@/lib/markdown";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, blogPostingJsonLd } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -39,9 +39,23 @@ export default async function BlogPostPage({
   const all = await listPublishedPosts();
   const related = all.filter((p) => p.slug !== post.slug).slice(0, 3);
   const dateStr = (post.publishedAt as string | null) ?? (post.createdAt as string);
+  const jsonLd = blogPostingJsonLd({
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    author: post.author,
+    publishedAt: post.publishedAt as string | null,
+    updatedAt: post.updatedAt as string | undefined,
+    createdAt: post.createdAt as string,
+    coverImageUrl: post.coverImageUrl,
+  });
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       <PageHeader
         eyebrow={post.category}
         crumbs={[{ label: "Resources", href: "/resources" }, { label: "Blog", href: "/resources/blog" }, { label: post.title }]}

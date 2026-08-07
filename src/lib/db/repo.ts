@@ -732,6 +732,7 @@ function toPublicJob(doc: JobDoc): PublicJob {
     remote: doc.remote,
     salary: doc.salary,
     posted: timeAgo(doc.createdAt),
+    createdAtIso: doc.createdAt.toISOString(),
     summary: doc.summary,
     responsibilities: doc.responsibilities,
     requirements: doc.requirements,
