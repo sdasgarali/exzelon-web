@@ -1,6 +1,19 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> SEO ESSENTIALS (2026-08-07, branch `feature/seo-essentials`, IN PROGRESS): implementing the
+> Critical+High fixes from a full `/seo audit` (health 52/100). Slices: (1) remove fabricated
+> AmbitionBox rating [site.ts `rating`, seo.ts aggregateRating, footer/contact/feedback/hero UI] +
+> reframe inflated hero stats ("25,000+/98%/1,200+") to honest claims + drop dead `heroStats`;
+> (2) Organization→EmploymentAgency schema (geo/areaServed/hours/@id/logo, name="Exzelon");
+> (3) complete JobPosting (datePosted/enum employmentType/full description/validThrough/baseSalary/
+> jobLocationType) — repo.ts+jobs.ts expose createdAtIso/salaryMin/Max; (4) BlogPosting + BreadcrumbList
+> (in PageHeader) + WebSite+SearchAction (home); (5) public/llms.txt (no fabricated stats);
+> (6) robots AI-crawler rules + sitemap lastmod; (7) perf: img formats/priority, GA4 lazyOnload,
+> preconnect; (8) keyword H1s + industry-filtered opportunity CTAs. DEFERRED (reported, not in PR):
+> apply-gate funnel redesign (auth/security), employerLogos marquee (needs real-relationship confirm),
+> thin-content/leadership/author-bios, off-site GBP/reviews/YouTube. Every slice: lint+tsc+build green.
+>
 > BLOG CONTENT API (2026-07-29, PR #20, LIVE): Write-capable REST API
 > so AccessHub Pro can list/read/create/edit/publish/delete blog posts via an API key. Endpoints (Bearer
 > + CORS + OPTIONS): GET/POST /api/v1/posts (list/create), GET/PUT/PATCH/DELETE /api/v1/posts/[slug].

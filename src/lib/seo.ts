@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { site } from "./site";
+import type { Job } from "@/content/jobs";
 
 type PageSeo = {
   title?: string;
@@ -34,13 +35,28 @@ export function pageMetadata({ title, description, path = "/" }: PageSeo = {}): 
   };
 }
 
-/** Organization JSON-LD for rich results. */
+const ORG_ID = `${site.url}/#organization`;
+const LOGO_URL = `${site.url}/brand/exzelon-logo.png`;
+
+/**
+ * Primary entity JSON-LD. Typed as `EmploymentAgency` (a LocalBusiness subtype) —
+ * semantically precise for a recruitment/staffing firm and eligible for local
+ * results, unlike the generic `Organization`.
+ *
+ * NOTE: no `aggregateRating` is emitted. A self-asserted rating sourced off-site
+ * (the old "4.4 on AmbitionBox") violates Google's structured-data policy and can
+ * trigger a manual action. Re-add only with genuine, on-site, verifiable reviews.
+ */
 export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: site.brand,
+    "@type": "EmploymentAgency",
+    "@id": ORG_ID,
+    name: site.name,
+    alternateName: site.brand,
     url: site.url,
+    logo: LOGO_URL,
+    image: LOGO_URL,
     email: site.email,
     telephone: site.phone,
     description: site.description,
@@ -48,16 +64,201 @@ export function organizationJsonLd() {
       "@type": "PostalAddress",
       streetAddress: site.address.line1,
       addressLocality: site.address.city,
-      addressRegion: site.address.state,
+      addressRegion: site.address.stateCode,
       postalCode: site.address.zip,
       addressCountry: "US",
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: site.rating.score,
-      bestRating: site.rating.outOf,
-      ratingCount: 320,
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: site.address.lat,
+      longitude: site.address.lng,
     },
+    areaServed: [
+      { "@type": "City", name: "Chicago" },
+      { "@type": "State", name: "Illinois" },
+      { "@type": "Country", name: "United States" },
+    ],
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:00",
+        closes: "18:00",
+      },
+    ],
     sameAs: site.socials.map((s) => s.href),
+  };
+}
+
+/** WebSite + SearchAction — enables the sitelinks search box (home page only). */
+export function webSiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${site.url}/#website`,
+    name: site.name,
+    url: site.url,
+    publisher: { "@id": ORG_ID },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${site.url}/jobs?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+}
+
+/**
+ * BreadcrumbList from a page's crumb trail. `crumbs` is the same array passed to
+ * `PageHeader` (each entry a `{ label, href? }`, the last being the current page
+ * with no href). "Home" is prepended automatically.
+ */
+export function breadcrumbJsonLd(crumbs: { label: string; href?: string }[]) {
+  const items = [{ label: "Home", href: "/" }, ...crumbs];
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: c.label,
+      // `item` is optional for the final (current-page) entry per Google's spec.
+      ...(c.href ? { item: `${site.url}${c.href === "/" ? "" : c.href}` } : {}),
+    })),
+  };
+}
+
+/** BlogPosting JSON-LD for a published post (fields come from the serialized PostDoc). */
+export function blogPostingJsonLd(post: {
+  slug: string;
+  title: string;
+  excerpt: string;
+  author: string;
+  publishedAt?: string | null;
+  updatedAt?: string;
+  createdAt?: string;
+  coverImageUrl?: string;
+}) {
+  const url = `${site.url}/resources/blog/${post.slug}`;
+  const published = post.publishedAt ?? post.createdAt;
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${url}#article`,
+    headline: post.title,
+    description: post.excerpt,
+    ...(published ? { datePublished: published } : {}),
+    ...(post.updatedAt || published ? { dateModified: post.updatedAt ?? published } : {}),
+    author: { "@type": "Person", name: post.author },
+    publisher: {
+      "@type": "Organization",
+      "@id": ORG_ID,
+      name: site.name,
+      logo: { "@type": "ImageObject", url: LOGO_URL },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    ...(post.coverImageUrl ? { image: post.coverImageUrl } : {}),
+    url,
+  };
+}
+
+/** Google's JobPosting `employmentType` enum, mapped from our internal type labels. */
+const EMPLOYMENT_TYPE: Record<Job["type"], string> = {
+  "Full-time": "FULL_TIME",
+  "Part-time": "PART_TIME",
+  Contract: "CONTRACTOR",
+  "Temp-to-hire": "TEMPORARY",
+  Travel: "CONTRACTOR",
+};
+
+/**
+ * Derive schema `baseSalary` straight from the human salary string so the unit is
+ * correct (the annualized `salaryMin/Max` used for filtering mislabels weekly/hourly
+ * pay). Returns null when no numbers are present ("Competitive", etc.).
+ */
+function salaryForSchema(salary: string): { min: number; max: number; unit: string } | null {
+  const text = salary.toLowerCase();
+  const unit = /\/\s*(hr|hour)|per hour|hourly/.test(text)
+    ? "HOUR"
+    : /\/\s*(wk|week)/.test(text)
+      ? "WEEK"
+      : /\/\s*(mo|month)/.test(text)
+        ? "MONTH"
+        : "YEAR";
+  const nums: number[] = [];
+  for (const m of text.matchAll(/(\d[\d,]*\.?\d*)\s*(k)?/g)) {
+    let n = parseFloat(m[1].replace(/,/g, ""));
+    if (Number.isNaN(n)) continue;
+    if (m[2] === "k") n *= 1000;
+    nums.push(Math.round(n));
+  }
+  if (nums.length === 0) return null;
+  return { min: Math.min(...nums), max: Math.max(...nums), unit };
+}
+
+/**
+ * JobPosting JSON-LD for a job detail page. Includes every field Google requires
+ * (`datePosted`, full `description`, enum `employmentType`) plus recommended ones
+ * (`validThrough`, `baseSalary`, `jobLocationType`) so the role is eligible for the
+ * Google Jobs rich result.
+ */
+export function jobPostingJsonLd(job: Job) {
+  const [locality, region] = job.location.split(",").map((s) => s.trim());
+  const pay = salaryForSchema(job.salary);
+  const list = (items: string[]) =>
+    items.length ? `<ul>${items.map((r) => `<li>${r}</li>`).join("")}</ul>` : "";
+  const description =
+    `<p>${job.summary}</p>` +
+    (job.responsibilities.length ? `<p><strong>Responsibilities</strong></p>${list(job.responsibilities)}` : "") +
+    (job.requirements.length ? `<p><strong>Requirements</strong></p>${list(job.requirements)}` : "");
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title,
+    description,
+    ...(job.createdAtIso ? { datePosted: job.createdAtIso } : {}),
+    ...(job.expiresAt ? { validThrough: job.expiresAt } : {}),
+    employmentType: EMPLOYMENT_TYPE[job.type] ?? "OTHER",
+    hiringOrganization: {
+      "@type": "Organization",
+      "@id": ORG_ID,
+      name: site.name,
+      sameAs: site.url,
+    },
+    identifier: { "@type": "PropertyValue", name: site.name, value: job.id },
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        ...(locality ? { addressLocality: locality } : {}),
+        ...(region ? { addressRegion: region } : {}),
+        addressCountry: "US",
+      },
+    },
+    ...(job.remote === "Remote"
+      ? {
+          jobLocationType: "TELECOMMUTE",
+          applicantLocationRequirements: { "@type": "Country", name: "USA" },
+        }
+      : {}),
+    ...(pay
+      ? {
+          baseSalary: {
+            "@type": "MonetaryAmount",
+            currency: "USD",
+            value: {
+              "@type": "QuantitativeValue",
+              minValue: pay.min,
+              maxValue: pay.max,
+              unitText: pay.unit,
+            },
+          },
+        }
+      : {}),
+    industry: job.industryName,
+    directApply: true,
   };
 }

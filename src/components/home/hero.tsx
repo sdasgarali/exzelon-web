@@ -7,7 +7,6 @@ import type { Job } from "@/content/jobs";
 import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { LogoMarquee } from "@/components/logo-marquee";
-import { site } from "@/lib/site";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -35,9 +34,9 @@ export function Hero({ jobs }: { jobs: Job[] }) {
   };
 
   const trust = [
-    { value: "1,200+", label: "employers hiring" },
-    { value: `${site.rating.score}★`, label: `on ${site.rating.source}` },
-    { value: "98%", label: "candidate satisfaction" },
+    { value: "5", label: "specialist sectors" },
+    { value: "Free", label: "for job seekers" },
+    { value: "1:1", label: "recruiter guidance" },
   ];
 
   return (
@@ -65,7 +64,7 @@ export function Hero({ jobs }: { jobs: Job[] }) {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
               </span>
-              25,000+ live roles across 5 industries
+              Live roles across 5 specialist industries
             </span>
           </motion.div>
 

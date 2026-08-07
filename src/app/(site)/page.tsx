@@ -13,6 +13,7 @@ import { industries } from "@/content/industries";
 import { steps, services } from "@/content/services";
 import { listFeaturedPublicJobs, listPublishedPosts } from "@/lib/db/repo";
 import { MotionItem } from "@/components/motion/motion-item";
+import { webSiteJsonLd } from "@/lib/seo";
 
 export const revalidate = 60;
 
@@ -23,6 +24,10 @@ export default async function HomePage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd()).replace(/</g, "\\u003c") }}
+      />
       <Hero jobs={featured} />
 
       {/* 4-step process */}
@@ -175,6 +180,8 @@ export default async function HomePage() {
               alt="A friendly Exzelon recruiter pointing toward open job opportunities"
               width={910}
               height={796}
+              priority
+              sizes="(min-width: 1024px) 28rem, 100vw"
               className="mx-auto h-auto w-full max-w-md lg:ml-auto"
             />
           </Reveal>

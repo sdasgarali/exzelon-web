@@ -66,11 +66,10 @@ export function Footer() {
             employers hire faster, with full compliance.
           </p>
           <div className="mt-6 flex items-center gap-2">
-            <span className="flex items-center gap-1 rounded-full bg-white/5 px-3 py-1.5 text-sm font-semibold text-white">
-              <Icon name="star" className="h-4 w-4 fill-accent-500 text-accent-500" />
-              {site.rating.score}/{site.rating.outOf}
+            <span className="flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1.5 text-sm font-semibold text-white">
+              <Icon name="badge-check" className="h-4 w-4 text-accent-500" />
+              Credentialed &amp; compliant
             </span>
-            <span className="text-xs">on {site.rating.source}</span>
           </div>
           <div className="mt-6 flex gap-2">
             {site.socials.map((s) => (

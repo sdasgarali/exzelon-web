@@ -10,8 +10,7 @@ import { JobCard } from "@/components/cards/job-card";
 import { ApplyPanel } from "@/components/forms/apply-panel";
 import { JobSaveButton } from "@/components/jobs/job-save-button";
 import { getPublicJobBySlug, listPublicJobsByIndustry } from "@/lib/db/repo";
-import { pageMetadata } from "@/lib/seo";
-import { site } from "@/lib/site";
+import { pageMetadata, jobPostingJsonLd } from "@/lib/seo";
 
 export const revalidate = 30;
 
@@ -41,23 +40,15 @@ export default async function JobDetailPage({
 
   const related = (await listPublicJobsByIndustry(job.industry)).filter((j) => j.id !== job.id).slice(0, 3);
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "JobPosting",
-    title: job.title,
-    description: job.summary,
-    employmentType: job.type,
-    hiringOrganization: { "@type": "Organization", name: site.brand, sameAs: site.url },
-    jobLocation: {
-      "@type": "Place",
-      address: { "@type": "PostalAddress", addressLocality: job.location },
-    },
-    industry: job.industryName,
-  };
+  const jsonLd = jobPostingJsonLd(job);
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script
+        type="application/ld+json"
+        // Escape `<` so job copy can never break out of the <script> element.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       <PageHeader
         eyebrow={job.industryName}
         crumbs={[{ label: "Jobs", href: "/jobs" }, { label: job.title }]}

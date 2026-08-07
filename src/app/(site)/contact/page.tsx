@@ -67,12 +67,12 @@ export default function ContactPage() {
 
           <div className="mt-6 rounded-2xl bg-ink-900 p-6 text-white">
             <div className="flex items-center gap-2">
-              <Icon name="star" className="h-5 w-5 fill-accent-500 text-accent-500" />
-              <span className="text-lg font-bold">{site.rating.score}/{site.rating.outOf}</span>
-              <span className="text-sm text-brand-100/70">rated on {site.rating.source}</span>
+              <Icon name="clock" className="h-5 w-5 text-accent-500" />
+              <span className="text-lg font-bold">One business day</span>
             </div>
             <p className="mt-2 text-sm text-brand-100/70">
-              Join thousands of professionals and employers who trust Exzelon with their next move.
+              A specialist recruiter in your field reviews every enquiry and typically responds within
+              one business day.
             </p>
           </div>
         </div>
