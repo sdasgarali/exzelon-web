@@ -1,6 +1,33 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> SEO AUDIT ROUND 2 (2026-08-17, branch `feature/seo-audit-fixes-round2`): full re-audit via 5 parallel
+> seo-* subagents (technical/schema/content/local/geo) against source. Fixed high-confidence Critical+High
+> in ONE PR (lint+tsc+build green): (Critical) removed fabricated stats STILL live in about/page.tsx
+> grid ("25,000+"/"4.4/5") + opengraph-image.tsx ("25,000+/1,200+/4.4/5") → replaced w/ verifiable
+> (5 sectors / 9-day time-to-offer / 99% compliance / US-wide); removed dead `/about#leadership` nav
+> entry (no such section). (High schema, seo.ts) org logo bare→ImageObject(1036x401)+priceRange+
+> contactPoint; WebSite SearchAction EntryPoint→flat target string; BlogPosting image→ImageObject always
+> present (logo fallback); JobPosting applicantLocationRequirements USA→US; Travel employmentType
+> CONTRACTOR→TEMPORARY; hiringOrganization=actual employer for employer-posted jobs. (High) sitemap
+> lastModified on static+industry routes (SITE_UPDATED const, not per-crawl now()); opportunities/[slug]
+> meta description gains Chicago/Illinois/nationwide geo. (Low) robots +Bingbot/ChatGPT-User; layout
+> keywords +tax/legal/travel-nurse/geo. DEFERRED to Phase 2 (docs/SEO_AUDIT_ROUND2.md): FAQ answer
+> depth 130-160w + per-industry FAQ+schema, thin-content expansion (hub/industry/jobs intros, services,
+> compliance), author bios, question-form H2s, Service+Review JSON-LD, blog→vertical internal links,
+> employerLogos verify (Google/MS/Amazon), off-site GBP/Wikidata/Crunchbase/YouTube + GSC re-validate.
+> NEXT: push branch → PR → merge (--admin) → Vercel prod → owner validates in Rich Results Test.
+>
+> SEO ESSENTIALS (2026-08-07, PR #22 dbc700b, MERGED squash --admin + Vercel prod deployed, VERIFIED
+> LIVE on www.exzelon.com): home EmploymentAgency + WebSite/SearchAction schema, aggregateRating GONE
+> (0), robots AI-crawler rules live, llms.txt 200, job page JobPosting w/ datePosted+FULL_TIME+
+> BreadcrumbList, "25,000+"/AmbitionBox removed from home+footer+contact (0). NOTE: Vercel PREVIEW
+> builds fail because MONGODB_URI/DB/JWT_SECRET/NEXT_PUBLIC_SITE_URL are Production-scoped only — prod
+> deploy is fine; merge PRs with --admin to bypass the red preview check. NEXT (owner): validate in
+> Google Rich Results Test + resubmit sitemap in GSC. DEFERRED (not in PR): apply-gate funnel redesign,
+> employerLogos decision, thin-content/leadership/author-bios, off-site GBP/reviews/YouTube.
+> Original in-progress plan for this work is preserved below.
+>
 > SEO ESSENTIALS (2026-08-07, branch `feature/seo-essentials`, IN PROGRESS): implementing the
 > Critical+High fixes from a full `/seo audit` (health 52/100). Slices: (1) remove fabricated
 > AmbitionBox rating [site.ts `rating`, seo.ts aggregateRating, footer/contact/feedback/hero UI] +

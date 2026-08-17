@@ -28,8 +28,10 @@ export const metadata: Metadata = {
   },
   description: site.description,
   keywords: [
-    "recruitment", "staffing agency", "job portal", "healthcare jobs",
-    "construction jobs", "electrical jobs", "IT jobs", "Chicago staffing", "Exzelon",
+    "recruitment", "staffing agency", "job portal", "Chicago staffing agency",
+    "healthcare staffing", "travel nurse staffing", "construction staffing",
+    "electrical staffing", "electrician jobs Chicago", "tax staffing", "legal staffing",
+    "IT staffing", "nurse jobs Illinois", "Exzelon",
   ],
   openGraph: {
     type: "website",

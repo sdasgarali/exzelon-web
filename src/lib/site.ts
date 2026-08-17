@@ -41,7 +41,6 @@ export const nav = [
       { label: "Who We Are", href: "/about#who-we-are", desc: "Our story and purpose" },
       { label: "Mission & Vision", href: "/about#mission", desc: "What drives us forward" },
       { label: "Our Values", href: "/about#values", desc: "The principles we hire by" },
-      { label: "Leadership", href: "/about#leadership", desc: "Meet the team" },
     ],
   },
   { label: "Jobs", href: "/jobs" },

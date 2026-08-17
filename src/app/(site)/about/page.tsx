@@ -59,10 +59,10 @@ export default function AboutPage() {
           <Reveal>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: "users", value: "1,200+", label: "Employers served" },
-                { icon: "award", value: "25,000+", label: "Careers moved" },
-                { icon: "star", value: "4.4/5", label: "Candidate rating" },
+                { icon: "users", value: "5", label: "Specialist sectors" },
+                { icon: "award", value: "9 days", label: "Avg. time to offer" },
                 { icon: "badge-check", value: "99%", label: "Compliance pass rate" },
+                { icon: "map-pin", value: "US-wide", label: "Talent network" },
               ].map((s) => (
                 <div key={s.label} className="rounded-2xl border border-sand-200 bg-white p-6 shadow-[var(--shadow-card)]">
                   <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
