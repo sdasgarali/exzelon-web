@@ -5,7 +5,10 @@ import { site } from "@/lib/site";
 const disallow = ["/api/", "/admin/", "/employer/", "/account/"];
 // Named AI/search crawlers we explicitly welcome — makes the (already-default)
 // allow intent unambiguous so answer engines index and cite the public content.
-const AI_CRAWLERS = ["GPTBot", "OAI-SearchBot", "ClaudeBot", "PerplexityBot", "Google-Extended"];
+const AI_CRAWLERS = [
+  "GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "PerplexityBot",
+  "Google-Extended", "Bingbot",
+];
 
 export default function robots(): MetadataRoute.Robots {
   return {

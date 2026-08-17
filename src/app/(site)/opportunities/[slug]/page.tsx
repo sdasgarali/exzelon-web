@@ -29,7 +29,8 @@ export async function generateMetadata({
   if (!industry) return pageMetadata({ title: "Opportunities" });
   return pageMetadata({
     title: `${industry.name} Jobs`,
-    description: industry.description,
+    // Add geo intent — Exzelon is a Chicago-based agency placing nationwide.
+    description: `${industry.description} Exzelon places ${industry.name.toLowerCase()} talent in Chicago, across Illinois, and nationwide.`,
     path: `/opportunities/${industry.slug}`,
   });
 }

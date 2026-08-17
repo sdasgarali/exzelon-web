@@ -37,6 +37,8 @@ export function pageMetadata({ title, description, path = "/" }: PageSeo = {}): 
 
 const ORG_ID = `${site.url}/#organization`;
 const LOGO_URL = `${site.url}/brand/exzelon-logo.png`;
+// Intrinsic pixels of public/brand/exzelon-logo.png — lets Google size-validate the asset.
+const LOGO_OBJECT = { "@type": "ImageObject", url: LOGO_URL, width: 1036, height: 401 } as const;
 
 /**
  * Primary entity JSON-LD. Typed as `EmploymentAgency` (a LocalBusiness subtype) —
@@ -55,10 +57,11 @@ export function organizationJsonLd() {
     name: site.name,
     alternateName: site.brand,
     url: site.url,
-    logo: LOGO_URL,
+    logo: LOGO_OBJECT,
     image: LOGO_URL,
     email: site.email,
     telephone: site.phone,
+    priceRange: "$$",
     description: site.description,
     address: {
       "@type": "PostalAddress",
@@ -86,6 +89,13 @@ export function organizationJsonLd() {
         closes: "18:00",
       },
     ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: site.phoneHref.replace("tel:", ""),
+      contactType: "customer service",
+      areaServed: "US",
+      availableLanguage: "English",
+    },
     sameAs: site.socials.map((s) => s.href),
   };
 }
@@ -101,10 +111,8 @@ export function webSiteJsonLd() {
     publisher: { "@id": ORG_ID },
     potentialAction: {
       "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${site.url}/jobs?q={search_term_string}`,
-      },
+      // Google's Sitelinks Searchbox spec expects a flat URL template, not an EntryPoint object.
+      target: `${site.url}/jobs?q={search_term_string}`,
       "query-input": "required name=search_term_string",
     },
   };
@@ -156,10 +164,14 @@ export function blogPostingJsonLd(post: {
       "@type": "Organization",
       "@id": ORG_ID,
       name: site.name,
-      logo: { "@type": "ImageObject", url: LOGO_URL },
+      logo: LOGO_OBJECT,
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
-    ...(post.coverImageUrl ? { image: post.coverImageUrl } : {}),
+    // Always emit an image so the post stays eligible for the Article rich result;
+    // fall back to the org logo when the post has no cover.
+    image: post.coverImageUrl
+      ? { "@type": "ImageObject", url: post.coverImageUrl, width: 1200, height: 630 }
+      : LOGO_OBJECT,
     url,
   };
 }
@@ -170,7 +182,8 @@ const EMPLOYMENT_TYPE: Record<Job["type"], string> = {
   "Part-time": "PART_TIME",
   Contract: "CONTRACTOR",
   "Temp-to-hire": "TEMPORARY",
-  Travel: "CONTRACTOR",
+  // Travel assignments are fixed-term, location-variable — TEMPORARY, not CONTRACTOR.
+  Travel: "TEMPORARY",
 };
 
 /**
@@ -222,12 +235,11 @@ export function jobPostingJsonLd(job: Job) {
     ...(job.createdAtIso ? { datePosted: job.createdAtIso } : {}),
     ...(job.expiresAt ? { validThrough: job.expiresAt } : {}),
     employmentType: EMPLOYMENT_TYPE[job.type] ?? "OTHER",
-    hiringOrganization: {
-      "@type": "Organization",
-      "@id": ORG_ID,
-      name: site.name,
-      sameAs: site.url,
-    },
+    // Employer-posted roles name the actual employer; Exzelon-posted/seed roles name Exzelon
+    // (the agency) and link to the org entity.
+    hiringOrganization: job.companyId
+      ? { "@type": "Organization", name: job.company ?? site.name }
+      : { "@type": "Organization", "@id": ORG_ID, name: site.name, sameAs: site.url },
     identifier: { "@type": "PropertyValue", name: site.name, value: job.id },
     jobLocation: {
       "@type": "Place",
@@ -241,7 +253,7 @@ export function jobPostingJsonLd(job: Job) {
     ...(job.remote === "Remote"
       ? {
           jobLocationType: "TELECOMMUTE",
-          applicantLocationRequirements: { "@type": "Country", name: "USA" },
+          applicantLocationRequirements: { "@type": "Country", name: "US" },
         }
       : {}),
     ...(pay

@@ -53,11 +53,11 @@ export default function OgImage() {
         </div>
 
         <div style={{ display: "flex", gap: 16, fontSize: 24, color: "#8ebdff" }}>
-          <span>25,000+ opportunities</span>
+          <span>Chicago & US-wide</span>
           <span>·</span>
-          <span>1,200+ employers</span>
+          <span>5 specialist sectors</span>
           <span>·</span>
-          <span>4.4/5 rated</span>
+          <span>Compliance-first</span>
         </div>
       </div>
     ),

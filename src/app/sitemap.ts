@@ -9,17 +9,24 @@ export const revalidate = 3600;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = site.url;
 
+  // Freshness signal for the static marketing pages. A fixed date (bumped on content
+  // changes) is honest — unlike `new Date()`, which would claim edits on every hourly
+  // regeneration. Update when static page copy meaningfully changes.
+  const SITE_UPDATED = new Date("2026-08-17");
+
   const staticRoutes = [
     "", "/about", "/for-clients", "/opportunities", "/jobs", "/contact",
     "/resources", "/resources/blog", "/resources/faq", "/resources/compliance", "/resources/feedback",
   ].map((path) => ({
     url: `${base}${path}`,
+    lastModified: SITE_UPDATED,
     changeFrequency: "weekly" as const,
     priority: path === "" ? 1 : 0.8,
   }));
 
   const industryRoutes = industries.map((i) => ({
     url: `${base}/opportunities/${i.slug}`,
+    lastModified: SITE_UPDATED,
     changeFrequency: "weekly" as const,
     priority: 0.7,
   }));
