@@ -211,6 +211,13 @@ function salaryForSchema(salary: string): { min: number; max: number; unit: stri
   return { min: Math.min(...nums), max: Math.max(...nums), unit };
 }
 
+/** `YYYY-MM-DD`, `days` from now (UTC). Used for the rolling JobPosting expiry. */
+function isoDateInDays(days: number): string {
+  const d = new Date();
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
 /**
  * JobPosting JSON-LD for a job detail page. Includes every field Google requires
  * (`datePosted`, full `description`, enum `employmentType`) plus recommended ones
@@ -233,7 +240,11 @@ export function jobPostingJsonLd(job: Job) {
     title: job.title,
     description,
     ...(job.createdAtIso ? { datePosted: job.createdAtIso } : {}),
-    ...(job.expiresAt ? { validThrough: job.expiresAt } : {}),
+    // Google recommends `validThrough` and drops/downranks postings without it. Open
+    // roles rarely carry an explicit `expiresAt`, so fall back to a rolling 90-day
+    // window that always resolves to a future date (refreshed on each ISR render),
+    // keeping the listing eligible for as long as it stays live on the site.
+    validThrough: job.expiresAt ?? isoDateInDays(90),
     employmentType: EMPLOYMENT_TYPE[job.type] ?? "OTHER",
     // Employer-posted roles name the actual employer; Exzelon-posted/seed roles name Exzelon
     // (the agency) and link to the org entity.

@@ -8,20 +8,54 @@ import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
 import { CtaBanner } from "@/components/cta-banner";
 import { pageMetadata } from "@/lib/seo";
+import { getIndustry } from "@/content/industries";
 import { searchPublicJobs } from "@/lib/db/repo";
 import { cn } from "@/lib/utils";
-
-export const metadata: Metadata = pageMetadata({
-  title: "Jobs",
-  description:
-    "Search live job openings across healthcare, construction, electrical, tax & legal, and IT. Filter by industry, type, salary, and location.",
-  path: "/jobs",
-});
 
 // Reads searchParams → rendered on demand (server-side search + pagination).
 export const dynamic = "force-dynamic";
 
 const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
+
+const titleCase = (s: string) =>
+  s.replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()).trim();
+
+/**
+ * Human labels for the active industry/location filters. Industry arrives as a slug
+ * (`it`, `tax-legal`) → resolve to its proper name ("Information Technology") so the
+ * heading and <title> read naturally and target the "<industry> jobs in <city>" intent.
+ */
+function jobsFilterLabels(industry?: string, loc?: string) {
+  const industryName = industry ? getIndustry(industry)?.name ?? titleCase(industry) : undefined;
+  const locName = loc ? titleCase(loc) : undefined;
+  return { industryName, locName };
+}
+
+/** Plain-text page title for `<title>` — mirrors the on-page H1. */
+function jobsTitle(industry?: string, loc?: string): string {
+  const { industryName, locName } = jobsFilterLabels(industry, loc);
+  if (industryName && locName) return `${industryName} Jobs in ${locName}`;
+  if (industryName) return `${industryName} Jobs`;
+  if (locName) return `Jobs in ${locName}`;
+  return "Jobs";
+}
+
+// Dynamic title/description reflect the active filters, but the canonical stays the bare
+// `/jobs` (via pageMetadata's `path`) so the crawler never indexes every filter permutation.
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}): Promise<Metadata> {
+  const sp = await searchParams;
+  const title = jobsTitle(one(sp.industry), one(sp.loc));
+  const { industryName, locName } = jobsFilterLabels(one(sp.industry), one(sp.loc));
+  const scope = [industryName?.toLowerCase(), locName ? `in ${locName}` : null].filter(Boolean).join(" jobs ");
+  const description = scope
+    ? `Browse live ${scope} openings from Exzelon — filter by type, salary, and location, and apply with a specialist recruiter.`
+    : "Search live job openings across healthcare, construction, electrical, tax & legal, and IT. Filter by industry, type, salary, and location.";
+  return pageMetadata({ title, description, path: "/jobs" });
+}
 
 export default async function JobsPage({
   searchParams,
@@ -49,6 +83,24 @@ export default async function JobsPage({
     page,
   });
 
+  // Keyword-rich heading that reflects the active industry/location filter (SEO: the H1
+  // is the page's strongest on-page signal, so "IT Jobs in Chicago" beats a generic H1).
+  const { industryName, locName } = jobsFilterLabels(industry, loc);
+  const headerTitle =
+    industryName && locName ? (
+      <>{industryName} Jobs in <span className="text-gradient">{locName}</span></>
+    ) : industryName ? (
+      <>{industryName} <span className="text-gradient">Jobs</span></>
+    ) : locName ? (
+      <>Jobs in <span className="text-gradient">{locName}</span></>
+    ) : (
+      <>Find your next <span className="text-gradient">career move</span></>
+    );
+  const headerDescription =
+    industryName || locName
+      ? `Browse live ${industryName ? `${industryName} ` : ""}openings${locName ? ` in ${locName}` : ""} and filter by type, salary, and work mode to find your fit.`
+      : "Browse live opportunities across five industries and filter to find your perfect fit.";
+
   // Preserve the active filters (minus page) for pagination + sort links.
   const baseQuery = { q, loc, industry, type, remote, salaryMin, sort: sort === "recent" ? undefined : sort };
   const sortHref = (s: string) => {
@@ -64,8 +116,8 @@ export default async function JobsPage({
       <PageHeader
         eyebrow="Job Board"
         crumbs={[{ label: "Jobs" }]}
-        title={<>Find your next <span className="text-gradient">career move</span></>}
-        description="Browse live opportunities across five industries and filter to find your perfect fit."
+        title={headerTitle}
+        description={headerDescription}
       >
         <ButtonLink href="/contact" variant="light" size="lg">Submit your resume</ButtonLink>
       </PageHeader>

@@ -1,6 +1,19 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> SEO AUDIT ROUND 3 + QUICK WINS (2026-08-20, branch `feature/seo-quick-wins`): ran full `/seo audit`
+> on LIVE www.exzelon.com (6 specialists). Health 67/100. VERIFIED live HTML: schema fully SSR'd
+> (EmploymentAgency + JobPosting + WebSite + Breadcrumb + FAQPage + BlogPosting) — corrected two false
+> "no schema" agent findings. CONFIRMED real gaps → shipping safe code-only fixes this branch:
+> (C1) security headers in next.config.ts (HSTS/nosniff/frame-options/referrer/permissions; NO strict CSP
+> yet — untested CSP risks white-screening prod Next+Framer, documented follow-up); (M1) jobPostingJsonLd
+> now ALWAYS emits validThrough (fallback createdAt/now +90d) so Google Jobs keeps postings eligible;
+> (L1) new public/llms-full.txt (expanded FAQ/compliance/key-facts for AI citation); (L2) llms.txt gains
+> Generated date + tighter license; (M4) /jobs dynamic H1 from active industry/loc filters (default
+> unchanged for brand safety). DEFERRED (need design/copy/off-site): C2 homepage dual-fork hero, H2
+> rebuild /for-clients w/ inline form, H3 five industry×Chicago pages, H4 named team+author Person schema,
+> H5 quick-apply, H1 GBP claim, C3 reconcile LinkedIn NAP, full strict CSP. NEXT: lint+tsc+build → PR.
+>
 > SEO AUDIT ROUND 2 (2026-08-17, branch `feature/seo-audit-fixes-round2`): full re-audit via 5 parallel
 > seo-* subagents (technical/schema/content/local/geo) against source. Fixed high-confidence Critical+High
 > in ONE PR (lint+tsc+build green): (Critical) removed fabricated stats STILL live in about/page.tsx
