@@ -27,12 +27,33 @@ const nextConfig: NextConfig = {
       { source: "/:slug*.html", destination: "/", permanent: true },
     ];
   },
-  // The default *.vercel.app deployment host is a full duplicate mirror of the
-  // canonical www.exzelon.com site (confirmed via analytics). Tell crawlers not to
-  // index it so it never competes with the canonical origin, while keeping preview
-  // deployments fully functional for testing.
   async headers() {
+    // Baseline security headers on every response. These are all non-breaking for a
+    // Next.js + Framer Motion app: no Content-Security-Policy is set here on purpose —
+    // a strict CSP needs nonce plumbing for Next's inline runtime scripts and must be
+    // validated against the live app before shipping, or it white-screens production.
+    // Track that as a follow-up (see Plan_WIP.md "full strict CSP").
+    const securityHeaders = [
+      // Force HTTPS for two years incl. subdomains; `preload` keeps us eligible for the
+      // browser HSTS preload list. The site is HTTPS-only (bare domain 301s to www).
+      { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+      // Stop MIME-sniffing (blocks a class of drive-by content-type attacks).
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      // Clickjacking protection — the site is never meant to be framed cross-origin.
+      { key: "X-Frame-Options", value: "SAMEORIGIN" },
+      // Leak only the origin (not the full path) on cross-origin navigations.
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      // Deny powerful browser features the site never uses.
+      { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), browsing-topics=()" },
+      { key: "X-DNS-Prefetch-Control", value: "on" },
+    ];
+
     return [
+      { source: "/:path*", headers: securityHeaders },
+      // The default *.vercel.app deployment host is a full duplicate mirror of the
+      // canonical www.exzelon.com site (confirmed via analytics). Tell crawlers not to
+      // index it so it never competes with the canonical origin, while keeping preview
+      // deployments fully functional for testing.
       {
         source: "/:path*",
         has: [{ type: "host", value: ".*\\.vercel\\.app" }],

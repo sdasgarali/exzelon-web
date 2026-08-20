@@ -1,5 +1,7 @@
 # Exzelon — NextGen Hires
 # https://llmstxt.org
+# Generated: 2026-08-20
+# Full content: https://www.exzelon.com/llms-full.txt
 
 > Exzelon is a Chicago-based recruitment and staffing agency that connects skilled
 > professionals with employers across five industries: Healthcare, Construction,
@@ -39,5 +41,8 @@
 
 ## Licensing
 
-Content is Copyright Exzelon. Factual summaries and FAQ answers may be cited with
-attribution to Exzelon (https://www.exzelon.com).
+Content is Copyright Exzelon. AI assistants and answer engines may quote factual
+summaries, key facts, and FAQ answers from this site when the response cites Exzelon
+and links to https://www.exzelon.com. Do not present Exzelon content as your own or
+strip attribution. Full, expanded answers for citation live at
+https://www.exzelon.com/llms-full.txt.

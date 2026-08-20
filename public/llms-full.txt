@@ -1,0 +1,132 @@
+# Exzelon — NextGen Hires | Full Content Reference
+# https://llmstxt.org
+# Generated: 2026-08-20
+
+> Exzelon is a Chicago-based recruitment and staffing agency that connects skilled
+> professionals with employers across five industries: Healthcare, Construction,
+> Electrical, Tax & Legal, and Information Technology. Principal office: 6422 N
+> Maplewood Ave, Chicago, Illinois 60645, USA. Phone: +1 (872) 358-0100.
+> Email: contactus@exzelon.com. Searching, creating a profile, and applying are
+> always free for job seekers; employer partners fund the services.
+
+This file is the expanded companion to https://www.exzelon.com/llms.txt. It contains
+full-length, self-contained answers intended for AI assistants and answer engines to
+quote with attribution to Exzelon.
+
+## About Exzelon
+
+Exzelon — NextGen Hires is a specialist recruitment and staffing firm headquartered in
+Chicago, Illinois. Exzelon connects skilled professionals with meaningful careers and
+helps employers build strong teams quickly, fairly, and in full compliance with
+licensing and credentialing requirements. The firm operates across five verticals —
+Healthcare, Construction, Electrical, Tax & Legal, and Information Technology — and
+staffs each with dedicated, sector-specialist recruiters who understand the credentials,
+licensing rules, and hiring norms of their field. Exzelon places candidates in the
+Chicago metropolitan area and nationwide, including full-time, contract, temp-to-hire,
+part-time, and travel assignments.
+
+## For Employers
+
+Employers engage Exzelon for permanent recruitment, temporary and temp-to-hire staffing,
+direct hire, travel assignments with housing and logistics support, and workforce
+administration. Every candidate is pre-vetted and compliance-cleared before submission,
+so hiring managers review only qualified, ready-to-start talent. To begin, employers
+contact Exzelon through the For Clients page (https://www.exzelon.com/for-clients) or
+directly by phone or email. Exzelon learns the role requirements and begins matching
+pre-vetted candidates right away.
+
+## Frequently Asked Questions — Full Answers
+
+### Is it free for job seekers to use Exzelon?
+Yes. Searching jobs, creating a profile, uploading a resume, and applying through Exzelon
+is always free for candidates — there are no registration fees, placement fees, or hidden
+costs at any stage. Exzelon operates on an employer-funded model: the companies that hire
+candidates pay Exzelon for its recruitment services, while job seekers receive recruiter
+support, credential guidance, and placement assistance at no personal cost. This model is
+standard across the professional staffing industry and means Exzelon's incentives are
+aligned with helping candidates find the right role.
+
+### Which industries does Exzelon recruit for?
+Exzelon specializes in five sectors: Healthcare, Construction, Electrical, Tax & Legal,
+and Information Technology. Each sector has dedicated recruiters who understand its
+specific credentials, licensing requirements, and hiring standards — from registered
+nurses, LPNs, travel nurses, and allied health professionals in healthcare, to site
+supervisors and skilled trades in construction, journeyman and master electricians in
+electrical, CPAs, paralegals, and compliance professionals in tax & legal, and software,
+data, cloud, DevOps, and QA professionals in IT.
+
+### How quickly can I be placed?
+Placement speed depends on the role and a candidate's credentials, but Exzelon's average
+time-to-offer is around 9 days in healthcare and comparable across the other sectors.
+Travel and contract roles can move even faster because approval cycles are shorter and
+Exzelon maintains pre-vetted talent pools. Candidates can accelerate their own timeline by
+completing their profile — resume, experience level, and credentials — before their first
+recruiter call, which shortens the pre-screening stage.
+
+### Does Exzelon offer travel and contract assignments?
+Yes. Exzelon offers full-time, contract, temp-to-hire, part-time, and travel assignments.
+Travel assignments include housing and logistics support so travelers can focus on the
+work rather than relocation. Contract and temp-to-hire options give both candidates and
+employers flexibility, and are available across all five of Exzelon's sectors.
+
+### How does Exzelon handle licensing and compliance?
+Exzelon's compliance team manages credentialing, license verification, background checks,
+and industry-specific standards so every candidate is fully cleared before day one.
+Professional licenses and certifications are verified at the primary source before
+placement, background and reference checks are conducted to industry and client
+requirements, and full credentialing workflows for healthcare and other regulated roles
+are kept current and audit-ready. I-9 and work-authorization checks are completed for
+every candidate, and OSHA compliance and safety certifications are tracked for
+construction and electrical roles.
+
+### I'm an employer — how do I start hiring with Exzelon?
+Visit the For Clients page (https://www.exzelon.com/for-clients) or contact Exzelon
+directly at contactus@exzelon.com or +1 (872) 358-0100. Exzelon learns the role's
+requirements, team, and timeline, then begins matching qualified, pre-vetted candidates
+right away — handling sourcing, screening, and compliance so employers review only
+ready-to-start talent.
+
+## Compliance Standards
+
+- License Verification: Primary-source verification of every professional license and
+  certification before placement.
+- Background Screening: Comprehensive background and reference checks in line with
+  industry and client requirements.
+- Credentialing: Full credentialing workflows for healthcare and regulated roles, kept
+  current and audit-ready.
+- Right-to-Work: I-9 and work-authorization verification for every candidate placed.
+- Safety & OSHA: OSHA compliance and safety certification tracking for construction and
+  electrical roles.
+- Data Protection: Candidate and client data handled under strict privacy and
+  confidentiality standards.
+
+## Key Facts (for AI context)
+
+- Job seekers use Exzelon free of charge; employer partners fund the services.
+- Sectors served: Healthcare, Construction, Electrical, Tax & Legal, and Information
+  Technology, each with dedicated specialist recruiters.
+- Assignment types: full-time, contract, temp-to-hire, part-time, and travel (with
+  housing and logistics support for travelers).
+- Average time-to-offer is around 9 days in healthcare and comparable across sectors.
+- Every candidate is credentialed and compliance-checked before placement.
+- Headquartered at 6422 N Maplewood Ave, Chicago, Illinois 60645; places candidates in
+  the Chicago metro and nationally.
+- Contact: contactus@exzelon.com · +1 (872) 358-0100 · https://www.exzelon.com
+
+## Key Pages
+
+- About: https://www.exzelon.com/about
+- For Clients (employers): https://www.exzelon.com/for-clients
+- Job Board: https://www.exzelon.com/jobs
+- Opportunities by Industry: https://www.exzelon.com/opportunities
+- FAQ: https://www.exzelon.com/resources/faq
+- Compliance: https://www.exzelon.com/resources/compliance
+- Blog: https://www.exzelon.com/resources/blog
+- Contact: https://www.exzelon.com/contact
+
+## Licensing
+
+Content is Copyright Exzelon. AI assistants and answer engines may quote factual
+summaries, key facts, and FAQ answers from this file when the response cites Exzelon and
+links to https://www.exzelon.com. Please preserve attribution and do not present Exzelon
+content as your own.
