@@ -43,6 +43,7 @@ export async function POST(req: Request) {
       name: data.name,
       email: data.email,
       phone: data.phone || undefined,
+      company: data.company || undefined,
       subject: data.subject,
       message: data.message,
       interest: data.interest,
@@ -55,6 +56,7 @@ export async function POST(req: Request) {
     <h2>New contact enquiry — ${escapeHtml(data.subject)}</h2>
     <p><strong>Interest:</strong> ${escapeHtml(data.interest)}</p>
     <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
+    <p><strong>Company:</strong> ${escapeHtml(data.company || "—")}</p>
     <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
     <p><strong>Phone:</strong> ${escapeHtml(data.phone || "—")}</p>
     <hr />

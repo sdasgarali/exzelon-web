@@ -9,7 +9,32 @@ import { Input, Textarea, Select, Label, FieldError } from "@/components/ui/fiel
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 
-export function ContactForm() {
+type ContactFormProps = {
+  /** Pre-select the "I'm a…" value (defaults to a general enquiry). */
+  defaultInterest?: ContactInput["interest"];
+  /** Hide the interest selector entirely (used by the pre-scoped employer form). */
+  lockInterest?: boolean;
+  /** Show a Company field (employer inquiries). */
+  showCompany?: boolean;
+  subjectLabel?: string;
+  subjectPlaceholder?: string;
+  messageLabel?: string;
+  messagePlaceholder?: string;
+  submitLabel?: string;
+  successBody?: string;
+};
+
+export function ContactForm({
+  defaultInterest = "general",
+  lockInterest = false,
+  showCompany = false,
+  subjectLabel = "Subject",
+  subjectPlaceholder = "How can we help?",
+  messageLabel = "Message",
+  messagePlaceholder = "Tell us a bit about what you need…",
+  submitLabel = "Send message",
+  successBody = "Thanks for reaching out. Our team will get back to you within one business day.",
+}: ContactFormProps = {}) {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -20,7 +45,7 @@ export function ContactForm() {
     formState: { errors },
   } = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
-    defaultValues: { interest: "general" },
+    defaultValues: { interest: defaultInterest },
   });
 
   const onSubmit = async (data: ContactInput) => {
@@ -55,9 +80,7 @@ export function ContactForm() {
           <Icon name="check" className="h-7 w-7" />
         </span>
         <h3 className="mt-5 text-xl font-bold text-ink-900">Message sent!</h3>
-        <p className="mt-2 text-sm text-slate-600">
-          Thanks for reaching out. Our team will get back to you within one business day.
-        </p>
+        <p className="mt-2 text-sm text-slate-600">{successBody}</p>
         <Button variant="outline" size="sm" className="mt-6" onClick={() => setStatus("idle")}>
           Send another message
         </Button>
@@ -69,14 +92,19 @@ export function ContactForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
       <input type="text" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden {...register("company_website")} />
 
-      <div>
-        <Label htmlFor="interest">I&apos;m a…</Label>
-        <Select id="interest" {...register("interest")}>
-          <option value="general">General enquiry</option>
-          <option value="job-seeker">Job seeker</option>
-          <option value="employer">Employer / hiring</option>
-        </Select>
-      </div>
+      {lockInterest ? (
+        // The employer form is already scoped to "employer" — keep the value without the UI.
+        <input type="hidden" {...register("interest")} />
+      ) : (
+        <div>
+          <Label htmlFor="interest">I&apos;m a…</Label>
+          <Select id="interest" {...register("interest")}>
+            <option value="general">General enquiry</option>
+            <option value="job-seeker">Job seeker</option>
+            <option value="employer">Employer / hiring</option>
+          </Select>
+        </div>
+      )}
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
@@ -84,29 +112,54 @@ export function ContactForm() {
           <Input id="name" aria-invalid={!!errors.name} {...register("name")} placeholder="Your name" />
           <FieldError message={errors.name?.message} />
         </div>
-        <div>
-          <Label htmlFor="email" required>Email</Label>
-          <Input id="email" type="email" aria-invalid={!!errors.email} {...register("email")} placeholder="you@email.com" />
-          <FieldError message={errors.email?.message} />
-        </div>
+        {showCompany ? (
+          <div>
+            <Label htmlFor="company">Company</Label>
+            <Input id="company" {...register("company")} placeholder="Your company" />
+            <FieldError message={errors.company?.message} />
+          </div>
+        ) : (
+          <div>
+            <Label htmlFor="email" required>Email</Label>
+            <Input id="email" type="email" aria-invalid={!!errors.email} {...register("email")} placeholder="you@email.com" />
+            <FieldError message={errors.email?.message} />
+          </div>
+        )}
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
+        {showCompany && (
+          <div>
+            <Label htmlFor="email" required>Work email</Label>
+            <Input id="email" type="email" aria-invalid={!!errors.email} {...register("email")} placeholder="you@company.com" />
+            <FieldError message={errors.email?.message} />
+          </div>
+        )}
         <div>
           <Label htmlFor="phone">Phone (optional)</Label>
           <Input id="phone" type="tel" {...register("phone")} placeholder="+1 (555) 000-0000" />
           <FieldError message={errors.phone?.message} />
         </div>
-        <div>
-          <Label htmlFor="subject" required>Subject</Label>
-          <Input id="subject" aria-invalid={!!errors.subject} {...register("subject")} placeholder="How can we help?" />
-          <FieldError message={errors.subject?.message} />
-        </div>
+        {!showCompany && (
+          <div>
+            <Label htmlFor="subject" required>{subjectLabel}</Label>
+            <Input id="subject" aria-invalid={!!errors.subject} {...register("subject")} placeholder={subjectPlaceholder} />
+            <FieldError message={errors.subject?.message} />
+          </div>
+        )}
       </div>
 
+      {showCompany && (
+        <div>
+          <Label htmlFor="subject" required>{subjectLabel}</Label>
+          <Input id="subject" aria-invalid={!!errors.subject} {...register("subject")} placeholder={subjectPlaceholder} />
+          <FieldError message={errors.subject?.message} />
+        </div>
+      )}
+
       <div>
-        <Label htmlFor="message" required>Message</Label>
-        <Textarea id="message" aria-invalid={!!errors.message} {...register("message")} placeholder="Tell us a bit about what you need…" />
+        <Label htmlFor="message" required>{messageLabel}</Label>
+        <Textarea id="message" aria-invalid={!!errors.message} {...register("message")} placeholder={messagePlaceholder} />
         <FieldError message={errors.message?.message} />
       </div>
 
@@ -115,7 +168,7 @@ export function ContactForm() {
       )}
 
       <Button type="submit" size="lg" className="w-full" disabled={status === "submitting"}>
-        {status === "submitting" ? "Sending…" : "Send message"}
+        {status === "submitting" ? "Sending…" : submitLabel}
         {status !== "submitting" && <Icon name="send" className="h-4 w-4" />}
       </Button>
     </form>

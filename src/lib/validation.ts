@@ -6,6 +6,8 @@ export const contactSchema = z.object({
   name: z.string().min(2, "Please enter your name").max(80),
   email: z.string().email("Enter a valid email address"),
   phone: z.string().max(30).optional().or(z.literal("")),
+  // Optional — only the employer inquiry form (on /for-clients) collects this.
+  company: z.string().max(120).optional().or(z.literal("")),
   subject: z.string().min(2, "Please add a subject").max(120),
   message: z.string().min(10, "Tell us a little more (10+ characters)").max(2000),
   interest: z.enum(["job-seeker", "employer", "general"]),
