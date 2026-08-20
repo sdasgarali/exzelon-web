@@ -78,6 +78,7 @@ export type ContactDoc = {
   name: string;
   email: string;
   phone?: string;
+  company?: string;
   subject: string;
   message: string;
   interest: "job-seeker" | "employer" | "general";
