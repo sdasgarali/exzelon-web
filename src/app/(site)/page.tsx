@@ -9,7 +9,7 @@ import { IndustryCard } from "@/components/cards/industry-card";
 import { JobCard } from "@/components/cards/job-card";
 import { CtaBanner } from "@/components/cta-banner";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
-import { industries } from "@/content/industries";
+import { industries, industryCount } from "@/content/industries";
 import { steps, services } from "@/content/services";
 import { listFeaturedPublicJobs, listPublishedPosts } from "@/lib/db/repo";
 import { MotionItem } from "@/components/motion/motion-item";
@@ -64,7 +64,7 @@ export default async function HomePage() {
       <Section className="bg-sand-50">
         <div className="flex flex-col items-end justify-between gap-6 md:flex-row">
           <SectionHeading
-            title="Five industries. One trusted partner."
+            title={`${industryCount} industries. One trusted partner.`}
             description="Specialist recruiters in each sector who understand the credentials, culture, and cadence of your field."
           />
           <Reveal delay={0.1}>

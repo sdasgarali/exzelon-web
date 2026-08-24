@@ -8,7 +8,7 @@ import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
 import { CtaBanner } from "@/components/cta-banner";
 import { pageMetadata } from "@/lib/seo";
-import { getIndustry } from "@/content/industries";
+import { getIndustry, industryCountWord, industriesShort } from "@/content/industries";
 import { searchPublicJobs } from "@/lib/db/repo";
 import { cn } from "@/lib/utils";
 
@@ -53,7 +53,7 @@ export async function generateMetadata({
   const scope = [industryName?.toLowerCase(), locName ? `in ${locName}` : null].filter(Boolean).join(" jobs ");
   const description = scope
     ? `Browse live ${scope} openings from Exzelon — filter by type, salary, and location, and apply with a specialist recruiter.`
-    : "Search live job openings across healthcare, construction, electrical, tax & legal, and IT. Filter by industry, type, salary, and location.";
+    : `Search live job openings across ${industryCountWord} industries — ${industriesShort}. Filter by industry, type, salary, and location.`;
   return pageMetadata({ title, description, path: "/jobs" });
 }
 
@@ -99,7 +99,7 @@ export default async function JobsPage({
   const headerDescription =
     industryName || locName
       ? `Browse live ${industryName ? `${industryName} ` : ""}openings${locName ? ` in ${locName}` : ""} and filter by type, salary, and work mode to find your fit.`
-      : "Browse live opportunities across five industries and filter to find your perfect fit.";
+      : `Browse live opportunities across ${industryCountWord} industries and filter to find your perfect fit.`;
 
   // Preserve the active filters (minus page) for pagination + sort links.
   const baseQuery = { q, loc, industry, type, remote, salaryMin, sort: sort === "recent" ? undefined : sort };

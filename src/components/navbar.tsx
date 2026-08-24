@@ -53,6 +53,9 @@ export function Navbar() {
           {nav.map((item) => {
             const active = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
             const hasChildren = "children" in item && item.children;
+            // Wide two-column panel for large menus (e.g. the 12 industries) so the
+            // dropdown never runs off the bottom of the viewport.
+            const wide = hasChildren && item.children.length > 6;
             return (
               <li
                 key={item.label}
@@ -90,9 +93,17 @@ export function Navbar() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 8, scale: 0.98 }}
                         transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                        className="absolute left-1/2 top-full w-72 -translate-x-1/2 pt-3"
+                        className={cn(
+                          "absolute left-1/2 top-full -translate-x-1/2 pt-3",
+                          wide ? "w-[34rem]" : "w-72"
+                        )}
                       >
-                        <div className="overflow-hidden rounded-2xl border border-sand-200 bg-white p-2 shadow-[0_24px_60px_-24px_rgba(15,35,79,0.45)]">
+                        <div
+                          className={cn(
+                            "overflow-hidden rounded-2xl border border-sand-200 bg-white p-2 shadow-[0_24px_60px_-24px_rgba(15,35,79,0.45)]",
+                            wide && "grid grid-cols-2 gap-1"
+                          )}
+                        >
                           {item.children.map((child) => (
                             <Link
                               key={child.href}

@@ -1,5 +1,7 @@
 /** Misc marketing content: values, testimonials, FAQs, employer logos, blog. */
 
+import { industryCountWord } from "@/content/industries";
+
 export const employerLogos = [
   "Google", "Microsoft", "Amazon", "Northwestern Medicine", "AbbVie",
   "Turner Construction", "Deloitte", "Accenture", "Rush Health", "Motorola",
@@ -23,7 +25,7 @@ export const testimonials = [
 
 export const faqs = [
   { q: "Is it free for job seekers to use Exzelon?", a: "Yes. Searching jobs, creating a profile, uploading your resume, and applying through Exzelon is always free for candidates. Our employer partners fund our services." },
-  { q: "Which industries do you recruit for?", a: "We specialize in five sectors: Healthcare, Construction, Electrical, Tax & Legal, and Information Technology — with dedicated recruiters in each." },
+  { q: "Which industries do you recruit for?", a: `We specialize in ${industryCountWord} sectors — including Healthcare, Construction, Electrical, Engineering, Manufacturing, Information Technology, Finance, Accounting, Tax & Legal, Administrative, Marketing, and Distribution — with dedicated recruiters in each.` },
   { q: "How quickly can I be placed?", a: "It depends on the role and your credentials, but our average time-to-offer is around 9 days in healthcare and comparable across other sectors. Travel and contract roles can move even faster." },
   { q: "Do you offer travel and contract assignments?", a: "Absolutely. We offer full-time, contract, temp-to-hire, part-time, and travel assignments — including housing and logistics support for travelers." },
   { q: "How do you handle licensing and compliance?", a: "Our compliance team manages credentialing, license verification, background checks, and industry-specific standards so you're fully cleared before day one." },

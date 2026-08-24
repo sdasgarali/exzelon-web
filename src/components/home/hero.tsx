@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { Job } from "@/content/jobs";
+import { industryCount } from "@/content/industries";
 import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { LogoMarquee } from "@/components/logo-marquee";
@@ -34,7 +35,7 @@ export function Hero({ jobs }: { jobs: Job[] }) {
   };
 
   const trust = [
-    { value: "5", label: "specialist sectors" },
+    { value: String(industryCount), label: "specialist sectors" },
     { value: "Free", label: "for job seekers" },
     { value: "1:1", label: "recruiter guidance" },
   ];
@@ -64,7 +65,7 @@ export function Hero({ jobs }: { jobs: Job[] }) {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
               </span>
-              Live roles across 5 specialist industries
+              Live roles across {industryCount} specialist industries
             </span>
           </motion.div>
 
@@ -78,8 +79,8 @@ export function Hero({ jobs }: { jobs: Job[] }) {
           </motion.h1>
 
           <motion.p variants={item} className="mt-5 max-w-lg text-lg leading-relaxed text-white/80">
-            Search thousands of opportunities across healthcare, construction, electrical, tax &amp;
-            legal, and IT — with a dedicated recruiter guiding you from first search to signed offer.
+            Search thousands of opportunities across healthcare, IT, construction, finance,
+            engineering, and more — with a dedicated recruiter guiding you from first search to signed offer.
           </motion.p>
 
           {/* Search — solid, crisp, not glass */}

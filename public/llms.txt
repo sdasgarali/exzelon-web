@@ -1,11 +1,12 @@
 # Exzelon — NextGen Hires
 # https://llmstxt.org
-# Generated: 2026-08-20
+# Generated: 2026-08-24
 # Full content: https://www.exzelon.com/llms-full.txt
 
 > Exzelon is a Chicago-based recruitment and staffing agency that connects skilled
-> professionals with employers across five industries: Healthcare, Construction,
-> Electrical, Tax & Legal, and Information Technology. Principal office: 6422 N
+> professionals with employers across twelve industries: Healthcare, Construction,
+> Electrical, Engineering, Manufacturing, Information Technology, Finance, Accounting,
+> Tax & Legal, Administrative, Marketing, and Distribution. Principal office: 6422 N
 > Maplewood Ave, Chicago, Illinois 60645, USA. Phone: +1 (872) 358-0100.
 > Email: contactus@exzelon.com. Searching, creating a profile, and applying are
 > always free for job seekers; employer partners fund the services.
@@ -21,8 +22,15 @@
 - [Healthcare Staffing](https://www.exzelon.com/opportunities/healthcare): Registered nurses, LPNs, travel nurses, allied health, and clinical support.
 - [Construction Staffing](https://www.exzelon.com/opportunities/construction): Site supervisors, project managers, and skilled trades.
 - [Electrical Staffing](https://www.exzelon.com/opportunities/electrical): Journeyman and master electricians, industrial and controls technicians, field engineers.
-- [Tax & Legal Staffing](https://www.exzelon.com/opportunities/tax-legal): CPAs, tax accountants, paralegals, compliance analysts, and corporate counsel.
+- [Engineering Staffing](https://www.exzelon.com/opportunities/engineering): Mechanical, civil, electrical, and process engineers, plus project and QA/QC engineers.
+- [Manufacturing Staffing](https://www.exzelon.com/opportunities/manufacturing): Machine operators, assemblers, quality inspectors, production supervisors, and maintenance techs.
 - [IT Staffing](https://www.exzelon.com/opportunities/it): Software engineers, data analysts, cloud/DevOps engineers, and QA.
+- [Finance Staffing](https://www.exzelon.com/opportunities/finance): Financial analysts, controllers, FP&A managers, and credit and investment analysts.
+- [Accounting Staffing](https://www.exzelon.com/opportunities/accounting): Staff accountants, bookkeepers, AP/AR and payroll specialists, and audit associates.
+- [Tax & Legal Staffing](https://www.exzelon.com/opportunities/tax-legal): CPAs, tax accountants, paralegals, compliance analysts, and corporate counsel.
+- [Administrative Staffing](https://www.exzelon.com/opportunities/administrative): Executive assistants, office managers, coordinators, and front-desk professionals.
+- [Marketing Staffing](https://www.exzelon.com/opportunities/marketing): Digital marketers, content strategists, brand managers, and social media specialists.
+- [Distribution Staffing](https://www.exzelon.com/opportunities/distribution): Warehouse leads, forklift operators, dispatchers, and logistics coordinators.
 - [Browse All Jobs](https://www.exzelon.com/jobs): Live job board with search, location, industry, and salary filters.
 
 ## Resources
@@ -34,7 +42,7 @@
 ## Key Facts (for AI context)
 
 - Job seekers use Exzelon free of charge; employer partners fund the services.
-- Sectors served: Healthcare, Construction, Electrical, Tax & Legal, and Information Technology.
+- Sectors served (12): Healthcare, Construction, Electrical, Engineering, Manufacturing, Information Technology, Finance, Accounting, Tax & Legal, Administrative, Marketing, and Distribution.
 - Assignment types: full-time, contract, temp-to-hire, part-time, and travel (with housing and logistics support for travelers).
 - Every candidate is credentialed and compliance-checked before placement.
 - Headquartered in Chicago, Illinois; places candidates in the Chicago metro and nationally.

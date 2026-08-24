@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
-import { industries } from "@/content/industries";
+import { industries, industryCountWord } from "@/content/industries";
 import { Logo } from "@/components/logo";
 import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
@@ -62,7 +62,7 @@ export function Footer() {
         <div className="col-span-2 md:col-span-2">
           <Logo invert />
           <p className="mt-5 max-w-xs text-sm leading-relaxed">
-            Connecting skilled professionals with careers across five industries — and helping
+            Connecting skilled professionals with careers across {industryCountWord} industries — and helping
             employers hire faster, with full compliance.
           </p>
           <div className="mt-6 flex items-center gap-2">
