@@ -59,19 +59,9 @@ export function Hero({ jobs }: { jobs: Job[] }) {
       <div className="container-x relative grid items-center gap-14 pt-32 pb-14 sm:pt-40 lg:grid-cols-[1.05fr_0.95fr] lg:pb-20">
         {/* Left — message + search */}
         <motion.div variants={container} initial="hidden" animate="show">
-          <motion.div variants={item}>
-            <span className="inline-flex items-center gap-2.5 rounded-full bg-white/10 py-1.5 pl-2 pr-4 text-sm font-medium text-white ring-1 ring-inset ring-white/15">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
-              </span>
-              Live roles across {industryCount} specialist industries
-            </span>
-          </motion.div>
-
           <motion.h1
             variants={item}
-            className="mt-6 max-w-xl text-balance font-extrabold tracking-tight"
+            className="max-w-xl text-balance font-extrabold tracking-tight"
             style={{ fontSize: "clamp(2.6rem, 1.6rem + 3.4vw, 4.25rem)", lineHeight: 1.04 }}
           >
             Find your next role,{" "}
