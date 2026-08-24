@@ -1,5 +1,7 @@
 /** Employer services — copy recovered verbatim from the original /for-clients page. */
 
+import { industryCountWord } from "@/content/industries";
+
 export type Service = {
   slug: string;
   title: string;
@@ -64,7 +66,7 @@ export const steps = [
   {
     n: "01",
     title: "Search Jobs",
-    description: "Browse thousands of live openings across five industries and filter by role, location, and type.",
+    description: `Browse thousands of live openings across ${industryCountWord} industries and filter by role, location, and type.`,
     icon: "search",
   },
   {

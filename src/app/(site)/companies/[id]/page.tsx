@@ -6,6 +6,7 @@ import { Icon } from "@/components/ui/icon";
 import { JobCard } from "@/components/cards/job-card";
 import { CtaBanner } from "@/components/cta-banner";
 import { getUserById, listPublicJobsByOwner } from "@/lib/db/repo";
+import { industryCountWord } from "@/content/industries";
 import { pageMetadata } from "@/lib/seo";
 import type { CompanyProfile } from "@/lib/company";
 
@@ -91,7 +92,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
 
       <CtaBanner
         title="Hiring like this?"
-        subtitle="Post your roles on Exzelon and reach qualified candidates across five industries."
+        subtitle={`Post your roles on Exzelon and reach qualified candidates across ${industryCountWord} industries.`}
         primary={{ label: "For Employers", href: "/for-clients" }}
         secondary={{ label: "Browse all jobs", href: "/jobs" }}
       />

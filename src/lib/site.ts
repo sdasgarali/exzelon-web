@@ -6,7 +6,7 @@ export const site = {
   shortName: "Exzelon",
   tagline: "Find Your Next Career Move",
   description:
-    "Exzelon — NextGen Hires connects skilled professionals with careers across healthcare, construction, electrical, tax & legal, and IT — and helps employers hire faster with expert recruitment and staffing.",
+    "Exzelon — NextGen Hires connects skilled professionals with careers across a dozen industries — from healthcare, IT, and construction to finance, engineering, and marketing — and helps employers hire faster with expert recruitment and staffing.",
   // Canonical origin (www). Env-driven so sitemap/robots/canonical/OG + email links stay in sync.
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.exzelon.com").replace(/\/$/, ""),
   email: "contactus@exzelon.com",
@@ -51,8 +51,15 @@ export const nav = [
       { label: "Healthcare", href: "/opportunities/healthcare", desc: "Nurses, allied health & more" },
       { label: "Construction", href: "/opportunities/construction", desc: "Trades & site management" },
       { label: "Electrical", href: "/opportunities/electrical", desc: "Licensed electricians & techs" },
-      { label: "Tax & Legal", href: "/opportunities/tax-legal", desc: "Accounting, tax & counsel" },
-      { label: "Information Technology", href: "/opportunities/it", desc: "Engineering, data & cloud" },
+      { label: "Engineering", href: "/opportunities/engineering", desc: "Design, project & process" },
+      { label: "Manufacturing", href: "/opportunities/manufacturing", desc: "Production & plant ops" },
+      { label: "Information Technology", href: "/opportunities/it", desc: "Software, data & cloud" },
+      { label: "Finance", href: "/opportunities/finance", desc: "Analysts, controllers & FP&A" },
+      { label: "Accounting", href: "/opportunities/accounting", desc: "Accountants & bookkeepers" },
+      { label: "Tax & Legal", href: "/opportunities/tax-legal", desc: "Tax, compliance & counsel" },
+      { label: "Administrative", href: "/opportunities/administrative", desc: "Office & executive support" },
+      { label: "Marketing", href: "/opportunities/marketing", desc: "Digital, brand & content" },
+      { label: "Distribution", href: "/opportunities/distribution", desc: "Logistics & warehousing" },
     ],
   },
   {

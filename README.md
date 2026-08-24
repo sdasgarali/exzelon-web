@@ -1,8 +1,9 @@
 # Exzelon — NextGen Hires
 
 A modern, fully animated rebuild of [exzelon.com](https://www.exzelon.com) — a Chicago-based
-recruitment & staffing job portal serving **healthcare, construction, electrical, tax & legal,
-and IT**. Marketing site **+ working Contact and Job-Application forms**.
+recruitment & staffing job portal serving **twelve industries** (healthcare, construction,
+electrical, engineering, manufacturing, IT, finance, accounting, tax & legal, administrative,
+marketing, and distribution). Marketing site **+ working Contact and Job-Application forms**.
 
 ## Tech stack
 - **Next.js 16** (App Router, TypeScript, `src/`)

@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { site } from "@/lib/site";
+import { industryCount } from "@/content/industries";
 
 export const alt = `${site.brand} — ${site.tagline}`;
 export const size = { width: 1200, height: 630 };
@@ -48,14 +49,14 @@ export default function OgImage() {
             Find Your Next Career Move
           </span>
           <span style={{ marginTop: 24, fontSize: 30, color: "#bcd7ff", maxWidth: 900 }}>
-            Recruitment & staffing across healthcare, construction, electrical, tax & legal, and IT.
+            Recruitment & staffing across healthcare, IT, construction, finance, engineering & more.
           </span>
         </div>
 
         <div style={{ display: "flex", gap: 16, fontSize: 24, color: "#8ebdff" }}>
           <span>Chicago & US-wide</span>
           <span>·</span>
-          <span>5 specialist sectors</span>
+          <span>{industryCount} specialist sectors</span>
           <span>·</span>
           <span>Compliance-first</span>
         </div>

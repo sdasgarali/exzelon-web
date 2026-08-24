@@ -7,6 +7,7 @@ import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
 import { CtaBanner } from "@/components/cta-banner";
 import { values } from "@/content/site-content";
+import { industryCount, industryCountWord } from "@/content/industries";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -35,7 +36,7 @@ export default function AboutPage() {
         eyebrow="About Us"
         crumbs={[{ label: "About Us" }]}
         title={<>Hiring, <span className="text-gradient">reimagined</span> for the next generation</>}
-        description="Exzelon — NextGen Hires is a specialist recruitment and staffing partner connecting talented professionals with the right opportunities across five industries."
+        description={`Exzelon — NextGen Hires is a specialist recruitment and staffing partner connecting talented professionals with the right opportunities across ${industryCountWord} industries.`}
       >
         <ButtonLink href="/contact" variant="accent" size="lg">Work with us</ButtonLink>
         <ButtonLink href="/jobs" variant="light" size="lg">Browse jobs</ButtonLink>
@@ -59,7 +60,7 @@ export default function AboutPage() {
           <Reveal>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: "users", value: "5", label: "Specialist sectors" },
+                { icon: "users", value: String(industryCount), label: "Specialist sectors" },
                 { icon: "award", value: "9 days", label: "Avg. time to offer" },
                 { icon: "badge-check", value: "99%", label: "Compliance pass rate" },
                 { icon: "map-pin", value: "US-wide", label: "Talent network" },

@@ -6,12 +6,12 @@ import { MotionItem } from "@/components/motion/motion-item";
 import { IndustryCard } from "@/components/cards/industry-card";
 import { ButtonLink } from "@/components/ui/button";
 import { CtaBanner } from "@/components/cta-banner";
-import { industries } from "@/content/industries";
+import { industries, industryCountWord, industriesShort } from "@/content/industries";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Opportunities",
-  description: "Explore career opportunities across healthcare, construction, electrical, tax & legal, and information technology with Exzelon.",
+  description: `Explore career opportunities across ${industryCountWord} industries — ${industriesShort} — with specialist recruiters at Exzelon.`,
   path: "/opportunities",
 });
 
@@ -21,7 +21,7 @@ export default function OpportunitiesPage() {
       <PageHeader
         eyebrow="Opportunities"
         crumbs={[{ label: "Opportunities" }]}
-        title={<>Careers across <span className="text-gradient">five industries</span></>}
+        title={<>Careers across <span className="text-gradient">{industryCountWord} industries</span></>}
         description="Whatever your field, we have a specialist recruiter and a network of employers ready for you. Pick an industry to explore live roles."
         align="center"
       >

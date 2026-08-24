@@ -7,7 +7,9 @@ import {
   Sparkles, TrendingUp, Users, Award, MessageCircle, UserRound,
   LayoutDashboard, LogOut, Plus, Pencil, Trash2, Eye, Inbox, Bookmark,
   Filter, ExternalLink, AlertTriangle, Download, MessageSquare, Calendar,
-  BarChart3, Upload, type LucideIcon,
+  BarChart3, Upload,
+  PencilRuler, Factory, Landmark, ClipboardList, Megaphone, Truck, Calculator,
+  type LucideIcon,
 } from "lucide-react";
 
 /** Brand/social glyphs (removed from lucide-react) as lightweight inline SVGs. */
@@ -87,6 +89,13 @@ const map: Record<string, LucideIcon> = {
   calendar: Calendar,
   "bar-chart": BarChart3,
   upload: Upload,
+  "pencil-ruler": PencilRuler,
+  factory: Factory,
+  landmark: Landmark,
+  "clipboard-list": ClipboardList,
+  megaphone: Megaphone,
+  truck: Truck,
+  calculator: Calculator,
 };
 
 export function Icon({

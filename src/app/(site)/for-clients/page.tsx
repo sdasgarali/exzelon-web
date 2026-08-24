@@ -8,20 +8,20 @@ import { ButtonLink } from "@/components/ui/button";
 import { CtaBanner } from "@/components/cta-banner";
 import { ContactForm } from "@/components/forms/contact-form";
 import { services } from "@/content/services";
+import { industryCountWord, industriesShort } from "@/content/industries";
 import { site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "For Clients — Staffing & Recruitment in Chicago",
-  description:
-    "Hire pre-vetted, fully compliant talent across healthcare, construction, electrical, tax & legal, and IT. Around 9 days average time-to-offer. Request talent from Exzelon's Chicago recruiters.",
+  description: `Hire pre-vetted, fully compliant talent across ${industryCountWord} industries — ${industriesShort}. Around 9 days average time-to-offer. Request talent from Exzelon's Chicago recruiters.`,
   path: "/for-clients",
 });
 
 // Verifiable proof points — every figure here already appears elsewhere on the site
 // (home stats / compliance page / services). No new or invented metrics.
 const proofPoints = [
-  { icon: "briefcase", text: "Five specialist sectors — Healthcare, Construction, Electrical, Tax & Legal, and IT" },
+  { icon: "briefcase", text: `${industryCountWord[0].toUpperCase()}${industryCountWord.slice(1)} specialist sectors — from healthcare and IT to finance, engineering, and the skilled trades` },
   { icon: "clock", text: "Around 9 days average time-to-offer" },
   { icon: "badge-check", text: "99% compliance pass rate at placement" },
   { icon: "users-round", text: "Pre-vetted, credentialed candidates — you review only qualified people" },
@@ -48,8 +48,15 @@ const sectors = [
   { slug: "healthcare", name: "Healthcare", roles: "Registered nurses, LPNs, travel nurses, allied health, and clinical support staff." },
   { slug: "construction", name: "Construction", roles: "Site supervisors, project managers, estimators, and skilled trades." },
   { slug: "electrical", name: "Electrical", roles: "Journeyman and master electricians, industrial and controls technicians, and field engineers." },
-  { slug: "tax-legal", name: "Tax & Legal", roles: "CPAs, tax accountants, paralegals, compliance analysts, and corporate counsel." },
+  { slug: "engineering", name: "Engineering", roles: "Mechanical, civil, electrical, and process engineers, plus project and QA/QC engineers." },
+  { slug: "manufacturing", name: "Manufacturing", roles: "Machine operators, assemblers, quality inspectors, production supervisors, and maintenance techs." },
   { slug: "it", name: "Information Technology", roles: "Software engineers, data analysts, cloud and DevOps engineers, and QA professionals." },
+  { slug: "finance", name: "Finance", roles: "Financial analysts, controllers, FP&A managers, credit and investment analysts." },
+  { slug: "accounting", name: "Accounting", roles: "Staff accountants, bookkeepers, AP/AR and payroll specialists, and audit associates." },
+  { slug: "tax-legal", name: "Tax & Legal", roles: "CPAs, tax accountants, paralegals, compliance analysts, and corporate counsel." },
+  { slug: "administrative", name: "Administrative", roles: "Executive assistants, office managers, coordinators, and front-desk professionals." },
+  { slug: "marketing", name: "Marketing", roles: "Digital marketers, content strategists, brand managers, and social media specialists." },
+  { slug: "distribution", name: "Distribution", roles: "Warehouse leads, forklift operators, dispatchers, and logistics coordinators." },
 ];
 
 // Visible employer Q&A — rendered as plain, extractable text (best for AI answer engines).
@@ -58,7 +65,7 @@ const sectors = [
 const employerFaqs = [
   {
     q: "Which industries does Exzelon staff?",
-    a: "Five specialist sectors: Healthcare, Construction, Electrical, Tax & Legal, and Information Technology. Each has dedicated recruiters who understand the credentials, licensing, and hiring norms of their field.",
+    a: `${industryCountWord[0].toUpperCase()}${industryCountWord.slice(1)} specialist sectors: Healthcare, Construction, Electrical, Engineering, Manufacturing, Information Technology, Finance, Accounting, Tax & Legal, Administrative, Marketing, and Distribution. Each has dedicated recruiters who understand the credentials, licensing, and hiring norms of their field.`,
   },
   {
     q: "How quickly can you fill a role?",
@@ -89,7 +96,7 @@ export default function ForClientsPage() {
         eyebrow="For Clients"
         crumbs={[{ label: "For Clients" }]}
         title={<>Build a <span className="text-gradient">world-class team</span>, faster</>}
-        description="From a single hard-to-fill role to an entire seasonal workforce, Exzelon delivers pre-vetted, fully compliant talent across five industries — with around a 9-day average time-to-offer."
+        description={`From a single hard-to-fill role to an entire seasonal workforce, Exzelon delivers pre-vetted, fully compliant talent across ${industryCountWord} industries — with around a 9-day average time-to-offer.`}
       >
         <ButtonLink href="#request" variant="accent" size="lg">Request talent</ButtonLink>
         <ButtonLink href="#services" variant="light" size="lg">Explore services</ButtonLink>
@@ -182,7 +189,7 @@ export default function ForClientsPage() {
         <SectionHeading
           align="center"
           title="Industries we staff in Chicago and nationwide"
-          description="Five sectors, each with dedicated specialist recruiters who know the roles, credentials, and licensing inside out."
+          description={`${industryCountWord[0].toUpperCase()}${industryCountWord.slice(1)} sectors, each with dedicated specialist recruiters who know the roles, credentials, and licensing inside out.`}
         />
         <StaggerGroup className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {sectors.map((sec) => (
