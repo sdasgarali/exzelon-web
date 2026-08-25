@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { jobsEnabled } from "@/lib/site";
 import { PageHeader } from "@/components/page-header";
 import { JobsFilters } from "@/components/jobs/jobs-filters";
 import { JobsPagination } from "@/components/jobs/jobs-pagination";
@@ -62,6 +64,8 @@ export default async function JobsPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  if (!jobsEnabled) redirect("/contact");
+
   const sp = await searchParams;
   const q = one(sp.q);
   const loc = one(sp.loc);

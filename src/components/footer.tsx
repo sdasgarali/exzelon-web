@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { site } from "@/lib/site";
+import { site, jobsEnabled } from "@/lib/site";
 import { industries, industryCountWord } from "@/content/industries";
 import { Logo } from "@/components/logo";
 import { Icon } from "@/components/ui/icon";
@@ -71,7 +71,7 @@ export function Footer() {
           <div key={col.title}>
             <h3 className="text-sm font-semibold text-white">{col.title}</h3>
             <ul className="mt-4 space-y-2.5">
-              {col.links.map((l) => (
+              {col.links.filter((l) => jobsEnabled || l.href !== "/jobs").map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="text-sm transition-colors hover:text-white">
                     {l.label}

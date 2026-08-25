@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { Job } from "@/content/jobs";
 import { industryCount } from "@/content/industries";
+import { jobsEnabled } from "@/lib/site";
+import { cn } from "@/lib/utils";
 import { Icon } from "@/components/ui/icon";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonLink } from "@/components/ui/button";
 import { LogoMarquee } from "@/components/logo-marquee";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -56,7 +58,12 @@ export function Hero({ jobs }: { jobs: Job[] }) {
       />
       <div className="pointer-events-none absolute -right-24 -top-24 h-[38rem] w-[38rem] rounded-full bg-brand-500/40 blur-[130px]" />
 
-      <div className="container-x relative grid items-center gap-14 pt-32 pb-14 sm:pt-40 lg:grid-cols-[1.05fr_0.95fr] lg:pb-20">
+      <div
+        className={cn(
+          "container-x relative grid items-center gap-14 pt-32 pb-14 sm:pt-40 lg:pb-20",
+          jobsEnabled && "lg:grid-cols-[1.05fr_0.95fr]"
+        )}
+      >
         {/* Left — message + search */}
         <motion.div variants={container} initial="hidden" animate="show">
           <motion.h1
@@ -69,11 +76,26 @@ export function Hero({ jobs }: { jobs: Job[] }) {
           </motion.h1>
 
           <motion.p variants={item} className="mt-5 max-w-lg text-lg leading-relaxed text-white/80">
-            Search thousands of opportunities across healthcare, IT, construction, finance,
-            engineering, and more — with a dedicated recruiter guiding you from first search to signed offer.
+            {jobsEnabled
+              ? "Search thousands of opportunities across healthcare, IT, construction, finance, engineering, and more — with a dedicated recruiter guiding you from first search to signed offer."
+              : "We place talent across healthcare, IT, construction, finance, engineering, and more — with a dedicated recruiter guiding you from first hello to signed offer."}
           </motion.p>
 
+          {!jobsEnabled && (
+            <motion.div variants={item} className="mt-8 flex flex-wrap gap-3">
+              <ButtonLink href="/opportunities" variant="accent" size="lg">
+                Explore opportunities
+                <Icon name="arrow-right" className="h-4 w-4" />
+              </ButtonLink>
+              <ButtonLink href="/contact" variant="light" size="lg">
+                Talk to a recruiter
+              </ButtonLink>
+            </motion.div>
+          )}
+
           {/* Search — solid, crisp, not glass */}
+          {jobsEnabled && (
+          <>
           <motion.form
             variants={item}
             onSubmit={onSearch}
@@ -114,6 +136,8 @@ export function Hero({ jobs }: { jobs: Job[] }) {
               </a>
             ))}
           </motion.div>
+          </>
+          )}
 
           {/* Inline trust row — not a big-number stat-card grid */}
           <motion.div variants={item} className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/15 pt-6">
@@ -127,7 +151,7 @@ export function Hero({ jobs }: { jobs: Job[] }) {
         </motion.div>
 
         {/* Right — live stack of real job cards */}
-        <HeroJobStack jobs={jobs} reduce={!!reduce} />
+        {jobsEnabled && <HeroJobStack jobs={jobs} reduce={!!reduce} />}
       </div>
 
       {/* Trusted-by strip */}

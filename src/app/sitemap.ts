@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/lib/site";
+import { site, jobsEnabled } from "@/lib/site";
 import { industries } from "@/content/industries";
 import { listPublicJobs, listPublishedPosts } from "@/lib/db/repo";
 
@@ -15,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const SITE_UPDATED = new Date("2026-08-17");
 
   const staticRoutes = [
-    "", "/about", "/for-clients", "/opportunities", "/jobs", "/contact",
+    "", "/about", "/for-clients", "/opportunities", ...(jobsEnabled ? ["/jobs"] : []), "/contact",
     "/resources", "/resources/blog", "/resources/faq", "/resources/compliance", "/resources/feedback",
   ].map((path) => ({
     url: `${base}${path}`,
@@ -32,7 +32,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Live, open, non-expired jobs from the DB (falls back to [] if the DB is unreachable).
-  const jobs = await listPublicJobs();
+  // Skipped entirely while the public jobs board is disabled.
+  const jobs = jobsEnabled ? await listPublicJobs() : [];
   const jobRoutes = jobs.map((j) => ({
     url: `${base}/jobs/${j.id}`,
     ...(j.createdAtIso ? { lastModified: new Date(j.createdAtIso) } : {}),

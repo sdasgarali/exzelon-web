@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { jobsEnabled } from "@/lib/site";
 import { PageHeader } from "@/components/page-header";
 import { Icon } from "@/components/ui/icon";
 import { Badge } from "@/components/ui/section";
@@ -34,6 +35,8 @@ export default async function JobDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  if (!jobsEnabled) redirect("/contact");
+
   const { id } = await params;
   const job = await getPublicJobBySlug(id);
   if (!job) notFound();

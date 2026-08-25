@@ -11,6 +11,7 @@ import { CtaBanner } from "@/components/cta-banner";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 import { industries } from "@/content/industries";
 import { steps, services } from "@/content/services";
+import { jobsEnabled } from "@/lib/site";
 import { listFeaturedPublicJobs, listPublishedPosts } from "@/lib/db/repo";
 import { MotionItem } from "@/components/motion/motion-item";
 import { webSiteJsonLd } from "@/lib/seo";
@@ -19,7 +20,7 @@ export const revalidate = 60;
 
 export default async function HomePage() {
   const healthcare = industries[0];
-  const featured = await listFeaturedPublicJobs(6);
+  const featured = jobsEnabled ? await listFeaturedPublicJobs(6) : [];
   const posts = (await listPublishedPosts()).slice(0, 3);
 
   return (
@@ -168,8 +169,8 @@ export default async function HomePage() {
                   Create free profile
                   <Icon name="arrow-right" className="h-4 w-4" />
                 </ButtonLink>
-                <ButtonLink href="/jobs" variant="outline" size="lg">
-                  Browse jobs
+                <ButtonLink href={jobsEnabled ? "/jobs" : "/opportunities"} variant="outline" size="lg">
+                  {jobsEnabled ? "Browse jobs" : "Explore opportunities"}
                 </ButtonLink>
               </div>
             </div>
@@ -189,6 +190,7 @@ export default async function HomePage() {
       </Section>
 
       {/* Featured jobs */}
+      {jobsEnabled && (
       <Section className="bg-ink-900 text-white">
         <div className="flex flex-col items-end justify-between gap-6 md:flex-row">
           <SectionHeading
@@ -211,6 +213,7 @@ export default async function HomePage() {
           ))}
         </StaggerGroup>
       </Section>
+      )}
 
       {/* For employers teaser */}
       <Section>

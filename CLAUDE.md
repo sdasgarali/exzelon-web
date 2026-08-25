@@ -31,6 +31,10 @@ lucide-react · Inter + Sora fonts.
   `users`, `jobs`, `applications`, `contacts`, `posts`.
 - **Jobs are DB-driven:** public `/jobs`, `/jobs/[id]`, home featured, and opportunity pages read from
   Mongo (ISR `revalidate`). The seed migrates the static `content/jobs.ts` into the DB.
+- **Public jobs board is behind a flag:** `jobsEnabled` in `src/lib/site.ts` (currently `false`). When
+  off, the Jobs nav/footer links + home hero search + home Featured-opportunities section are hidden, and
+  `/jobs` + `/jobs/[id]` redirect to `/contact`. Admin/employer job management is unaffected. Flip to
+  `true` to restore the board. (The seed/DB, sitemap, and CtaBanner default all honor the flag.)
 - **Admin tables** (`/admin/{applications,messages,users}`) have client-side search + filters via
   `components/dashboard/{applications,messages,users}-table.tsx` + shared `filters.tsx`
   (`DashToolbar`/`FilterSelect`). Server page loads the full list → maps to a plain row type → client
