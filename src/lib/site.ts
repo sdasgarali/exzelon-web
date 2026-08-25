@@ -24,10 +24,9 @@ export const site = {
     lng: -87.70451,
   },
   socials: [
-    { label: "LinkedIn", href: "https://www.linkedin.com/company/exzelon", icon: "linkedin" },
-    { label: "Facebook", href: "https://facebook.com/exzelon", icon: "facebook" },
-    { label: "Instagram", href: "https://instagram.com/exzelon", icon: "instagram" },
-    { label: "X", href: "https://x.com/exzelon", icon: "twitter" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/company/exzelon/", icon: "linkedin" },
+    { label: "Facebook", href: "https://www.facebook.com/exzelon1/", icon: "facebook" },
+    { label: "Instagram", href: "https://www.instagram.com/exzelon_bzns/", icon: "instagram" },
   ],
 } as const;
 
