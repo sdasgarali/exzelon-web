@@ -9,7 +9,7 @@ export const site = {
     "Exzelon — NextGen Hires connects skilled professionals with careers across a dozen industries — from healthcare, IT, and construction to finance, engineering, and marketing — and helps employers hire faster with expert recruitment and staffing.",
   // Canonical origin (www). Env-driven so sitemap/robots/canonical/OG + email links stay in sync.
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.exzelon.com").replace(/\/$/, ""),
-  email: "contactus@exzelon.com",
+  email: "hr@exzelon.com",
   phone: "+1 (773) 644-3571",
   phoneHref: "tel:+17736443571",
   address: {
