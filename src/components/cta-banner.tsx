@@ -1,10 +1,13 @@
 import { ButtonLink } from "@/components/ui/button";
 import { Reveal } from "@/components/motion/reveal";
+import { jobsEnabled } from "@/lib/site";
 
 export function CtaBanner({
   title = "Let's get connected and start finding your dream job",
   subtitle = "Whether you're hunting for your next role or building a world-class team, Exzelon is your partner from first hello to first day.",
-  primary = { label: "Browse Jobs", href: "/jobs" },
+  primary = jobsEnabled
+    ? { label: "Browse Jobs", href: "/jobs" }
+    : { label: "Explore Opportunities", href: "/opportunities" },
   secondary = { label: "Hire Talent", href: "/for-clients" },
 }: {
   title?: string;

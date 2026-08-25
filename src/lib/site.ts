@@ -32,6 +32,13 @@ export const site = {
   ],
 } as const;
 
+/**
+ * Public jobs board feature flag. When `false`, the `/jobs` board is disabled site-wide:
+ * the Jobs nav/footer links are hidden, the home hero job search + Featured section are
+ * hidden, and `/jobs` + `/jobs/[id]` redirect to `/contact`. Flip to `true` to re-enable.
+ */
+export const jobsEnabled: boolean = false;
+
 export const nav = [
   { label: "Home", href: "/" },
   {

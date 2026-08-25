@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { nav, site } from "@/lib/site";
+import { nav, site, jobsEnabled } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
@@ -17,6 +17,9 @@ export function Navbar() {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const pathname = usePathname();
   const { user } = useAuth();
+
+  // Hide the Jobs board link while the jobs feature is disabled.
+  const navItems = nav.filter((item) => jobsEnabled || item.href !== "/jobs");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -50,7 +53,7 @@ export function Navbar() {
 
         {/* Desktop nav */}
         <ul className="hidden items-center gap-1 lg:flex">
-          {nav.map((item) => {
+          {navItems.map((item) => {
             const active = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
             const hasChildren = "children" in item && item.children;
             // Wide two-column panel for large menus (e.g. the 12 industries) so the
@@ -177,7 +180,7 @@ export function Navbar() {
           >
             <div className="container-x flex h-full flex-col overflow-y-auto pt-24 pb-10">
               <ul className="flex flex-col gap-1">
-                {nav.map((item, i) => (
+                {navItems.map((item, i) => (
                   <motion.li
                     key={item.label}
                     initial={{ opacity: 0, x: -16 }}
