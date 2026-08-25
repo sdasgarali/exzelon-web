@@ -20,7 +20,10 @@ export const revalidate = 60;
 
 export default async function HomePage() {
   const healthcare = industries[0];
-  const featured = jobsEnabled ? await listFeaturedPublicJobs(6) : [];
+  // Fetched regardless of the flag: the hero card-stack visual always renders. When the
+  // board is disabled the cards route to /contact (see Hero); the Featured *section* below
+  // stays gated by jobsEnabled.
+  const featured = await listFeaturedPublicJobs(6);
   const posts = (await listPublishedPosts()).slice(0, 3);
 
   return (

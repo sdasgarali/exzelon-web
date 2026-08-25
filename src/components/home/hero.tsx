@@ -6,7 +6,6 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { Job } from "@/content/jobs";
 import { industryCount } from "@/content/industries";
 import { jobsEnabled } from "@/lib/site";
-import { cn } from "@/lib/utils";
 import { Icon } from "@/components/ui/icon";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { LogoMarquee } from "@/components/logo-marquee";
@@ -58,12 +57,7 @@ export function Hero({ jobs }: { jobs: Job[] }) {
       />
       <div className="pointer-events-none absolute -right-24 -top-24 h-[38rem] w-[38rem] rounded-full bg-brand-500/40 blur-[130px]" />
 
-      <div
-        className={cn(
-          "container-x relative grid items-center gap-14 pt-32 pb-14 sm:pt-40 lg:pb-20",
-          jobsEnabled && "lg:grid-cols-[1.05fr_0.95fr]"
-        )}
-      >
+      <div className="container-x relative grid items-center gap-14 pt-32 pb-14 sm:pt-40 lg:grid-cols-[1.05fr_0.95fr] lg:pb-20">
         {/* Left — message + search */}
         <motion.div variants={container} initial="hidden" animate="show">
           <motion.h1
@@ -151,7 +145,7 @@ export function Hero({ jobs }: { jobs: Job[] }) {
         </motion.div>
 
         {/* Right — live stack of real job cards */}
-        {jobsEnabled && <HeroJobStack jobs={jobs} reduce={!!reduce} />}
+        <HeroJobStack jobs={jobs} reduce={!!reduce} />
       </div>
 
       {/* Trusted-by strip */}
@@ -204,7 +198,7 @@ function HeroJobStack({ jobs, reduce }: { jobs: Job[]; reduce: boolean }) {
           {cards.map((job, i) => (
             <motion.a
               key={job.id}
-              href={`/jobs/${job.id}`}
+              href={jobsEnabled ? `/jobs/${job.id}` : "/contact"}
               initial={reduce ? { opacity: 0 } : { opacity: 0, x: 40, rotate: i === 1 ? -1.5 : 1 }}
               animate={{ opacity: 1, x: 0, rotate: i === 1 ? -1.2 : i === 2 ? 1 : 0 }}
               transition={{ duration: 0.7, delay: 0.35 + i * 0.12, ease: EASE }}
