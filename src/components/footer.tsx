@@ -3,7 +3,6 @@ import { site } from "@/lib/site";
 import { industries, industryCountWord } from "@/content/industries";
 import { Logo } from "@/components/logo";
 import { Icon } from "@/components/ui/icon";
-import { ButtonLink } from "@/components/ui/button";
 import { CookieNoticeLink } from "@/components/cookie-notice-link";
 
 const columns = [
@@ -38,25 +37,6 @@ export function Footer() {
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.6]" />
       <div className="pointer-events-none absolute -left-32 top-0 h-72 w-72 rounded-full bg-brand-600/20 blur-3xl" />
       <div className="pointer-events-none absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-accent-500/10 blur-3xl" />
-
-      {/* CTA strip */}
-      <div className="relative border-b border-white/10">
-        <div className="container-x flex flex-col items-start justify-between gap-6 py-12 md:flex-row md:items-center">
-          <div>
-            <h2 className="display-2 max-w-xl text-2xl font-bold text-white sm:text-3xl">
-              Let&apos;s get connected and start finding your dream job
-            </h2>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <ButtonLink href="/jobs" variant="accent" size="lg">
-              Browse Jobs
-            </ButtonLink>
-            <ButtonLink href="/contact" variant="light" size="lg">
-              Talk to a Recruiter
-            </ButtonLink>
-          </div>
-        </div>
-      </div>
 
       <div className="relative container-x grid grid-cols-2 gap-10 py-16 md:grid-cols-6">
         <div className="col-span-2 md:col-span-2">
