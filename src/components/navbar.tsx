@@ -9,14 +9,12 @@ import { cn } from "@/lib/utils";
 import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
-import { useAuth, HOME_FOR } from "@/components/auth/use-auth";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const pathname = usePathname();
-  const { user } = useAuth();
 
   // Hide the Jobs board link while the jobs feature is disabled.
   const navItems = nav.filter((item) => jobsEnabled || item.href !== "/jobs");
@@ -133,21 +131,12 @@ export function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-2 lg:flex">
-          {user ? (
-            <ButtonLink href={HOME_FOR[user.role]} variant={scrolled ? "primary" : "accent"} size="sm">
-              <Icon name="layout-dashboard" className="h-4 w-4" />
-              Dashboard
-            </ButtonLink>
-          ) : (
-            <>
-              <ButtonLink href="/login" variant={scrolled ? "outline" : "light"} size="sm">
-                Sign in
-              </ButtonLink>
-              <ButtonLink href="/register" variant={scrolled ? "primary" : "accent"} size="sm">
-                Sign up
-              </ButtonLink>
-            </>
-          )}
+          <ButtonLink href="/opportunities" variant={scrolled ? "outline" : "light"} size="sm">
+            Start a search
+          </ButtonLink>
+          <ButtonLink href="/contact" variant={scrolled ? "primary" : "accent"} size="sm">
+            Submit CV
+          </ButtonLink>
         </div>
 
         {/* Mobile toggle */}
@@ -207,20 +196,12 @@ export function Navbar() {
                 ))}
               </ul>
               <div className="mt-8 flex flex-col gap-3">
-                {user ? (
-                  <ButtonLink href={HOME_FOR[user.role]} variant="accent" size="lg" onClick={() => setOpen(false)}>
-                    Go to Dashboard
-                  </ButtonLink>
-                ) : (
-                  <>
-                    <ButtonLink href="/login" variant="light" size="lg" onClick={() => setOpen(false)}>
-                      Sign in
-                    </ButtonLink>
-                    <ButtonLink href="/register" variant="accent" size="lg" onClick={() => setOpen(false)}>
-                      Sign up
-                    </ButtonLink>
-                  </>
-                )}
+                <ButtonLink href="/opportunities" variant="light" size="lg" onClick={() => setOpen(false)}>
+                  Start a search
+                </ButtonLink>
+                <ButtonLink href="/contact" variant="accent" size="lg" onClick={() => setOpen(false)}>
+                  Submit CV
+                </ButtonLink>
               </div>
             </div>
           </motion.div>

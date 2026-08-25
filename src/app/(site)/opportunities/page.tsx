@@ -7,6 +7,7 @@ import { IndustryCard } from "@/components/cards/industry-card";
 import { ButtonLink } from "@/components/ui/button";
 import { CtaBanner } from "@/components/cta-banner";
 import { industries, industryCountWord, industriesShort } from "@/content/industries";
+import { jobsEnabled } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -22,10 +23,14 @@ export default function OpportunitiesPage() {
         eyebrow="Opportunities"
         crumbs={[{ label: "Opportunities" }]}
         title={<>Careers across <span className="text-gradient">{industryCountWord} industries</span></>}
-        description="Whatever your field, we have a specialist recruiter and a network of employers ready for you. Pick an industry to explore live roles."
+        description="Whatever your field, we have a specialist recruiter and a network of employers ready for you. Pick an industry to explore how we can help."
         align="center"
       >
-        <ButtonLink href="/jobs" variant="accent" size="lg">Browse all jobs</ButtonLink>
+        {jobsEnabled ? (
+          <ButtonLink href="/jobs" variant="accent" size="lg">Browse all jobs</ButtonLink>
+        ) : (
+          <ButtonLink href="/contact" variant="accent" size="lg">Submit your CV</ButtonLink>
+        )}
       </PageHeader>
 
       <Section>
@@ -41,8 +46,8 @@ export default function OpportunitiesPage() {
       <CtaBanner
         title="Don't see your field?"
         subtitle="We're always expanding. Send us your resume and we'll reach out when the right role opens up."
-        primary={{ label: "Submit Resume", href: "/contact" }}
-        secondary={{ label: "Browse Jobs", href: "/jobs" }}
+        primary={{ label: "Submit your CV", href: "/contact" }}
+        secondary={jobsEnabled ? { label: "Browse Jobs", href: "/jobs" } : { label: "Talk to a recruiter", href: "/contact" }}
       />
     </>
   );
