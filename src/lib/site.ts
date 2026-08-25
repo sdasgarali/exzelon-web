@@ -10,9 +10,9 @@ export const site = {
   // Canonical origin (www). Env-driven so sitemap/robots/canonical/OG + email links stay in sync.
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.exzelon.com").replace(/\/$/, ""),
   email: "contactus@exzelon.com",
-  phone: "+1 (872) 358-0100",
-  phoneHref: "tel:+18723580100",
-  whatsapp: "https://wa.me/18723580100",
+  phone: "+1 (773) 644-3571",
+  phoneHref: "tel:+17736443571",
+  whatsapp: "https://wa.me/17736443571",
   address: {
     line1: "6422 N Maplewood Ave",
     city: "Chicago",
