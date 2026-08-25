@@ -12,7 +12,6 @@ export const site = {
   email: "contactus@exzelon.com",
   phone: "+1 (773) 644-3571",
   phoneHref: "tel:+17736443571",
-  whatsapp: "https://wa.me/17736443571",
   address: {
     line1: "6422 N Maplewood Ave",
     city: "Chicago",

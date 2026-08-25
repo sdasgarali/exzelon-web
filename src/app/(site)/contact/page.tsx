@@ -16,7 +16,6 @@ const channels = [
   { icon: "map-pin", label: "Visit us", value: `${site.address.line1}, ${site.address.city}, ${site.address.state} ${site.address.zip}`, href: undefined },
   { icon: "mail", label: "Email us", value: site.email, href: `mailto:${site.email}` },
   { icon: "phone", label: "Call us", value: site.phone, href: site.phoneHref },
-  { icon: "message-circle", label: "WhatsApp", value: "Chat with our team", href: site.whatsapp },
 ];
 
 export default function ContactPage() {
