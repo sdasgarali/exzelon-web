@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Hero } from "@/components/home/hero";
+import { StatsStrip } from "@/components/home/stats-strip";
 import { Section, SectionHeading, Badge } from "@/components/ui/section";
 import { Reveal, StaggerGroup, staggerItem } from "@/components/motion/reveal";
 import { Icon } from "@/components/ui/icon";
@@ -33,6 +34,9 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd()).replace(/</g, "\\u003c") }}
       />
       <Hero jobs={featured} />
+
+      {/* Proof strip */}
+      <StatsStrip />
 
       {/* 4-step process */}
       <Section>

@@ -7,6 +7,13 @@ export const employerLogos = [
   "Turner Construction", "Deloitte", "Accenture", "Rush Health", "Motorola",
 ];
 
+/** Home page proof strip. Numeric `value` drives the count-up; `suffix` is appended. */
+export const homeStats = [
+  { value: 98, suffix: "%", label: "Retention rate" },
+  { value: 500, suffix: "+", label: "Placements" },
+  { value: 48, suffix: "h", label: "Avg. time to shortlist" },
+];
+
 export const values = [
   { title: "People First", description: "Every placement is a person's livelihood. We treat candidates and clients with the care that decision deserves.", icon: "heart" },
   { title: "Integrity", description: "We say what we mean, honor our commitments, and stay transparent about pay, roles, and expectations.", icon: "shield-check" },
