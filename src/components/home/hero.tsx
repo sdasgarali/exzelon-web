@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { Job } from "@/content/jobs";
-import { industryCount } from "@/content/industries";
 import { jobsEnabled } from "@/lib/site";
 import { Icon } from "@/components/ui/icon";
 import { Button, ButtonLink } from "@/components/ui/button";
@@ -36,7 +35,7 @@ export function Hero({ jobs }: { jobs: Job[] }) {
   };
 
   const trust = [
-    { value: String(industryCount), label: "specialist sectors" },
+    { value: "All", label: "sectors served" },
     { value: "Free", label: "for job seekers" },
     { value: "1:1", label: "recruiter guidance" },
   ];
