@@ -6,15 +6,10 @@ import { homeStats } from "@/content/site-content";
 export function StatsStrip() {
   return (
     <section className="relative overflow-hidden bg-ink-900 text-white">
-      {/* subtle dot-grid + centered glow — matches the brand's dark surfaces */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-grid opacity-[0.12]"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute left-1/2 top-1/2 h-64 w-[42rem] max-w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-500/20 blur-[130px]"
-        aria-hidden
-      />
+      {/* dot-grid + corner glow blobs — same texture as the footer */}
+      <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.6]" aria-hidden />
+      <div className="pointer-events-none absolute -left-32 top-0 h-72 w-72 rounded-full bg-brand-600/20 blur-3xl" aria-hidden />
+      <div className="pointer-events-none absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-accent-500/10 blur-3xl" aria-hidden />
       <div className="container-x relative py-16 sm:py-20">
         <dl className="grid grid-cols-1 gap-y-12 sm:grid-cols-3 sm:gap-x-8">
           {homeStats.map((s, i) => (
