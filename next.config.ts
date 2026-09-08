@@ -24,7 +24,14 @@ const nextConfig: NextConfig = {
       // catch-all covers any other stragglers Google may resurface.
       { source: "/engineering.html", destination: "/opportunities", permanent: true },
       { source: "/defence-aerospace.html", destination: "/opportunities", permanent: true },
-      { source: "/:slug*.html", destination: "/", permanent: true },
+      // Nested legacy paths (/a/b.html) — no verification file ever lives below root.
+      { source: "/:path+/:slug([^/]+)\\.html", destination: "/", permanent: true },
+      // Root-level stragglers. Redirects are evaluated BEFORE the public/ filesystem, so a
+      // bare "/:slug*.html" also swallowed Google Search Console's verification file
+      // (public/google<16-hex>.html) and 308'd Google to "/" — which un-verifies the
+      // property and drops the site out of Search Console. The negative lookahead keeps
+      // google<token>.html reachable; every other .html still 301s home.
+      { source: "/:slug((?!google[0-9a-f]{16})[^/]+)\\.html", destination: "/", permanent: true },
     ];
   },
   async headers() {
