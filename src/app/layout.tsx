@@ -86,14 +86,14 @@ export default function RootLayout({
         {/* Google Analytics (GA4) — loads on every page, deferred to idle so it stays
             off the critical-interaction path (protects INP). */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-KMSE0KNWXF"
+          src="https://www.googletagmanager.com/gtag/js?id=G-DDC3MRTMWD"
           strategy="lazyOnload"
         />
         <Script id="ga4-init" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-KMSE0KNWXF');`}
+gtag('config', 'G-DDC3MRTMWD');`}
         </Script>
       </body>
     </html>
