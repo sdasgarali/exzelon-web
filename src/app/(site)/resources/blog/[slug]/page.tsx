@@ -21,7 +21,19 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getPublishedPostBySlug(slug);
   if (!post) return pageMetadata({ title: "Blog" });
-  return pageMetadata({ title: post.title, description: post.excerpt, path: `/resources/blog/${post.slug}` });
+  // Post headlines already run 37-82 characters, and the layout's brand template pushed
+  // them to 61-106 in the SERP (measured live) — emit them verbatim instead.
+  const published = (post.publishedAt as string | null) ?? (post.createdAt as string);
+  return pageMetadata({
+    title: post.title,
+    titleAbsolute: true,
+    description: post.excerpt,
+    path: `/resources/blog/${post.slug}`,
+    // Posts were served as og:type=website with no published time.
+    type: "article",
+    publishedTime: published,
+    modifiedTime: post.updatedAt as string | undefined,
+  });
 }
 
 function formatDate(iso: string) {
@@ -82,7 +94,7 @@ export default async function BlogPostPage({
       <article className="container-x max-w-3xl py-16 sm:py-20">
         {post.coverImageUrl && (
           <div className="relative mb-10 aspect-[16/9] overflow-hidden rounded-3xl border border-sand-200">
-            <Image src={post.coverImageUrl} alt="" fill unoptimized className="object-cover" />
+            <Image src={post.coverImageUrl} alt={post.title} fill unoptimized className="object-cover" />
           </div>
         )}
 
