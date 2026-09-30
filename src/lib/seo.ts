@@ -23,12 +23,25 @@ const OG_IMAGE = {
   alt: `${site.brand} — ${site.tagline}`,
 } as const;
 
+/**
+ * Keep meta descriptions inside the ~155-character snippet search engines render, cutting
+ * on a word boundary rather than letting the SERP truncate mid-word. Pages whose source
+ * copy runs long (blog excerpts, long industry blurbs) inherit this automatically.
+ */
+export function clampDescription(text: string, max = 155): string {
+  const clean = text.trim().replace(/\s+/g, " ");
+  if (clean.length <= max) return clean;
+  const cut = clean.slice(0, max - 1);
+  const lastSpace = cut.lastIndexOf(" ");
+  return `${(lastSpace > 80 ? cut.slice(0, lastSpace) : cut).replace(/[.,;:—-]+$/, "")}…`;
+}
+
 /** Build page-level metadata consistently across routes. */
 export function pageMetadata({ title, description, path = "/" }: PageSeo = {}): Metadata {
   // Bare page title — the root layout's title.template appends the brand,
   // so we must NOT append it here (would double-brand the tab title).
   const fullTitle = title ? `${title} | ${site.brand}` : `${site.brand} — ${site.tagline}`;
-  const desc = description ?? site.description;
+  const desc = clampDescription(description ?? site.description);
   const url = `${site.url}${path}`;
   return {
     title: title ?? undefined,
