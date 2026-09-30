@@ -8,6 +8,21 @@ type PageSeo = {
   path?: string;
 };
 
+/**
+ * Social/answer-engine preview image, served by `src/app/opengraph-image.tsx`.
+ *
+ * The file convention only applies while no segment on the route exports its own
+ * `openGraph` object — and `pageMetadata()` does, so the generated image is dropped
+ * for every page that uses this helper (`/` was the only route still shipping one).
+ * Reference the route explicitly so og:image / twitter:image are always present.
+ */
+const OG_IMAGE = {
+  url: "/opengraph-image",
+  width: 1200,
+  height: 630,
+  alt: `${site.brand} — ${site.tagline}`,
+} as const;
+
 /** Build page-level metadata consistently across routes. */
 export function pageMetadata({ title, description, path = "/" }: PageSeo = {}): Metadata {
   // Bare page title — the root layout's title.template appends the brand,
@@ -26,11 +41,13 @@ export function pageMetadata({ title, description, path = "/" }: PageSeo = {}): 
       siteName: site.brand,
       type: "website",
       locale: "en_US",
+      images: [OG_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description: desc,
+      images: [OG_IMAGE],
     },
   };
 }
