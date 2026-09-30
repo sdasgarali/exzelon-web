@@ -1,13 +1,13 @@
 # Exzelon — NextGen Hires | Full Content Reference
 # https://llmstxt.org
-# Generated: 2026-08-24
+# Generated: 2026-09-30
 
 > Exzelon is a Chicago-based recruitment and staffing agency that connects skilled
 > professionals with employers across twelve industries: Healthcare, Construction,
 > Electrical, Engineering, Manufacturing, Information Technology, Finance, Accounting,
 > Tax & Legal, Administrative, Marketing, and Distribution. Principal office: 6422 N
-> Maplewood Ave, Chicago, Illinois 60645, USA. Phone: +1 (872) 358-0100.
-> Email: contactus@exzelon.com. Searching, creating a profile, and applying are
+> Maplewood Ave, Chicago, Illinois 60645, USA. Phone: +1 (773) 644-3571.
+> Email: hr@exzelon.com. Searching, creating a profile, and applying are
 > always free for job seekers; employer partners fund the services.
 
 This file is the expanded companion to https://www.exzelon.com/llms.txt. It contains
@@ -88,7 +88,7 @@ construction and electrical roles.
 
 ### I'm an employer — how do I start hiring with Exzelon?
 Visit the For Clients page (https://www.exzelon.com/for-clients) or contact Exzelon
-directly at contactus@exzelon.com or +1 (872) 358-0100. Exzelon learns the role's
+directly at hr@exzelon.com or +1 (773) 644-3571. Exzelon learns the role's
 requirements, team, and timeline, then begins matching qualified, pre-vetted candidates
 right away — handling sourcing, screening, and compliance so employers review only
 ready-to-start talent.
@@ -119,18 +119,36 @@ ready-to-start talent.
 - Every candidate is credentialed and compliance-checked before placement.
 - Headquartered at 6422 N Maplewood Ave, Chicago, Illinois 60645; places candidates in
   the Chicago metro and nationally.
-- Contact: contactus@exzelon.com · +1 (872) 358-0100 · https://www.exzelon.com
+- Contact: hr@exzelon.com · +1 (773) 644-3571 · https://www.exzelon.com
 
 ## Key Pages
 
 - About: https://www.exzelon.com/about
 - For Clients (employers): https://www.exzelon.com/for-clients
-- Job Board: https://www.exzelon.com/jobs
+- Contact (submit your CV): https://www.exzelon.com/contact
 - Opportunities by Industry: https://www.exzelon.com/opportunities
 - FAQ: https://www.exzelon.com/resources/faq
 - Compliance: https://www.exzelon.com/resources/compliance
 - Blog: https://www.exzelon.com/resources/blog
 - Contact: https://www.exzelon.com/contact
+
+## Published Guides (blog)
+
+- [Where to Hire in Chicago: A Guide to the Metro's Talent Clusters](https://www.exzelon.com/resources/blog/where-to-hire-in-chicago-talent-clusters): Chicago's skilled talent is not evenly distributed.
+- [Best Staffing Agencies in Chicago: How to Choose the Right One (2026)](https://www.exzelon.com/resources/blog/best-staffing-agencies-in-chicago-how-to-choose): Chicago has hundreds of staffing agencies.
+- [Chicago Salary Guide 2026: What Skilled Roles Really Pay](https://www.exzelon.com/resources/blog/chicago-salary-guide-2026-what-skilled-roles-pay): A grounded look at pay ranges for in-demand roles across Chicago — healthcare, skilled trades, IT, finance, and more…
+- [How Staffing Agencies Work: A Complete Guide for Job Seekers (2026)](https://www.exzelon.com/resources/blog/how-staffing-agencies-work-a-guide-for-job-seekers): What a staffing agency actually does, whether it costs you anything, how recruiters get paid, and how to get hired…
+- [How to Hire Through a Staffing Agency: A Guide for Chicago Employers](https://www.exzelon.com/resources/blog/how-to-hire-through-a-staffing-agency-chicago): When to use a staffing agency, how the process and fees actually work, and how to get faster, better hires in…
+- [Will AI Take Over Software Developer Jobs? A Clear-Eyed Look for 2026](https://www.exzelon.com/resources/blog/will-ai-take-over-software-developer-jobs): AI writes code, but does that mean fewer developers?
+- [AI's Impact on the Job Market: What's Really Changing](https://www.exzelon.com/resources/blog/ai-impact-on-the-job-market): Automation, augmentation, and brand-new roles — a grounded look at how AI is reshaping work, and what job seekers…
+- [Which Jobs Are Most Affected by AI? A Sector-by-Sector Guide](https://www.exzelon.com/resources/blog/which-jobs-are-most-affected-by-ai): Not all roles feel AI equally.
+- [The Careers Most and Least Exposed to AI (and Why It Matters for Your Next Move)](https://www.exzelon.com/resources/blog/careers-most-and-least-exposed-to-ai): Which job streams are set to grow, shrink, or transform as AI matures?
+- [How to Future-Proof Your Career in the Age of AI](https://www.exzelon.com/resources/blog/how-to-future-proof-your-career-in-the-age-of-ai): You can't AI-proof a career by hiding from the technology.
+- [AI in Recruitment: What Employers Should Know in 2026](https://www.exzelon.com/resources/blog/ai-in-recruitment-what-employers-should-know): AI can speed up sourcing and screening — or quietly introduce bias and compliance risk.
+- [Elevate Your Healthcare Career with Exzelon Solutions](https://www.exzelon.com/resources/blog/elevate-your-healthcare-career): From travel nursing to permanent clinical roles, here's how to level up your healthcare career in 2026 — and how the…
+- [Navigating the U.S. Job Market as a Skilled Professional](https://www.exzelon.com/resources/blog/working-in-the-usa-guide): Licensing, credentials, and culture — everything skilled professionals should know before starting a career in the…
+- [5 Resume Tips That Actually Get You Noticed](https://www.exzelon.com/resources/blog/5-steps-to-a-standout-resume): Recruiters spend seconds on each resume.
+- [How Employers Win Top Talent Faster](https://www.exzelon.com/resources/blog/how-employers-win-the-talent-race): Speed, transparency, and a great candidate experience — the three levers that help employers land top talent first.
 
 ## Licensing
 
