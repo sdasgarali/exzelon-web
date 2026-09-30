@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { site } from "./site";
+import { jobsEnabled, site } from "./site";
 import type { Job } from "@/content/jobs";
 
 type PageSeo = {
@@ -161,12 +161,19 @@ export function webSiteJsonLd() {
     name: site.name,
     url: site.url,
     publisher: { "@id": ORG_ID },
-    potentialAction: {
-      "@type": "SearchAction",
-      // Google's Sitelinks Searchbox spec expects a flat URL template, not an EntryPoint object.
-      target: `${site.url}/jobs?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
+    // A sitelinks search box must point at a URL that actually searches. While the public
+    // jobs board is off, /jobs?q= 307s to /contact — advertising it would drop users and
+    // crawlers into a redirect, so the SearchAction only ships when the board is enabled.
+    ...(jobsEnabled
+      ? {
+          potentialAction: {
+            "@type": "SearchAction",
+            // Google's Sitelinks Searchbox spec expects a flat URL template, not an EntryPoint object.
+            target: `${site.url}/jobs?q={search_term_string}`,
+            "query-input": "required name=search_term_string",
+          },
+        }
+      : {}),
   };
 }
 
