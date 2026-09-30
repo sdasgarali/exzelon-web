@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Hero } from "@/components/home/hero";
@@ -15,9 +16,18 @@ import { steps, services } from "@/content/services";
 import { jobsEnabled } from "@/lib/site";
 import { listFeaturedPublicJobs, listPublishedPosts } from "@/lib/db/repo";
 import { MotionItem } from "@/components/motion/motion-item";
-import { webSiteJsonLd } from "@/lib/seo";
+import { pageMetadata, webSiteJsonLd } from "@/lib/seo";
 
 export const revalidate = 60;
+
+export const metadata: Metadata = pageMetadata({
+  // Keyword-led: the layout template still appends the brand, and the previous
+  // brand-slogan title ("… — Find Your Next Career Move") named no service or market.
+  title: "Staffing Agency in Chicago",
+  description:
+    "Exzelon is a Chicago staffing agency placing nurses, electricians, engineers, IT and finance talent — and helping employers hire vetted people faster.",
+  path: "/",
+});
 
 export default async function HomePage() {
   const healthcare = industries[0];
