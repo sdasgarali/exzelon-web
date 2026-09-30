@@ -29,9 +29,9 @@ export async function generateMetadata({
   const industry = getIndustry(slug);
   if (!industry) return pageMetadata({ title: "Opportunities" });
   return pageMetadata({
-    title: `${industry.name} Jobs`,
-    // Add geo intent — Exzelon is a Chicago-based agency placing nationwide.
-    description: `${industry.description} Exzelon places ${industry.name.toLowerCase()} talent in Chicago, across Illinois, and nationwide.`,
+    title: industry.metaTitle,
+    // Sector line + geo intent — Exzelon is a Chicago-based agency placing nationwide.
+    description: `${industry.short} Exzelon places ${industry.name.toLowerCase()} professionals in Chicago, Illinois, and nationwide.`,
     path: `/opportunities/${industry.slug}`,
   });
 }

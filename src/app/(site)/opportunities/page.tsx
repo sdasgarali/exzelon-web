@@ -6,13 +6,14 @@ import { MotionItem } from "@/components/motion/motion-item";
 import { IndustryCard } from "@/components/cards/industry-card";
 import { ButtonLink } from "@/components/ui/button";
 import { CtaBanner } from "@/components/cta-banner";
-import { industries, industryCountWord, industriesShort } from "@/content/industries";
+import { industries, industryCount, industryCountWord, industriesShort } from "@/content/industries";
 import { jobsEnabled } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Opportunities",
-  description: `Explore career opportunities across ${industryCountWord} industries — ${industriesShort} — with specialist recruiters at Exzelon.`,
+  // "Opportunities" alone gave the SERP no keyword to match; echo the H1's sector count.
+  title: `Careers Across ${industryCount} Industries`,
+  description: `Explore opportunities across ${industryCountWord} industries — ${industriesShort} — with specialist recruiters at Exzelon.`,
   path: "/opportunities",
 });
 
