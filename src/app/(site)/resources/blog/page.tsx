@@ -9,7 +9,9 @@ import { Icon } from "@/components/ui/icon";
 import { listPublishedPosts } from "@/lib/db/repo";
 import { pageMetadata } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+// Same treatment as the posts themselves: cache the index for a minute (it lists
+// DB posts) instead of rendering it from the database on every request.
+export const revalidate = 60;
 
 export const metadata: Metadata = pageMetadata({
   title: "Blog",
