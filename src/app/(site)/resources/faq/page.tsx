@@ -4,6 +4,7 @@ import { Section } from "@/components/ui/section";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { CtaBanner } from "@/components/cta-banner";
 import { faqs } from "@/content/site-content";
+import { jobsEnabled } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -40,7 +41,9 @@ export default function FaqPage() {
         title="Still have questions?"
         subtitle="Our team is happy to help — reach out and we'll get back to you within one business day."
         primary={{ label: "Contact Us", href: "/contact" }}
-        secondary={{ label: "Browse Jobs", href: "/jobs" }}
+        secondary={
+          jobsEnabled ? { label: "Browse Jobs", href: "/jobs" } : { label: "Explore Opportunities", href: "/opportunities" }
+        }
       />
     </>
   );
