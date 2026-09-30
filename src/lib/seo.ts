@@ -58,7 +58,12 @@ export function pageMetadata({
 }: PageSeo = {}): Metadata {
   // Bare page title — the root layout's title.template appends the brand,
   // so we must NOT append it here (would double-brand the tab title).
-  const fullTitle = title ? `${title} | ${site.brand}` : `${site.brand} — ${site.tagline}`;
+  // Social titles mirror the SERP title: no brand suffix when the page opted out of it.
+  const fullTitle = title
+    ? titleAbsolute
+      ? title
+      : `${title} | ${site.brand}`
+    : `${site.brand} — ${site.tagline}`;
   const desc = clampDescription(description ?? site.description);
   const url = `${site.url}${path}`;
   return {
