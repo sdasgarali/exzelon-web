@@ -11,7 +11,11 @@ import { jobsEnabled } from "@/lib/site";
 import { renderMarkdown } from "@/lib/markdown";
 import { pageMetadata, blogPostingJsonLd } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+// Serve posts from the CDN instead of rendering every view from the DB: the route was
+// `force-dynamic`, so live responses carried `cache-control: private, no-store` and
+// `x-vercel-cache: MISS` (measured) — every crawler and reader paid a full render.
+// 60s matches the homepage/industry pages, so a publish still surfaces within a minute.
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,
