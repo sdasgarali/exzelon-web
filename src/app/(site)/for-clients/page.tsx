@@ -8,13 +8,14 @@ import { ButtonLink } from "@/components/ui/button";
 import { CtaBanner } from "@/components/cta-banner";
 import { ContactForm } from "@/components/forms/contact-form";
 import { services } from "@/content/services";
-import { industryCountWord, industriesShort } from "@/content/industries";
+import { industryCountWord } from "@/content/industries";
 import { site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "For Clients — Staffing & Recruitment in Chicago",
-  description: `Hire pre-vetted, fully compliant talent across ${industryCountWord} industries — ${industriesShort}. Around 9 days average time-to-offer. Request talent from Exzelon's Chicago recruiters.`,
+  title: "Chicago Staffing for Employers",
+  description:
+    "Hire pre-vetted, compliance-checked talent across twelve industries — healthcare, IT, construction and more. Chicago recruiters, around 9 days to offer.",
   path: "/for-clients",
 });
 
