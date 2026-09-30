@@ -1,14 +1,14 @@
 # Exzelon — NextGen Hires
 # https://llmstxt.org
-# Generated: 2026-08-24
+# Generated: 2026-09-30
 # Full content: https://www.exzelon.com/llms-full.txt
 
 > Exzelon is a Chicago-based recruitment and staffing agency that connects skilled
 > professionals with employers across twelve industries: Healthcare, Construction,
 > Electrical, Engineering, Manufacturing, Information Technology, Finance, Accounting,
 > Tax & Legal, Administrative, Marketing, and Distribution. Principal office: 6422 N
-> Maplewood Ave, Chicago, Illinois 60645, USA. Phone: +1 (872) 358-0100.
-> Email: contactus@exzelon.com. Searching, creating a profile, and applying are
+> Maplewood Ave, Chicago, Illinois 60645, USA. Phone: +1 (773) 644-3571.
+> Email: hr@exzelon.com. Searching, creating a profile, and applying are
 > always free for job seekers; employer partners fund the services.
 
 ## About
@@ -31,7 +31,7 @@
 - [Administrative Staffing](https://www.exzelon.com/opportunities/administrative): Executive assistants, office managers, coordinators, and front-desk professionals.
 - [Marketing Staffing](https://www.exzelon.com/opportunities/marketing): Digital marketers, content strategists, brand managers, and social media specialists.
 - [Distribution Staffing](https://www.exzelon.com/opportunities/distribution): Warehouse leads, forklift operators, dispatchers, and logistics coordinators.
-- [Browse All Jobs](https://www.exzelon.com/jobs): Live job board with search, location, industry, and salary filters.
+- [Contact a recruiter](https://www.exzelon.com/contact): Send your CV and a specialist recruiter matches you to live roles in your sector (the public job board is paused while roles are handled directly).
 
 ## Resources
 
