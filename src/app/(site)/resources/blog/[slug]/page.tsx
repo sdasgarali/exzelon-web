@@ -17,6 +17,14 @@ import { pageMetadata, blogPostingJsonLd } from "@/lib/seo";
 // 60s matches the homepage/industry pages, so a publish still surfaces within a minute.
 export const revalidate = 60;
 
+// Without this the dynamic `[slug]` segment builds as fully dynamic (ƒ) and `revalidate`
+// never applies. The empty list prerenders nothing at build time (no DB call in the build);
+// each post renders on first request, then is cached and refreshed every 60s. New posts
+// still resolve because `dynamicParams` defaults to true.
+export function generateStaticParams() {
+  return [];
+}
+
 export async function generateMetadata({
   params,
 }: {
