@@ -7,6 +7,7 @@ import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
 import { CtaBanner } from "@/components/cta-banner";
 import { values } from "@/content/site-content";
+import { jobsEnabled } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -38,7 +39,9 @@ export default function AboutPage() {
         description="Exzelon — NextGen Hires is a specialist recruitment and staffing partner connecting talented professionals with the right opportunities across every industry."
       >
         <ButtonLink href="/contact" variant="accent" size="lg">Work with us</ButtonLink>
-        <ButtonLink href="/jobs" variant="light" size="lg">Browse jobs</ButtonLink>
+        <ButtonLink href={jobsEnabled ? "/jobs" : "/opportunities"} variant="light" size="lg">
+          {jobsEnabled ? "Browse jobs" : "Explore opportunities"}
+        </ButtonLink>
       </PageHeader>
 
       {/* Who we are */}

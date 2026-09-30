@@ -7,6 +7,7 @@ import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
 import { CtaBanner } from "@/components/cta-banner";
 import { getPublishedPostBySlug, listPublishedPosts } from "@/lib/db/repo";
+import { jobsEnabled } from "@/lib/site";
 import { renderMarkdown } from "@/lib/markdown";
 import { pageMetadata, blogPostingJsonLd } from "@/lib/seo";
 
@@ -81,7 +82,9 @@ export default async function BlogPostPage({
         {renderMarkdown(post.body)}
 
         <div className="mt-10 flex flex-wrap gap-3 border-t border-sand-200 pt-8">
-          <ButtonLink href="/jobs" variant="primary">Browse jobs <Icon name="arrow-right" className="h-4 w-4" /></ButtonLink>
+          <ButtonLink href={jobsEnabled ? "/jobs" : "/opportunities"} variant="primary">
+            {jobsEnabled ? "Browse jobs" : "Explore opportunities"} <Icon name="arrow-right" className="h-4 w-4" />
+          </ButtonLink>
           <ButtonLink href="/resources/blog" variant="outline">Back to blog</ButtonLink>
         </div>
       </article>
