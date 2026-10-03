@@ -146,7 +146,7 @@ A staffing partner amplifies all three: pre-vetted candidates, faster shortlists
   },
   {
     slug: "will-ai-take-over-software-developer-jobs",
-    title: "Will AI Take Over Software Developer Jobs? A Clear-Eyed Look for 2026",
+    title: "Will AI Take Over Software Developer Jobs in 2026?",
     excerpt:
       "AI writes code, but does that mean fewer developers? Here's what's actually happening to software jobs — and how to stay in demand as the tools get smarter.",
     category: "AI & Work",
@@ -249,7 +249,7 @@ The organisations and individuals who treat AI as a tool to be mastered — rath
   },
   {
     slug: "which-jobs-are-most-affected-by-ai",
-    title: "Which Jobs Are Most Affected by AI? A Sector-by-Sector Guide",
+    title: "Which Jobs Are Most Affected by AI? A Sector Guide",
     excerpt:
       "Not all roles feel AI equally. Here's a grounded, sector-by-sector look at which jobs are most and least exposed — across healthcare, trades, tech, finance, and more.",
     category: "AI & Work",
@@ -301,7 +301,7 @@ If your role is exposed, that is a signal to add AI fluency and lean into the hu
   },
   {
     slug: "careers-most-and-least-exposed-to-ai",
-    title: "The Careers Most and Least Exposed to AI (and Why It Matters for Your Next Move)",
+    title: "Careers Most and Least Exposed to AI (and What to Do)",
     excerpt:
       "Which job streams are set to grow, shrink, or transform as AI matures? A future-focused guide to the most and least AI-exposed career paths.",
     category: "Career",
@@ -445,7 +445,7 @@ If you want hiring that is fast, fair, and genuinely human, [talk to our team](/
   },
   {
     slug: "how-staffing-agencies-work-a-guide-for-job-seekers",
-    title: "How Staffing Agencies Work: A Complete Guide for Job Seekers (2026)",
+    title: "How Staffing Agencies Work: A Job Seeker's Guide",
     excerpt:
       "What a staffing agency actually does, whether it costs you anything, how recruiters get paid, and how to get hired faster — a clear, no-jargon guide for job seekers.",
     category: "Career",
@@ -547,7 +547,7 @@ If that sounds like the kind of help you want on your next move, [browse our cur
   },
   {
     slug: "how-to-hire-through-a-staffing-agency-chicago",
-    title: "How to Hire Through a Staffing Agency: A Guide for Chicago Employers",
+    title: "How to Hire Through a Staffing Agency in Chicago",
     excerpt:
       "When to use a staffing agency, how the process and fees actually work, and how to get faster, better hires in Chicago's competitive market — a practical employer's guide.",
     category: "Hiring",
@@ -636,7 +636,7 @@ If you have a role to fill, [tell us what you need](/for-clients) and a speciali
   },
   {
     slug: "best-staffing-agencies-in-chicago-how-to-choose",
-    title: "Best Staffing Agencies in Chicago: How to Choose the Right One (2026)",
+    title: "Best Staffing Agencies in Chicago: How to Choose (2026)",
     excerpt:
       "Chicago has hundreds of staffing agencies. Here's how to tell a great one from a mediocre one, the questions to ask before you commit, and the red flags that should make you walk away.",
     category: "Hiring",
@@ -831,7 +831,7 @@ When you are ready to turn research into a real move, our specialist recruiters 
   },
   {
     slug: "where-to-hire-in-chicago-talent-clusters",
-    title: "Where to Hire in Chicago: A Guide to the Metro's Talent Clusters",
+    title: "Where to Hire in Chicago: A Guide to Talent Clusters",
     excerpt:
       "Chicago's skilled talent is not evenly distributed. A corridor-by-corridor map of where clinical, logistics, manufacturing, engineering, and finance talent actually concentrates — and what that means for your next hire.",
     category: "Hiring",
