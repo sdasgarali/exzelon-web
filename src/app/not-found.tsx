@@ -1,5 +1,6 @@
 import { ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
+import { jobsEnabled } from "@/lib/site";
 
 export default function NotFound() {
   return (
@@ -16,7 +17,9 @@ export default function NotFound() {
           <ButtonLink href="/" variant="accent" size="lg">
             Back home <Icon name="arrow-right" className="h-4 w-4" />
           </ButtonLink>
-          <ButtonLink href="/jobs" variant="light" size="lg">Browse jobs</ButtonLink>
+          <ButtonLink href={jobsEnabled ? "/jobs" : "/opportunities"} variant="light" size="lg">
+            {jobsEnabled ? "Browse jobs" : "Explore opportunities"}
+          </ButtonLink>
         </div>
       </div>
     </section>
