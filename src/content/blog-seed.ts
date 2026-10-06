@@ -995,4 +995,79 @@ Industrial electrician staffing is not a volume exercise. It is a narrow, creden
 
 If you have a role to fill, permanent, contract, or temp-to-hire, our [electrical staffing team](/opportunities/electrical) works this market every week and can tell you quickly whether the profile you need exists in your corridor and what it will take to land them. If you would rather start with the wider picture of how an engagement runs, [talk to us](/for-clients) and we will walk you through it.`,
   },
+  {
+    slug: "distribution-staffing-chicago-how-to-hire",
+    title: "Distribution Staffing in Chicago: How to Hire Reliably",
+    excerpt:
+      "Chicago's warehouse and distribution talent sits in a handful of corridors. Here's how to price, screen, and fill those roles without the churn.",
+    category: "Hiring",
+    author: "Marcus Bell",
+    date: "2026-10-06",
+    body: `To hire warehouse and distribution staff in Chicago, price the role to the corridor the site sits in, settle the shift and the guaranteed hours before you advertise, screen on the equipment the role actually runs, and recruit continuously rather than in bursts. Turnover in this sector is structural rather than a sign that your last hire was wrong — so the employers who stay staffed are the ones who run recruiting as an operation, not as an event that happens when a supervisor resigns.
+
+## Chicago distribution hiring is a corridor problem, not a metro problem
+
+Warehousing in this region is not evenly spread, and neither is the workforce. The northwest corridor around O'Hare and Elk Grove Village is dense with freight forwarding, customs brokerage, and warehouse operations. The I-55 and I-80 corridor through Joliet, Romeoville, and Bolingbrook holds the inland port and the fulfilment operations built around it. The industrial belt to the south and southeast carries heavy manufacturing, fabrication, and the trades that support them.
+
+Each corridor draws on a different labour pool with a different commute tolerance. An advert for "warehouse operative, Chicago" competes with every other site in the metro. The same role advertised as "second shift, reach truck, Bolingbrook" competes only where it can realistically win. If you are not certain which part of the metro holds the people you need, our corridor-by-corridor guide to [where Chicago's talent clusters sit](/resources/blog/where-to-hire-in-chicago-talent-clusters) is the fastest way to find out.
+
+## Fix the shift, the rate, and the guarantee before you advertise
+
+These three details decide whether anyone applies, and they are the ones employers most often leave vague:
+
+- **The shift** — start and finish times, rotation, overtime expectation, and whether weekends are mandatory rather than occasional.
+- **The rate** — priced against the sites within a realistic commute, not against a metro-wide average that no candidate can actually compare.
+- **The guaranteed hours** — because a posting that offers "up to forty hours" is read as thirty by anyone who has worked in the sector before.
+
+Being specific is not a concession. It shortens the queue of applications that were never going to accept the shift, and it lets a recruiter screen on the things that actually matter.
+
+## Screen on the equipment, not on the CV
+
+In distribution, the CV is a weak signal and the equipment is a strong one. Two people with the same job title can differ entirely on whether they can operate your trucks, at your rack heights, at your rates.
+
+- **Powered industrial trucks (forklift, reach truck, order selector).** US workplace rules require operators to be trained and evaluated on the type of truck they use before operating it. That makes the truck class a screening question, not an onboarding detail: counterbalance, reach, order selector, walkie, and any attachment work. Ask what they have driven, then evaluate practically.
+- **Pickers, packers, and receivers.** What matters is rate, accuracy, and whether they have used a warehouse management system rather than only paper picks. Ask what their pick rates were measured against — a number without a system behind it is not comparable.
+- **Order selectors and any at-height work.** Comfort with heights, harness discipline, and the ability to keep accuracy up at volume.
+- **Drivers and dispatchers.** The licence class and endorsements for driving roles; for dispatch, the ability to sequence routes and hold a calm conversation at 6am.
+- **Leads and shift supervisors.** Reliability and safety ownership, not just tenure. Ask how they handled a shift that started short-staffed — the answer tells you how they will handle yours.
+
+## Pay is set by the corridor, not by the metro
+
+Warehouse pay in this market is unusually local. Sites that sit next to each other compete for the same people, and workers compare hourly rates across the fence. A rate that is competitive in one corridor can be ignored in the next one over, purely because of what is on the same road.
+
+Two practical consequences. First, when you set a rate, benchmark it against the sites a candidate could reach in the same commute — not against a regional statistic. Second, treat shift differentials as part of the rate rather than a rounding error. Second and third shift, weekend coverage, and short-notice overtime are the difference between filling a shift and covering it with the same three people every week.
+
+## Peak season: build the pipeline before you need it
+
+Every distribution operation has a calendar: the weeks when volume climbs and every shift needs more hands than the roster can supply. The mistake is to start recruiting in the first week of the ramp, when every neighbouring site is doing exactly the same thing and the pool is empty.
+
+Start earlier than feels necessary. Bring people in ahead of the peak so they are trained, badged, and evaluated before the volume arrives, then convert the ones who performed well. A temp-to-hire structure works best when the conversion window is stated up front, so the candidate is working toward a decision rather than guessing at one. For the wider mechanics — how an agency engagement is set up, priced, and managed — see our guide to [hiring through a staffing agency in Chicago](/resources/blog/how-to-hire-through-a-staffing-agency-chicago).
+
+## Five things that slow these searches down
+
+- **A commute nobody checked.** If the site is not realistically reachable by the available transport, the applicant pool collapses to people with cars and a tolerance for the drive.
+
+- **A rate priced from the office, not the car park.** What the neighbouring site pays is the real competitive set.
+
+- **A slow offer.** In hourly work the strongest candidates usually have more than one conversation running, and the first clear offer tends to win.
+
+- **Over-screening.** Three interview rounds for a picker role loses people who would have started on Monday.
+
+- **A poor first day.** Parking, badging, PPE, and a supervisor who expected someone else are how a good hire becomes a no-show in week one.
+
+## A practical order of operations
+
+- Write the requisition around the shift, the rate, the guarantee, and the equipment — not around a job title.
+- Confirm the commute: how the site is reached, at the times the shift actually starts and ends.
+- Screen on equipment experience and reliability, then interview on judgement.
+- Offer quickly, in writing, with the conversion path stated if the role is temp-to-hire.
+- Prepare the first day the way you would prepare for a client visit: badge, locker, PPE, and a supervisor who knows a name.
+- Keep recruiting while the seats are filled. In this sector, a filled roster is a snapshot, not a state.
+
+## The bottom line
+
+Distribution hiring in Chicago rewards specificity and punishes vagueness, because the people you want are comparing three or four sites on the same road. Say what the shift is, pay what the corridor pays, screen on the equipment, and keep the pipeline warm through the peak instead of rebuilding it every quarter.
+
+If you are staffing a warehouse, a fulfilment centre, or a transport operation and the shortlist is not arriving, [tell us what you need](/for-clients) and a specialist recruiter will tell you where that talent sits, what it costs this quarter, and how quickly a crew can be on site. You can also browse [distribution roles](/opportunities/distribution) to see the profiles we place.`,
+  },
 ];
