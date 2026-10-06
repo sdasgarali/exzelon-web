@@ -13,6 +13,7 @@ import { industries, getIndustry } from "@/content/industries";
 import { listPublicJobsByIndustry } from "@/lib/db/repo";
 import { jobsEnabled } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
+import { IndustryGuide } from "@/components/industry-guide";
 
 export const revalidate = 60;
 
@@ -169,6 +170,8 @@ export default async function IndustryPage({
           </StaggerGroup>
         </Section>
       )}
+
+      <IndustryGuide industry={industry} />
 
       <CtaBanner
         title={`Ready for your next ${industry.name.toLowerCase()} role?`}
