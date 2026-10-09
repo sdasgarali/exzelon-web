@@ -1070,4 +1070,89 @@ Distribution hiring in Chicago rewards specificity and punishes vagueness, becau
 
 If you are staffing a warehouse, a fulfilment centre, or a transport operation and the shortlist is not arriving, [tell us what you need](/for-clients) and a specialist recruiter will tell you where that talent sits, what it costs this quarter, and how quickly a crew can be on site. You can also browse [distribution roles](/opportunities/distribution) to see the profiles we place.`,
   },
+  {
+    slug: "electrical-staffing-how-electrician-hiring-works",
+    title: "Electrical Staffing: How Electrician Hiring Really Works",
+    excerpt:
+      "Electrical staffing means finding the right electrician, not just any electrician — how licensing, specialisation, and screening shape a hire.",
+    category: "Hiring",
+    author: "Marcus Bell",
+    date: "2026-10-09",
+    body: `Electrical staffing is the work of sourcing, verifying, and placing electricians and electrical technicians into jobs — permanent, contract, or per-project — through recruiters who understand licensing, specialisation, and safety certification. Its purpose is narrow and specific: to find the right electrician for one particular job, rather than any electrician who happens to be available.
+
+That distinction matters because most stalled electrical hires are not caused by a shortage of electricians. They are caused by mismatches. A maintenance electrician with fifteen years in a plant and a commercial journeyman running conduit in occupied buildings share a licence class and almost nothing else. Screen one against the other's job description and you will reject a strong candidate for the wrong reason.
+
+Here is how electrical recruiting actually works, from both sides of the desk.
+
+## Why electrical behaves differently from other trades
+
+Electrical sits inside the wider skilled-trades market but does not behave like it, for three reasons.
+
+**It is licensed at multiple levels.** Depending where a job sits, a state, county, or city licence may apply — and those frameworks rarely line up neatly. The first question a competent recruiter asks about an electrical vacancy is not what it pays, but which licence the job legally requires and under whose authority it is issued. Get that wrong and the placement is dead before it starts.
+
+**The specialisations inside the trade are different jobs.** Residential installation, commercial construction, industrial maintenance, controls and automation, and field service all appear on resumes under the same job title. Each has its own tools, its own failure modes, and its own idea of a normal day. Treating them as interchangeable is the single most common mistake in electrical hiring.
+
+**Safety credentials gate the work.** Most industrial and commercial sites require documented training — OSHA-based certification, arc-flash awareness, lockout/tagout procedure, and site-specific induction — before anyone sets foot on the floor. A recruiter who has not confirmed those in advance is not staffing, they are forwarding resumes.
+
+## The roles inside "electrical"
+
+The roles we place most often fall into four groups.
+
+**Construction and installation** — apprentices, journeyman electricians, and foremen working commercial and industrial builds, tenant fit-outs, and infrastructure projects. The work is project-shaped: it ramps up, it finishes, and the crew moves on.
+
+**Industrial maintenance** — electricians keeping production lines, conveyors, pumps, and plant equipment running. These roles reward diagnostic instinct and tolerance for shift work, and they are among the hardest to fill because the people who are good at them are usually already employed.
+
+**Controls and automation** — technicians and engineers working with PLCs, drives, instrumentation, and industrial networks. This is where electrical and engineering overlap, and where the candidate pool narrows sharply.
+
+**Field service** — technicians travelling between customer sites to install, commission, and repair equipment. Field roles trade predictability for variety and usually require a clean driving record, comfort with customer contact, and a willingness to be away from home.
+
+## What a specialist verifies before you reach an interview
+
+Good electrical recruiting front-loads the paperwork so that nothing derails the offer.
+
+- **Licence and jurisdiction.** Which licence the role requires, whether it is current, and whether it transfers to the worksite's authority.
+- **Verified experience hours.** Not just years on the job, but the type of work — voltage classes, systems, and settings actually worked in.
+- **Safety certification.** OSHA status, arc-flash training, lockout/tagout, and any site-specific inductions the employer requires.
+- **References that speak to the work.** A previous supervisor who can describe what the candidate did, not just confirm they showed up.
+- **Driving record and travel tolerance** for field service and project roles where a van or travel is part of the job.
+
+We run this through the same compliance process that covers every sector we staff — primary-source licence verification, background and reference checks, I-9 and right-to-work confirmation, and safety-certification tracking. You can read how that works on our [compliance page](/resources/compliance).
+
+## Why electrical searches stall
+
+Four failure modes account for most electrical searches that drag past their deadline.
+
+**The job description describes a role nobody has.** Combining industrial maintenance, controls programming, and travel into one posting narrows the field to almost nobody. Splitting it into two roles usually fills both faster than the single combined one.
+
+**The licence requirement is aspirational.** Requiring a master licence for work that legally needs a journeyman removes the majority of a perfectly good applicant pool for no reason. Confirm what the job actually requires before you screen.
+
+**The shift is unsellable.** Many strong industrial electricians are employed and will only move for a better rotation. If the role is a rotating night shift, treat that as the central fact of the search rather than the last line of the description — and price and pitch accordingly.
+
+**The process is slower than the market.** Good electricians in shortage areas hold multiple live conversations. A process with a week between interview stages will lose them to whoever moves first.
+
+## If you are an electrician, work the relationship
+
+The candidates who get placed fastest are not the most qualified on paper. They are the ones a recruiter can represent confidently.
+
+- **Be specific about your actual work.** "Industrial maintenance, mostly 480-volt motor controls and conveyor systems" tells a recruiter where to send you. "Electrician, ten years" does not.
+- **Keep the paperwork live.** Licence, safety certs, and references current and easy to send. Chasing documents after an offer is how offers quietly disappear.
+- **State your real constraints.** Shift pattern, travel radius, and the pay that makes a move worthwhile. A recruiter working with vague preferences will send you roles you will never accept.
+- **Say what you want next.** If you are trying to move from construction into controls, say so — that is exactly the shift a specialist recruiter can help engineer.
+
+We list the roles and specialisations we place on our [electrical opportunities page](/opportunities/electrical).
+
+## If you are an employer, brief the search properly
+
+The brief is where an electrical search is won or lost. A recruiter who knows the worksite, the licence the role requires, the shift, and the failures the previous person had can go straight to the right people. A recruiter working from a job title alone has to guess.
+
+Bring three things to the intake conversation: the licence the job legally requires, the specific systems and voltage classes the person will work on, and the honest constraints — schedule, travel, and pay band. If the role has been open for months, say what has already been tried. Failing searches carry useful information.
+
+If you are weighing whether to use an agency at all, our guide to [hiring through a staffing agency in Chicago](/resources/blog/how-to-hire-through-a-staffing-agency-chicago) walks through the process and the fee model. And if you are benchmarking the role before you open it, our [Chicago salary guide](/resources/blog/chicago-salary-guide-2026-what-skilled-roles-pay) covers skilled trades alongside the other sectors we staff.
+
+## The bottom line
+
+Electrical staffing is a matching problem dressed up as a volume problem. The licences are specific, the specialisations are real, and the safety credentials are non-negotiable — which means the value a recruiter adds is precision, not reach. A specialist who knows which licence a job needs, which systems the candidate has actually worked on, and why the last three offers were declined will fill the role faster than any amount of wider advertising.
+
+If you are hiring and the search keeps stalling, [tell us what the role actually involves](/for-clients) and we will tell you where that person is, what they need to hear, and what it will take to move them. If you are an electrician looking for your next move, [send us your CV](/contact) and a recruiter who works in the trade will be in touch.`,
+  },
 ];
