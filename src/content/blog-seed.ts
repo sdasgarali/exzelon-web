@@ -245,7 +245,7 @@ We break this down role by role in our guide to [which jobs are most affected by
 - **Redesign jobs, not just tools** — dropping AI into an unchanged workflow rarely delivers the gains.
 - **Hire for adaptability** — in a shifting market, the ability to learn beats any single current skill.
 
-The organisations and individuals who treat AI as a tool to be mastered — rather than a wave to be feared — are the ones who will come out ahead. Whether you are planning your next career move or your next hire, our recruiters help you navigate exactly this. Explore [current opportunities](/jobs) or [work with our team](/for-clients).`,
+The organisations and individuals who treat AI as a tool to be mastered — rather than a wave to be feared — are the ones who will come out ahead. Whether you are planning your next career move or your next hire, our recruiters help you navigate exactly this. Explore [current opportunities](/opportunities) or [work with our team](/for-clients).`,
   },
   {
     slug: "which-jobs-are-most-affected-by-ai",
@@ -347,7 +347,7 @@ The most future-proof position of all is a resilient role plus AI fluency. A nur
 - **If you are mid-career in an exposed role**, look for the adjacent, more durable version of your work, and start the reskilling now rather than later.
 - **If you are in a resilient field**, protect your advantage by adopting the tools before they become table stakes.
 
-We cover the practical skills side of this in [how to future-proof your career in the age of AI](/resources/blog/how-to-future-proof-your-career-in-the-age-of-ai). And when you are ready to act, our recruiters place talent across exactly the resilient, growing sectors described here — from [healthcare](/opportunities/healthcare) and the [skilled trades](/opportunities/construction) to [technology](/opportunities/it). [Browse open roles](/jobs) or [start a conversation](/contact).`,
+We cover the practical skills side of this in [how to future-proof your career in the age of AI](/resources/blog/how-to-future-proof-your-career-in-the-age-of-ai). And when you are ready to act, our recruiters place talent across exactly the resilient, growing sectors described here — from [healthcare](/opportunities/healthcare) and the [skilled trades](/opportunities/construction) to [technology](/opportunities/it). [Browse open roles](/opportunities) or [start a conversation](/contact).`,
   },
   {
     slug: "how-to-future-proof-your-career-in-the-age-of-ai",
@@ -396,7 +396,7 @@ If you are unsure which category you are in, our guide to [careers most and leas
 
 ## Make your next move a deliberate one
 
-Future-proofing is not a one-time decision; it is a direction. Choose roles and employers that invest in their people, keep building both your human edge and your AI fluency, and revisit the plan every year. When you are ready to take a concrete step, our specialist recruiters can match you to employers who value exactly this kind of adaptable, forward-looking talent. [Browse current opportunities](/jobs) or [talk to a recruiter](/contact) about your next move.`,
+Future-proofing is not a one-time decision; it is a direction. Choose roles and employers that invest in their people, keep building both your human edge and your AI fluency, and revisit the plan every year. When you are ready to take a concrete step, our specialist recruiters can match you to employers who value exactly this kind of adaptable, forward-looking talent. [Browse current opportunities](/opportunities) or [talk to a recruiter](/contact) about your next move.`,
   },
   {
     slug: "ai-in-recruitment-what-employers-should-know",
@@ -543,7 +543,7 @@ We wrote a companion piece on exactly this — [five resume tips that actually g
 
 A staffing agency is one of the few resources in a job search that is genuinely on your side and completely free to use. It gives you an advocate, access to unadvertised roles, real market intelligence, and a faster path from application to offer — all funded by the employer, not you. The candidates who benefit most are simply the ones who engage: clear about what they want, quick to respond, and ready to move.
 
-If that sounds like the kind of help you want on your next move, [browse our current opportunities](/jobs) or [talk to a specialist recruiter](/contact) about what you are looking for. And if you are weighing how AI is changing the job market as you plan your next step, our guide to [future-proofing your career in the age of AI](/resources/blog/how-to-future-proof-your-career-in-the-age-of-ai) is a good place to read next.`,
+If that sounds like the kind of help you want on your next move, [browse our current opportunities](/opportunities) or [talk to a specialist recruiter](/contact) about what you are looking for. And if you are weighing how AI is changing the job market as you plan your next step, our guide to [future-proofing your career in the age of AI](/resources/blog/how-to-future-proof-your-career-in-the-age-of-ai) is a good place to read next.`,
   },
   {
     slug: "how-to-hire-through-a-staffing-agency-chicago",
