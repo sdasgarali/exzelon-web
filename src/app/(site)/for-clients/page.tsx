@@ -13,8 +13,11 @@ import { site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "For Clients — Staffing & Recruitment in Chicago",
-  description: `Hire pre-vetted, fully compliant talent across ${industryCountWord} industries — ${industriesShort}. Around 9 days average time-to-offer. Request talent from Exzelon's Chicago recruiters.`,
+  // Kept inside the ~155-character SERP window, so it is not truncated by the clamp in
+  // `pageMetadata`. The dropped `/for-clients` path keyword is covered by the canonical
+  // and this page's own copy.
+  title: "For Clients — Staffing in Chicago",
+  description: `Chicago recruiters hiring pre-vetted, compliant talent — ${industriesShort}. About 9 days average time-to-offer.`,
   path: "/for-clients",
 });
 
