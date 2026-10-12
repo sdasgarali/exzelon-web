@@ -8,12 +8,34 @@ type PageSeo = {
   path?: string;
 };
 
+/**
+ * Longest meta description we emit. Google's snippet limit is pixel-based — roughly
+ * 155-160 characters — so anything longer is cut in the SERP anyway; the highest
+ * source-authored description on the site is 157.
+ */
+const MAX_DESCRIPTION = 160;
+
+/**
+ * Trim a meta description to that window, ending on a word boundary. Blog excerpts are
+ * authored in the admin dashboard and can run well past 160 characters (one live post
+ * is 219), so clamping here keeps the rendered snippet deliberate instead of letting
+ * Google cut mid-word. Descriptions inside the window come back untouched.
+ */
+function clampDescription(text: string): string {
+  const trimmed = text.trim();
+  if (trimmed.length <= MAX_DESCRIPTION) return trimmed;
+  const clipped = trimmed.slice(0, MAX_DESCRIPTION - 1);
+  const lastSpace = clipped.lastIndexOf(" ");
+  const body = (lastSpace > 0 ? clipped.slice(0, lastSpace) : clipped).replace(/[-\s,;:.!?—]+$/, "");
+  return `${body}…`;
+}
+
 /** Build page-level metadata consistently across routes. */
 export function pageMetadata({ title, description, path = "/" }: PageSeo = {}): Metadata {
   // Bare page title — the root layout's title.template appends the brand,
   // so we must NOT append it here (would double-brand the tab title).
   const fullTitle = title ? `${title} | ${site.brand}` : `${site.brand} — ${site.tagline}`;
-  const desc = description ?? site.description;
+  const desc = clampDescription(description ?? site.description);
   const url = `${site.url}${path}`;
   return {
     title: title ?? undefined,
