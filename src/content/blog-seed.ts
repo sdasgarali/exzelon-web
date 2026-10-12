@@ -911,4 +911,96 @@ That local knowledge is most of what a specialist staffing partner actually sell
 
 If you have a role to fill and you are not certain you are searching the right part of the metro, [tell us what you need](/for-clients) and a specialist recruiter will tell you where that talent sits and what it currently costs. For a broader walkthrough of the engagement itself, our guide to [hiring through a staffing agency in Chicago](/resources/blog/how-to-hire-through-a-staffing-agency-chicago) covers the process end to end.`,
   },
+  {
+    slug: "construction-staffing-chicago-how-to-hire",
+    title: "Construction Staffing in Chicago: How to Hire Skilled Trades",
+    excerpt:
+      "Chicago construction hiring runs on certifications, safety records, and referral networks. How to find, screen, and close skilled trades talent.",
+    category: "Hiring",
+    author: "Marcus Bell",
+    date: "2026-10-12",
+    body: `Construction staffing in Chicago means filling site roles with people whose qualifications are verified before they reach your site — OSHA training, apprenticeship or journeyman status, trade certifications, and a safety record you can actually check. The roles run from general labour and carpentry through concrete, steel, welding, heavy equipment operation, and site supervision, and they are usually filled as a mix of temporary, temp-to-hire, and direct placement, because construction demand arrives in projects rather than quarters. This guide covers what that looks like in practice across the Chicago metro, what to screen for, and where most construction searches go wrong.
+
+## The roles, and why they cannot be hired the same way
+
+Treating "construction" as one job family is the first mistake employers make. You are really hiring across three groups that behave very differently.
+
+### General labour and entry trades
+
+Concrete finishers, demolition labour, site cleanup, material handling. This is volume hiring with high mobility — the same people often work across several employers in a season. Speed and reliability count for more than a polished resume here.
+
+### Skilled trades
+
+Carpenters, masons, ironworkers, welders, pipefitters, HVAC technicians, heavy equipment operators, and licensed electricians. Qualification here is specific: apprenticeship completion or a journeyman card, a welding certification matched to your process, a ticket for the exact equipment on your site. Hiring the wrong category of person is expensive, and it usually shows up as a failed weld test or a start that ends in week one.
+
+### Supervision and project management
+
+Foremen, general foremen, superintendents, project engineers, and project managers. These roles hinge on track record — comparable project type, scale, and contract structure — and on whether the person can run a crew rather than simply work in one.
+
+Each group needs a different sourcing channel and a different screening process. Advertising all three the same way is why so many construction searches stall at the shortlist stage.
+
+## The credentials that actually matter
+
+For skilled and supervisory roles, these are the items worth confirming before anyone is submitted. Most are verifiable at the source rather than taken on trust.
+
+- **OSHA 10 or OSHA 30 training** — increasingly a baseline requirement on commercial and industrial work, and often tied to a site-specific orientation.
+- **Apprenticeship or journeyman documentation** — completion records or the relevant card, matched to your trade.
+- **Trade certifications with an expiry date** — welding procedures, equipment tickets, aerial lift, rigging, confined space, first aid. Certifications lapse: someone qualified two years ago may not be qualified today.
+- **Union status or open-shop fit** — a contracting decision as much as a hiring one, and it determines which channels can even be used.
+- **Licence and reliable transport** — a large share of metro sites sit outside practical transit coverage, and a candidate who cannot reach the site is not a candidate.
+- **Work authorisation (I-9) and, where relevant, background screening** — non-negotiable on public, healthcare, education, and industrial sites.
+
+Licensing for electricians, plumbers, and similar trades varies by municipality across the Chicago area, so the requirement depends on where the work is permitted, not only where the candidate lives.
+
+## Where the trades talent actually sits
+
+Trades talent in this metro concentrates around the industrial corridors rather than the centre. The southeast belt retains heavy fabrication, welding, millwright, and industrial electrical work. The I-55 and I-80 corridor through Joliet, Romeoville, and Bolingbrook carries the inland port and the industrial construction around it. The city itself has deep carpentry, concrete, and renovation capacity that thins out as you move north and west.
+
+This matters because the trades network is largely referral-driven. Experienced tradespeople are usually employed, frequently moving straight from one project to the next, and they rarely show up as job-board applications. If a search has been live for three weeks with no plausible candidates, the problem is almost always the channel and the search radius, not the money. Our [guide to Chicago talent clusters](/resources/blog/where-to-hire-in-chicago-talent-clusters) breaks those corridors down in more detail.
+
+## Screen for safety and reliability, not just skill
+
+The cost of a construction bad hire is not the wage. It is the incident, the downtime, and the schedule slip. Two candidates can test identically on skill and differ completely on whether they show up on time, follow a lift plan, or speak up when something looks wrong.
+
+Three things predict that better than a resume does.
+
+- **A verifiable safety history.** Ask for the training records rather than accepting the claim.
+- **Attendance and reliability on comparable work.** Weather interrupts the schedule; a candidate who also interrupts it compounds the problem.
+- **Tenure patterns that fit project work.** A six-month stay that ended when a project finished is normal in construction. A run of unfinished projects is not.
+
+## Temporary, temp-to-hire, or direct hire
+
+The right structure follows the project, not the job title.
+
+- **Temporary** suits short-duration peak work — a pour, a shutdown, a seasonal push — and lets you flex a crew down without carrying a layoff on your books.
+- **Temp-to-hire** is usually the safest route for skilled trades and supervision. You see how someone works on your site, with your superintendent, before making a permanent commitment.
+- **Direct hire** makes sense for roles you need across projects — a general foreman, a project manager, a specialist technician — where continuity justifies a longer search.
+
+The compliance work is where a staffing partner earns its fee. In the roles we place, credentials, work authorisation, and safety-certification tracking are handled before a candidate is submitted, and construction and electrical assignments carry OSHA and safety tracking through the placement.
+
+## Write a job order a recruiter can actually fill
+
+Most unfilled construction roles are underspecified rather than unhireable. Before you send a requirement, have these pinned down:
+
+- **Site location and shift**, including start time and whether weekend or night work is expected.
+- **Certifications required on day one**, versus those that can be verified during onboarding.
+- **Project type, duration, and stage** — new build, fit-out, tenant improvement, shutdown, retrofit.
+- **Wage or bill rate**, plus per diem, travel, or vehicle allowance where the site is remote.
+- **PPE and tools** — who supplies them, and what the candidate is expected to bring.
+- **Who gives feedback, and how fast.** Construction candidates take the first credible offer. A shortlist that sits unanswered for four days is a shortlist you have lost.
+
+## The mistakes that reliably cost the hire
+
+- **Slow feedback.** In a market where strong tradespeople are approached constantly, a two-day feedback loop is a competitive advantage and a one-week loop is a lost candidate.
+- **Pricing below the corridor.** The rate that fills a role in one part of the metro does not fill the same role thirty miles away. Metro-wide ranges are a starting benchmark, not a substitute for checking what the site next door is paying this season.
+- **Ignoring the commute.** Asking someone to cross the metro daily on a project rate is a real cost to them, and it is the most common reason a qualified candidate declines.
+- **Screening after the start.** Verifying cards, certifications, and work authorisation after someone is on site puts the schedule at risk in exactly the way pre-screening is supposed to prevent.
+- **Treating labour and skilled trades as one pipeline.** They are sourced, screened, and priced differently, and merging them reliably produces poor matches on both sides.
+
+## Getting the next crew in place
+
+Construction hiring rewards speed, verified credentials, and honest market pricing. It punishes all three when a search is run like an office recruitment process. The employers who fill reliably in this market start with a clear requirement, use channels that reach people who are already working, and keep the feedback loop short.
+
+If you are staffing a project around Chicago and want pre-vetted, compliance-checked trades talent, [tell us what the job needs](/for-clients) and we will come back with people who can start. You can see the roles we place in this sector on our [construction staffing page](/opportunities/construction), or [contact a recruiter](/contact) to talk through a specific search.`,
+  },
 ];
