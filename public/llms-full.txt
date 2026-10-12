@@ -1,13 +1,13 @@
 # Exzelon — NextGen Hires | Full Content Reference
 # https://llmstxt.org
-# Generated: 2026-08-24
+# Updated: 2026-10-12
 
 > Exzelon is a Chicago-based recruitment and staffing agency that connects skilled
 > professionals with employers across twelve industries: Healthcare, Construction,
 > Electrical, Engineering, Manufacturing, Information Technology, Finance, Accounting,
 > Tax & Legal, Administrative, Marketing, and Distribution. Principal office: 6422 N
-> Maplewood Ave, Chicago, Illinois 60645, USA. Phone: +1 (872) 358-0100.
-> Email: contactus@exzelon.com. Searching, creating a profile, and applying are
+> Maplewood Ave, Chicago, Illinois 60645, USA. Phone: +1 (773) 644-3571.
+> Email: hr@exzelon.com. Searching, creating a profile, and applying are
 > always free for job seekers; employer partners fund the services.
 
 This file is the expanded companion to https://www.exzelon.com/llms.txt. It contains
@@ -88,7 +88,7 @@ construction and electrical roles.
 
 ### I'm an employer — how do I start hiring with Exzelon?
 Visit the For Clients page (https://www.exzelon.com/for-clients) or contact Exzelon
-directly at contactus@exzelon.com or +1 (872) 358-0100. Exzelon learns the role's
+directly at hr@exzelon.com or +1 (773) 644-3571. Exzelon learns the role's
 requirements, team, and timeline, then begins matching qualified, pre-vetted candidates
 right away — handling sourcing, screening, and compliance so employers review only
 ready-to-start talent.
@@ -119,13 +119,12 @@ ready-to-start talent.
 - Every candidate is credentialed and compliance-checked before placement.
 - Headquartered at 6422 N Maplewood Ave, Chicago, Illinois 60645; places candidates in
   the Chicago metro and nationally.
-- Contact: contactus@exzelon.com · +1 (872) 358-0100 · https://www.exzelon.com
+- Contact: hr@exzelon.com · +1 (773) 644-3571 · https://www.exzelon.com
 
 ## Key Pages
 
 - About: https://www.exzelon.com/about
 - For Clients (employers): https://www.exzelon.com/for-clients
-- Job Board: https://www.exzelon.com/jobs
 - Opportunities by Industry: https://www.exzelon.com/opportunities
 - FAQ: https://www.exzelon.com/resources/faq
 - Compliance: https://www.exzelon.com/resources/compliance
