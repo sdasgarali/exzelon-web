@@ -8,6 +8,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { CtaBanner } from "@/components/cta-banner";
 import { values } from "@/content/site-content";
 import { pageMetadata } from "@/lib/seo";
+import { jobsEnabled } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "About Us",
@@ -38,7 +39,11 @@ export default function AboutPage() {
         description="Exzelon — NextGen Hires is a specialist recruitment and staffing partner connecting talented professionals with the right opportunities across every industry."
       >
         <ButtonLink href="/contact" variant="accent" size="lg">Work with us</ButtonLink>
-        <ButtonLink href="/jobs" variant="light" size="lg">Browse jobs</ButtonLink>
+        {/* /jobs 307s to /contact while the board is disabled, so a crawlable link to it
+            only leaks equity into a redirect. */}
+        <ButtonLink href={jobsEnabled ? "/jobs" : "/opportunities"} variant="light" size="lg">
+          {jobsEnabled ? "Browse jobs" : "Browse opportunities"}
+        </ButtonLink>
       </PageHeader>
 
       {/* Who we are */}

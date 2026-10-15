@@ -86,7 +86,11 @@ export default async function BlogPostPage({
         {renderMarkdown(post.body)}
 
         <div className="mt-10 flex flex-wrap gap-3 border-t border-sand-200 pt-8">
-          <ButtonLink href="/jobs" variant="primary">Browse jobs <Icon name="arrow-right" className="h-4 w-4" /></ButtonLink>
+          {jobsEnabled ? (
+            <ButtonLink href="/jobs" variant="primary">Browse jobs <Icon name="arrow-right" className="h-4 w-4" /></ButtonLink>
+          ) : (
+            <ButtonLink href="/opportunities" variant="primary">Browse opportunities <Icon name="arrow-right" className="h-4 w-4" /></ButtonLink>
+          )}
           <ButtonLink href="/resources/blog" variant="outline">Back to blog</ButtonLink>
         </div>
       </article>
