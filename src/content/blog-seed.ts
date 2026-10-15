@@ -911,4 +911,63 @@ That local knowledge is most of what a specialist staffing partner actually sell
 
 If you have a role to fill and you are not certain you are searching the right part of the metro, [tell us what you need](/for-clients) and a specialist recruiter will tell you where that talent sits and what it currently costs. For a broader walkthrough of the engagement itself, our guide to [hiring through a staffing agency in Chicago](/resources/blog/how-to-hire-through-a-staffing-agency-chicago) covers the process end to end.`,
   },
+  {
+    slug: "healthcare-staffing-chicago-how-to-hire",
+    title: "Healthcare Staffing in Chicago: How to Hire Nurses",
+    excerpt:
+      "Where Chicago's nursing and allied-health talent sits, why clinical roles stall at credentialing, and what decides your start date.",
+    category: "Hiring",
+    author: "Marcus Bell",
+    date: "2026-10-15",
+    body: `Hiring clinical staff in Chicago is a credentialing problem before it is a supply problem. The metro holds one of the deepest nursing and allied-health labour pools in the country — several large academic medical centres and a dense ring of suburban hospital systems — yet clinical roles still sit open for weeks. The reason is rarely that nobody applied. It is that licence verification, background screening, competency checks, and onboarding have to be sequenced correctly, and because every hospital in the region is competing for the same credentialed people. This guide covers the parts of the process that actually decide how quickly a [healthcare](/opportunities/healthcare) role fills.
+
+## Where the talent actually sits
+
+Chicago is not one clinical market. The Illinois Medical District on the Near West Side packs Rush University Medical Center, UI Health, John H. Stroger Jr. Hospital, and the Jesse Brown VA Medical Center within a few blocks, creating one of the densest concentrations of clinical staff anywhere in the United States. Add the academic centres to the north and the suburban systems ringing the metro, and the depth of qualified people is genuinely unusual.
+
+Depth is not availability. Nurses, imaging technologists, and laboratory specialists remain among the hardest roles to fill in the region, because the same institutions compete continuously for the same credentialed individuals. The practical consequence for an employer is that a search is usually won or lost on the terms of the job rather than on the existence of candidates. Our [corridor-by-corridor guide to where Chicago's talent clusters sit](/resources/blog/where-to-hire-in-chicago-talent-clusters) is worth reading before you conclude a market is short of people.
+
+## What candidates screen on before they apply
+
+Experienced clinical staff filter job adverts quickly and on specifics. If a posting does not answer the questions below, it usually reads as a sign that the employer has not thought the role through.
+
+- **Shift pattern and FTE.** Twelve-hour versus eight-hour, days versus nights, and whether the hours are guaranteed or as-needed.
+- **Weekend and holiday rotation.** How often, and whether it is shared fairly across the unit.
+- **Float expectation.** Whether the person is hired to one unit or expected to float across the hospital, and how much notice they get.
+- **Orientation length and structure.** A six-week precepted orientation reads very differently from two days of computer modules.
+- **Commute reality.** Transit, parking, and whether parking is paid for or comes out of the wage.
+- **Pay including differentials.** Base rate, night and weekend differentials, and whether a sign-on payment carries a clawback period.
+
+## Credentialing is the real critical path
+
+Most delayed clinical hires are delayed by paperwork nobody started early enough. The usual sequence for a placement in Illinois runs through primary-source licence verification for the profession, background and reference checks in line with the employer's policy, identity and right-to-work verification for anyone working in the United States, and the health and competency requirements the site itself sets — immunisation status, tuberculosis screening, and unit-specific skills validation.
+
+Two points decide whether that sequence takes days or weeks. The first is when it starts: credentialing can and should run in parallel with interviews, not after a verbal offer, because it is the longest chain in the process and it does not depend on the interview outcome. The second is licence portability. A candidate licensed in another state may or may not be able to start quickly depending on the profession's licensing arrangements and Illinois's current participation in them, and that detail is worth confirming before anyone promises a start date.
+
+Exzelon runs this work before a candidate reaches an interview, which is why offers here rarely stall at the paperwork stage. The standards every placement is held to — licence verification, credentialing, background screening, and industry requirements — are set out on our [compliance page](/resources/compliance).
+
+## Permanent, travel, or temp-to-hire
+
+The three engagement types solve different problems, and choosing the wrong one is a common reason a search drags.
+
+- **Permanent, direct hire** suits roles where continuity matters and the unit can wait through a normal notice period. It is the right default for most leadership and specialist positions.
+- **Contract and temp-to-hire** suit coverage gaps, peak census, and roles where the employer wants to see someone work before committing. It also helps where a candidate is relocating or has a gap in their history that a shorter engagement resolves.
+- **Travel** suits fixed-term, location-variable needs. Assignments are typically short and the logistics matter: housing, travel, and the licensing and credentialing steps all have to be completed before a first shift, which is the part that most often goes wrong when an employer handles it alone.
+
+## The five questions to settle before you brief anyone
+
+- **Hours and shift pattern.** How many hours a week, which shift, and whether overtime is expected or merely possible.
+- **Credentials required on day one.** Which licences, certifications, and competencies the unit genuinely needs at the start, and which can be trained on the job.
+- **Experience level.** What the unit needs in practice, and what a strong first-year hire would look like here.
+- **Compensation range.** Base plus differentials, and how firm the range actually is.
+- **Realistic start date.** The earliest date a fully credentialed candidate could begin.
+
+Those five answers are the difference between a shortlist you can act on and a stack of applications you have to work through yourself.
+
+## Working with a specialist partner
+
+A generalist agency cannot screen a clinical candidate properly, because the screening is profession-specific. Licence type, specialty experience, competency documentation, and the credentialing pathway differ for a registered nurse, a respiratory therapist, and a medical laboratory scientist. What a specialist partner adds is a pool of people already verified against those standards, and the administrative machinery to keep them compliant through onboarding.
+
+If you are hiring clinical staff in Chicago and the search is not moving, [tell us the role](/for-clients), the unit, and the shift pattern. We will tell you where that talent sits in the metro, what it takes to move them, and how quickly a verified candidate could start — that is what our team does every day for hospitals and care providers across the region.`,
+  },
 ];
