@@ -8,12 +8,49 @@ type PageSeo = {
   path?: string;
 };
 
+/**
+ * Social/answer-engine preview image, served by `src/app/opengraph-image.tsx`.
+ *
+ * The file convention only applies while no segment on the route exports its own
+ * `openGraph` object — and `pageMetadata()` does, so the generated image was dropped on
+ * every page that uses this helper (`/` was the only route still shipping one; verified
+ * live: no og:image or twitter:image on /about, /for-clients, the industry pages, the blog
+ * hub or any post, while twitter:card still said `summary_large_image`).
+ */
+const OG_IMAGE = {
+  url: "/opengraph-image",
+  width: 1200,
+  height: 630,
+  alt: `${site.brand} — ${site.tagline}`,
+} as const;
+
+/**
+ * Longest meta description we emit. Google's snippet limit is pixel-based — roughly
+ * 155-160 characters — so anything longer is cut in the SERP anyway.
+ */
+const MAX_DESCRIPTION = 160;
+
+/**
+ * Trim a meta description to that window, ending on a word boundary. Blog excerpts are
+ * authored in the admin dashboard and can run well past 160 characters, so clamping here
+ * keeps the rendered snippet deliberate instead of letting Google cut mid-word.
+ * Descriptions inside the window come back untouched.
+ */
+function clampDescription(text: string): string {
+  const trimmed = text.trim();
+  if (trimmed.length <= MAX_DESCRIPTION) return trimmed;
+  const clipped = trimmed.slice(0, MAX_DESCRIPTION - 1);
+  const lastSpace = clipped.lastIndexOf(" ");
+  const body = (lastSpace > 0 ? clipped.slice(0, lastSpace) : clipped).replace(/[-\s,;:.!?—]+$/, "");
+  return `${body}…`;
+}
+
 /** Build page-level metadata consistently across routes. */
 export function pageMetadata({ title, description, path = "/" }: PageSeo = {}): Metadata {
   // Bare page title — the root layout's title.template appends the brand,
   // so we must NOT append it here (would double-brand the tab title).
   const fullTitle = title ? `${title} | ${site.brand}` : `${site.brand} — ${site.tagline}`;
-  const desc = description ?? site.description;
+  const desc = clampDescription(description ?? site.description);
   const url = `${site.url}${path}`;
   return {
     title: title ?? undefined,
@@ -26,11 +63,13 @@ export function pageMetadata({ title, description, path = "/" }: PageSeo = {}): 
       siteName: site.brand,
       type: "website",
       locale: "en_US",
+      images: [OG_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description: desc,
+      images: [OG_IMAGE],
     },
   };
 }
