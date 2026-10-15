@@ -55,7 +55,15 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   const all = await listPublishedPosts();
-  const related = all.filter((p) => p.slug !== post.slug).slice(0, 3);
+  // Same-category posts first so the internal links stay topical and spread across the
+  // archive, then the newest of the rest to fill the three slots. A plain slice of the
+  // whole list pointed every post at the same three newest ones — five posts ended up with
+  // exactly one inbound internal link.
+  const others = all.filter((p) => p.slug !== post.slug);
+  const related = [
+    ...others.filter((p) => p.category === post.category),
+    ...others.filter((p) => p.category !== post.category),
+  ].slice(0, 3);
   const dateStr = (post.publishedAt as string | null) ?? (post.createdAt as string);
   const jsonLd = blogPostingJsonLd({
     slug: post.slug,
