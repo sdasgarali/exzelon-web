@@ -8,13 +8,16 @@ import { ButtonLink } from "@/components/ui/button";
 import { CtaBanner } from "@/components/cta-banner";
 import { ContactForm } from "@/components/forms/contact-form";
 import { services } from "@/content/services";
-import { industryCountWord, industriesShort } from "@/content/industries";
+import { industryCountWord } from "@/content/industries";
 import { site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "For Clients — Staffing & Recruitment in Chicago",
-  description: `Hire pre-vetted, fully compliant talent across ${industryCountWord} industries — ${industriesShort}. Around 9 days average time-to-offer. Request talent from Exzelon's Chicago recruiters.`,
+  // With the layout's brand template this title rendered at 59 characters — past the ~60-character SERP
+  // width — and the description was assembled from the full twelve-sector list.
+  title: "For Clients — Staffing in Chicago",
+  description:
+    "Chicago recruiters hiring pre-vetted, compliant talent — healthcare, IT, construction, engineering and finance. Around nine days average time-to-offer.",
   path: "/for-clients",
 });
 
