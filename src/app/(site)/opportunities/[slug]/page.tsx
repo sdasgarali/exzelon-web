@@ -28,10 +28,13 @@ export async function generateMetadata({
   const { slug } = await params;
   const industry = getIndustry(slug);
   if (!industry) return pageMetadata({ title: "Opportunities" });
+  // Geo intent — Exzelon is a Chicago-based agency placing nationwide. Appended to the
+  // one-line `short` summary rather than the long `description`: the latter is body copy,
+  // which pushed these meta descriptions to 233-333 characters (all twelve truncated).
+  const geo = `Exzelon places ${industry.name.toLowerCase()} talent in Chicago, across Illinois, and nationwide.`;
   return pageMetadata({
     title: `${industry.name} Jobs`,
-    // Add geo intent — Exzelon is a Chicago-based agency placing nationwide.
-    description: `${industry.description} Exzelon places ${industry.name.toLowerCase()} talent in Chicago, across Illinois, and nationwide.`,
+    description: `${industry.short} ${geo}`,
     path: `/opportunities/${industry.slug}`,
   });
 }
