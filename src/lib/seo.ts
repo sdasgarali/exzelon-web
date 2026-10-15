@@ -6,6 +6,16 @@ type PageSeo = {
   title?: string;
   description?: string;
   path?: string;
+  /**
+   * Emit `title` verbatim instead of letting the root layout's `%s | <brand>` template
+   * append the brand. For headlines already at the SERP width, the suffix pushed the
+   * rendered title to 61-82 characters.
+   */
+  titleAbsolute?: boolean;
+  /** Open Graph type. `article` additionally carries the published/modified times. */
+  type?: "website" | "article";
+  publishedTime?: string;
+  modifiedTime?: string;
 };
 
 /**
@@ -46,14 +56,22 @@ function clampDescription(text: string): string {
 }
 
 /** Build page-level metadata consistently across routes. */
-export function pageMetadata({ title, description, path = "/" }: PageSeo = {}): Metadata {
+export function pageMetadata({
+  title,
+  description,
+  path = "/",
+  titleAbsolute = false,
+  type = "website",
+  publishedTime,
+  modifiedTime,
+}: PageSeo = {}): Metadata {
   // Bare page title — the root layout's title.template appends the brand,
   // so we must NOT append it here (would double-brand the tab title).
   const fullTitle = title ? `${title} | ${site.brand}` : `${site.brand} — ${site.tagline}`;
   const desc = clampDescription(description ?? site.description);
   const url = `${site.url}${path}`;
   return {
-    title: title ?? undefined,
+    title: title ? (titleAbsolute ? { absolute: title } : title) : undefined,
     description: desc,
     alternates: { canonical: url },
     openGraph: {
@@ -61,10 +79,14 @@ export function pageMetadata({ title, description, path = "/" }: PageSeo = {}): 
       description: desc,
       url,
       siteName: site.brand,
-      type: "website",
       locale: "en_US",
       images: [OG_IMAGE],
-    },
+      // Cast: Next types openGraph as a union discriminated by `type`, and the article
+      // branch is the only one carrying published/modified times.
+      ...(type === "article" && publishedTime
+        ? { type: "article", publishedTime, modifiedTime: modifiedTime ?? publishedTime }
+        : { type: "website" }),
+    } as Metadata["openGraph"],
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
