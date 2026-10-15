@@ -3,8 +3,11 @@ import { site, jobsEnabled } from "@/lib/site";
 import { industries } from "@/content/industries";
 import { listPublicJobs, listPublishedPosts } from "@/lib/db/repo";
 
-// Refresh the sitemap hourly so newly posted jobs get picked up without a redeploy.
-export const revalidate = 3600;
+// Rendered per request. A metadata route is cached by default and a cached sitemap is
+// frozen at its last render — posts live in Mongo and change between deploys, so a
+// build-time copy ships without the newest ones. Sitemaps are fetched a few times a day,
+// so the per-request read costs nothing.
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = site.url;

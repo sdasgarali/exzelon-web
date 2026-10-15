@@ -9,8 +9,13 @@ import { CtaBanner } from "@/components/cta-banner";
 import { getPublishedPostBySlug, listPublishedPosts } from "@/lib/db/repo";
 import { renderMarkdown } from "@/lib/markdown";
 import { pageMetadata, blogPostingJsonLd } from "@/lib/seo";
+import { jobsEnabled } from "@/lib/site";
 
-export const dynamic = "force-dynamic";
+// Serve posts from the cache instead of rendering every view from the DB: the route was
+// `force-dynamic`, so live responses carried `cache-control: private, no-store` and
+// `x-vercel-cache: MISS` (measured) — every crawler and reader paid a full DB render.
+// 60s matches the homepage and industry pages, so a publish still surfaces within a minute.
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,

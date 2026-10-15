@@ -9,7 +9,11 @@ import { Icon } from "@/components/ui/icon";
 import { listPublishedPosts } from "@/lib/db/repo";
 import { pageMetadata } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+// Serve the index from the cache instead of rendering it from the database on every
+// request: the route was `force-dynamic`, so live responses carried
+// `cache-control: private, no-store` and `x-vercel-cache: MISS` (measured). 60s matches
+// the homepage and industry pages, so a publish still surfaces within a minute.
+export const revalidate = 60;
 
 export const metadata: Metadata = pageMetadata({
   title: "Blog",
