@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 /**
  * Tiny, dependency-free markdown-lite renderer for blog bodies.
  * Supports: `##`/`###` headings, blank-line paragraphs, `-`/`*` bullet lists,
- * `>` blockquotes, and inline `**bold**` + `[text](url)`.
+ * `1.` / `1)` ordered lists, `>` blockquotes, and inline `**bold**` + `[text](url)`.
  *
  * Text is rendered as React children (never dangerouslySetInnerHTML), so all
  * content is escaped by React — safe against injection. Links are restricted to
@@ -64,6 +64,7 @@ export function renderMarkdown(md: string): ReactNode {
   const blocks: ReactNode[] = [];
   let para: string[] = [];
   let list: string[] = [];
+  let ordered: string[] = [];
   let quote: string[] = [];
   let k = 0;
 
@@ -87,6 +88,19 @@ export function renderMarkdown(md: string): ReactNode {
       list = [];
     }
   };
+  const flushOrdered = () => {
+    if (ordered.length) {
+      const key = `ol${k++}`;
+      blocks.push(
+        <ol key={key} className="list-decimal space-y-2 pl-6">
+          {ordered.map((item, idx) => (
+            <li key={`${key}-${idx}`}>{renderInline(item, `${key}-${idx}`)}</li>
+          ))}
+        </ol>
+      );
+      ordered = [];
+    }
+  };
   const flushQuote = () => {
     if (quote.length) {
       const key = `bq${k++}`;
@@ -104,6 +118,7 @@ export function renderMarkdown(md: string): ReactNode {
   const flushAll = () => {
     flushPara();
     flushList();
+    flushOrdered();
     flushQuote();
   };
 
@@ -116,6 +131,9 @@ export function renderMarkdown(md: string): ReactNode {
     const h3 = line.match(/^###\s+(.*)$/);
     const h2 = line.match(/^##\s+(.*)$/);
     const bullet = line.match(/^[-*]\s+(.*)$/);
+    // `1.` / `1)` — posts use these for ordered steps; without this branch the items
+    // collapsed into one paragraph and the numbers ran together mid-sentence.
+    const orderedItem = line.match(/^\d+[.)]\s+(.*)$/);
     const bq = line.match(/^>\s?(.*)$/);
 
     if (h3) {
@@ -136,14 +154,22 @@ export function renderMarkdown(md: string): ReactNode {
       );
     } else if (bullet) {
       flushPara();
+      flushOrdered();
       flushQuote();
       list.push(bullet[1]);
+    } else if (orderedItem) {
+      flushPara();
+      flushList();
+      flushQuote();
+      ordered.push(orderedItem[1]);
     } else if (bq) {
       flushPara();
       flushList();
+      flushOrdered();
       quote.push(bq[1]);
     } else {
       flushList();
+      flushOrdered();
       flushQuote();
       para.push(line);
     }
