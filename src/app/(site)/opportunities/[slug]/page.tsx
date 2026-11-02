@@ -9,6 +9,7 @@ import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
 import { JobCard } from "@/components/cards/job-card";
 import { CtaBanner } from "@/components/cta-banner";
+import { IndustryGuide } from "@/components/industry-guide";
 import { industries, getIndustry } from "@/content/industries";
 import { listPublicJobsByIndustry } from "@/lib/db/repo";
 import { jobsEnabled } from "@/lib/site";
@@ -175,6 +176,11 @@ export default async function IndustryPage({
           </StaggerGroup>
         </Section>
       )}
+
+      {/* Sector guide — the field-specific copy that lifts these pages above the ~130
+          words the shared template supplies, carries the Service entity, and links to one
+          related guide. Renders nothing for a slug without a guide. */}
+      <IndustryGuide industry={industry} />
 
       <CtaBanner
         title={`Ready for your next ${industry.name.toLowerCase()} role?`}
