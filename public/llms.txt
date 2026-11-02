@@ -1,6 +1,6 @@
 # Exzelon — NextGen Hires
 # https://llmstxt.org
-# Generated: 2026-10-24
+# Generated: 2026-11-02
 # Full content: https://www.exzelon.com/llms-full.txt
 
 > Exzelon is a Chicago-based recruitment and staffing agency that connects skilled
@@ -41,10 +41,12 @@
 
 ## Recent Guides
 
-- [Where to Hire in Chicago: Talent Clusters](https://www.exzelon.com/resources/blog/where-to-hire-in-chicago-talent-clusters): Corridor-by-corridor map of where each skill set concentrates in the metro, and the commute maths behind it.
-- [Chicago Salary Guide 2026](https://www.exzelon.com/resources/blog/chicago-salary-guide-2026-what-skilled-roles-pay): Pay ranges for in-demand roles across healthcare, trades, IT, finance, and more.
-- [How to Hire Through a Staffing Agency in Chicago](https://www.exzelon.com/resources/blog/how-to-hire-through-a-staffing-agency-chicago): The engagement process, fee structures, and guarantees, for employers.
-- [Electrical Staffing: How Electrician Hiring Really Works](https://www.exzelon.com/resources/blog/electrical-staffing-how-electrician-hiring-works): Licensing, verification, and what actually closes electricians.
+- [How to Recruit Electricians: A Practical Hiring Playbook](https://www.exzelon.com/resources/blog/how-to-recruit-electricians): The electricians you want are employed, busy, and not reading job boards. Here is how to find them, screen them in one call…
+- [Electrical Staffing Agency: Temp vs. Temp-to-Hire vs. Direct](https://www.exzelon.com/resources/blog/electrical-staffing-agency-temp-vs-temp-to-hire-vs-direct-hire): Temp, temp-to-hire and direct hire are three different deals. Here is how each works for electricians, who carries the risk…
+- [Industrial vs Commercial Electricians: A Hiring Guide](https://www.exzelon.com/resources/blog/industrial-vs-commercial-electricians-hiring): Industrial and commercial electricians need different licences, code knowledge, and hiring approach.
+- [How to Evaluate a Staffing Agency for Permanent Placement](https://www.exzelon.com/resources/blog/evaluating-staffing-agencies-permanent-placements): Permanent hires are judged differently from contract placements. Test the fee model, the guarantee and the quality of submittals before you sign.
+- [Master Electrician Staffing: Licensing and Hiring Guide](https://www.exzelon.com/resources/blog/master-electrician-staffing-licensing-and-hiring-guide): The master-level credential is often the bottleneck on an electrical contractor's growth. How the licence works, what to verify, and how to hire.
+- [Construction Staffing in Chicago: How to Hire Skilled Trades](https://www.exzelon.com/resources/blog/construction-staffing-chicago): Construction staffing in Chicago: how crews are hired, why municipal licensing and the union split change the search…
 
 ## Key Facts (for AI context)
 
