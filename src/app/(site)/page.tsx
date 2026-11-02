@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Hero } from "@/components/home/hero";
@@ -12,12 +13,25 @@ import { CtaBanner } from "@/components/cta-banner";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 import { industries } from "@/content/industries";
 import { steps, services } from "@/content/services";
-import { jobsEnabled } from "@/lib/site";
+import { jobsEnabled, site } from "@/lib/site";
 import { listFeaturedPublicJobs, listPublishedPosts } from "@/lib/db/repo";
 import { MotionItem } from "@/components/motion/motion-item";
 import { webSiteJsonLd } from "@/lib/seo";
 
 export const revalidate = 60;
+
+// The home page inherited the root layout's metadata: it emitted no canonical, and used
+// the 244-character `site.description` as its meta description (Google clips a snippet at
+// roughly 155). `pageMetadata()` is deliberately not used here — declaring `openGraph` at
+// page level stops the root segment's `opengraph-image.tsx` from being applied, and this
+// is the one route still inheriting it. Only the two missing fields are set; `title`
+// stays inherited from the layout's `title.default` + template.
+export const metadata: Metadata = {
+  description:
+    "Chicago staffing and recruitment agency placing skilled talent across 12 industries — healthcare, construction, electrical, IT, engineering, and finance.",
+  // No trailing slash — matches the sitemap's `https://www.exzelon.com` entry.
+  alternates: { canonical: site.url },
+};
 
 export default async function HomePage() {
   const healthcare = industries[0];

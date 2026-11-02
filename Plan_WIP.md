@@ -1,6 +1,15 @@
 # Plan WIP — Exzelon Web Rebuild
 
 ## SESSION_CONTEXT_RETRIEVAL
+> SEO AUTO-ROUND (2026-09-30, PR #47, rebase-merged --admin, Vercel prod auto-deployed, VERIFIED LIVE):
+> 11 commits from bot branch `seo/auto-20260930-2` (hermes-Agent-mkb-demo) + follow-up fix
+> (`generateStaticParams` → `/resources/blog/[slug]` is now real ISR ●, was ƒ; og:title honors
+> titleAbsolute). Live: home title "Staffing Agency in Chicago", og:image on all pages, no SearchAction
+> while jobs off, llms.txt contacts updated. New post `local-vs-national-staffing-agency-chicago`
+> inserted into prod `posts` INSERT-ONLY (not `db:seed-blog`, which overwrites admin edits to seeded
+> posts) — listed on /resources/blog, post page X-Vercel-Cache HIT. Stale remote branches
+> `feature/seo-bing-verification-20260921` + `revert-45-…` still exist (safe to delete).
+>
 > SEO AUDIT ROUND 3 + QUICK WINS (2026-08-20, branch `feature/seo-quick-wins`): ran full `/seo audit`
 > on LIVE www.exzelon.com (6 specialists). Health 67/100. VERIFIED live HTML: schema fully SSR'd
 > (EmploymentAgency + JobPosting + WebSite + Breadcrumb + FAQPage + BlogPosting) — corrected two false

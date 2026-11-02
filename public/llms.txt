@@ -1,14 +1,14 @@
 # Exzelon — NextGen Hires
 # https://llmstxt.org
-# Generated: 2026-08-24
+# Generated: 2026-10-24
 # Full content: https://www.exzelon.com/llms-full.txt
 
 > Exzelon is a Chicago-based recruitment and staffing agency that connects skilled
 > professionals with employers across twelve industries: Healthcare, Construction,
 > Electrical, Engineering, Manufacturing, Information Technology, Finance, Accounting,
 > Tax & Legal, Administrative, Marketing, and Distribution. Principal office: 6422 N
-> Maplewood Ave, Chicago, Illinois 60645, USA. Phone: +1 (872) 358-0100.
-> Email: contactus@exzelon.com. Searching, creating a profile, and applying are
+> Maplewood Ave, Chicago, Illinois 60645, USA. Phone: +1 (773) 644-3571.
+> Email: hr@exzelon.com. Searching, creating a profile, and applying are
 > always free for job seekers; employer partners fund the services.
 
 ## About
@@ -31,13 +31,20 @@
 - [Administrative Staffing](https://www.exzelon.com/opportunities/administrative): Executive assistants, office managers, coordinators, and front-desk professionals.
 - [Marketing Staffing](https://www.exzelon.com/opportunities/marketing): Digital marketers, content strategists, brand managers, and social media specialists.
 - [Distribution Staffing](https://www.exzelon.com/opportunities/distribution): Warehouse leads, forklift operators, dispatchers, and logistics coordinators.
-- [Browse All Jobs](https://www.exzelon.com/jobs): Live job board with search, location, industry, and salary filters.
+- [Contact a recruiter](https://www.exzelon.com/contact): Send a resume or brief a recruiter; current openings are shared directly rather than through a public job board.
 
 ## Resources
 
 - [FAQ](https://www.exzelon.com/resources/faq): Common questions from job seekers and employers — cost, industries, placement process, travel assignments, and compliance.
 - [Compliance Standards](https://www.exzelon.com/resources/compliance): License verification, background screening, credentialing, right-to-work, OSHA, and data protection.
 - [Blog — Career & Hiring Guides](https://www.exzelon.com/resources/blog): Articles on job searching, resume writing, the U.S. job market, and employer hiring strategy.
+
+## Recent Guides
+
+- [Where to Hire in Chicago: Talent Clusters](https://www.exzelon.com/resources/blog/where-to-hire-in-chicago-talent-clusters): Corridor-by-corridor map of where each skill set concentrates in the metro, and the commute maths behind it.
+- [Chicago Salary Guide 2026](https://www.exzelon.com/resources/blog/chicago-salary-guide-2026-what-skilled-roles-pay): Pay ranges for in-demand roles across healthcare, trades, IT, finance, and more.
+- [How to Hire Through a Staffing Agency in Chicago](https://www.exzelon.com/resources/blog/how-to-hire-through-a-staffing-agency-chicago): The engagement process, fee structures, and guarantees, for employers.
+- [Electrical Staffing: How Electrician Hiring Really Works](https://www.exzelon.com/resources/blog/electrical-staffing-how-electrician-hiring-works): Licensing, verification, and what actually closes electricians.
 
 ## Key Facts (for AI context)
 

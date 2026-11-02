@@ -1,22 +1,110 @@
 import type { Metadata } from "next";
-import { site } from "./site";
+import { site, jobsEnabled } from "./site";
 import type { Job } from "@/content/jobs";
 
 type PageSeo = {
   title?: string;
   description?: string;
   path?: string;
+  /** Emit `title` as `{ absolute }` — skips the root layout's "%s | brand" template. */
+  absoluteTitle?: boolean;
+  /** Set for article surfaces (blog posts) so OG carries `article` + timestamps. */
+  article?: { publishedTime?: string; modifiedTime?: string };
 };
 
+/**
+ * Social/AI preview card. Served by the `app/opengraph-image.tsx` file convention —
+ * referencing it explicitly is required because setting `openGraph` in page metadata
+ * suppresses the file-convention image for that route (only the home page, which sets
+ * no `openGraph`, was emitting one).
+ */
+const OG_IMAGE = `${site.url}/opengraph-image`;
+const ogImages = (alt: string) => [{ url: OG_IMAGE, width: 1200, height: 630, alt }];
+
+/**
+ * Google truncates SERP titles at roughly 60 characters and descriptions at roughly
+ * 155, measured in pixels. Blog post titles/descriptions come straight from the DB,
+ * and 9 of the 22 live posts overflowed — Google was cutting them mid-word with its
+ * own ellipsis. Trim on a sentence (or word) boundary instead so the snippet ends
+ * where we decide it does.
+ */
+const SERP_TITLE_MAX = 60;
+const SERP_DESC_MAX = 155;
+
+/** Words that read badly as the last word of a trimmed title/snippet. */
+const DANGLING_WORDS = new Set([
+  "a", "an", "the", "and", "or", "of", "for", "to", "in", "on", "at", "by", "with", "from",
+  "into", "over", "as", "is", "are", "it", "its", "your", "our", "this", "that", "why", "how",
+  "what", "when", "which",
+]);
+
+const TRAILING_JUNK = /[\s,;:.\-—]+$/;
+
+/**
+ * Trim to `max` chars on the cleanest boundary available: a sentence end, then a phrase
+ * break (colon / dash / pipe), then a word boundary with dangling words removed.
+ */
+function clampForSerp(text: string, max: number): string {
+  if (text.length <= max) return text;
+  const window = text.slice(0, max);
+
+  // A sentence end that keeps most of the budget ends the snippet properly.
+  const sentenceEnd = Math.max(
+    window.lastIndexOf(". "),
+    window.lastIndexOf("? "),
+    window.lastIndexOf("! "),
+  );
+  if (sentenceEnd >= max * 0.5) return window.slice(0, sentenceEnd + 1);
+
+  // Otherwise drop a whole trailing clause instead of half of one.
+  const phraseEnd = Math.max(window.lastIndexOf(": "), window.lastIndexOf(" — "));
+  if (phraseEnd >= max * 0.6) return window.slice(0, phraseEnd);
+
+  const wordEnd = window.lastIndexOf(" ");
+  let cut = window.slice(0, wordEnd > 0 ? wordEnd : max).replace(TRAILING_JUNK, "");
+  // An unclosed bracket ("… AI (and Why It") is worse than a shorter cut.
+  const openParen = cut.lastIndexOf("(");
+  if (openParen > 0 && cut.indexOf(")", openParen) === -1) {
+    cut = cut.slice(0, openParen).replace(TRAILING_JUNK, "");
+  }
+  const words = cut.split(" ");
+  while (words.length > 3 && DANGLING_WORDS.has(words[words.length - 1].toLowerCase())) words.pop();
+  return `${words.join(" ")}…`;
+}
+
+/**
+ * <title> for a page: brand a title when the brand still fits the SERP budget, drop the
+ * brand when it does not. A title that is too long on its own is left intact — Google
+ * cuts those at a word boundary itself, and truncating editorial titles in code would
+ * silently rewrite the owner's copy.
+ */
+function serpTitle(title: string): string {
+  const branded = `${title} | ${site.brand}`;
+  return branded.length <= SERP_TITLE_MAX ? branded : title;
+}
+
+/**
+ * Meta description clamped to the SERP budget. For pages that set their own metadata
+ * outside `pageMetadata` (the root layout's site-wide description), so every indexable
+ * page is capped the same way.
+ */
+export function serpDescription(text: string): string {
+  return clampForSerp(text, SERP_DESC_MAX);
+}
+
 /** Build page-level metadata consistently across routes. */
-export function pageMetadata({ title, description, path = "/" }: PageSeo = {}): Metadata {
-  // Bare page title — the root layout's title.template appends the brand,
-  // so we must NOT append it here (would double-brand the tab title).
+export function pageMetadata({
+  title,
+  description,
+  path = "/",
+  absoluteTitle = false,
+  article,
+}: PageSeo = {}): Metadata {
   const fullTitle = title ? `${title} | ${site.brand}` : `${site.brand} — ${site.tagline}`;
-  const desc = description ?? site.description;
+  const desc = clampForSerp(description ?? site.description, SERP_DESC_MAX);
   const url = `${site.url}${path}`;
   return {
-    title: title ?? undefined,
+    title: title ? { absolute: absoluteTitle ? title : serpTitle(title) } : undefined,
     description: desc,
     alternates: { canonical: url },
     openGraph: {
@@ -24,13 +112,72 @@ export function pageMetadata({ title, description, path = "/" }: PageSeo = {}): 
       description: desc,
       url,
       siteName: site.brand,
-      type: "website",
+      ...(article
+        ? {
+            type: "article" as const,
+            ...(article.publishedTime ? { publishedTime: article.publishedTime } : {}),
+            ...(article.modifiedTime ? { modifiedTime: article.modifiedTime } : {}),
+          }
+        : { type: "website" as const }),
       locale: "en_US",
+      images: ogImages(fullTitle),
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description: desc,
+      images: [OG_IMAGE],
+    },
+  };
+}
+
+/**
+ * Metadata for a blog article. Same shape as `pageMetadata` plus `og:type=article`
+ * with its published/modified times, and a `<title>` that keeps the brand suffix only
+ * when the whole headline still fits the ~60-character SERP limit — appending
+ * " | Exzelon — NextGen Hires" to an editorial headline pushed 20 of 22 posts past it.
+ */
+export function articleMetadata({
+  title,
+  description,
+  path,
+  author,
+  publishedTime,
+  modifiedTime,
+}: {
+  title: string;
+  description: string;
+  path: string;
+  author?: string;
+  publishedTime?: string | null;
+  modifiedTime?: string;
+}): Metadata {
+  const withBrand = `${title} | ${site.brand}`;
+  const withShortBrand = `${title} | ${site.shortName}`;
+  const headline =
+    withBrand.length <= 60 ? withBrand : withShortBrand.length <= 60 ? withShortBrand : title;
+  const url = `${site.url}${path}`;
+  return {
+    title: { absolute: headline },
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      title: headline,
+      description,
+      url,
+      siteName: site.brand,
+      locale: "en_US",
+      images: ogImages(headline),
+      ...(publishedTime ? { publishedTime } : {}),
+      ...(modifiedTime ? { modifiedTime } : {}),
+      ...(author ? { authors: [author] } : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: headline,
+      description,
+      images: [OG_IMAGE],
     },
   };
 }
@@ -100,7 +247,11 @@ export function organizationJsonLd() {
   };
 }
 
-/** WebSite + SearchAction — enables the sitelinks search box (home page only). */
+/**
+ * WebSite ± SearchAction (home page only). The sitelinks searchbox is only declared
+ * while the public jobs board is enabled: `/jobs` currently 307s to /contact, and a
+ * SearchAction whose target does not return search results invalidates the entity.
+ */
 export function webSiteJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -109,12 +260,20 @@ export function webSiteJsonLd() {
     name: site.name,
     url: site.url,
     publisher: { "@id": ORG_ID },
-    potentialAction: {
-      "@type": "SearchAction",
-      // Google's Sitelinks Searchbox spec expects a flat URL template, not an EntryPoint object.
-      target: `${site.url}/jobs?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
+    // The SearchAction target must be a live, indexable search URL. While the public
+    // jobs board is off, /jobs?q=… 307s to /contact, so advertising it as a search
+    // endpoint sends Google a redirect instead of results — omit the action until the
+    // board (and its ?q= handler) is back on.
+    ...(jobsEnabled
+      ? {
+          potentialAction: {
+            "@type": "SearchAction",
+            // Google's Sitelinks Searchbox spec expects a flat URL template, not an EntryPoint object.
+            target: `${site.url}/jobs?q={search_term_string}`,
+            "query-input": "required name=search_term_string",
+          },
+        }
+      : {}),
   };
 }
 

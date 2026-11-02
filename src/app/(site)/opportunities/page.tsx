@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
-import { Section } from "@/components/ui/section";
-import { StaggerGroup, staggerItem } from "@/components/motion/reveal";
+import { Section, SectionHeading } from "@/components/ui/section";
+import { StaggerGroup, staggerItem, Reveal } from "@/components/motion/reveal";
 import { MotionItem } from "@/components/motion/motion-item";
 import { IndustryCard } from "@/components/cards/industry-card";
 import { ButtonLink } from "@/components/ui/button";
 import { CtaBanner } from "@/components/cta-banner";
-import { industries, industryCountWord, industriesShort } from "@/content/industries";
+import { industries, industryCountWord } from "@/content/industries";
 import { jobsEnabled } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Opportunities",
-  description: `Explore career opportunities across ${industryCountWord} industries — ${industriesShort} — with specialist recruiters at Exzelon.`,
+  description: `Browse ${industryCountWord} industries we staff — healthcare, IT, construction, electrical, engineering, finance and more — with specialist recruiters.`,
   path: "/opportunities",
 });
 
@@ -41,6 +42,52 @@ export default function OpportunitiesPage() {
             </MotionItem>
           ))}
         </StaggerGroup>
+      </Section>
+
+      <Section className="bg-sand-50">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+          <SectionHeading
+            eyebrow="How it works"
+            title="One recruiter who knows your field"
+            description={`We don't run a single CV database with a search box. Each of the ${industryCountWord} sectors below is covered by recruiters who work that market every week — the roles, the credentials, and what a strong candidate actually looks like.`}
+          />
+          <Reveal delay={0.1}>
+            <div className="space-y-6 text-lg leading-relaxed text-slate-600">
+              <p>
+                Candidates get one point of contact who can say what a role pays in this market, which
+                employers hire on the schedule they want, and what the hiring process really looks
+                like before they commit to it. Applying through us is free, and no CV goes to an
+                employer without your agreement.
+              </p>
+              <p>
+                Employers get shortlists screened against what actually matters in the sector —
+                licences, certifications, shift availability, and safety record — rather than a pile
+                of resumes to sort. To see how an engagement runs from intake to start date, read{" "}
+                <Link
+                  href="/resources/blog/how-to-hire-through-a-staffing-agency-chicago"
+                  className="font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800"
+                >
+                  how to hire through a staffing agency in Chicago
+                </Link>
+                , or go straight to{" "}
+                <Link
+                  href="/for-clients"
+                  className="font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800"
+                >
+                  how we work with employers
+                </Link>
+                .
+              </p>
+              <p className="text-base text-slate-500">
+                Not sure which sector fits your background? Send your CV through{" "}
+                <Link href="/contact" className="font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800">
+                  contact
+                </Link>{" "}
+                and a recruiter will point you to the right one.
+              </p>
+            </div>
+          </Reveal>
+        </div>
       </Section>
 
       <CtaBanner

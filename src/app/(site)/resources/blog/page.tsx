@@ -7,13 +7,20 @@ import { StaggerGroup, staggerItem } from "@/components/motion/reveal";
 import { MotionItem } from "@/components/motion/motion-item";
 import { Icon } from "@/components/ui/icon";
 import { listPublishedPosts } from "@/lib/db/repo";
+import { industryCountWord } from "@/content/industries";
 import { pageMetadata } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+// Serve the index from the cache instead of rendering it from the database on every
+// request: the route was `force-dynamic`, so live responses carried
+// `cache-control: private, no-store` and `x-vercel-cache: MISS` (measured). 60s matches
+// the homepage and industry pages, so a publish still surfaces within a minute.
+export const revalidate = 60;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Blog",
-  description: "Career advice, hiring insights, and industry updates from the Exzelon recruiting team.",
+  // Was a bare "Blog" — no query signal at all on the hub that aggregates every guide.
+  title: "Career & Hiring Insights",
+  description:
+    "Practical hiring and career guides from Exzelon's Chicago recruiters — resume and interview advice, salary context, and how staffing actually works.",
   path: "/resources/blog",
 });
 
@@ -34,6 +41,27 @@ export default async function BlogPage() {
       />
 
       <Section>
+        {/* Hub intro: supplies the topical context the page lacked (it jumped straight from
+            the header to the post grid) and passes internal equity to the hiring pages. */}
+        <p className="mb-10 max-w-3xl text-lg leading-relaxed text-slate-600">
+          Straight-talking guides from the recruiters who place talent across {industryCountWord}{" "}
+          sectors — how staffing actually works, what roles pay, and how to move a career forward.
+          Looking for a role instead?{" "}
+          <Link
+            href="/opportunities"
+            className="font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800"
+          >
+            Browse opportunities by industry
+          </Link>{" "}
+          or{" "}
+          <Link
+            href="/contact"
+            className="font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800"
+          >
+            send us your CV
+          </Link>
+          .
+        </p>
         {posts.length === 0 ? (
           <div className="rounded-4xl border border-dashed border-sand-300 bg-sand-50 p-16 text-center">
             <Icon name="file-text" className="mx-auto h-10 w-10 text-slate-300" />

@@ -3,7 +3,7 @@ import Script from "next/script";
 import { Inter, Sora } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
-import { organizationJsonLd } from "@/lib/seo";
+import { organizationJsonLd, serpDescription } from "@/lib/seo";
 import { CookieNotice } from "@/components/cookie-notice";
 import { VisitorTracker } from "@/components/analytics/visitor-tracker";
 
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     default: `${site.brand} — ${site.tagline}`,
     template: `%s | ${site.brand}`,
   },
-  description: site.description,
+  description: serpDescription(site.description),
   keywords: [
     "recruitment", "staffing agency", "job portal", "Chicago staffing agency",
     "healthcare staffing", "travel nurse staffing", "construction staffing",
