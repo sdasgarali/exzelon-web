@@ -1797,4 +1797,91 @@ An electrical staffing agency is not a single service; it is three, and the righ
 If you are hiring electricians and want to talk through which model fits your project, [tell us what you need](/contact) and a specialist will walk you through it. For role types and how the search runs end to end, see our [electrical staffing guide](/resources/blog/electrical-staffing-how-electrician-hiring-works) or browse [electrical opportunities](/opportunities/electrical).
 `,
   },
+  {
+    slug: "how-to-recruit-electricians",
+    title: "How to Recruit Electricians: A Practical Hiring Playbook",
+    excerpt:
+      "The electricians you want are employed, busy, and not reading job boards. Here is how to find them, screen them in one call, and close before someone else does.",
+    category: "Hiring",
+    author: "Marcus Bell",
+    date: "2026-11-02",
+    body: `Recruiting an electrician is a sourcing problem long before it is a posting problem. The licensed people you want are usually employed, working overtime, and not browsing job boards during a shift, so an advert alone reaches the small share of the trade that happens to be between jobs. The employers who fill electrical roles quickly work the pools where electricians already gather, write a requisition that answers the questions an electrician actually asks, and move from first contact to a written offer in days. This playbook is the sequence they follow.
+
+## Where electricians actually are
+
+There are five pools, and most failed searches have only worked the smallest of them.
+
+- **Employed journeymen and masters.** The largest pool by far, and the least visible. These are people doing the work today who would move for a better shift, a shorter commute, steadier overtime, or a licence path their current employer will not fund. You reach them by reputation and direct outreach, not by advertising.
+- **Apprentices and pre-apprentices.** Slower to onboard but cheaper to train into your way of working. Community-college electrical programs, pre-apprenticeship courses, and your own apprentices are all sources, provided the role you are filling can legally be supervised at the level they have reached.
+- **Industrial maintenance electricians.** Plant and facilities people who troubleshoot motors, drives, and controls. They are a different profile from a construction journeyman, and moving one into the other's job is a common and expensive mistake — our guide to [industrial vs commercial electricians](/resources/blog/industrial-vs-commercial-electricians-hiring) covers how to tell which one your role needs.
+- **Adjacent trades.** Controls technicians, instrumentation and low-voltage people, and maintenance mechanics with electrical scope. Some transfers are straightforward; others are blocked by licensing. Check the licence requirement before you get attached to a candidate.
+- **Referrals from your own crew.** The highest-conversion source in the trade, and the one most employers leave to chance. Ask specifically, pay promptly, and ask again after every hire.
+
+If your company is a union signatory, the hall's referral process is a channel in its own right and should be worked like one: keep the business agent informed of upcoming work, not just open calls. If you are not signatory, the hall is not a channel available to you, which makes the other four pools more important, not less.
+
+## Write the requisition the way an electrician reads it
+
+Electricians skim a posting for six things and discard it if any of them are missing.
+
+- **The licence class and who issues it.** Illinois does not issue a statewide journeyman licence; licensing is municipal, and Chicago issues its own. Say plainly which licence the job requires and under whose authority, because the candidate is checking whether their credential actually covers the work.
+- **What the work is.** Service and panel work, new construction, tenant improvement, controls and PLC troubleshooting, or plant maintenance. "Electrician" alone tells a candidate nothing about whether the day looks like theirs.
+- **The schedule, including overtime and on-call.** Electrical work runs on shutdowns and emergencies. If the role includes nights, weekend cutovers, or a rotation, say so up front — it is the single most common reason a hire falls through at offer stage.
+- **Tools, truck, and per diem.** Who supplies hand tools, whether a vehicle is provided, and whether travel is paid. Electricians compare total packages, and these lines are part of the package.
+- **The wage band.** State a range. Postings without a rate are read as "we will offer you the bottom of whatever you will accept", and the strong candidates skip them.
+- **Who they report to and how big the crew is.** A journeyman deciding between two offers will pick the one with a foreman they can learn from over the one with a vague promise of growth.
+
+A posting that answers all six will out-pull a better-paid advert that answers two. For master-level searches there is an additional layer to get right, because the licence authorises a wider scope and the pool is much smaller — see the [master electrician licensing guide](/resources/blog/master-electrician-staffing-licensing-and-hiring-guide).
+
+## Source with the cadence of the trade
+
+Electrical recruiting runs on the phone, and the timing of the call matters more than the script.
+
+- **Text first, then call.** A short message that names the licence class, the location, the shift, and the rate gets a reply from someone who will not pick up an unknown number mid-shift.
+- **Call at the edges of the day.** Early morning before a shift, and late afternoon after one. Mid-morning and mid-afternoon calls reach voicemail, and voicemail from recruiters rarely gets returned.
+- **Plan three or four touches over a week, then stop.** Persistence reads as interest; a seventh unanswered message reads as desperation. Keep non-responders on a bench list and call again when the next requisition opens.
+- **Work the bench before you advertise.** A specialist keeps a list of people who said "not this job, but call me next time". Working that list first is why a good recruiter fills a role in days while a posting collects applications for weeks.
+- **Build two institutional relationships.** One with a trade program instructor and one with a supplier counter or electrical distributor. Both talk to working electricians every week, and neither costs anything to maintain.
+- **Be discreet with competitor outreach.** Electricians work in small crews and word travels. A mass message that reaches three people at the same shop damages the candidate's position and yours.
+
+## Screen in one conversation
+
+You do not need three interviews to establish whether someone is a licensed electrician who can do your job. You need one structured call and one verification step.
+
+1. **Licence number, class, and issuing authority.** Ask for the number and check it against the issuer. Not the CV's claim — the authority's record.
+2. **The last three jobs, described concretely.** What was installed, in what environment, under which code cycle, and what they personally did rather than what the crew did.
+3. **Safety training and certifications.** NFPA 70E and arc-flash awareness, OSHA 10 or 30 where the site requires it, and any client-specific orientation your facility demands.
+4. **Tools, PPE, and travel.** What they own, what they expect you to supply, and how far they will realistically drive at the rates you pay.
+5. **Why they are looking, and what shift they can genuinely work.** A candidate who cannot work the schedule is not a candidate, however strong the CV.
+
+Anything that survives those five questions and a licence check is worth an interview with the hiring manager. Anything that does not is a polite no, sent the same day.
+
+## Move from interview to offer in days
+
+An electrician with a current licence is usually talking to more than one employer, and the one who moves first wins. The mechanics are unglamorous:
+
+- **Give feedback the same day.** Silence after an interview reads as disinterest, and candidates accept the other offer while you are still collecting opinions.
+- **Do not add rounds.** A second interview is reasonable; a third is a way of losing a candidate you already decided to hire.
+- **Run pre-employment steps in parallel.** Background check, drug screen, and reference calls can start the moment the decision is made rather than in sequence.
+- **Put the offer in writing with a start date.** Rate, schedule, overtime expectation, tools, and benefits in one document. Verbal offers get renegotiated by whoever calls next.
+
+The cost of a slow process in this trade is not a delay; it is a re-run of the whole search.
+
+## The first 90 days decide whether the hire sticks
+
+Electrical turnover is usually an onboarding failure rather than a skills failure. What keeps a new electrician:
+
+- A foreman or crew lead who knows they are arriving, and a first day with PPE, badge, tools, and a task rather than paperwork.
+- An honest conversation about overtime in week one, before the first unexpected Saturday.
+- A visible path — apprentice hours toward the journeyman exam, employer-funded continuing education, or a route into controls and maintenance work.
+- A check-in at day seven, day thirty, and day ninety, done by someone senior enough to fix what comes up.
+
+Replacing an electrician costs a search, a verification cycle, and weeks of lost production. Retaining one costs a conversation.
+
+## When to bring in a specialist
+
+Do the work yourself when you are hiring one electrician, you know the local market, and you have a bench of people who have said yes before. Bring in a specialist when you are filling several seats at once, when the licence class is unusual, when the role is industrial or controls-heavy, or when a posting has produced applications from people who are not actually licensed for the work. Our [electrical staffing guide](/resources/blog/electrical-staffing-how-electrician-hiring-works) explains what a specialist verifies before a name reaches your shortlist.
+
+If you are recruiting electricians now, [tell us what the role involves](/for-clients) and we will tell you which pool the candidate is likely to come from, what the licence requirement means for the search, and how long a realistic fill looks. You can also [browse our electrical opportunities](/opportunities/electrical) to see the roles we place.
+`,
+  },
 ];
