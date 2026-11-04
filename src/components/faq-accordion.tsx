@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { faqs } from "@/content/site-content";
 import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
@@ -32,19 +32,20 @@ export function FaqAccordion() {
                 <Icon name="chevron-down" className="h-4 w-4" />
               </span>
             </button>
-            <AnimatePresence initial={false}>
-              {isOpen && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                  className="overflow-hidden"
-                >
-                  <p className="px-6 pb-6 leading-relaxed text-slate-600">{item.a}</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* The answer is always in the HTML and collapsed with height/opacity, not
+                unmounted. Two reasons: the page publishes FAQPage structured data built
+                from these same answers, and Google requires that answer text to be on the
+                page; and answer engines that do not execute JavaScript could previously
+                see only the one open question. The toggle still animates exactly as before. */}
+            <motion.div
+              initial={false}
+              animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden"
+              aria-hidden={!isOpen}
+            >
+              <p className="px-6 pb-6 leading-relaxed text-slate-600">{item.a}</p>
+            </motion.div>
           </div>
         );
       })}
