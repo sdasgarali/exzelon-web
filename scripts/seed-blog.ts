@@ -31,28 +31,54 @@ async function main() {
   let count = 0;
   for (const p of blogSeed) {
     const publishedAt = new Date(`${p.date}T12:00:00Z`);
+    const content = {
+      title: p.title,
+      excerpt: p.excerpt,
+      category: p.category,
+      body: p.body,
+      author: p.author,
+      readingTime: readingTime(p.body),
+      status: "published",
+      featured: !!p.featured,
+      ...(p.coverImageUrl ? { coverImageUrl: p.coverImageUrl } : {}),
+      authorUserId: null,
+      publishedAt,
+    };
+
+    // `updatedAt` is the sitemap's `lastmod` for every post. Bumping it on every run made
+    // all 25 posts claim they were modified in the same second, which tells Google the
+    // lastmod is noise and gets it ignored. Only stamp it when the content actually
+    // differs from what is stored, so an unchanged post keeps its real modification date.
+    const existing = await posts.findOne(
+      { slug: p.slug },
+      {
+        projection: {
+          title: 1, excerpt: 1, category: 1, body: 1, author: 1, readingTime: 1,
+          status: 1, featured: 1, coverImageUrl: 1, publishedAt: 1,
+        },
+      }
+    );
+    const changed =
+      !existing ||
+      Object.entries(content).some(([key, value]) => {
+        const current = (existing as Record<string, unknown>)[key];
+        if (key === "publishedAt") {
+          return !(current instanceof Date) || current.getTime() !== publishedAt.getTime();
+        }
+        if (key === "featured") return !!current !== !!value;
+        if (typeof value === "string" && current === undefined) return false;
+        return current !== value;
+      });
+
     const res = await posts.updateOne(
       { slug: p.slug },
       {
-        $set: {
-          title: p.title,
-          excerpt: p.excerpt,
-          category: p.category,
-          body: p.body,
-          author: p.author,
-          readingTime: readingTime(p.body),
-          status: "published",
-          featured: !!p.featured,
-          ...(p.coverImageUrl ? { coverImageUrl: p.coverImageUrl } : {}),
-          authorUserId: null,
-          publishedAt,
-          updatedAt: new Date(),
-        },
+        $set: { ...content, ...(changed ? { updatedAt: new Date() } : {}) },
         $setOnInsert: { slug: p.slug, createdAt: publishedAt },
       },
       { upsert: true }
     );
-    const action = res.upsertedCount ? "inserted" : "updated";
+    const action = res.upsertedCount ? "inserted" : changed ? "updated" : "unchanged";
     console.log(`  ${action}: ${p.slug}${p.featured ? " (featured)" : ""}`);
     count++;
   }
