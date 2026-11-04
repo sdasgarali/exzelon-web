@@ -24,9 +24,15 @@ export const revalidate = 60;
 // the 244-character `site.description` as its meta description (Google clips a snippet at
 // roughly 155). `pageMetadata()` is deliberately not used here — declaring `openGraph` at
 // page level stops the root segment's `opengraph-image.tsx` from being applied, and this
-// is the one route still inheriting it. Only the two missing fields are set; `title`
-// stays inherited from the layout's `title.default` + template.
+// is the one route still inheriting it. So the fields are set individually instead.
+//
+// `title` carries the market, not the slogan: the layout default ("Exzelon — NextGen
+// Hires — Find Your Next Career Move") names neither a service nor a city, which is the
+// worst possible title for the one page that has to rank for "staffing agency Chicago".
+// The layout template appends the brand, so this renders as
+// "Staffing Agency in Chicago | Exzelon — NextGen Hires" (51 characters).
 export const metadata: Metadata = {
+  title: "Staffing Agency in Chicago",
   description:
     "Chicago staffing and recruitment agency placing skilled talent across 12 industries — healthcare, construction, electrical, IT, engineering, and finance.",
   // No trailing slash — matches the sitemap's `https://www.exzelon.com` entry.
