@@ -33,7 +33,10 @@ export async function generateMetadata({
   // which pushed these meta descriptions to 233-333 characters (all twelve truncated).
   const geo = `Exzelon places ${industry.name.toLowerCase()} talent in Chicago, across Illinois, and nationwide.`;
   return pageMetadata({
-    title: `${industry.name} Jobs`,
+    // `metaTitle` is the SERP title tuned for "<industry> staffing in Chicago" — the
+    // queries these pages already sit at positions 13-30 for. `${name} Jobs` ignored it
+    // and targeted a weaker query ("healthcare jobs") on the site's main commercial pages.
+    title: industry.metaTitle,
     description: `${industry.short} ${geo}`,
     path: `/opportunities/${industry.slug}`,
   });
