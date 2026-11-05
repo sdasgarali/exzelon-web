@@ -10,7 +10,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { JobCard } from "@/components/cards/job-card";
 import { CtaBanner } from "@/components/cta-banner";
 import { IndustryGuide } from "@/components/industry-guide";
-import { industries, getIndustry } from "@/content/industries";
+import { industries, getIndustry, industryFacts } from "@/content/industries";
 import { listPublicJobsByIndustry } from "@/lib/db/repo";
 import { jobsEnabled } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
@@ -100,7 +100,7 @@ export default async function IndustryPage({
                 <Icon name={industry.icon} className="h-7 w-7" strokeWidth={1.7} />
               </span>
               <div className="mt-8 space-y-6">
-                {industry.stats.map((s) => (
+                {industryFacts(industry).map((s) => (
                   <div key={s.label} className="flex items-center justify-between border-b border-sand-100 pb-4 last:border-0 last:pb-0">
                     <span className="text-sm text-slate-500">{s.label}</span>
                     <span className="text-2xl font-extrabold text-ink-900">{s.value}</span>
