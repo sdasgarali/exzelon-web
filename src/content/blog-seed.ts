@@ -1896,4 +1896,103 @@ Do the work yourself when you are hiring one electrician, you know the local mar
 If you are recruiting electricians now, [tell us what the role involves](/for-clients) and we will tell you which pool the candidate is likely to come from, what the licence requirement means for the search, and how long a realistic fill looks. You can also [browse our electrical opportunities](/opportunities/electrical) to see the roles we place.
 `,
   },
+  {
+    slug: "engineering-recruiters-chicago-how-to-hire",
+    title: "Chicago Engineering Recruiters: How to Hire Engineers",
+    excerpt:
+      "Chicago engineering searches stall on scope and licensure, not on talent. How to define the role, verify a PE, screen project depth, and close an engineer.",
+    category: "Hiring",
+    author: "Marcus Bell",
+    date: "2026-11-05",
+    body: `Hiring an engineer in Chicago is rarely a posting problem. Mechanical, civil, electrical, and process engineers are employed, busy, and picky about what they move for, and the strongest of them never see your advert. A Chicago engineering recruiter earns their fee by knowing which firms employ that specific discipline, what the role genuinely requires, and what it will take to move someone who is not looking.
+
+This guide covers how a competent engineering search is actually run: how to define the role so it attracts the right engineers, how licensure changes the pool, how to screen technical depth in one conversation, and how to close before a slower process loses the candidate.
+
+## What do Chicago engineering recruiters actually do?
+
+A generalist agency treats "engineer" as a single job title. It is not one. A process engineer in a food plant, a project engineer in a design-build firm, and a QA/QC engineer on an EPC project share a job family and almost nothing else — different software, different codes, different definitions of a good day. A recruiter worth hiring does four things a job board cannot:
+
+- **Maps the discipline before sourcing.** They know which employers in the metro actually run this work, and which of them are hiring quietly rather than posting.
+- **Knows the licence landscape.** Whether a PE is required, preferred, or irrelevant changes the pool, the verification step, and the pay expectation.
+- **Screens technically.** A capable engineering recruiter can tell a candidate who ran the commissioning from one who watched it, and can name the systems and standards involved.
+- **Prices the role honestly.** Engineers compare offers on total package, project quality, and progression — not on base salary alone.
+
+## Define the discipline before you write the role
+
+The most common reason an engineering search stalls is a brief that describes two or three jobs at once. "Mechanical engineer, PE preferred, must know SolidWorks, plant maintenance, HVAC design, and project management" is not a role; it is a wish list, and it will attract nobody who is strong at any one of those things.
+
+Before you brief anyone, settle four questions:
+
+- **What is the deliverable?** Design, commissioning, process improvement, project controls, or maintenance ownership. The same title means different work in different businesses.
+- **Which discipline, specifically?** Mechanical, civil, structural, electrical, controls, chemical/process, or a genuine hybrid. Say which one is the core and which are nice-to-haves.
+- **Where does the work happen?** Plant floor, office, client sites, or a mix. Travel percentage and shift pattern decide more engineering acceptances than salary does.
+- **What does the team look like, and who will this person report to?** Engineers with options want to know whose stamp is on the work and who they learn from.
+
+Write the brief in that order and the sourcing conversation gets dramatically shorter.
+
+## Does the role need a PE, or just PE-track?
+
+Professional licensure is the single biggest filter in an engineering search, and it is routinely mishandled in both directions — roles that need a PE advertise it as "preferred" and get a pool they cannot use, and roles that do not need one scare away qualified candidates by asking for it.
+
+How the credential actually works, so the brief is accurate:
+
+- A PE is issued by the state board, not by a university or an employer. In Illinois that is the Department of Financial and Professional Regulation.
+- The path is an accredited engineering degree, the Fundamentals of Engineering exam (the EIT/FE stage), a documented period of progressive experience under licensed supervision, and then the Principles and Practice of Engineering exam.
+- A licence is state-specific. An engineer licensed in Indiana or Wisconsin is not automatically licensed in Illinois; transfer happens by comity or endorsement, and it takes time. If your role needs someone sealing drawings in Illinois from month one, say so, and plan for the transfer.
+- The seal belongs to the individual. Hiring a licensed engineer does not license your firm, and a PE who leaves takes the authority with them.
+- Illinois licenses structural engineers separately for building work, which matters if the role involves structures rather than general civil design.
+
+When the licence is genuinely required, the verification step belongs in the first call: take the licence number, check it against the state's public lookup, and confirm the discipline and status rather than trusting a CV line. When it is not required, drop it from the advert — "PE preferred" on a role that will never seal anything narrows the pool for no benefit.
+
+## Contract, contract-to-hire, or direct hire?
+
+The engagement shape should follow the work, not the agency's preference:
+
+- **Contract** suits project peaks, commissioning and shutdown support, and coverage while a permanent hire is running. You pay for a defined period and both sides keep their options open.
+- **Contract-to-hire** suits roles where the technical fit is hard to judge from interviews — controls, plant-specific process work — and where you want a few months of evidence before committing. Be explicit that conversion is intended, or strong engineers will read it as a temporary job.
+- **Direct hire** suits the seat you expect someone to own for years, especially where client relationships or institutional knowledge sit with the individual.
+
+Whichever you choose, put it in the brief. Engineers ask the shape of the job in the first two minutes, and a vague answer there ends the conversation.
+
+## How to screen an engineer in one conversation
+
+CVs for engineering roles are remarkably similar. Everyone lists software, everyone claims cross-functional collaboration, and nobody writes down what they personally did. Screen for the following instead:
+
+- **One project, in depth.** Ask them to walk through a system they designed, built, or commissioned: the constraints, the decisions they made, what went wrong, and what they changed. Depth on one project beats a list of ten.
+- **Their specific role on it.** "We installed" hides whether they led, supported, or observed. Ask what they signed off and what they did not.
+- **The systems and standards they worked to.** Which code cycle, which platform, which client specification. Engineers who did the work remember this without prompting.
+- **Why the role is credible for them.** A move that makes sense — more scope, a discipline they want, a shorter commute, better project quality — is a retention signal. A move that only makes sense financially is a flight risk.
+- **What they will not accept.** Travel, on-call rotation, shift, site conditions, and hybrid policy decide acceptances. Find the deal-breakers before the offer, not after.
+
+## Where the Chicago engineering market actually sits
+
+Chicago's engineering employers are not evenly spread, and the commute decides a large share of acceptances. Downtown and the West Loop hold consulting and design firms and corporate engineering groups; the I-90 corridor and the northwest suburbs hold manufacturers, and the collar counties hold plant and infrastructure work. Our guide to [where Chicago's talent clusters sit](/resources/blog/where-to-hire-in-chicago-talent-clusters) maps the corridors in more detail, and it is worth reading before you decide a role must be on-site five days a week.
+
+For pay context, treat the national average as a starting point and the local market as the answer: [our Chicago salary guide](/resources/blog/chicago-salary-guide-2026-what-skilled-roles-pay) covers how the bands shift by discipline and seniority, and a recruiter working the discipline daily can tell you what the last few offers in your bracket actually looked like.
+
+## A realistic shape for the search
+
+A search run properly is short and front-loaded, not fast and vague:
+
+1. **Week one — brief and map.** Agree the discipline, the licence requirement, the engagement shape, and the band. Agree what a strong CV looks like and what disqualifies someone.
+2. **Week two — longlist and first calls.** A dozen or so conversations for a specialist role, screened against the brief rather than the job title. Send the shortlist with a paragraph on each candidate's project depth, not a stack of CVs.
+3. **Week three — interviews and decisions.** Two rounds at most. Feedback within a day; engineers with options do not wait a week for a verdict.
+4. **Week four — offer and start.** Written offer with the full package, start date, and the travel and shift expectations stated plainly. Keep the candidate warm between acceptance and day one, because counter-offers arrive in that gap.
+
+If the role is unusual — a rare discipline, a senior seat, a specific plant — expect the map to take longer and say so up front. A recruiter who promises a shortlist by Friday for a scarce controls role is either guessing or padding.
+
+## Red flags in an engineering search
+
+- **No technical screen.** If the first person to assess the candidate is your hiring manager, you are paying for a CV forwarding service.
+- **No licence verification** on roles that need one, or a licence check that stops at the CV.
+- **A shortlist of near-identical CVs.** Good sourcing produces variety; a keyword search produces clones.
+- **Pressure to skip the site visit or the team conversation.** Both are what close engineers, and skipping them is how offers get declined.
+- **No answer on the guarantee.** Every permanent placement should come with a clear replacement or refund term.
+
+## Specialist or generalist agency?
+
+For a single, well-defined engineering role with a strong internal pipeline, a generalist agency can work. For scarce disciplines, senior seats, or several hires at once, depth wins — the same conclusion we reach in our comparison of [local and national staffing agencies in Chicago](/resources/blog/local-vs-national-staffing-agency-chicago). The test is simple: ask the agency to name the last three engineering roles they filled in your discipline. A specialist answers immediately; a generalist changes the subject.
+
+If you are hiring engineers now, [tell us what the role involves](/for-clients) and we will tell you which pool the candidate is likely to come from, what the licence requirement means for the search, and how the process should run. You can also [browse the engineering roles we place](/opportunities/engineering) or [talk to a specialist recruiter](/contact) about the market for your seat.`,
+  },
 ];
