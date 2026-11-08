@@ -17,6 +17,125 @@ export type BlogSeed = {
 
 export const blogSeed: BlogSeed[] = [
   {
+    slug: "staffing-agency-alternatives-chicago",
+    title: "Staffing Agency Alternatives in Chicago: How to Switch",
+    excerpt:
+      "Outgrown your staffing agency? How Chicago employers compare providers on fees, fill rates and contract terms — and switch without breaking a placement.",
+    category: "Hiring",
+    author: "Marcus Bell",
+    date: "2026-11-08",
+    body: `If your staffing agency has stopped carrying its weight, the useful question is not which agency is "best" in Chicago — it is what you can actually compare, and what it would cost you to move. The differences that decide an outcome are contractual and operational: how the fee is calculated, who pays if you hire a contractor directly, how deep the bench is in one sector, and how quickly a shortlist arrives. Most Chicago agencies read alike on a homepage and behave nothing alike on the Tuesday morning a shift goes uncovered.
+
+This is written for the employer who already has a provider and is testing alternatives, and for the one who inherited an agency relationship and has never read the paperwork underneath it.
+
+## The signals that justify looking
+
+Alternatives are worth pricing when the account has drifted, not when a single role takes longer than you hoped. The patterns that repeat:
+
+- **Roles sit open past the point where the work falls behind.** A hard-to-fill requisition is normal. The same requisition missing three cycles in a row is a bench problem.
+- **You get names, not shortlists.** Submittals that ignore the brief cost you interview hours. Ask for the ratio of submittals to interviews over the last quarter.
+- **The agency is generalist by accident.** If your industrial electrician requisition produces HVAC technicians, the desk does not cover your trade; the account is being serviced, not worked.
+- **The fee moved without the scope moving.** Markups, conversion fees and screening surcharges that crept in one invoice at a time are the most common reason employers start comparing.
+- **You cannot reach the person who knows your account.** A named contact who answers is worth more than a portal.
+- **A buyout clause makes hiring your own contractor expensive.** If converting a contractor after six months costs a fee you did not expect, that clause is shaping your hiring decisions more than your recruiter is.
+
+None of these are scandals. They are what an unworked account looks like from the inside.
+
+## What you can actually compare
+
+Six things, in the order they change outcomes.
+
+### 1. The fee model, in writing
+
+Contract work is priced as a bill rate with a markup over pay; permanent placement is usually a percentage of first-year salary. Ask for the number by role family and get it on paper, because "competitive" is not a rate. Then ask what is excluded: background checks, drug screening, PPE, per-diem, overtime premiums, and holiday pay are where two apparently similar rates separate.
+
+### 2. Conversion and temp-to-hire terms
+
+The clause most employers only read after the fact. If a contractor converts to your payroll, how many hours must they work before the fee drops, what does the fee become, and does the clock reset if the assignment is extended? A temp-to-hire arrangement that never makes conversion affordable is a rental, not a pipeline. Our breakdown of [temp, temp-to-hire and direct hire](/resources/blog/electrical-staffing-agency-temp-vs-temp-to-hire-vs-direct-hire) walks through who carries the risk in each.
+
+### 3. Guarantee and replacement terms
+
+Ask what triggers a guarantee: a voluntary departure, a performance termination, or either. Ask how long it runs from the start date rather than the offer date, and whether a replacement is a refund or another search. A guarantee that only covers the first thirty days covers the period when people rarely leave.
+
+### 4. Co-employment, insurance and screening
+
+For contract placements: who is the employer of record, whose workers' compensation coverage applies, who runs the I-9 and E-Verify, who pays for the background check and any drug screen, and what happens if a client site has stricter requirements than the agency's standard screen. Ambiguity here is a liability question, not an administrative one.
+
+### 5. Sector depth in your metro
+
+Ask each agency for the last three roles they placed in your discipline in the Chicago area, the time to first submittal, and where the candidates came from. An agency that cannot answer without going away to check is telling you something about the desk's volume. Depth matters most where the credential is the scarce part — a master electrician's licence, an Illinois nursing licence plus facility-specific competencies, a CPA with public-accounting busy-season experience.
+
+### 6. Response discipline
+
+Who is your named contact, who covers when they are out, what are the hours, and what is the escalation path when a contractor does not show. Two agencies with identical rates are not identical if one answers at 6am and the other at 10am.
+
+## Read the contract before you read the brochure
+
+Before comparing providers, compare the agreement you already have. Five clauses decide how much freedom you actually have:
+
+1. **Notice period** — how much warning you owe before you stop sending requisitions.
+2. **Exclusivity** — whether you promised a role, a site or a whole department to one agency.
+3. **Right to represent** — whether a candidate introduced by the agency is theirs for a defined window, even if you later hire them through another channel.
+4. **Conversion schedule** — the fee curve described above, in numbers.
+5. **Auto-renewal and termination** — the date by which you must give notice, and whether silence renews the term.
+
+If the answer to any of these is "we would have to ask them", you are comparing from a weak position. Ask for the agreement and the current fee schedule before you take a second agency's call.
+
+## Chicago is not one labour market
+
+The single biggest mistake in comparing Chicago agencies is treating the metro as one pool. It is at least four, and an agency strong in one is often thin in another:
+
+- **Construction and the trades.** Union and open-shop work are staffed through different channels, and licensing requirements differ by municipality across Chicagoland rather than being uniform county-wide.
+- **Clinical roles.** An Illinois licence is the entry ticket; facility credentialing, specialty competencies and shift patterns decide who actually starts.
+- **Industrial and manufacturing.** The bench follows the corridors — the plants and warehouses are not downtown, so neither are the candidates.
+- **Office, finance and technology.** Here a generalist can be genuinely competitive, because the pools overlap and the roles are easier to describe.
+
+We mapped the geography in [where to hire in Chicago](/resources/blog/where-to-hire-in-chicago-talent-clusters), and the local-versus-national trade-off in [local vs national staffing agencies](/resources/blog/local-vs-national-staffing-agency-chicago). Use both before you decide that a bigger agency means a bigger bench in your discipline.
+
+## Test two providers on one role
+
+You do not have to switch to find out. Give the same requisition, the same brief and the same pay range to two agencies, and hold both to the same measures for thirty to sixty days:
+
+- **Time to first submittal** — the clearest signal of whether the desk has a bench or a database.
+- **Submittal-to-interview ratio** — measures whether the brief was read.
+- **Interview-to-offer** — measures whether the shortlist was qualified.
+- **Starts and 30/90-day retention** — measures whether any of it was real.
+- **Fill rate on the same requisition** — the only number that ends the argument.
+
+Two cautions. Do not test with your most business-critical role, because a failed test is a failed quarter. And do not test with a role nobody could fill, because both providers will fail and you will have learned nothing about either.
+
+## How to leave cleanly
+
+1. **Give the notice the contract requires**, in writing, and note the last date you will send requisitions.
+2. **Decide what happens to current contractors.** Most agreements let you keep them on assignment while moving new requisitions elsewhere; some do not. Get it in writing.
+3. **Pay what you owe on conversions** and keep the record. A disputed invoice is a worse outcome than a paid one.
+4. **Tell the outgoing agency what worked**, briefly. Chicago's recruiting market is small and the person you are leaving may be the person you call in two years.
+5. **Brief the incoming agency on what the last one got wrong**, specifically. "Better candidates" is not a brief; "electricians who can read a one-line diagram and hold a journeyman card" is.
+
+## When a generalist is the right answer
+
+Not every account needs a specialist. If you hire one office manager a year, run short administrative coverage, or fill a role in a market you touch once, a generalist with a broad database is a reasonable, cheaper choice. The specialist bench earns its fee when the credential is the scarce part of the search, when you are filling several seats at once, or when a posting has produced applications from people who are not actually qualified to do the work.
+
+For the setup decision itself — fee structures, exclusive versus contingent search, what a retainer buys — our [guide to evaluating an agency for permanent placement](/resources/blog/evaluating-staffing-agencies-permanent-placements) covers the mechanics in more detail.
+
+## Ten questions for every agency you compare
+
+1. Who is my named contact, and what happens when they are on leave?
+2. What is the fee or markup for this role family, and what is excluded from it?
+3. What is the conversion fee curve for a temp-to-hire placement?
+4. What does your guarantee cover, and from which date does it run?
+5. Who is the employer of record, and whose workers' compensation applies?
+6. Which three roles like mine did you fill in this metro in the last year?
+7. What was your average time to first submittal on them?
+8. Where do candidates for this role actually come from in this market?
+9. What is your notice period in our agreement, and does it auto-renew?
+10. What do you need from us to make a shortlist land in the first two weeks?
+
+The answers separate providers faster than any pitch. If two agencies answer all ten the same way, the tiebreaker is the desk you can reach — and one role run in parallel.
+
+If you are comparing right now, [tell us what you are replacing and why](/for-clients) and we will tell you honestly whether the problem was the agency, the brief, or the pay range.`,
+  },
+  {
     slug: "elevate-your-healthcare-career",
     title: "Elevate Your Healthcare Career with Exzelon Solutions",
     excerpt:
