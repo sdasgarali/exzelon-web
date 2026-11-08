@@ -49,15 +49,13 @@ async function main() {
     // all 25 posts claim they were modified in the same second, which tells Google the
     // lastmod is noise and gets it ignored. Only stamp it when the content actually
     // differs from what is stored, so an unchanged post keeps its real modification date.
-    const existing = await posts.findOne(
-      { slug: p.slug },
-      {
-        projection: {
-          title: 1, excerpt: 1, category: 1, body: 1, author: 1, readingTime: 1,
-          status: 1, featured: 1, coverImageUrl: 1, publishedAt: 1,
-        },
-      }
-    );
+    //
+    // The projection is derived from `content` rather than hand-listed: a hand-written list
+    // silently omitted `authorUserId`, so that field compared `undefined !== null` on every
+    // post, `changed` was always true, and each run still restamped all 26 posts (observed:
+    // every post's updatedAt landed within 2s of the previous seed run).
+    const projection = Object.fromEntries(Object.keys(content).map((key) => [key, 1]));
+    const existing = await posts.findOne({ slug: p.slug }, { projection });
     const changed =
       !existing ||
       Object.entries(content).some(([key, value]) => {
