@@ -12,7 +12,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "About Us",
-  description: "Who we are, our mission and vision, and the values we hire by at Exzelon — NextGen Hires.",
+  description: "Exzelon — NextGen Hires is a Chicago staffing and recruitment agency. Our mission, the twelve sectors we staff, and the values we hire by.",
   path: "/about",
 });
 

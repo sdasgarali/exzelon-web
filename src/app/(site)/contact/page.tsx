@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact Us",
-  description: "Get in touch with Exzelon — NextGen Hires. Reach our Chicago team by phone, email, or the contact form.",
+  description: "Reach Exzelon's Chicago recruiting team by phone, email or the contact form — for hiring briefs, applications, and questions about open roles.",
   path: "/contact",
 });
 

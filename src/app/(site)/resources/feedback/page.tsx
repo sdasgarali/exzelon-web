@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Feedback",
-  description: "Share your experience with Exzelon. Your feedback helps us improve for candidates and clients alike.",
+  description: "Share your experience with Exzelon. Feedback from candidates and employers shapes how we run placements, screening and communication.",
   path: "/resources/feedback",
 });
 
