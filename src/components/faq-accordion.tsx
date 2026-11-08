@@ -15,23 +15,30 @@ export function FaqAccordion() {
         const isOpen = open === i;
         return (
           <div key={item.q}>
-            <button
-              onClick={() => setOpen(isOpen ? null : i)}
-              className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
-              aria-expanded={isOpen}
-            >
-              <span className={cn("font-semibold transition-colors", isOpen ? "text-brand-700" : "text-ink-900")}>
-                {item.q}
-              </span>
-              <span
-                className={cn(
-                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300",
-                  isOpen ? "rotate-180 border-brand-600 bg-brand-600 text-white" : "border-sand-200 text-slate-500"
-                )}
+            {/* The question is a heading, not a bare button: this page publishes FAQPage
+                data for all six pairs, and an answer engine reading the HTML should find
+                the same structure the markup claims. Level 2 because the only other
+                heading after the page's h1 is the closing CTA, also an h2 — nothing is
+                skipped. Tailwind's preflight leaves the wrapper visually inert. */}
+            <h2>
+              <button
+                onClick={() => setOpen(isOpen ? null : i)}
+                className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                aria-expanded={isOpen}
               >
-                <Icon name="chevron-down" className="h-4 w-4" />
-              </span>
-            </button>
+                <span className={cn("font-semibold transition-colors", isOpen ? "text-brand-700" : "text-ink-900")}>
+                  {item.q}
+                </span>
+                <span
+                  className={cn(
+                    "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300",
+                    isOpen ? "rotate-180 border-brand-600 bg-brand-600 text-white" : "border-sand-200 text-slate-500"
+                  )}
+                >
+                  <Icon name="chevron-down" className="h-4 w-4" />
+                </span>
+              </button>
+            </h2>
             {/* The answer is always in the HTML and collapsed with height/opacity, not
                 unmounted. Two reasons: the page publishes FAQPage structured data built
                 from these same answers, and Google requires that answer text to be on the
