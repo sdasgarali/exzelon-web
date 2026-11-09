@@ -9,7 +9,6 @@ export type Industry = {
   description: string;
   icon: string; // lucide icon name key (mapped in components)
   roles: string[];
-  stats: { label: string; value: string }[];
   accent: string; // tailwind gradient classes
 };
 
@@ -24,11 +23,6 @@ export const industries: Industry[] = [
       "From registered nurses and allied health professionals to per-diem and travel assignments, we place compassionate, credentialed talent where care is needed most — with competitive pay, full compliance support, and dedicated recruiters who know the sector.",
     icon: "heart-pulse",
     roles: ["Registered Nurse (RN)", "Licensed Practical Nurse (LPN)", "Certified Nursing Assistant", "Medical Technologist", "Physical Therapist", "Travel Nurse"],
-    stats: [
-      { label: "Facilities served", value: "120+" },
-      { label: "Avg. time-to-offer", value: "9 days" },
-      { label: "Compliance pass rate", value: "99%" },
-    ],
     accent: "from-rose-500/20 to-brand-500/10",
   },
   {
@@ -41,11 +35,6 @@ export const industries: Industry[] = [
       "We connect general laborers, skilled tradespeople, foremen, and project managers with commercial and residential builders — matching the right hands to the right sites, safely and on schedule.",
     icon: "hard-hat",
     roles: ["Site Supervisor", "Project Manager", "Carpenter", "Welder", "Heavy Equipment Operator", "General Laborer"],
-    stats: [
-      { label: "Active job sites", value: "60+" },
-      { label: "Safety-certified", value: "100%" },
-      { label: "Repeat clients", value: "85%" },
-    ],
     accent: "from-amber-500/20 to-brand-500/10",
   },
   {
@@ -58,11 +47,6 @@ export const industries: Industry[] = [
       "Journeyman and master electricians, industrial technicians, and field engineers — placed on commercial, industrial, and infrastructure projects with employers who value certified, safety-first talent.",
     icon: "zap",
     roles: ["Journeyman Electrician", "Master Electrician", "Industrial Electrician", "Controls Technician", "Field Engineer", "Apprentice"],
-    stats: [
-      { label: "Licensed pros", value: "800+" },
-      { label: "Project types", value: "12" },
-      { label: "On-time fill rate", value: "96%" },
-    ],
     accent: "from-yellow-400/20 to-brand-500/10",
   },
   {
@@ -75,11 +59,6 @@ export const industries: Industry[] = [
       "Accountants, tax specialists, paralegals, and corporate counsel — matched with firms and in-house teams that need precision, discretion, and deep domain expertise, seasonally or full-time.",
     icon: "scale",
     roles: ["Tax Accountant", "CPA", "Paralegal", "Compliance Analyst", "Corporate Counsel", "Bookkeeper"],
-    stats: [
-      { label: "Firms partnered", value: "40+" },
-      { label: "Seasonal placements", value: "300+" },
-      { label: "Retention @ 1yr", value: "92%" },
-    ],
     accent: "from-emerald-500/20 to-brand-500/10",
   },
   {
@@ -92,11 +71,6 @@ export const industries: Industry[] = [
       "Software engineers, data professionals, cloud and DevOps specialists, and IT support — placed with startups and enterprises alike through recruiters who speak the language of modern tech.",
     icon: "code",
     roles: ["Software Engineer", "Data Analyst", "Cloud/DevOps Engineer", "IT Support Specialist", "QA Engineer", "Product Manager"],
-    stats: [
-      { label: "Tech roles filled", value: "500+" },
-      { label: "Remote-friendly", value: "70%" },
-      { label: "Avg. offer uplift", value: "18%" },
-    ],
     accent: "from-brand-400/25 to-brand-600/10",
   },
   {
@@ -109,11 +83,6 @@ export const industries: Industry[] = [
       "From design and project engineers to QA and process specialists, we place degreed and licensed engineers with manufacturers, EPC firms, and product teams — matching technical depth to the roles that demand it.",
     icon: "pencil-ruler",
     roles: ["Mechanical Engineer", "Civil Engineer", "Electrical Engineer", "Process Engineer", "Project Engineer", "QA/QC Engineer"],
-    stats: [
-      { label: "Engineers placed", value: "400+" },
-      { label: "Disciplines covered", value: "8" },
-      { label: "Client satisfaction", value: "97%" },
-    ],
     accent: "from-sky-500/20 to-brand-500/10",
   },
   {
@@ -126,11 +95,6 @@ export const industries: Industry[] = [
       "Machine operators, assemblers, quality inspectors, and plant supervisors — staffed for production lines and light-industrial sites with a focus on safety, uptime, and throughput.",
     icon: "factory",
     roles: ["Machine Operator", "Assembler", "Quality Inspector", "Production Supervisor", "Maintenance Technician", "Warehouse Associate"],
-    stats: [
-      { label: "Plants staffed", value: "45+" },
-      { label: "Shifts covered", value: "24/7" },
-      { label: "Fill rate", value: "95%" },
-    ],
     accent: "from-orange-500/20 to-brand-500/10",
   },
   {
@@ -143,11 +107,6 @@ export const industries: Industry[] = [
       "Financial analysts, controllers, FP&A leads, and banking professionals — matched with corporate finance teams, banks, and advisory firms that need sharp, numbers-fluent talent.",
     icon: "landmark",
     roles: ["Financial Analyst", "Controller", "FP&A Manager", "Credit Analyst", "Investment Analyst", "Finance Manager"],
-    stats: [
-      { label: "Finance roles filled", value: "250+" },
-      { label: "Avg. offer uplift", value: "15%" },
-      { label: "Retention @ 1yr", value: "93%" },
-    ],
     accent: "from-teal-500/20 to-brand-500/10",
   },
   {
@@ -160,11 +119,6 @@ export const industries: Industry[] = [
       "Executive assistants, office managers, coordinators, and front-desk professionals — placed with teams that run on organized, reliable administrative support.",
     icon: "clipboard-list",
     roles: ["Executive Assistant", "Office Manager", "Administrative Coordinator", "Data Entry Specialist", "Receptionist", "Office Clerk"],
-    stats: [
-      { label: "Roles filled", value: "300+" },
-      { label: "Temp-to-hire", value: "60%" },
-      { label: "Avg. time-to-start", value: "5 days" },
-    ],
     accent: "from-violet-500/20 to-brand-500/10",
   },
   {
@@ -177,11 +131,6 @@ export const industries: Industry[] = [
       "Digital marketers, content strategists, brand managers, and growth specialists — matched with in-house teams and agencies building demand and telling their story.",
     icon: "megaphone",
     roles: ["Digital Marketing Manager", "Content Strategist", "Brand Manager", "SEO/SEM Specialist", "Social Media Manager", "Marketing Coordinator"],
-    stats: [
-      { label: "Marketers placed", value: "180+" },
-      { label: "Agency & in-house", value: "50/50" },
-      { label: "Remote-friendly", value: "65%" },
-    ],
     accent: "from-pink-500/20 to-brand-500/10",
   },
   {
@@ -194,11 +143,6 @@ export const industries: Industry[] = [
       "Warehouse leads, forklift operators, dispatchers, and supply-chain coordinators — staffed for distribution centers and logistics operations that can't afford downtime.",
     icon: "truck",
     roles: ["Warehouse Lead", "Forklift Operator", "Dispatcher", "Logistics Coordinator", "Inventory Specialist", "Delivery Driver"],
-    stats: [
-      { label: "Centers served", value: "35+" },
-      { label: "Peak-season cover", value: "100%" },
-      { label: "Fill rate", value: "94%" },
-    ],
     accent: "from-lime-500/20 to-brand-500/10",
   },
   {
@@ -211,16 +155,29 @@ export const industries: Industry[] = [
       "Staff accountants, bookkeepers, AP/AR specialists, and audit professionals — placed with firms and finance teams through close, tax season, and year-round.",
     icon: "calculator",
     roles: ["Staff Accountant", "Bookkeeper", "Accounts Payable Specialist", "Accounts Receivable Specialist", "Payroll Specialist", "Audit Associate"],
-    stats: [
-      { label: "Accountants placed", value: "220+" },
-      { label: "Seasonal & permanent", value: "Both" },
-      { label: "Retention @ 1yr", value: "91%" },
-    ],
     accent: "from-emerald-500/20 to-brand-500/10",
   },
 ];
 
 export const getIndustry = (slug: string) => industries.find((i) => i.slug === slug);
+
+/**
+ * The three facts shown on an industry card (home spotlight + `/opportunities/<slug>`).
+ *
+ * Deliberately limited to claims the site can stand behind: the number of role families the
+ * page itself lists, the credential-check policy stated on `/resources/compliance`, and the
+ * coverage in `site`. The cards previously carried volume and satisfaction figures — "800+
+ * licensed pros", "97% client satisfaction", "Retention @ 1yr 92%" — that no page, case study,
+ * or internal source documents. Unsupported performance numbers are an advertising-claim and
+ * E-E-A-T risk, and the same class of claim was removed from `/about` in the August audit.
+ */
+export function industryFacts(industry: Industry): { label: string; value: string }[] {
+  return [
+    { label: "Role families", value: String(industry.roles.length) },
+    { label: "Credential checks", value: "Every hire" },
+    { label: "Coverage", value: "US-wide" },
+  ];
+}
 
 /** Number of sectors Exzelon staffs — derived so copy never hard-codes a stale count. */
 export const industryCount = industries.length;

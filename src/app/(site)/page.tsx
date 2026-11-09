@@ -11,7 +11,7 @@ import { IndustryCard } from "@/components/cards/industry-card";
 import { JobCard } from "@/components/cards/job-card";
 import { CtaBanner } from "@/components/cta-banner";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
-import { industries } from "@/content/industries";
+import { industries, industryFacts } from "@/content/industries";
 import { steps, services } from "@/content/services";
 import { jobsEnabled, site } from "@/lib/site";
 import { listFeaturedPublicJobs, listPublishedPosts } from "@/lib/db/repo";
@@ -120,7 +120,7 @@ export default async function HomePage() {
                 <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
                 <Icon name="heart-pulse" className="relative h-14 w-14 text-white/90" strokeWidth={1.6} />
                 <div className="relative mt-8 grid grid-cols-3 gap-4">
-                  {healthcare.stats.map((s) => (
+                  {industryFacts(healthcare).map((s) => (
                     <div key={s.label}>
                       <div className="text-2xl font-extrabold">{s.value}</div>
                       <div className="mt-1 text-xs text-brand-100/80">{s.label}</div>
