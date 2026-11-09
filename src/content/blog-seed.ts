@@ -643,9 +643,9 @@ If you have a role to fill, [tell us what you need](/for-clients) and a speciali
     author: "Marcus Bell",
     date: "2026-08-28",
     featured: true,
-    body: `Search "staffing agencies in Chicago" and you will find hundreds of options — national giants, boutique specialists, and everything in between. For an employer with a role to fill or a candidate looking for their next move, that abundance is not helpful. The real question is not "how many agencies are there?" but "which one is right for me?" This guide gives you a clear, honest framework for choosing well in the Chicago market — written by people who recruit here every day.
+    body: `Search "staffing agencies in Chicago" and you will find hundreds of options — national giants, boutique specialists, and everything in between. Most of them describe themselves as one of the top staffing agencies in Chicago; the framework below is how you check whether that is true. For an employer with a role to fill or a candidate looking for their next move, that abundance is not helpful. The real question is not "how many agencies are there?" but "which one is right for me?" This guide gives you a clear, honest framework for choosing well in the Chicago market — written by people who recruit here every day.
 
-## What does a great staffing agency actually do?
+## What do the top staffing agencies in Chicago do differently?
 
 Before you can judge an agency, it helps to be clear on what a good one delivers. A strong staffing partner does far more than forward resumes. It:
 
@@ -731,6 +731,18 @@ Some warning signs are worth taking seriously no matter how polished the pitch:
 Being honest: not always. If you are an employer hiring at volume for a single, well-understood role and you have the internal capacity to source and screen, you may not need a partner. If you are a candidate in a field with abundant public postings and time to search, you can go it alone.
 
 But for **urgent, specialist, or fluctuating hiring needs** — the bulk of skilled hiring in a market as competitive as Chicago — a strong agency pays for itself in speed, access to hidden talent, and a pre-vetted shortlist. The cost of a role sitting empty, or a rushed bad hire, usually dwarfs an agency fee within weeks. We cover that math in our [guide to hiring through a staffing agency for Chicago employers](/resources/blog/how-to-hire-through-a-staffing-agency-chicago).
+
+## How to compare two shortlisted agencies in 20 minutes
+
+By the time you have two or three agencies on a shortlist, the pitches sound identical. Put the same five questions to each and compare the answers side by side rather than the brochures.
+
+- **Which roles like mine have you filled in the last six months?** Ask for the job titles, not the sectors. An agency that cannot name the roles is describing an ambition, not a practice.
+- **Who screens, and against what?** A named recruiter with sector experience, working from a written brief, is a different service from a call centre reading a script. Ask what the screen covers — licence checks, technical questions, references, or none of those.
+- **What happens if the placement does not work out?** Every reputable firm has an answer: a guarantee period, a replacement, or a refund schedule. Silence here is the answer.
+- **Who is my single point of contact, and how quickly do they reply?** You are buying a relationship with one person, not a company. Ask what happens when that person is on holiday.
+- **What will you tell me if you cannot fill this?** The best partners say so early, with a reason and an alternative. The worst keep a role open for weeks to protect the relationship.
+
+An agency that answers all five with specifics is worth a trial role. One that answers them vaguely, however large its website, is not.
 
 ## The bottom line
 
