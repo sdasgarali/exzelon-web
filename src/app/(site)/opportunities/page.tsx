@@ -12,7 +12,11 @@ import { jobsEnabled } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Opportunities",
+  // Was a bare "Opportunities" — 39 characters with no query signal at all on the hub that
+  // groups every industry page. This page ranks for the broad
+  // "[industry] staffing / construction staffing" family but had lost its remaining clicks
+  // (2 → 0 over the 2026-10-09 → 11-05 window), so give it the city and the service.
+  title: "Staffing Opportunities in Chicago",
   description: `Browse ${industryCountWord} industries we staff — healthcare, IT, construction, electrical, engineering, finance and more — with specialist recruiters.`,
   path: "/opportunities",
 });
