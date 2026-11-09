@@ -1,6 +1,6 @@
 # Exzelon — NextGen Hires
 # https://llmstxt.org
-# Generated: 2026-11-02
+# Generated: 2026-11-05
 # Full content: https://www.exzelon.com/llms-full.txt
 
 > Exzelon is a Chicago-based recruitment and staffing agency that connects skilled
@@ -41,6 +41,7 @@
 
 ## Recent Guides
 
+- [Chicago Engineering Recruiters: How to Hire Engineers](https://www.exzelon.com/resources/blog/engineering-recruiters-chicago-how-to-hire): Chicago engineering searches stall on scope and licensure, not on talent. How to define the role, verify a PE, screen project depth, and close an engineer.
 - [How to Recruit Electricians: A Practical Hiring Playbook](https://www.exzelon.com/resources/blog/how-to-recruit-electricians): The electricians you want are employed, busy, and not reading job boards. Here is how to find them, screen them in one call…
 - [Electrical Staffing Agency: Temp vs. Temp-to-Hire vs. Direct](https://www.exzelon.com/resources/blog/electrical-staffing-agency-temp-vs-temp-to-hire-vs-direct-hire): Temp, temp-to-hire and direct hire are three different deals. Here is how each works for electricians, who carries the risk…
 - [Industrial vs Commercial Electricians: A Hiring Guide](https://www.exzelon.com/resources/blog/industrial-vs-commercial-electricians-hiring): Industrial and commercial electricians need different licences, code knowledge, and hiring approach.
