@@ -186,6 +186,18 @@ const ORG_ID = `${site.url}/#organization`;
 const LOGO_URL = `${site.url}/brand/exzelon-logo.png`;
 // Intrinsic pixels of public/brand/exzelon-logo.png — lets Google size-validate the asset.
 const LOGO_OBJECT = { "@type": "ImageObject", url: LOGO_URL, width: 1036, height: 401 } as const;
+/**
+ * Social card served by `app/opengraph-image.tsx` (1200x630, measured live). Article
+ * structured data has its own image requirements — at least 1200px wide, with a 16:9,
+ * 4:3 or 1:1 ratio — and the 1036x401 logo satisfies neither, which kept posts without a
+ * cover out of the Article rich result. This is the org's image of record for that slot.
+ */
+const ARTICLE_IMAGE_OBJECT = {
+  "@type": "ImageObject",
+  url: `${site.url}/opengraph-image`,
+  width: 1200,
+  height: 630,
+} as const;
 
 /**
  * Primary entity JSON-LD. Typed as `EmploymentAgency` (a LocalBusiness subtype) —
@@ -326,11 +338,11 @@ export function blogPostingJsonLd(post: {
       logo: LOGO_OBJECT,
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
-    // Always emit an image so the post stays eligible for the Article rich result;
-    // fall back to the org logo when the post has no cover.
+    // Always emit an image so the post stays eligible for the Article rich result; fall
+    // back to the 1200x630 social card (not the org logo — see ARTICLE_IMAGE_OBJECT).
     image: post.coverImageUrl
       ? { "@type": "ImageObject", url: post.coverImageUrl, width: 1200, height: 630 }
-      : LOGO_OBJECT,
+      : ARTICLE_IMAGE_OBJECT,
     url,
   };
 }
