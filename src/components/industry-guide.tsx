@@ -21,7 +21,10 @@ export function IndustryGuide({ industry }: { industry: Industry }) {
     "@type": "Service",
     name: `${industry.name} staffing`,
     serviceType: `${industry.name} recruitment and staffing`,
-    description: industry.short,
+    // The full page description, not `industry.short`: a Service entity's description is what
+    // Google and answer engines quote for the practice, and one clause ("Mechanical, civil,
+    // electrical, and process engineers.") says nothing about what the service is or where.
+    description: industry.description,
     url: pageUrl,
     provider: { "@id": `${site.url}/#organization` },
     areaServed: [
