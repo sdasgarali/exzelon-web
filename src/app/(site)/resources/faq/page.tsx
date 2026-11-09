@@ -9,7 +9,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "FAQ",
-  description: "Frequently asked questions from job seekers and employers about working with Exzelon.",
+  description: "Answers to what candidates and employers ask most: cost, placement timelines, industries covered, travel assignments, licensing and compliance.",
   path: "/resources/faq",
 });
 

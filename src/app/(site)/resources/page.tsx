@@ -9,7 +9,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Resources",
-  description: "Compliance, blog, FAQs, and feedback — everything you need to make the most of Exzelon.",
+  description: "Hiring guides, Chicago salary context, FAQs, compliance standards and feedback — the reference pages employers and job seekers use most with Exzelon.",
   path: "/resources",
 });
 
