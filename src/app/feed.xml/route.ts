@@ -49,7 +49,7 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>${escapeXml(`${site.brand} — Career & Hiring Insights`)}</title>
+    <title>${escapeXml(`${site.name} — Career & Hiring Insights`)}</title>
     <link>${site.url}/resources/blog</link>
     <description>${escapeXml(
       "Practical hiring and career guides from Exzelon's Chicago recruiters — how staffing works, what roles pay, and how to hire in the metro.",
