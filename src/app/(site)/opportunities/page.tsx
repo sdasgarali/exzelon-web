@@ -39,7 +39,15 @@ export default function OpportunitiesPage() {
       </PageHeader>
 
       <Section>
-        <StaggerGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* The grid's card titles are <h3>, so without this the page ran H1 → H3 with no H2
+            (measured on the live HTML) and the hub that groups every industry page carried no
+            heading for the grouping itself. */}
+        <SectionHeading
+          eyebrow="Industries we staff"
+          title="Pick the sector you hire in"
+          description={`Each of the ${industryCountWord} practices below is worked by recruiters who cover that market every week — the roles, the credentials, and what a strong candidate actually looks like.`}
+        />
+        <StaggerGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {industries.map((industry) => (
             <MotionItem key={industry.slug} variants={staggerItem}>
               <IndustryCard industry={industry} />
