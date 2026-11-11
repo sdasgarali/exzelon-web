@@ -9,6 +9,7 @@ import { Icon } from "@/components/ui/icon";
 import { listPublishedPosts } from "@/lib/db/repo";
 import { industryCountWord } from "@/content/industries";
 import { pageMetadata } from "@/lib/seo";
+import { site } from "@/lib/site";
 
 // Serve the index from the cache instead of rendering it from the database on every
 // request: the route was `force-dynamic`, so live responses carried
@@ -16,13 +17,22 @@ import { pageMetadata } from "@/lib/seo";
 // the homepage and industry pages, so a publish still surfaces within a minute.
 export const revalidate = 60;
 
-export const metadata: Metadata = pageMetadata({
+const blogMetadata = pageMetadata({
   // Was a bare "Blog" — no query signal at all on the hub that aggregates every guide.
   title: "Career & Hiring Insights",
   description:
     "Practical hiring and career guides from Exzelon's Chicago recruiters — resume and interview advice, salary context, and how staffing actually works.",
   path: "/resources/blog",
 });
+
+// Advertise /feed.xml so readers and aggregators can discover it from the page itself.
+export const metadata: Metadata = {
+  ...blogMetadata,
+  alternates: {
+    ...blogMetadata.alternates,
+    types: { "application/rss+xml": `${site.url}/feed.xml` },
+  },
+};
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
