@@ -8,7 +8,9 @@ import { Icon } from "@/components/ui/icon";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Resources",
+  // Was a bare "Resources" — nine characters with no query or topic signal on the page that
+  // aggregates the guides, the FAQ and the compliance standards.
+  title: "Staffing Resources & Hiring Guides",
   description: "Hiring guides, Chicago salary context, FAQs, compliance standards and feedback — the reference pages employers and job seekers use most with Exzelon.",
   path: "/resources",
 });
@@ -26,6 +28,48 @@ const externalCards = [
     icon: "pencil-ruler",
     title: "Construction calculators",
     desc: "Free takeoff and material calculators from Efficienco — concrete, block, lumber, bitumen and trade estimators that our construction and electrical clients find useful when pricing a job.",
+  },
+];
+
+/**
+ * The hub is linked from every page in the site (header nav + footer), but it linked no article:
+ * all 28 published guides received their only internal link from /resources/blog or from the
+ * three-post "Keep reading" block, and four of them (construction, healthcare, distribution,
+ * working-in-the-USA) had exactly one inbound link — i.e. they were reachable from one place on
+ * the whole site while sitting at positions 16-25 for live queries. These six are the pillars the
+ * sector pages and the blog point at most; listing them here gives each a stable inbound link
+ * from a page every crawler visits. Slugs must stay in sync with the published posts.
+ */
+const guides = [
+  {
+    slug: "best-staffing-agencies-in-chicago-how-to-choose",
+    title: "Best staffing agencies in Chicago",
+    desc: "How to compare agencies on fee model, fill rate and terms — and what the pitch decks leave out.",
+  },
+  {
+    slug: "how-staffing-agencies-work-a-guide-for-job-seekers",
+    title: "How staffing agencies work",
+    desc: "What an agency actually does, whether it costs a candidate anything, and how recruiters get paid.",
+  },
+  {
+    slug: "working-in-the-usa-guide",
+    title: "Navigating the U.S. job market",
+    desc: "Licensing, credentials and hiring conventions skilled professionals meet when they move to the US.",
+  },
+  {
+    slug: "construction-staffing-chicago",
+    title: "Construction staffing in Chicago",
+    desc: "Why municipal licensing and the union split change a trades search, and how to fill crews on schedule.",
+  },
+  {
+    slug: "healthcare-staffing-chicago-how-to-hire",
+    title: "Healthcare staffing in Chicago",
+    desc: "Where clinical talent sits, why roles stall at credentialing, and what actually decides a start date.",
+  },
+  {
+    slug: "distribution-staffing-chicago-how-to-hire",
+    title: "Distribution staffing in Chicago",
+    desc: "Pricing, screening and shift structure for warehouse roles in the metro's freight corridors.",
   },
 ];
 
@@ -61,6 +105,32 @@ export default function ResourcesPage() {
             </MotionItem>
           ))}
         </StaggerGroup>
+      </Section>
+      <Section className="pt-0">
+        <h2 className="text-2xl font-bold text-ink-900">Guides our clients read first</h2>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
+          The long-form articles employers and candidates ask about most — each one written by the
+          recruiter who works that desk.
+        </p>
+        <ul className="mt-8 divide-y divide-sand-200 border-y border-sand-200">
+          {guides.map((g) => (
+            <li key={g.slug}>
+              <Link
+                href={`/resources/blog/${g.slug}`}
+                className="group flex flex-col gap-1 py-5 transition-colors hover:text-brand-700 sm:flex-row sm:items-baseline sm:gap-6"
+              >
+                <span className="flex-1 text-base font-semibold text-ink-900 transition-colors group-hover:text-brand-700">
+                  {g.title}
+                  <Icon
+                    name="arrow-right"
+                    className="ml-2 inline h-4 w-4 -translate-y-px text-brand-400 transition-transform group-hover:translate-x-1"
+                  />
+                </span>
+                <span className="flex-1 text-sm leading-relaxed text-slate-600 sm:text-right">{g.desc}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </Section>
       <Section className="pt-0">
         <h2 className="text-2xl font-bold text-ink-900">Tools we recommend</h2>
