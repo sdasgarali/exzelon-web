@@ -84,17 +84,23 @@ export function IndustryGuide({ industry }: { industry: Industry }) {
         ))}
       </div>
 
-      {guide.relatedGuide && (
-        <p className="mt-10 text-base text-slate-600">
-          Related reading:{" "}
-          <Link
-            href={`/resources/blog/${guide.relatedGuide.slug}`}
-            className="font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800"
-          >
-            {guide.relatedGuide.label}
-          </Link>
-        </p>
-      )}
+      {guide.relatedGuides?.length ? (
+        <div className="mt-10 border-t border-sand-200 pt-8">
+          <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Guides for this sector</h3>
+          <ul className="mt-4 space-y-3">
+            {guide.relatedGuides.map((g) => (
+              <li key={g.slug} className="text-base text-slate-600">
+                <Link
+                  href={`/resources/blog/${g.slug}`}
+                  className="font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800"
+                >
+                  {g.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </Section>
   );
 }

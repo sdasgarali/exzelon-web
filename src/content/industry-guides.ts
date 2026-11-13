@@ -19,8 +19,12 @@ export type IndustryGuide = {
   employerNotes: string[];
   /** What candidates should have ready in order to move quickly. */
   candidateNotes: string[];
-  /** An existing blog post worth reading next — slug must exist in `blog-seed.ts`. */
-  relatedGuide?: { slug: string; label: string };
+  /**
+   * Existing blog posts worth reading next — every slug must be a published post. One link per
+   * sector page meant the 12 strongest hubs in the site (linked from every page) pointed at a
+   * single article each, while three guides carried no inbound link from any hub at all.
+   */
+  relatedGuides?: { slug: string; label: string }[];
 };
 
 export const industryGuides: Record<string, IndustryGuide> = {
@@ -38,7 +42,10 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "Say plainly which settings and shift patterns you will and will not work — a recruiter can only advocate for a clear brief.",
       "If you want travel or contract work, complete the compliance packet once and diarise the renewals rather than rebuilding it each time.",
     ],
-    relatedGuide: { slug: "elevate-your-healthcare-career", label: "Elevate Your Healthcare Career" },
+    relatedGuides: [
+      { slug: "healthcare-staffing-chicago-how-to-hire", label: "Healthcare Staffing in Chicago" },
+      { slug: "elevate-your-healthcare-career", label: "Elevate Your Healthcare Career" },
+    ],
   },
 
   construction: {
@@ -55,7 +62,10 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "Be ready to describe your safety record the way a general contractor will ask about it — plainly, with dates.",
       "Keep references from site supervisors and foremen, not just employers; those are the references that get called.",
     ],
-    relatedGuide: { slug: "chicago-salary-guide-2026-what-skilled-roles-pay", label: "Chicago Salary Guide 2026" },
+    relatedGuides: [
+      { slug: "construction-staffing-chicago", label: "Construction Staffing in Chicago" },
+      { slug: "chicago-salary-guide-2026-what-skilled-roles-pay", label: "Chicago Salary Guide 2026" },
+    ],
   },
 
   electrical: {
@@ -72,7 +82,11 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "List voltage classes, equipment, and control systems you have worked on — panels, switchgear, VFDs, PLCs — rather than job titles alone.",
       "Keep safety training current; industrial sites will ask about arc-flash and lockout/tagout familiarity before your first shift.",
     ],
-    relatedGuide: { slug: "chicago-salary-guide-2026-what-skilled-roles-pay", label: "Chicago Salary Guide 2026" },
+    relatedGuides: [
+      { slug: "industrial-electrician-staffing-chicago", label: "Industrial Electrician Staffing in Chicago" },
+      { slug: "master-electrician-staffing-licensing-and-hiring-guide", label: "Master Electrician Licensing and Hiring" },
+      { slug: "electrical-staffing-how-electrician-hiring-works", label: "How Electrician Hiring Really Works" },
+    ],
   },
 
   engineering: {
@@ -89,7 +103,10 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "State your PE or EIT status plainly if it applies, including which state the licence sits in.",
       "If you want contract work, make your availability and your travel radius explicit from the first conversation.",
     ],
-    relatedGuide: { slug: "chicago-salary-guide-2026-what-skilled-roles-pay", label: "Chicago Salary Guide 2026" },
+    relatedGuides: [
+      { slug: "engineering-recruiters-chicago-how-to-hire", label: "Chicago Engineering Recruiters" },
+      { slug: "where-to-hire-in-chicago-talent-clusters", label: "Where to Hire in Chicago" },
+    ],
   },
 
   manufacturing: {
@@ -106,7 +123,10 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "Be clear about shift availability — most plants will trade a little experience for dependable night and weekend cover.",
       "Keep powered-industrial-truck and other equipment certifications current; plants ask for proof rather than a promise.",
     ],
-    relatedGuide: { slug: "where-to-hire-in-chicago-talent-clusters", label: "Where to Hire in Chicago" },
+    relatedGuides: [
+      { slug: "where-to-hire-in-chicago-talent-clusters", label: "Where to Hire in Chicago" },
+      { slug: "distribution-staffing-chicago-how-to-hire", label: "Distribution Staffing in Chicago" },
+    ],
   },
 
   it: {
@@ -123,7 +143,10 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "Say whether you want permanent or contract work and what you are optimising for — craft, learning, or flexibility.",
       "Keep a repository or portfolio link ready. It shortens screening more than any summary paragraph.",
     ],
-    relatedGuide: { slug: "will-ai-take-over-software-developer-jobs", label: "Will AI Take Over Software Developer Jobs?" },
+    relatedGuides: [
+      { slug: "will-ai-take-over-software-developer-jobs", label: "Will AI Take Over Developer Jobs?" },
+      { slug: "which-jobs-are-most-affected-by-ai", label: "Which Jobs Are Most Affected by AI?" },
+    ],
   },
 
   finance: {
@@ -140,7 +163,10 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "List the systems you are fluent in and the ones you can pick up quickly — ERP fluency is often the deciding factor.",
       "Be ready to explain the numbers you produced and the decisions they informed, not just the teams you sat in.",
     ],
-    relatedGuide: { slug: "chicago-salary-guide-2026-what-skilled-roles-pay", label: "Chicago Salary Guide 2026" },
+    relatedGuides: [
+      { slug: "chicago-salary-guide-2026-what-skilled-roles-pay", label: "Chicago Salary Guide 2026" },
+      { slug: "evaluating-staffing-agencies-permanent-placements", label: "Evaluating an Agency for Permanent Placement" },
+    ],
   },
 
   accounting: {
@@ -157,7 +183,10 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "If you hold a CPA or are pursuing one, say so and say which stage you are at.",
       "Be calendar-specific: state when you can start and how many hours you can cover through the peak.",
     ],
-    relatedGuide: { slug: "chicago-salary-guide-2026-what-skilled-roles-pay", label: "Chicago Salary Guide 2026" },
+    relatedGuides: [
+      { slug: "chicago-salary-guide-2026-what-skilled-roles-pay", label: "Chicago Salary Guide 2026" },
+      { slug: "how-to-hire-through-a-staffing-agency-chicago", label: "How to Hire Through a Staffing Agency" },
+    ],
   },
 
   "tax-legal": {
@@ -174,7 +203,10 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "Be specific about the software and filing platforms you know, and how you keep current when the rules change.",
       "Ask about the calendar during the interview — the roles that fit are the ones whose busy seasons you can actually work.",
     ],
-    relatedGuide: { slug: "how-to-hire-through-a-staffing-agency-chicago", label: "How to Hire Through a Staffing Agency in Chicago" },
+    relatedGuides: [
+      { slug: "evaluating-staffing-agencies-permanent-placements", label: "Evaluating an Agency for Permanent Placement" },
+      { slug: "how-to-hire-through-a-staffing-agency-chicago", label: "How to Hire Through a Staffing Agency" },
+    ],
   },
 
   administrative: {
@@ -191,7 +223,10 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "Say plainly which systems you know well and which you are still learning.",
       "Line up two references who can speak to your reliability and judgement, not only to your manner with people.",
     ],
-    relatedGuide: { slug: "5-steps-to-a-standout-resume", label: "5 Resume Tips That Actually Get You Noticed" },
+    relatedGuides: [
+      { slug: "5-steps-to-a-standout-resume", label: "5 Resume Tips That Actually Get You Noticed" },
+      { slug: "how-staffing-agencies-work-a-guide-for-job-seekers", label: "How Staffing Agencies Work" },
+    ],
   },
 
   marketing: {
@@ -208,7 +243,10 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "List the platforms you run day to day, and be honest about the ones you have only touched.",
       "Say which work you want more of, especially if you are moving between channels — it makes you easier to place well.",
     ],
-    relatedGuide: { slug: "how-employers-win-the-talent-race", label: "How Employers Win Top Talent Faster" },
+    relatedGuides: [
+      { slug: "how-employers-win-the-talent-race", label: "How Employers Win Top Talent Faster" },
+      { slug: "how-to-hire-through-a-staffing-agency-chicago", label: "How to Hire Through a Staffing Agency" },
+    ],
   },
 
   distribution: {
@@ -225,7 +263,10 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "Be clear about the shifts and the commute you can sustain week after week — reliability is the skill employers pay for here.",
       "If the role is temp-to-hire, ask what the conversion path looks like. Well-run sites will tell you straight away.",
     ],
-    relatedGuide: { slug: "where-to-hire-in-chicago-talent-clusters", label: "Where to Hire in Chicago" },
+    relatedGuides: [
+      { slug: "distribution-staffing-chicago-how-to-hire", label: "Distribution Staffing in Chicago" },
+      { slug: "where-to-hire-in-chicago-talent-clusters", label: "Where to Hire in Chicago" },
+    ],
   },
 };
 
