@@ -17,6 +17,122 @@ export type BlogSeed = {
 
 export const blogSeed: BlogSeed[] = [
   {
+    slug: "manufacturing-staffing-chicago",
+    title: "Manufacturing Staffing in Chicago: How Hiring Works",
+    excerpt:
+      "Chicago manufacturing hires turn on shift structure, machine-level screening and the first ninety days. How production and maintenance hiring really works.",
+    category: "Hiring",
+    author: "Marcus Bell",
+    date: "2026-11-11",
+    body: `Manufacturing staffing in Chicago means filling production, machining, maintenance and quality seats on a shift pattern that already exists — and the shift pattern, not the résumé, is what narrows the pool. A maintenance tech who will only work straight days will not take a rotating twelve-hour schedule at any rate you can defend, and an operator who has only run a press cannot walk onto a CNC cell. Searches that stall here usually stalled on those two facts rather than on pay.
+
+This is written for the plant manager, operations lead or HR generalist filling hourly and exempt roles across the metro: what each seat actually screens for, where the talent sits, and how to run the sequence so the line is covered on the start date you promised.
+
+## Where manufacturing talent sits in metro Chicago
+
+Manufacturing in this region is not one labour market. It is a set of corridors with different employers, different pay norms and different commuting logic, and a role advertised into the wrong one underperforms regardless of its rate.
+
+- **The northwest corridor** — Elk Grove Village, Bensenville, Wood Dale and the belt around O'Hare — is dense with freight, light manufacturing, precision machining and warehouse operations. It is the deepest single pool for machine operators, assemblers and maintenance techs with transferable experience, and the most competitive on hourly wage, because employers sit within a few minutes of each other and workers compare rates across the fence.
+- **Lake County**, running north through Waukegan and Mundelein, skews to regulated manufacturing and life sciences: cleaner environments, more documentation, tighter quality systems, and a workforce that expects both.
+- **The I-88 corridor** carries the engineering-adjacent side of manufacturing — testing, instrumentation, process and product engineering — and draws differently again.
+- **The southeast industrial belt** holds heavy fabrication, welding, millwork and infrastructure support. Much of that workforce is union-affiliated and does not answer conventional job advertising at all; it moves through word of mouth and the hall.
+
+Our [corridor-by-corridor guide to where to hire in Chicago](/resources/blog/where-to-hire-in-chicago-talent-clusters) maps the same ground in more detail, and the [manufacturing opportunities page](/opportunities/manufacturing) lists the roles we place most often.
+
+## What each seat actually screens for
+
+Titles in manufacturing hide more variation than titles in almost any other sector. "Machine operator" can mean tending one press or setting up and running a flexible cell; the screening differs accordingly.
+
+### Production and assembly operators
+
+Screen for pace, attendance and dexterity, in that order. Ask what line they ran, what their takt looked like, and what they did when the line went down. A candidate who can describe their last station, the defect they saw most, and how they flagged it is worth more than one who lists five machines they "used". Repeat attendance across two jobs is a stronger signal than any single reference.
+
+### CNC machinists
+
+Ask for the control, not the machine brand: Fanuc, Haas, Siemens, Mazak, Okuma. Then ask for tolerances they held and how they proved them. A machinist who cannot explain how they verified a dimension is a machine operator with a better title. Setup experience and programming experience are different skills, and job descriptions routinely ask for both while paying for one.
+
+### Maintenance technicians
+
+The hardest seat to fill and the most expensive to get wrong. Mechanical and electrical maintenance are separate trades that job ads merge. Ask what failed most often at their last plant, how they diagnosed it, and which lockout/tagout procedure they worked under. If the role touches drives, PLCs or industrial electrical work at any depth, it belongs in the [industrial electrician](/resources/blog/industrial-electrician-staffing-chicago) conversation instead.
+
+### Quality inspectors
+
+Screen for the standard the plant runs and the tools they used: calipers and micrometers, CMM experience, first-article inspection, non-conformance handling. Familiarity with ISO 9001 or IATF 16949 environments matters if your customers audit you; it is close to irrelevant in a job shop that does not.
+
+### Supervisors and leads
+
+Usually an internal-promotion problem disguised as an external search. If you have to hire outside, screen for shift leadership under pressure rather than for seniority: how they handled a line stoppage, an attendance problem, a safety near-miss. A strong lead from a union shop and one from a non-union shop will run your floor very differently, and that fit is worth establishing before the offer.
+
+## Shift structure is the real filter
+
+The single most common reason a manufacturing requisition sits open is that the shift is unsellable as written. Before the search starts, settle:
+
+- **The pattern.** Straight days, a three-shift rotation, or 12-hour 2-2-3 crews. Twelve-hour schedules buy you more days off per week and cost you a large share of candidates with care responsibilities.
+- **Whether it is fixed or rotating.** Fixed nights fills faster than rotating nights, and rotating nights fills faster than a pattern that changes weekly.
+- **Overtime expectation.** Mandatory Saturday overtime is a different job from "occasional overtime", and candidates will ask in the first call.
+- **The commute.** Most of these plants are not on a reliable transit line. If the shift starts before the first bus, the candidate needs a car, and that is a screening question, not an afterthought.
+
+Put the pattern in the advert. A shift that is stated plainly attracts fewer applicants and far better ones.
+
+## Credentials: which to require, which to drop
+
+- **OSHA 10-hour General Industry** is a common entry requirement and a reasonable one, but it is cheap to deliver. Treating it as a hard filter shrinks the pool for very little risk reduction.
+- **Powered industrial truck (forklift) certification** is site-specific in practice. A candidate's card from another employer does not transfer, because the employer must certify the operator on the truck and the layout. Ask about hours and truck types; plan to certify yourself.
+- **Lockout/tagout, confined space, fall protection** training is worth verifying for maintenance and millwright roles, and worth asking about for anyone who will touch equipment.
+- **Blueprint reading and GD&T** are genuine differentiators for machining and quality, and are worth testing rather than taking on trust.
+- **ISO 9001 and IATF 16949 experience** should be required only where your customer base requires it. Ask which audits they prepared for, not whether they "know ISO".
+
+## Screen on the machine, not the résumé
+
+A manufacturing shortlist should be built on demonstrated skill, not on a list of employers. Practical, defensible steps:
+
+1. **A ten-minute technical conversation on their last job.** Which machine, which control, which tolerance, what they did when it drifted.
+2. **A hands-on or walk-through assessment** where the plant allows it — a setup on a known part, a fault-finding exercise on a training rig, a print reading with two dimensions called.
+3. **Attendance verification** through references, asked directly: how many unscheduled absences in the last year, and were they communicated.
+4. **The screening policy, stated in the first call.** Background check, drug screen, physical or lift test — whatever you run. Candidates who discover it after the offer fall out, and you lose the start date.
+
+## Temp, temp-to-hire or direct hire
+
+- **Temp** suits demand spikes, seasonal builds, coverage for leave, and a first look at a candidate before you commit headcount.
+- **Temp-to-hire** suits hourly roles where retention is uncertain and a trial period is worth paying for. Confirm the conversion terms before you start — hours worked before the fee drops, and what the fee becomes.
+- **Direct hire** suits skilled maintenance, machining and supervisory roles where the pool is small and the cost of a bad hire is measured in downtime.
+
+Whatever the structure, the agency carries the payroll, the workers' compensation and the compliance paperwork; you carry the onboarding. Our breakdown of [temp, temp-to-hire and direct hire](/resources/blog/electrical-staffing-agency-temp-vs-temp-to-hire-vs-direct-hire) explains who holds the risk in each, and [distribution staffing](/resources/blog/distribution-staffing-chicago-how-to-hire) covers the warehouse side of the same decision.
+
+## The first ninety days decide whether the hire sticks
+
+Most hourly manufacturing attrition happens early, and it is usually an onboarding failure rather than a bad hire:
+
+- Put the new hire on the same shift as their trainer for the first two weeks. A trainer on days "available by phone" trains nobody.
+- Do not rotate a new hire onto nights in the first month unless the role was advertised as nights.
+- Check in at day three, day ten and day thirty — with the shift lead, not only with the hire.
+- Confirm PPE is issued and fits on day one. Waiting two weeks for boots is how a first impression is set.
+- Explain the attendance policy in writing and in the language the crew actually uses on the floor.
+
+## How to brief a manufacturing recruiter
+
+The brief decides the search. Give the desk:
+
+- The machine list and the controls, with the tolerances the work actually holds.
+- The shift pattern, fixed or rotating, and the overtime expectation.
+- The pay band and how overtime, shift differential and attendance bonuses are structured.
+- The screening steps and their order.
+- Who makes the decision, and when they are available for a plant tour.
+- The training path for the first month, including who trains.
+
+Agencies that work manufacturing in this metro every week already know the corridors. What they cannot guess is your floor.
+
+## What slows these searches down
+
+- Changing the shift pattern mid-search, after candidates have been submitted against the old one.
+- Setting the rate below what the corridor pays and waiting for the market to move. It will not.
+- Omitting the machine list, so submittals arrive from the wrong trade.
+- A decision-maker who is on the floor and unreachable for a week at a time.
+- Holding out for a candidate who has every requirement on day one while the line runs short.
+
+If you are filling a seat now, [tell us what the shift looks like and what the machine is](/contact) — the brief takes one call, and the shortlist is built against it. Employers who want the full picture of how an engagement runs can read [how we work with employers](/for-clients).`,
+  },
+  {
     slug: "staffing-agency-alternatives-chicago",
     title: "Staffing Agency Alternatives in Chicago: How to Switch",
     excerpt:
