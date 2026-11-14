@@ -83,6 +83,13 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "Keep safety training current; industrial sites will ask about arc-flash and lockout/tagout familiarity before your first shift.",
     ],
     relatedGuides: [
+      // The two electrical guides with the weakest inbound graph: "how to recruit electricians"
+      // carried 89 impressions over 28 days at ~pos 23 and had exactly one inbound link in the
+      // whole site (the blog index), and the industrial-vs-commercial guide was reachable only
+      // from that orphan. Both queries ("how to recruit electricians", "difference between
+      // industrial and commercial electrician") are what this hub's audience searches for.
+      { slug: "how-to-recruit-electricians", label: "How to Recruit Electricians" },
+      { slug: "industrial-vs-commercial-electricians-hiring", label: "Industrial vs Commercial Electricians" },
       { slug: "industrial-electrician-staffing-chicago", label: "Industrial Electrician Staffing in Chicago" },
       { slug: "master-electrician-staffing-licensing-and-hiring-guide", label: "Master Electrician Licensing and Hiring" },
       { slug: "electrical-staffing-how-electrician-hiring-works", label: "How Electrician Hiring Really Works" },
