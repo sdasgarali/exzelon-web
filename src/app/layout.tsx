@@ -40,7 +40,17 @@ export const metadata: Metadata = {
     url: site.url,
   },
   twitter: { card: "summary_large_image" },
-  robots: { index: true, follow: true },
+  // `max-image-preview:large` opts every page into full-size thumbnail previews in Search
+  // results and Discover — without it Google caps previews at the small default, which is a
+  // pure loss on a site whose pages each carry a 1200x630 social card. `max-snippet:-1`
+  // lets Google quote as much of the copy as it needs to answer a query.
+  robots: {
+    index: true,
+    follow: true,
+    "max-snippet": -1,
+    "max-image-preview": "large",
+    "max-video-preview": -1,
+  },
 };
 
 export default function RootLayout({
