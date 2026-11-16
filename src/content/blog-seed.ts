@@ -2230,4 +2230,105 @@ For a single, well-defined engineering role with a strong internal pipeline, a g
 
 If you are hiring engineers now, [tell us what the role involves](/for-clients) and we will tell you which pool the candidate is likely to come from, what the licence requirement means for the search, and how the process should run. You can also [browse the engineering roles we place](/opportunities/engineering) or [talk to a specialist recruiter](/contact) about the market for your seat.`,
   },
+  {
+    slug: "accounting-staffing-chicago",
+    title: "Accounting Staffing in Chicago: How to Hire Accountants",
+    excerpt:
+      "Accounting hires turn on the close calendar, the software stack and whether the seat is seasonal. How Chicago employers define, screen and fill the role.",
+    category: "Hiring",
+    author: "Marcus Bell",
+    date: "2026-11-14",
+    body: `Accounting staffing in Chicago comes down to three decisions made before the search starts: which seat you are actually filling, whether it is permanent or seasonal capacity, and what software the person has to be fluent in on day one. Get those wrong and you will interview pleasant, qualified accountants who cannot run your close. Get them right and the search is usually short — accounting is one of the few functions in this market where the work is genuinely comparable from one employer to the next, which means a specific advert and a specific screen produce a shortlist you can trust.
+
+This is written for the controller, CFO, finance manager or office manager filling the seat: what each accounting role screens for, how the calendar shapes the hiring, and how to run the process so the first close after the start date is not the one where something gets missed.
+
+## Decide which accounting seat you are filling
+
+"Accountant" spans a wider range of work than almost any other finance title, and the differences decide who you can hire. Settle the seat first.
+
+- **Accounts payable and accounts receivable** — volume processing, three-way matching, collections discipline. Screen for accuracy under repetition and for how they handle a disputed invoice, not for a degree.
+- **Bookkeeper** — the full ledger at a small company, often with payroll attached. The distinguishing question is ownership: have they kept a set of books alone, or only posted into someone else's?
+- **Staff accountant** — journal entries, reconciliations, month-end support, usually under a controller. Screen for close experience and for understanding why an entry is booked the way it is.
+- **Senior accountant** — owns pieces of the close, prepares statements, handles the audit request list. Screen for what they closed and what they reviewed.
+- **Payroll specialist** — multi-state payroll, garnishments, tax filings, and the reconciliation between payroll and the general ledger. Certification matters far less than whether they have run a payroll cycle end to end.
+- **Accounting manager or controller** — the hire is usually about closing capacity and controls: someone who can run a close and defend it to an auditor. Screen for the size of the ledger they owned and the systems they built or inherited.
+
+The [accounting roles we place](/opportunities/accounting) list the titles most often requested in this metro, and the [finance page](/opportunities/finance) covers the analyst, FP&A and treasury side when the seat is genuinely analytical rather than transactional.
+
+## The close calendar is the real job description
+
+Accounting is the one function where a hire's calendar is fixed before they arrive. Month-end, quarter-end, year-end, the audit window and — for public accounting backgrounds — the tax deadline shape when the work lands and when nobody can take a day off.
+
+That matters for hiring in two directions. First, the start date: a new staff accountant who begins on the third business day of the month walks into a close they cannot help with and learns nothing. Starting immediately after a close gives them a full cycle to learn the ledger before they are needed in one. Second, the availability you can demand: a strong candidate who is mid-close at their current employer will not interview properly that week, and pressing them to produces a worse hire than waiting seven days.
+
+Seasonal demand is the other half. Firms and departments that hire for a defined peak — tax season, audit support, a system migration — should plan the ramp before the peak and treat it as capacity planning rather than as a permanent hire. Our [Chicago salary guide](/resources/blog/chicago-salary-guide-2026-what-skilled-roles-pay) covers what these roles pay at each level; what it cannot tell you is whether the seat should be permanent at all.
+
+## Software fluency is the screening filter that actually works
+
+Every accounting candidate says they know the software. The useful question is not which packages appear on the CV but what they did inside them: which modules, which reports they built, which period-end steps they performed themselves.
+
+- **QuickBooks** — the small-business default. Ask whether they worked in desktop or online, and whether they handled bank feeds, class tracking and the reconciliation controls themselves.
+- **NetSuite, Sage Intacct, Microsoft Dynamics** — mid-market ERPs. Ask which modules they owned and whether they were involved in implementation or only in daily use. Implementation experience is a different (and scarcer) skill.
+- **SAP, Oracle, Workday Financials** — enterprise systems where the person usually knows one slice deeply. That is fine, as long as the slice covers your needs.
+- **Excel** — the honest test of almost every accounting hire. Pivot tables, lookups, and a reconciliation built from scratch say more than a claimed proficiency level.
+
+A ten-minute walk-through beats a checklist: ask them to describe, step by step, how they would reconcile an account they have never seen in a system they know, from the source documents to the tie-out. Candidates who have owned a reconciliation describe the sequence. Candidates who have only supported one describe the software.
+
+## What to verify before you decide
+
+- **CPA status** — ask the question, but ask it honestly: does this seat need a licensed CPA, CPA-eligibility, or neither? Many strong staff accountants, bookkeepers and payroll specialists are not on that path and never need to be. Requiring a CPA for an AP seat shrinks the pool to almost nobody and tells candidates the role is misjudged.
+- **Public versus private experience** — public accounting backgrounds bring close discipline and audit familiarity; private backgrounds bring systems ownership and process building. Neither is universally better, and the mix should follow the seat.
+- **Ownership, stated concretely** — "what did you close, how many accounts, who reviewed your work, what did you fix" separates an accountant who ran a process from one who performed tasks inside it.
+- **Screening you actually run** — criminal background checks and, for roles with payment authority, credit checks are normal in accounting. Say so in the first conversation. Candidates who learn about a credit check after the offer fall out of the process, and the start date goes with them.
+- **References that speak to the close** — ask a former manager what the candidate owned and what they had to be reminded about. A reference that can only confirm dates has told you something too.
+
+## Temp, temp-to-hire or direct hire
+
+- **Temp** fits a defined peak, coverage for a leave, a backlog of reconciliations, or a system migration with a hard end date. You pay for the hours you need and stop when the work stops.
+- **Temp-to-hire** fits a seat where the ledger is unusual enough that you want to see someone run one close before committing — and where the seasonal-candidate pool is stronger than the permanent one at the moment you are hiring.
+- **Direct hire** fits the controller, senior accountant and payroll-ownership seats, where continuity and institutional knowledge are the point.
+
+In every structure the agency carries payroll, workers' compensation and the employment paperwork while the person works on assignment; you carry the onboarding and the review. [How hiring through a staffing agency works](/resources/blog/how-to-hire-through-a-staffing-agency-chicago) sets out who holds what risk at each step, and [how we work with employers](/for-clients) covers the engagement itself.
+
+## Where accounting talent sits in metro Chicago
+
+Accounting is less corridor-bound than manufacturing, but the commute still decides who will say yes. Three patterns dominate:
+
+- **Downtown** — the Loop and West Loop hold corporate finance teams, audit and advisory practices, and the firms that train a large share of the metro's accountants. Transit access is the draw and the hybrid schedule is the deciding detail.
+- **The suburban corporate campuses** — Schaumburg, Oak Brook, Naperville, Deerfield and the I-88 and I-294 belts — hold shared-service centres, distribution and manufacturing headquarters, and healthcare systems. These roles pay competitively but draw from a car-dependent pool, so the shift and hybrid pattern matter more than the title.
+- **Small and mid-sized companies across the city** — often a single bookkeeper or a two-person finance team, where the hire has to be comfortable being the whole department. This is the segment where software fluency and self-direction matter most, and where a temp-to-hire structure usually outperforms a direct hire.
+
+For a wider view of which corridors hire which functions, our [guide to Chicago's talent clusters](/resources/blog/where-to-hire-in-chicago-talent-clusters) maps the same ground sector by sector.
+
+## The interview loop that predicts performance
+
+Three steps are enough for most accounting seats, and they should be sequential:
+
+1. **A fifteen-minute call on the calendar and the software.** Which close did they own, which system, which parts of the process were theirs. This eliminates most mismatches before anyone books a panel.
+2. **A short practical exercise tied to your ledger.** A reconciliation from a sample statement, a journal entry with the reasoning written out, a cleanup of a messy export. Keep it under an hour and pay for it if it runs long — good candidates are being interviewed elsewhere.
+3. **A conversation with the person they will report to, about the close.** Not culture fit in the abstract: what happens on day three of the close, who chases what, what the auditor asks for first.
+
+For client-facing or controller-level roles, add a discussion of controls: what they would change in the first ninety days, and what they would leave alone.
+
+## Onboarding that makes the first close work
+
+Most accounting hires who fail do not fail on technical ability; they fail because nobody handed over the calendar, the chart of accounts and the exceptions. Before day one, prepare:
+
+- **The close calendar**, with owners and deadlines, in writing.
+- **A reconciliation map** — which accounts, which source documents, who reviews.
+- **The chart of accounts and its quirks.** Every ledger has three accounts that should not exist and one that everyone posts to. Say which.
+- **Access on day one** — accounting software, the bank portals, the reporting package, the shared drive. Waiting two weeks for access is how a new hire spends their first close watching.
+- **A named reviewer** for their first two closes. Review is the training.
+
+## What slows an accounting search down
+
+- Writing the advert around a credential instead of the work, which shrinks the pool and screens out capable people.
+- Changing the structure mid-search — a permanent role that quietly becomes a contract one loses the candidates already in process.
+- Interviewing without the software question, then discovering at offer stage that nobody can run the system you use.
+- A hiring manager unreachable during close. Accounting searches stall in the first week of the month more than in any other.
+- Treating a seasonal need as a permanent hire, then carrying the seat through the quiet months.
+
+If a seat is open now, [tell us which close the person has to own and which system they have to run](/contact). That brief takes one call, and the shortlist is built against it rather than against a job title.`,
+  },
+
 ];

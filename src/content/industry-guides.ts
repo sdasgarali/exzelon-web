@@ -191,6 +191,7 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "Be calendar-specific: state when you can start and how many hours you can cover through the peak.",
     ],
     relatedGuides: [
+      { slug: "accounting-staffing-chicago", label: "Accounting Staffing in Chicago: How to Hire" },
       { slug: "chicago-salary-guide-2026-what-skilled-roles-pay", label: "Chicago Salary Guide 2026" },
       { slug: "how-to-hire-through-a-staffing-agency-chicago", label: "How to Hire Through a Staffing Agency" },
     ],
