@@ -319,35 +319,73 @@ A staffing partner who has guided internationally-trained professionals through 
     category: "Career",
     author: "Aisha Rahman",
     date: "2026-05-12",
-    body: `Recruiters skim, they don't read — at least not at first. These five tips come straight from the team that reviews thousands of resumes a year.
+    body: `Most resumes are rejected for reasons the candidate never sees: the layout confused a parser, the first line described a duty instead of a result, or the file arrived as a format the recruiter could not open. The tips below come from the team that reviews applications every week for employers across Chicago, and they are the changes that make the difference between a callback and silence.
+
+None of it requires a rewrite of your career. It requires deciding, before you type, what the reader needs to see in the first few lines — and then getting out of the way.
+
+## Before you write anything
+
+Two questions decide the shape of the document. First, which role are you applying to? A resume sent to five different jobs is a resume written for none of them, and recruiters can tell within a line. Second, what is the reader's actual problem? A hiring manager filling a maintenance seat wants to know whether you can work the shift and prove your trade; an accounting controller wants to know what you closed and in which system. Name that problem and answer it with evidence.
+
+Keep a master document with every role, project, certification and number you might ever cite. Tailoring then becomes selection, not invention — you are choosing which four bullets matter for this vacancy rather than trying to recall your figures the night before the deadline.
 
 ## 1. Lead with impact
 
-Open each bullet with a result, not a duty. "Cut onboarding time 40%" beats "responsible for onboarding."
+Open each bullet with a result, not a duty. "Cut onboarding time by two weeks" beats "responsible for onboarding." "Kept the line running through a vendor shortage" beats "managed inventory."
+
+The test is simple: if the sentence would still be true for anyone else who held the title, it describes the job, not you. Rewrite it until it describes what changed because you were there. Where you cannot cite a number, describe the outcome in concrete terms — what was broken, what you did, what stopped happening afterwards. A bullet that says "took over a reconciliation that had been three months behind and had it current within a quarter" is stronger than a percentage nobody can verify.
+
+Use numbers honestly. Revenue, headcount, volume, cycle time, error rates, tickets closed, sites supported, compliance outcomes — all of these are evidence when they are real. Estimates are acceptable if you label them as such; invented precision is not, and it unravels in the first interview.
 
 ## 2. Mirror the job description
 
-Applicant tracking systems and recruiters both scan for relevant keywords. Reflect the language of the posting — honestly — so the match is obvious.
+Applicant tracking systems and recruiters both scan for relevant keywords, and they scan for the language the employer used. If the posting says "preventive maintenance" and your resume says "PM schedules," make sure both phrases appear. That is not gaming the system — it is refusing to hide experience behind a different vocabulary.
+
+Read the posting twice: once for the responsibilities, once for the requirements. Then make a list of the terms that describe work you have genuinely done and place them where a reader would expect them — the summary line, the relevant role's bullets, the skills section. Mirror the language, not the claims. If you have not done something, leaving it out is faster than defending it later.
+
+The same discipline applies to titles. Where your employer's internal title is unusual ("Member of Technical Staff II"), give the market-facing equivalent next to it so a reader does not have to guess what the job was.
 
 ## 3. Keep it scannable
 
-Clear headings, consistent formatting, and plenty of white space. If a recruiter can't find your current role in three seconds, the layout is working against you.
+Clear headings, consistent formatting, and generous white space. The reader is looking for three things: what you do now, where you did it, and whether the shape of your experience matches the vacancy. If those take more than a glance to find, the layout is working against you.
 
-- One to two pages
-- Reverse-chronological order
-- No dense paragraphs
+- One to two pages, with the most relevant experience first
+- Reverse-chronological order within each section
+- No dense paragraphs — bullets of one or two lines
+- One font, one size for body text, bold reserved for role titles
+- Contact details at the top, with a professional email address and a phone number that takes voicemail
 
-## 4. Quantify everything
+Formatting also has to survive software. Use a single-column layout, standard section headings ("Experience", "Education", "Skills"), and a plain bullet character. Tables, text boxes, headers and footers, graphics and multi-column designs are the usual reasons a resume arrives at the recruiter with sections missing or scrambled. If you are applying to larger employers, submit a document rather than an image-based PDF, and name the file with your own name rather than "resume-final-3".
 
-Numbers create instant credibility. Revenue, percentages, headcount, timelines — specifics turn claims into evidence.
+## 4. Quantify everything you can defend
+
+Numbers create instant credibility, and they also help a reader compare you with the other shortlisted candidates. Revenue, percentages, headcount, timelines, volumes, budgets, uptime, error rates — specifics turn claims into evidence.
+
+Where the honest answer is not a number, use scale and scope instead: how many sites, shifts, systems, clients, staff or cases. "Ran payroll for a 90-person, two-state workforce" tells a reader more than "handled payroll" even without a metric attached.
+
+Two rules keep this credible. Do not round so aggressively that the figure stops being true, and never cite a number you could not explain if asked how you got it. Interviewers do ask.
 
 ## 5. Proofread ruthlessly
 
-A single typo can undo an otherwise strong resume. Read it aloud, then have someone else check it.
+A single avoidable error can undo an otherwise strong resume — an inconsistent date range, a misspelled employer name, a phone number missing a digit. Read it aloud, then read it backwards (headings and numbers first), then have someone else check it with fresh eyes.
+
+Check the boring things specifically: employment dates that line up with no unexplained gaps presented as typos, the same tense throughout each role (past for previous jobs, present for the current one), company names spelled as the employer spells them, and certifications written the way the issuing body writes them. If you list a licence or certification, include the issuing body and expiry where it applies — a recruiter will verify it before submission anyway.
+
+## Tailor the emphasis by sector
+
+The five rules hold everywhere, but what counts as evidence does not:
+
+- **Skilled trades** — licences, jurisdictions, voltage classes, equipment, safety training and site experience. Name the systems you have worked on and the environments you have worked in.
+- **Healthcare** — licensure, certifications, settings, shift patterns and float expectations. Keep credential and immunisation records ready to send the same day.
+- **Accounting and finance** — the close you owned, the systems you ran (QuickBooks, NetSuite, Sage, an ERP), the accounts you reconciled and who reviewed your work.
+- **IT and engineering** — the stack, the scale and the outcome. "Migrated 40 services to containers without downtime" reads better than a list of tool names.
+- **Administrative and office support** — the executive or team you supported, the volume you handled, the systems you kept running, and the problems you absorbed before they reached your manager.
+
+Our [guide to how staffing agencies work](/resources/blog/how-staffing-agencies-work-a-guide-for-job-seekers) explains what happens to your resume after it is submitted, including how recruiters present candidates and why some are never sent forward.
 
 > The best resume is the one that makes the next step obvious. Give the reader a reason to pick up the phone.
 
-Want a second opinion? Our recruiters review candidate profiles every day — [get in touch](/contact).`,
+Want a second opinion? Our recruiters review candidate profiles every day, and they will tell you plainly what is holding an application back — [get in touch](/contact), or [browse the roles we place](/opportunities) to see what employers in your field are asking for.`,
   },
   {
     slug: "how-employers-win-the-talent-race",
@@ -2330,5 +2368,4 @@ Most accounting hires who fail do not fail on technical ability; they fail becau
 
 If a seat is open now, [tell us which close the person has to own and which system they have to run](/contact). That brief takes one call, and the shortlist is built against it rather than against a job title.`,
   },
-
 ];
