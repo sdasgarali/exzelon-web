@@ -17,6 +17,86 @@ export type BlogSeed = {
 
 export const blogSeed: BlogSeed[] = [
   {
+    slug: "it-staffing-chicago-how-to-hire",
+    title: "IT Staffing in Chicago: How to Hire Tech Talent",
+    excerpt:
+      "Chicago IT searches stall on scope, not on talent. How to define the role, screen engineers in two conversations, and pick contract or permanent.",
+    category: "Hiring",
+    author: "Marcus Bell",
+    date: "2026-11-17",
+    body: `IT staffing in Chicago means filling software, data, infrastructure and QA seats in a market where the people you want are already employed, are usually talking to more than one employer, and can compare your offer against remote roles priced in another city's bands. The problem is rarely a shortage of candidates. It is defining the job precisely enough that a shortlist of five is genuinely comparable, screening for the work the person will actually do, and moving fast enough that the person you chose has not accepted somewhere else while your panel finishes deliberating.
+
+This guide is written for the hiring manager, engineering lead or HR partner filling a technology seat in metro Chicago: where the talent sits, how the engagements differ, what to put in the requisition, and how to run a process that closes.
+
+## Where Chicago technology talent actually sits
+
+Chicago's technology workforce is not one market, and a role advertised into the wrong part of it underperforms no matter how good the specification is.
+
+- **The Loop and West Loop** hold the largest concentration of enterprise technology in the region — financial services, insurance, trading, consulting and corporate IT. The people here work on large, regulated, long-lived systems, often on a hybrid schedule that has been stable for years. They optimise for stability, benefits and a commute they can plan.
+- **Fulton Market, River North and the near northwest side** hold product companies, agencies, startups and scale-ups. Expect smaller teams, broader ownership, faster release cadence, and candidates who weigh equity and learning against base salary.
+- **The I-88 corridor** — Naperville, Oak Brook, Lisle, Downers Grove — is where a large share of enterprise engineering, telecom and logistics technology sits. This workforce frequently lives west of the city and will trade a higher city salary for a reverse commute, parking and a predictable week. Ignore this corridor for a downtown-only role and you have removed a large, experienced, less-contested pool.
+- **The northern suburbs** — Deerfield, Northbrook, Lake Forest, Waukegan — skew to healthcare, pharmaceutical and consumer businesses, with the compliance-heavy engineering that comes with them.
+
+Layered over all of it is remote competition. A senior engineer in Chicago can apply to a role in Austin or New York without changing their commute, so the comparison set for your offer is no longer the employer across the street. That is the single biggest reason a Chicago technology requisition needs a written salary band attached. Our [corridor-by-corridor guide to hiring in Chicago](/resources/blog/where-to-hire-in-chicago-talent-clusters) maps the same geography in more detail across sectors.
+
+## Choose the engagement before you write the requisition
+
+Three engagement types, three different purposes. Choosing by habit rather than by need is where most technology searches go wrong.
+
+**Permanent** is for work that compounds: a system someone will own for years, a team that needs a lead, a role where domain knowledge is the point. It carries the longest time-to-fill because the pool is smaller and the decision is mutual and permanent.
+
+**Contract** is for defined work with an end date — a migration, a platform build, coverage during a parental leave, a security remediation programme. It is also the right structure when the requirement is uncertain: you learn what the role really needs at someone else's payroll cost rather than your own headcount.
+
+**Contract-to-hire** exists for the case where both sides want to test the fit, and it is the structure most often misused. It works when the conversion criteria and the conversion date are written down at the start. It fails when it becomes a way to defer a hiring decision indefinitely, because the strongest contractors will not accept a permanent-pending role when a direct permanent offer is on the table.
+
+Whichever you choose, state it plainly in the advert. Contractors and permanent candidates read the engagement line first, and a role described vaguely is read as a bait-and-switch.
+
+## Write the requisition around the work, not the title
+
+"Senior software engineer" describes a different job at a twelve-person product company than it does at a twenty-thousand-person insurer. Titles are the least reliable part of a technology requisition, and the most common reason a shortlist looks strong on paper and weak in the interview.
+
+A requisition that produces a usable shortlist answers five things:
+
+- **What the person owns in the first ninety days.** Not the responsibilities list — the outcome. "Own the ingestion service and cut its failure rate" screens better than "experience with distributed systems."
+- **The stack as it actually is, versions included.** The framework and its major version, the database, the cloud, the CI. Candidates calibrate against specifics, and mismatches surface in the first conversation instead of the last.
+- **The constraints that shape the engineering.** Data volume, latency targets, uptime expectations, regulatory scope, on-call rotation. A candidate who has only worked on greenfield systems should know before the interview that this one is twelve years old and audited.
+- **The team and the reporting line.** Size, seniority mix, whether there is a lead in place, whether the role is the first engineer in a function. These details change who applies more than any perk.
+- **The process and its timeline**, in the advert. Two conversations and a decision within a week is a selling point; four rounds over six weeks loses candidates who have options.
+
+## Screen in two conversations, not five
+
+A technology hire needs evidence of how someone works, and that evidence comes from two things: a structured conversation about what they have operated, and a small piece of work they do with you.
+
+**Conversation one — the recruiter or hiring-manager screen.** Thirty minutes, and it should establish: what they owned on their last two projects, what broke in production and what they did about it, the depth behind each item on their CV, why they are looking, the salary they will actually accept, their work authorisation and location expectations, and their notice period. That last set of answers decides whether the process continues at all, so ask it first rather than last.
+
+**Conversation two — the work sample and the panel.** Use a problem drawn from your own codebase or platform, scoped to an hour or two, and pay for it if it runs longer. Alternatively, ask a candidate to walk a panel through a system they built and defend the decisions. Both formats measure the thing interviews are bad at: whether the person can reason about your actual constraints.
+
+What to verify in those conversations, beyond the stack:
+
+- **Depth against the role's centre of gravity.** Someone who lists twelve technologies and has owned none of them is a generalist risk on a role that needs a specialist, and vice versa.
+- **Operating experience.** Who was on call, how deploys worked, how incidents were handled, whether they have ever been the person woken at 3am.
+- **Credentials that actually apply.** Illinois does not license software engineers, so there is no state credential to check for most technology roles — the evidence is the work. Regulated clients may still need background screening, and healthcare-adjacent systems need candidates who have worked inside those controls before.
+
+## How the money works
+
+For contract work, the bill rate you are quoted is built from the pay rate, the statutory burden an employer of record carries, benefits and overhead, and the agency's margin. Ask what is included in it: who employs the contractor, who carries workers' compensation and unemployment insurance, who runs the background check, and what happens at the end of the term. Two quotes that look different are often the same rate with different obligations attached.
+
+For permanent hires, the fee is normally a percentage of first-year base salary, payable on start, with a guarantee period during which a replacement is found at no additional cost. Ask for the guarantee length in writing, and ask what counts as a replacement — a departure in week six and a departure in week sixteen are usually handled differently.
+
+## Onboarding that makes a technology hire stick
+
+Most technology hires who leave early do not leave because they could not do the work. They leave because the environment they arrived in did not let them start.
+
+Before day one: an account, repository access, a laptop that works, and a named person who will answer questions for the first month. In week one: one small, real deliverable that ships. In the first month: a walkthrough of the architecture from someone who built it, and a written note of the three things that will surprise them. Contractors need all of this plus a clear end date and an explicit statement about whether conversion is possible — ambiguity there is the most common reason a good contractor disengages.
+
+## When a specialist earns their fee
+
+Do it yourself when you are hiring one engineer, you know the local market, and the role is well defined. Bring in a specialist when you are filling several seats, when the stack is narrow enough that the pool is small, when a role has been open for months without a credible shortlist, or when the hiring manager simply does not have the hours to screen. A specialist's value there is not access to secret candidates; it is the screening and the sequencing, run consistently enough that nobody in process is left waiting.
+
+If you are filling a technology seat now, [tell us what the person owns and which stack they will work in](/for-clients) and we will tell you which corridor the candidate is most likely to come from and how the engagement should be structured. You can also [see the technology roles we place](/opportunities/it), or read [how hiring through a staffing agency actually works](/resources/blog/how-to-hire-through-a-staffing-agency-chicago) before you brief anyone.`,
+  },
+
+  {
     slug: "manufacturing-staffing-chicago",
     title: "Manufacturing Staffing in Chicago: How Hiring Works",
     excerpt:
@@ -391,31 +471,77 @@ Want a second opinion? Our recruiters review candidate profiles every day, and t
     slug: "how-employers-win-the-talent-race",
     title: "How Employers Win Top Talent Faster",
     excerpt:
-      "Speed, transparency, and a great candidate experience — the three levers that help employers land top talent first.",
+      "Employers rarely lose candidates to a better offer — they lose them to slow scheduling, hidden pay bands and silence after the final interview.",
     category: "Hiring",
     author: "Marcus Bell",
     date: "2026-04-28",
-    body: `In a competitive market, the best candidates are off the table in days. Employers who win consistently pull three levers better than everyone else.
+    body: `Most employers do not lose candidates to a better offer. They lose them to a slower process, a vaguer brief, or a week of silence after the final interview. The candidates you most want — the ones with two other processes running — are making a decision on the information in front of them, and a process that answers their questions quickly is itself the argument for taking your role.
 
-## Move fast — without cutting corners
+That is the whole of it: speed, transparency and a well-run experience are not soft benefits, they are the mechanics by which one employer gets a yes while another keeps interviewing. Here is what each one looks like when it is actually practised.
 
-Every extra day in your process is a day a competitor can make an offer. Streamline interviews, pre-align your decision-makers, and be ready to move when you meet the right person.
+## Speed is a process property, not an intention
 
-## Be transparent
+Everyone believes they move fast. The time is usually lost in four places that have nothing to do with the interview itself.
 
-Candidates reward clarity. Share the salary range, the process, and the timeline up front. It builds trust and filters for genuine fit early.
+- **Scheduling.** A panel that needs three calendars reconciled takes four days to book. Name the panel and the interview slots before the search opens, and the recruiter can book at the first screen.
+- **Debriefs.** A panel that debriefs "when everyone is free" debriefs on Thursday. Hold fifteen minutes immediately after the interview, with a written score recorded before the conversation starts.
+- **Approvals.** An offer that needs two sign-offs after the final interview costs a week. Get the band and the approval pre-agreed when the requisition is opened, so the offer is a signature rather than a negotiation.
+- **The gap between verbal and written.** A candidate who accepts verbally on Monday and receives nothing until Friday is exposed to four days of other people's calls. Send the written offer the same day.
 
-- Publish the compensation range
-- Explain each interview stage
-- Give feedback quickly, win or lose
+None of this requires cutting corners. It requires deciding in advance who decides, and removing the two or three waits that exist only because nobody owns them.
 
-## Invest in the candidate experience
+## Transparency is a filter, not a risk
 
-How you hire signals how you operate. A respectful, well-run process is often the deciding factor when a candidate is weighing two offers.
+Employers withhold the salary band to keep negotiating room. What usually happens is that strong candidates — the ones with options — drop out at the advert, and the remaining pool self-selects for people willing to gamble on the number. Publishing the band screens out the mismatches before either side spends an hour on them.
+
+The same logic applies to the rest of the brief:
+
+- **Publish the compensation range**, including how variable pay is built, if there is any.
+- **Name the stages and the dates.** "Recruiter screen this week, hiring-manager interview next, decision within ten days" tells a candidate whether they can run your process alongside the other one they are in.
+- **Say who decides**, and whether the hiring manager or a panel holds the final call.
+- **Be explicit about what the role is not.** The parts of the job people leave other employers over — the on-call rotation, the amount of travel, the reporting line that has turned over twice — are better said in the advert than discovered in week three.
+
+A candidate who reads an honest brief and still applies is a candidate whose expectations match yours. That is worth more than a slightly larger applicant count.
+
+## Candidate experience, in specifics
+
+"How you hire signals how you operate" is true but too abstract to act on. The behaviours that actually decide offers are small and entirely within the employer's control.
+
+- **Respond to every applicant within a working day**, even if the answer is a scheduled screen next week.
+- **Give one named contact** who answers questions between stages, rather than a shared inbox.
+- **Never go quiet.** A rejection sent in two sentences is better than silence, and it costs one minute. Candidates talk to each other in every trade and every profession.
+- **Make the offer a conversation, not an email.** Call with the number, the start date and the reason they were chosen, then send it in writing the same day.
+- **Close the loop after the start date.** A check-in at the end of week one catches the onboarding failures that turn into a resignation at month three.
 
 > The employers who land top talent first treat every candidate — hired or not — like a future customer or referrer.
 
-A staffing partner amplifies all three: pre-vetted candidates, faster shortlists, and a process that keeps talent engaged. [Talk to our team](/for-clients) about your next hire.`,
+## Measure the three levers, then fix the worst one
+
+Most hiring problems are invisible until they are counted. Five numbers, taken from your own process rather than from an industry benchmark, tell you where the candidates are going:
+
+1. **Time from application to first response.**
+2. **Time from first screen to written offer.**
+3. **Share of final-round candidates who drop out before a decision.**
+4. **Offer acceptance rate**, and the reasons given by the ones who decline.
+5. **Start-date slippage** — how often the agreed date moves, and what moved it.
+
+If drop-outs cluster after the final interview, the problem is speed. If declines cite money, the band was wrong or was never stated. If start dates slip, the pre-employment steps are running in sequence when they could run in parallel.
+
+## The two weeks where offers are won and lost
+
+Assuming the decision is made, the risk moves entirely into the gap between "we want them" and "they started". Three things break there more often than anywhere else:
+
+- **Background checks, references and drug screening run one after another** instead of at the same time. Nothing about them requires sequencing.
+- **Compensation is reopened at offer stage** by a manager who wants to "see where they land". That single move loses candidates who were told a range in week one.
+- **The start date is set before notice periods are confirmed.** A candidate on four weeks' notice who accepts a two-week start date will either resign badly or start late.
+
+## Where a staffing partner changes the arithmetic
+
+A specialist recruiter does not make your process faster by magic. They remove the two waits employers cannot remove themselves: the shortlist that arrives unqualified, and the candidate who goes cold because nobody called them back.
+
+In practice that means a shortlist screened against the brief rather than the job title, candidates who already know the band and the schedule before they meet you, and a third party whose only job is to keep the process moving while the hiring manager does their own work. Our guide to [hiring through a staffing agency](/resources/blog/how-to-hire-through-a-staffing-agency-chicago) covers what that looks like step by step, and [how to evaluate an agency](/resources/blog/evaluating-staffing-agencies-permanent-placements) covers what to ask before you sign.
+
+If a role is open now and the process is the thing slowing it down, [tell us where it stalls](/for-clients) — the fix is usually a decision, not a bigger search.`,
   },
   {
     slug: "will-ai-take-over-software-developer-jobs",
@@ -2139,6 +2265,12 @@ You do not need three interviews to establish whether someone is a licensed elec
 5. **Why they are looking, and what shift they can genuinely work.** A candidate who cannot work the schedule is not a candidate, however strong the CV.
 
 Anything that survives those five questions and a licence check is worth an interview with the hiring manager. Anything that does not is a polite no, sent the same day.
+
+### What "qualified" means in this trade
+
+The word has a specific meaning in electrical work. NFPA 70E describes a qualified person as one who has demonstrated the skills and knowledge related to the construction and operation of electrical equipment, and who has received safety training to identify the hazards and reduce the associated risk. A licence establishes the legal right to do the work; being qualified is about that person having been assessed for the task, at the voltage, in your facility.
+
+That distinction is why a resume reading "licensed electrician" is a starting point rather than an answer. When you recruit qualified electricians rather than merely licensed ones, three things have to line up beyond the credential: the training the site requires — 70E, arc-flash awareness, lockout/tagout — the voltage classes and equipment they have actually worked on, and a supervisor who can vouch for the work rather than the attendance. Ask for all three in the same call as the licence number, and the file you hand the hiring manager is one an auditor would also accept.
 
 ## Move from interview to offer in days
 
