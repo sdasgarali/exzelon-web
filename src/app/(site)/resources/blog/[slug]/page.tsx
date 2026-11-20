@@ -67,6 +67,14 @@ export default async function BlogPostPage({
     ...others.filter((p) => p.category !== post.category),
   ].slice(0, 3);
   const dateStr = (post.publishedAt as string | null) ?? (post.createdAt as string);
+  // The seed only stamps `updatedAt` when a post's content actually changed (see
+  // scripts/seed-blog.ts), so it is a real revision date rather than a restamp. Show it
+  // when it differs from the publish date: the BlogPosting schema already emits
+  // `dateModified`, and a page that shows only the original date contradicts its own
+  // structured data. A one-day threshold ignores the minutes between insert and first edit.
+  const updatedStr = post.updatedAt as string | undefined;
+  const showUpdated =
+    !!updatedStr && new Date(updatedStr).getTime() - new Date(dateStr).getTime() > 24 * 60 * 60 * 1000;
   const jsonLd = blogPostingJsonLd({
     slug: post.slug,
     title: post.title,
@@ -90,10 +98,18 @@ export default async function BlogPostPage({
         title={post.title}
         description={post.excerpt}
       >
-        <span className="flex items-center gap-3 text-sm text-brand-100/70">
+        <span className="flex flex-wrap items-center gap-3 text-sm text-brand-100/70">
           <span>{post.author}</span>
           <span>·</span>
-          <span>{formatDate(dateStr)}</span>
+          <time dateTime={dateStr}>{formatDate(dateStr)}</time>
+          {showUpdated && (
+            <>
+              <span>·</span>
+              <span>
+                Updated <time dateTime={updatedStr}>{formatDate(updatedStr as string)}</time>
+              </span>
+            </>
+          )}
           <span>·</span>
           <span>{post.readingTime}</span>
         </span>
