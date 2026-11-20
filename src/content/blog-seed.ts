@@ -17,6 +17,99 @@ export type BlogSeed = {
 
 export const blogSeed: BlogSeed[] = [
   {
+    slug: "administrative-staffing-chicago",
+    title: "Administrative Staffing in Chicago: How to Hire Office Staff",
+    excerpt:
+      "Chicago employers hire executive assistants, office managers and coordinators differently. What each role screens for, and what drives the rate.",
+    category: "Hiring",
+    author: "Marcus Bell",
+    date: "2026-11-20",
+    body: `Administrative staffing in Chicago is not one job market. An executive assistant supporting a Loop investment team, an office manager running a 40-person logistics firm in Elk Grove, and a front-desk coordinator covering a River North clinic are hired through three different processes, at three different rates, by three different people. Employers who treat "admin" as a single category end up overpaying for the wrong profile or losing a good coordinator to a slower competitor.
+
+This guide is for the office manager, operations lead or HR generalist filling those seats: what each administrative role actually screens for, where the talent sits in the metro, how the engagement types differ, and how to run the sequence so the person starts on the date you promised.
+
+## What "administrative" covers now
+
+The category has split. Twenty years ago most admin roles were one person doing scheduling, filing and phones. Today the work has been carved into specialised seats, and a candidate who is excellent in one is often a poor fit for another.
+
+### Executive assistant
+
+The most senior and most misunderstood role. An EA is not a faster administrator; the job is to absorb decisions, manage a calendar that belongs to someone else, and represent the executive to people who outrank the assistant on paper. Screen for judgement, discretion and the ability to write a clear email in someone else's voice. Ask what they owned without being told, how they handled a conflict between two executives' priorities, and what they did the last time their principal was double-booked.
+
+### Office manager
+
+An operations role wearing an administrative title. The office manager owns vendors, facilities, supplies, onboarding logistics, and often the culture calendar. Screen for budget comfort, vendor negotiation and the ability to hold a process together when nobody is enforcing it. The tell is whether they can describe a system they built and maintained, not a system they inherited.
+
+### Administrative and project coordinator
+
+Coordination roles sit between a team and its deadlines: scheduling, documentation, status tracking, chasing. Screen for follow-through under competing pressure. Ask how they tracked a project with ten open threads, what tool they used, and what happened when someone did not respond.
+
+### Data entry and back-office support
+
+Volume work with an accuracy requirement. Screen for speed and error rate rather than experience length, and test it: a short, timed exercise on realistic documents tells you more than any interview answer. Ask what they did when they found an error someone else had already signed off.
+
+### Receptionist and front-desk
+
+The role that sets the first impression and absorbs the interruptions nobody else wants. Screen for composure. Someone who has handled a lobby full of angry visitors, a multi-line phone system and a security desk at the same time has a skill that does not appear on a résumé.
+
+For every one of these seats, the [administrative roles we place](/opportunities/administrative) lists the profiles Exzelon fills most often across the metro.
+
+## Where the administrative talent sits
+
+Chicago's administrative workforce follows the office market, and the office market has moved. The Loop and West Loop still hold the density of executive support roles, but the candidate pool has spread: many experienced assistants now prioritise a manageable commute from the North Side, the near suburbs or a hybrid schedule, and a Downtown-only, five-day onsite role narrows the pool sharply.
+
+Three practical consequences for a Chicago search:
+
+- **Suburban employers compete with city employers for the same person.** An office manager in Schaumburg is not only compared with other Schaumburg roles; they are compared with a Downtown role that pays a similar rate and offers a shorter week. If the commute is long and the schedule is fixed, the rate has to reflect it.
+- **Industry matters more than geography for senior support.** Assistants with finance, legal, consulting or healthcare exposure carry specific vocabulary and compliance instincts. A candidate from a trading floor and a candidate from a dental practice are not interchangeable, even at the same title.
+- **The best candidates are usually passive.** Experienced EAs are rarely applying. They move when a recruiter they trust describes a specific role with a named principal, a real range and a schedule that fits. That is the argument for a proactive search over a job posting.
+
+Our [corridor-by-corridor guide to hiring in Chicago](/resources/blog/where-to-hire-in-chicago-talent-clusters) maps the same ground for the rest of the metro, and the [guide to how staffing agencies work](/resources/blog/how-staffing-agencies-work-a-guide-for-job-seekers) explains what a candidate sees on the other side of the process.
+
+## Temp, temp-to-hire, or direct hire
+
+The engagement type decides who carries the risk, and getting it wrong is the most common expensive mistake in administrative hiring.
+
+- **Temporary** suits coverage: a leave, a busy quarter, a system migration, a reception desk that cannot be empty. You get a vetted person quickly and the assignment ends when the need does. The trade-off is that strong temps are usually choosing between assignments, so the rate and the working environment both matter.
+- **Temp-to-hire** suits uncertainty about fit rather than about need. You know the seat is permanent, but you want to see the person handle your actual workload, your actual executives and your actual busy season before committing. Set the conversion window and the conversion terms before the assignment starts, in writing, because renegotiating after the person has proved themselves is where relationships break.
+- **Direct hire** suits the senior seats where confidentiality matters: replacing a sitting EA, hiring an office manager who will restructure a function, or filling a role that carries budget authority. It is slower and it costs more up front, and it is the right tool when a bad hire would be visible to the whole company.
+
+A useful test: if you cannot describe what "good" looks like in ninety days, you are not ready for direct hire. Take the temp-to-hire route, or take a contractor for the project and hire once the shape of the role is real.
+
+## How the screening should run
+
+Administrative candidates are frequently hired on impression, which is why so many placements fail in the first quarter. A defensible process takes about three conversations.
+
+1. **A structured phone screen** covering the exact systems they have used (Outlook or Google, Concur, NetSuite, DocuSign, a specific ticketing tool), the seniority of the people they supported, and why they left the last two roles. Ask for specifics, not adjectives.
+2. **A practical exercise.** A calendar-conflict scenario, a short inbox triage, a proofreading task or a timed data-entry sample. It takes twenty minutes and predicts performance better than any behavioural question.
+3. **A conversation with the person they would support.** The principal has to like working with this person, and the assistant has to be able to say no to the principal. Let both sides test that.
+
+Reference checks belong to the recruiter, not the hiring manager, and they should ask about reliability and discretion rather than whether the candidate was nice.
+
+If you are the candidate rather than the employer, the same logic runs in reverse. The [resume guide](/resources/blog/5-steps-to-a-standout-resume) covers how to present administrative experience as evidence rather than as a list of duties.
+
+## What drives the rate
+
+Administrative pay in Chicago is set by four things, in roughly this order:
+
+- **The seniority of the person supported.** Supporting a founder or a C-suite principal prices differently from supporting a team of five.
+- **Scope beyond support.** An office manager with vendor budget, facilities and onboarding responsibility is a different market from an office manager who orders supplies.
+- **Systems and domain.** Finance, legal and healthcare support carry premiums because the vocabulary and compliance context take time to learn.
+- **Schedule and location.** Onsite, five days, in a difficult commute commands a premium; hybrid and transit-adjacent roles draw a deeper pool.
+
+Quoted rates are hourly or annual depending on engagement type, and they include payroll taxes, insurance and the agency margin on a contract. Ask for the bill rate and the pay rate separately, so you can see what the candidate actually receives. Any agency that will not break those out is telling you something.
+
+## The first ninety days
+
+Most administrative placements that fail, fail on expectations rather than skill. Three things prevent it:
+
+- **Write down the calendar.** What happens weekly, monthly, quarterly and annually, and who depends on it. New administrators spend their first month discovering rituals nobody documented.
+- **Name the decision boundaries.** What can this person commit to without asking, and what must be escalated? Ambiguity here turns a confident assistant into a hesitant one within six weeks.
+- **Introduce them to the people who matter.** The EA or office manager who knows the stakeholders by name in week one is the one who is still there in year three.
+
+For employers weighing a search, our [employer services page](/for-clients) explains how Exzelon runs administrative searches, and the [alternatives guide](/resources/blog/staffing-agency-alternatives-chicago) covers what to look for if you are comparing agencies. The short version: ask each one how they screen for judgement in a support role, and see whether the answer is a process or a promise.`,
+  },
+  {
     slug: "manufacturing-staffing-chicago",
     title: "Manufacturing Staffing in Chicago: How Hiring Works",
     excerpt:
