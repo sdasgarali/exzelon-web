@@ -1138,7 +1138,7 @@ The employers who consistently win top talent — a theme we explore in [how emp
 
 A generalist agency can fill a generalist role. But when the role demands specific credentials, regulatory knowledge, or scarce technical skill, a specialist recruiter is worth far more — because they already know the people, the market rate, and the compliance landscape.
 
-That is especially true in the sectors that dominate Chicago hiring. Healthcare staffing requires understanding licensing and clinical settings; construction and electrical work demand safety compliance and trade certifications; IT and engineering require genuine technical fluency to screen well. A partner with real depth in your field — see our [healthcare](/opportunities/healthcare), [construction](/opportunities/construction), and [IT](/opportunities/it) practices — will out-hire a generalist every time.
+That is especially true in the sectors that dominate Chicago hiring. Healthcare staffing requires understanding licensing and clinical settings; construction and electrical work demand safety compliance and trade certifications; IT and engineering require genuine technical fluency to screen well. Administrative hiring looks simpler and is not: an executive assistant, an office manager and a front-desk coordinator are screened against different things, as our [guide to administrative staffing in Chicago](/resources/blog/administrative-staffing-chicago) sets out. A partner with real depth in your field — see our [healthcare](/opportunities/healthcare), [construction](/opportunities/construction), and [IT](/opportunities/it) practices — will out-hire a generalist every time.
 
 ## Hiring in Chicago specifically
 
