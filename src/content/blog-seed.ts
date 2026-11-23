@@ -17,6 +17,99 @@ export type BlogSeed = {
 
 export const blogSeed: BlogSeed[] = [
   {
+    slug: "staffing-agency-fees-chicago",
+    title: "Staffing Agency Fees in Chicago: What You Pay For",
+    excerpt:
+      "Bill rate or placement fee, markup or percentage, conversion or buyout — what each one covers, and how to compare two quotes fairly.",
+    category: "Hiring",
+    author: "Marcus Bell",
+    date: "2026-11-23",
+    body: `Staffing agency fees in Chicago resolve to two shapes, and nearly every quote you receive is one of them: an hourly bill rate on temporary and contract work, or a percentage of first-year salary on a permanent placement. Everything else you will hear in a sales conversation — markup, conversion fee, buyout, retainer, replacement guarantee — is a detail of those two. This guide sets out what each one has to cover, which line items actually move the number, and how to compare two quotes that are presented differently. It is written for the hiring manager or finance lead who has to explain the invoice, not just approve it.
+
+## The two ways an agency charges
+
+### Temporary and contract work is billed hourly
+
+When an agency supplies a worker on a temporary or contract basis, it is that worker's employer. It hires them, pays them on its own payroll, carries the statutory employment costs, and invoices you an hourly bill rate for hours worked. You approve the rate before the assignment starts and approve timesheets or the invoice afterwards; you carry none of the employer obligations while the assignment runs.
+
+The bill rate is higher than the worker's hourly pay, and that gap is what people mean by markup. What matters commercially is not the size of the gap but what is inside it — see the next section.
+
+### Permanent placements are billed on salary
+
+A direct-hire placement is priced as a fee, and the fee is almost always expressed as a percentage of the new hire's first-year base salary. Bonus, commission, sign-on and allowances are handled according to what you agree in writing, so put that in the contract rather than assuming the percentage covers everything.
+
+There are two commercial models. **Contingency** means you pay only if you hire someone the agency introduced — usually on acceptance or on the start date. **Retained** means the fee is paid in stages, typically for senior, confidential or hard-to-fill searches where the agency commits a dedicated search team and takes the search off the market. Most Chicago employer searches run contingency, and the agency carries the risk of a search that ends with no hire.
+
+### Temp-to-hire runs both, in sequence
+
+Most temp-to-hire arrangements bill the first period hourly at a markup, then charge a conversion fee if you take the worker onto your own payroll. That fee is usually the placement fee less a credit for hours already billed, and it often falls away entirely after a defined number of hours worked. The conversion formula is the single most negotiated line in a staffing contract — and the one most often left vague until the week you want to hire the person. Get it in writing before the first shift.
+
+The [difference between temp, temp-to-hire and direct hire](/resources/blog/electrical-staffing-agency-temp-vs-temp-to-hire-vs-direct-hire) is worth settling early, because it decides which of these two fee structures you are actually buying.
+
+## What the bill rate has to cover
+
+An hourly bill rate is a bundle, not a wage plus a margin. It has to fund:
+
+- **The worker's wage** — the number the person actually receives per hour, which you should always be told.
+- **Employer payroll taxes** — Social Security and Medicare, federal unemployment, and Illinois state unemployment.
+- **Workers' compensation premium** — coverage Illinois employers are required to carry, priced by classification code, which is why a warehouse rate and an office rate for the same hourly wage are not the same number.
+- **The benefits the agency provides** — health coverage, paid time off and any retirement contribution that comes with being on the agency's payroll rather than yours.
+- **Screening** — background checks, drug testing where the role or client requires it, skills testing, and licence or certification verification for regulated trades and clinical roles.
+- **Recruiting and account management** — the recruiter's time, the branch's overhead, and the cost of the candidates who were screened but not placed.
+- **Financing** — the agency pays the worker weekly and typically collects from you on thirty-day terms. It is carrying several weeks of payroll on every active assignment.
+
+That is why comparing markup percentages without seeing the components is close to meaningless. A quote with a higher bill rate and a transparent, fully burdened structure can cost less than a cheaper rate that invoices workers' compensation or screening separately, or that quietly pays the worker a lower wage against the rate you approved.
+
+## What the placement fee has to cover
+
+A permanent placement fee funds a search rather than an hour: market mapping and outreach to people who are not applying anywhere, screening and credential verification, interview scheduling, candidate care through a multi-round process, references, offer negotiation, and the replacement guarantee. It also funds the searches that fail, which under a contingency model is the agency's risk and not yours.
+
+## Six line items that move the number
+
+1. **Whether the bill rate is fully burdened.** Ask directly: does this rate include payroll taxes, workers' compensation, benefits and screening, or are any of those invoiced separately? Two rates that differ by a few dollars an hour can land in the opposite order once the extras are added.
+2. **The conversion formula on temp-to-hire.** What is the fee, what credit do you get for hours already billed, and after how many hours does it drop to zero? Written down, or it does not exist.
+3. **The guarantee, and what voids it.** Length of the replacement period, whether it is a refund or a free re-search, and the events that cancel it — a layoff, a restructuring, a change in the role's scope. These exclusions are where most disputes actually happen.
+4. **Candidate ownership.** How long after the agency submits a candidate are you committed to paying if you hire that person by another route? A short ownership window protects you from paying a fee for someone already in your pipeline; a long one protects the agency's work. Agree a period you can both live with.
+5. **Overtime, holiday and shift differential.** Is overtime billed at the statutory multiplier on the base rate, or on the bill rate? Does a holiday shift carry a premium? These are the line items that make an invoice look wrong two months in.
+6. **Volume, exclusivity and payment terms.** Committed volume, a single-agency arrangement, or faster payment can all move a rate. Ask what is available rather than assuming the first quote is the price.
+
+## How to compare two quotes fairly
+
+- **Ask for a written quote per role, not a typical range.** A range tells you nothing about the seat you are filling.
+- **Ask for the pay rate and the markup separately.** You are entitled to know what the worker receives, and a supplier that will not tell you is a supplier you cannot audit.
+- **Normalise the guarantee.** A cheap fee with a thirty-day replacement period is a different product from a higher fee with a ninety-day one.
+- **Price the conversion, not just the hourly rate.** On temp-to-hire, the total cost is the hours billed plus the conversion fee — and the second number is often the bigger one.
+- **Compare against the cost of the vacancy.** A role that stays open for another six weeks has a cost that usually dwarfs the difference between two quotes.
+- **Check what screening is included.** Licence verification, background checks and skills testing are line items, not courtesies.
+
+## What should not be negotiable
+
+- **Statutory coverage.** Workers' compensation, payroll taxes and I-9 verification sit with whichever entity employs the worker. Confirm in writing which entity that is.
+- **Licence and credential verification in regulated roles.** For trades and clinical work, the credential is the qualification.
+- **A certificate of insurance** naming your company, on request, before the first placement.
+- **Written terms** on ownership, conversion and the guarantee.
+- **A candidate who pays nothing.** Agencies are paid by the employer. If a candidate is asked for a fee, a deposit, or payment for "training" or "placement", walk away — that is not how legitimate staffing works.
+
+## Red flags in a fee quote
+
+- A number quoted before anyone has understood the role.
+- A markup quoted with no pay rate attached to it.
+- "Replacement guarantee" with no defined period or with exclusions left verbal.
+- A bill rate that changes after the first invoice.
+- Conversion terms that only appear at the moment you want to hire the worker.
+- A fee claimed on a candidate who was already in your pipeline, under an ownership clause nobody explained.
+
+## What to settle before you sign
+
+Bring these six answers back from the intake call and the contract comparison stops being an argument about percentages: the fully burdened bill rate and its components; the pay rate the worker receives; the conversion formula and hours threshold; the guarantee period and its exclusions; the ownership window; and how overtime, holidays and shift differentials are billed.
+
+If you are still choosing between agencies rather than between quotes, the [questions worth asking before you commit](/resources/blog/best-staffing-agencies-in-chicago-how-to-choose) matter more than the headline fee. And if you are weighing a permanent hire against a contract one, our [guide to evaluating an agency for permanent placement](/resources/blog/evaluating-staffing-agencies-permanent-placements) covers what the fee should be buying you.
+
+## The short version
+
+Temporary and contract work is an hourly bill rate that has to fund the worker's wage, the statutory costs of employing them, their benefits, their screening and the agency's cash flow. Permanent work is a one-time fee on first-year salary that funds a search and a guarantee. Temp-to-hire is the first followed by the second, and the conversion formula is the part to negotiate hardest. Every legitimate quote can be broken into those components on paper — and if a supplier will not break it down, that is the answer to the question you were asking. When you want a quote for a specific role, [tell us what you are hiring for](/for-clients) and the breakdown comes with it.`,
+  },
+  {
     slug: "manufacturing-staffing-chicago",
     title: "Manufacturing Staffing in Chicago: How Hiring Works",
     excerpt:
@@ -869,7 +962,7 @@ Agencies are paid by the employer, and the fee structure depends on the type of 
 - **Direct-hire (permanent) placements** are usually a one-time fee, most commonly calculated as a percentage of the new hire's first-year salary. It is typically contingent — you pay only when you actually hire someone the agency presented.
 - **Contract and temp-to-hire staffing** is usually billed as an hourly rate that bundles the worker's pay with the agency's costs of employing them — payroll taxes, workers' compensation, and administration — plus a margin. You get a single, predictable rate and none of the employer-of-record burden.
 
-Reputable agencies are transparent about this up front and back it with guarantees — for example, a replacement period on permanent placements if a hire does not work out within a defined window. Always ask about the fee, the guarantee, and exactly what is included before you engage.
+Reputable agencies are transparent about this up front and back it with guarantees — for example, a replacement period on permanent placements if a hire does not work out within a defined window. Always ask about the fee, the guarantee, and exactly what is included before you engage. Our breakdown of [staffing agency fees in Chicago](/resources/blog/staffing-agency-fees-chicago) lists every component of a bill rate and a placement fee, and the six contract terms that decide what you actually pay.
 
 > The right way to judge agency cost is not the fee in isolation — it is the fee against the cost of the role sitting empty, plus the cost of a bad hire made in a hurry.
 
@@ -1878,7 +1971,7 @@ If those four things are not happening in a fortnight, the fee model or the firm
 
 ## The bottom line
 
-Evaluate a permanent placement agency on the fee model, the guarantee text, the quality of its submittals and its willingness to tell you something you did not want to hear. Those four things predict the outcome far better than a client logo wall, because they describe how the firm behaves when the search is hard — which is precisely when you are paying for it.
+Evaluate a permanent placement agency on the fee model, the guarantee text, the quality of its submittals and its willingness to tell you something you did not want to hear. Those four things predict the outcome far better than a client logo wall, because they describe how the firm behaves when the search is hard — which is precisely when you are paying for it. If you want the fee model itself broken down line by line, [staffing agency fees in Chicago](/resources/blog/staffing-agency-fees-chicago) covers both structures and the terms that change the number.
 
 If you would rather not run that evaluation cold, [tell us about the role](/for-clients) and a specialist recruiter will walk you through how the search would run, what the market is paying, and what we commit to in writing. For the broader comparison across agency types, our guide to [choosing a staffing agency in Chicago](/resources/blog/best-staffing-agencies-in-chicago-how-to-choose) covers the general checklist, and [how hiring through an agency works](/resources/blog/how-to-hire-through-a-staffing-agency-chicago) walks the process end to end.`,
   },
@@ -2005,7 +2098,7 @@ Temp-to-hire is a temporary assignment with an agreed conversion. After a define
 
 It exists because CVs lie about fit. Someone who interviews well can still struggle with your drawings, your crew, or a shift pattern they have never worked. A trial answers that question with evidence instead of a reference call.
 
-Get the conversion terms in writing before day one: the window, the fee, what happens if you convert early, and what happens if the electrician leaves during the trial. Verbal conversion terms are the single most common source of invoice disputes in staffing.
+Get the conversion terms in writing before day one: the window, the fee, what happens if you convert early, and what happens if the electrician leaves during the trial. Verbal conversion terms are the single most common source of invoice disputes in staffing — our [guide to staffing agency fees](/resources/blog/staffing-agency-fees-chicago) sets out what to put in the contract.
 
 ### Direct hire: the electrician joins you
 
