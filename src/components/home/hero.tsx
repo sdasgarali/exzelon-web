@@ -64,7 +64,11 @@ export function Hero({ jobs }: { jobs: Job[] }) {
             className="max-w-xl text-balance font-extrabold tracking-tight"
             style={{ fontSize: "clamp(2.6rem, 1.6rem + 3.4vw, 4.25rem)", lineHeight: 1.04 }}
           >
-            Find your next role,{" "}
+            {/* The title and description on this route target "staffing agency in Chicago",
+                but the H1 was "Find your next role, matched by specialists" — candidate
+                framing with no service and no market in it, on the one page that has to rank
+                for the agency query. Keep the second clause; make the first carry both. */}
+            Staffing and recruiting in Chicago,{" "}
             <span className="text-accent-400">matched by specialists.</span>
           </motion.h1>
 
