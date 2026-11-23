@@ -128,8 +128,15 @@ function BlogList({ posts }: { posts: PostCard[] }) {
       </Link>
 
       {/* Rest */}
+      {/* The list ran H1 → H3 for 29 cards (only the featured post carried an H2), so the
+          archive had no heading of its own. A group label restores the outline. */}
       {rest.length > 0 && (
-        <StaggerGroup className="mt-10 grid gap-6 md:grid-cols-3">
+        <h2 className="mt-16 text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">
+          More guides
+        </h2>
+      )}
+      {rest.length > 0 && (
+        <StaggerGroup className="mt-8 grid gap-6 md:grid-cols-3">
           {rest.map((post) => (
             <MotionItem key={post.slug} variants={staggerItem}>
               <Link
