@@ -426,33 +426,82 @@ If you are comparing right now, [tell us what you are replacing and why](/for-cl
   },
   {
     slug: "elevate-your-healthcare-career",
-    title: "Elevate Your Healthcare Career with Exzelon Solutions",
+    title: "Advance Your Healthcare Career: A Practical Guide",
     excerpt:
-      "From travel nursing to permanent clinical roles, here's how to level up your healthcare career in 2026 — and how the right staffing partner accelerates it.",
+      "A practical route for nurses and allied health professionals: licences, certifications, travel versus permanent roles, and the credential file.",
     category: "Healthcare",
     author: "Priya Menon",
     date: "2026-06-18",
-    body: `Healthcare careers move fast, and the professionals who thrive are the ones who prepare deliberately. Whether you're an ICU nurse eyeing a travel contract or a lab technologist ready for a permanent role, a clear plan and the right partner make all the difference.
+    body: `Healthcare careers rarely advance by accident. The clinicians who move up — from med-surg to ICU, from staff nurse to charge, from a permanent post to a travel contract that pays materially more — usually do it by working a plan across two or three hiring cycles rather than by waiting to be noticed.
 
-## Know what you want before you search
+This guide is for nurses and allied health professionals building that plan: what actually gates progression, how travel and permanent paths differ, what to keep in a credential file, and how to interview for a step up rather than a sideways move. It is career guidance, not clinical or licensing advice — the board in your state has the final word on every credential question.
 
-The strongest candidates lead with clarity. Decide on the setting, shift pattern, and pay range that fit your life, then hold to them. A specialist recruiter can only advocate for you when they understand your non-negotiables.
+## Progression is gated by credentials, not by years
 
-- **Setting** — acute care, ambulatory, travel, or telehealth
-- **Schedule** — day, night, rotating, or per-diem flexibility
-- **Growth** — the certifications and specialties you want next
+Most hospitals promote on a combination of experience and certificated competence, and the certificate is the part candidates leave to chance. Three layers matter:
 
-## Keep your credentials current
+- **Licence.** Your state board licence must be active, unrestricted and verifiable. An expired or encumbered licence stops a hiring process faster than any interview answer.
+- **Mandatory certifications.** Basic life support is the floor for nearly every clinical role; advanced cardiac life support, paediatric advanced life support and neonatal resuscitation are role-specific requirements rather than optional extras.
+- **Specialty certification.** Certification in your specialty — critical care, emergency, oncology, perioperative, dialysis and others — is what distinguishes a clinician who has worked in a unit from one who has been assessed against its standard. It usually requires a period of practice hours before you can sit the exam, which is why the decision has to be made a year ahead of the role you want.
 
-Nothing slows a placement like an expired license or a missing certification. Keep everything verifiable and in one place so you can move the moment the right role appears.
+The practical implication: decide the next role first, then work backwards to the certificate it requires, then start accumulating the practice hours. The reverse order — take a course, then look for the role — costs months.
 
-> Pro tip: Candidates with a complete, up-to-date profile reach offer stage dramatically faster than those who scramble for documents after an interview.
+For allied health professionals the pattern is the same with different names: registry or certifying-body credentials, state licensure, and modality-specific training that employers verify at the primary source.
 
-## Partner with a specialist
+## Travel, contract, or permanent
 
-A recruiter who lives in healthcare knows which employers value your background and can position you accordingly. That sector expertise — combined with a relentless focus on compliance — is exactly what turns a stressful search into a confident next step.
+The three paths build different careers, and the choice is less about money than about what you want your next three years to look like.
 
-Ready to move forward? Browse our live [healthcare opportunities](/opportunities/healthcare) or reach out to a recruiter who specializes in your field.`,
+**Permanent roles** build tenure-based progression: charge nurse, preceptor, unit educator, manager. They also build the internal relationships that lead to promotion, which is difficult to replicate from a contract. If your goal is leadership, permanent is the faster route even where the hourly rate is lower.
+
+**Travel assignments** trade stability for rate and exposure. A travel contract typically runs a set number of weeks at a facility with a specific need, often with housing support or a stipend. The clinicians who do well at it treat each assignment as a short residency: learn the unit's protocols fast, be the easiest person to schedule, and leave with a reference. The risk to manage is credential portability — every new facility re-verifies everything, so a complete and current file is what lets you accept an assignment on short notice.
+
+**Temp-to-hire and local contract** sits between the two. It is a way to evaluate a facility before committing, and a way for a facility to evaluate a clinician before a permanent hire. The conversion terms should be agreed in writing before the assignment starts.
+
+A candid note on pay: travel rates fluctuate with facility demand and season, and comparing a travel hourly rate to a permanent hourly rate without accounting for benefits, guaranteed hours and housing is not a comparison at all. Ask for the full package on both sides before deciding.
+
+The [healthcare opportunities we place](/opportunities/healthcare) lists the settings and roles Exzelon recruits for, from acute care nursing to allied health and clinical support.
+
+## Build the credential file once
+
+Every delay in a healthcare placement traces back to a document. A file that is complete and current on the day you need it is worth more than any single line on a résumé.
+
+Keep digital copies, dated, of:
+
+- State licence, with the expiry date and verification link
+- Certifications, front and back, with expiry dates
+- Immunisation and screening records required by facilities, including any titre documentation
+- Professional references with contact details and the unit and dates you worked together
+- Continuing education certificates
+- Identification and work authorisation documents
+
+Then set a reminder for sixty days before every expiry. Facilities verify at the primary source, and a lapse discovered during onboarding costs the assignment and sometimes the relationship with the recruiter.
+
+## Interview for the step up
+
+The mistake candidates make when moving from one clinical level to another is answering questions at the level they are leaving. An ICU interview is not a med-surg interview with harder drugs; it is a test of whether you can reason about a deteriorating patient in front of people who do it daily.
+
+Four things consistently separate a strong answer:
+
+- **A specific patient, not a category.** Describe the presentation, what you noticed first, what you did, and what happened. Clinicians interviewing clinicians can tell within a minute whether the story is yours.
+- **The reasoning, stated out loud.** Name the assessment that changed your decision. That is what the panel is listening for.
+- **The escalation.** Say when you called for help and what you said. Judgement about escalation is the core competency of senior clinical work.
+- **What you would do differently.** A candidate who can identify their own error is more credible than one who describes only successes.
+
+For managers and educators, the equivalent test is a scenario: a conflict between two staff members, a family complaint, a scheduling gap on a night shift. Answer with the process you would follow and the person you would involve, not with the outcome you would like.
+
+## The parts nobody prepares for
+
+- **Shift pattern and commute.** A role is a package. Nights, rotation, weekend frequency and the commute decide whether you are still there in a year.
+- **Float expectations.** Ask whether the role floats and where. Being sent to a unit you have not worked in is the most common source of early dissatisfaction.
+- **Orientation length.** A short orientation on a high-acuity unit is a signal about staffing. Ask what it is, and ask what it is for someone with your experience.
+- **Documentation systems.** If the facility uses an EHR you have not worked with, say so and describe how you learned the last one. Systems are learnable; defensiveness is not.
+
+## Working with a recruiter
+
+A healthcare recruiter earns their place by knowing which facilities will value your specific background, and by handling verification, credentialing and scheduling so that your first week is spent orienting rather than chasing paperwork. The right questions to ask one: which facilities have you placed into in the last six months, who verifies my credentials and how, and what happens if an assignment ends early.
+
+If you are building your next step and want a conversation about where your credentials could take you, [talk to our team](/contact), or read the [guide to how staffing agencies work](/resources/blog/how-staffing-agencies-work-a-guide-for-job-seekers) first so you know exactly what to expect from the process.`,
   },
   {
     slug: "working-in-the-usa-guide",
