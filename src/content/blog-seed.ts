@@ -458,31 +458,81 @@ Ready to move forward? Browse our live [healthcare opportunities](/opportunities
     slug: "working-in-the-usa-guide",
     title: "Navigating the U.S. Job Market as a Skilled Professional",
     excerpt:
-      "Licensing, credentials, and culture — everything skilled professionals should know before starting a career in the United States.",
+      "Licensing, credential evaluation, tax forms and workplace norms — a practical guide for skilled professionals starting a U.S. career.",
     category: "Career",
     author: "Daniel Okafor",
     date: "2026-05-30",
-    body: `Relocating your career to the United States is a huge step, and the professionals who land well are the ones who understand the landscape before they arrive. Here's what matters most.
+    body: `Moving a career to the United States is mostly an administration problem wearing a life-change costume. The professionals who land well are rarely the ones who interviewed best; they are the ones who started the paperwork early, understood which credential the employer would actually check, and knew what a U.S. résumé is supposed to look like before they sent one.
 
-## Licensing and credential recognition
+This guide covers the practical sequence for skilled professionals arriving from outside the U.S. — licensing, credential evaluation, résumé conventions, tax forms and workplace norms. It is general information, not immigration or legal advice: visa questions belong with a licensed immigration attorney, and licensing questions belong with the relevant state board.
 
-Many professions — nursing, engineering, accounting — require state or board-level licensing. Start early: verification and equivalency reviews can take weeks, and requirements vary by state.
+## Start with the licence, not the résumé
 
-## Build a U.S.-style resume
+In the U.S., professional regulation sits mostly with the states, not with a single national body. That single fact drives most of the timeline.
 
-American resumes are concise, achievement-led, and one to two pages. Lead every bullet with impact and quantify results wherever you can.
+- **Nursing.** Licensure runs through each state's board of nursing. Internationally educated nurses generally need a credential evaluation, an English proficiency test where the board requires it, and passage of the NCLEX-RN (or NCLEX-PN). Multi-state privileges depend on both states being members of the Nurse Licensure Compact, and compact membership changes — check the current list rather than relying on what a recruiter told you last year.
+- **Engineering.** A professional engineer licence is granted by state boards and requires a degree from an accredited programme (or an equivalent evaluated credential), examinations, and supervised experience. Most engineering jobs do not require a PE, but roles that sign off on public works usually do.
+- **Accounting.** The CPA licence is issued by state boards of accountancy, with education, examination and experience requirements that differ by state. An internationally trained accountant may find that a state requires specific accounting course hours before sitting the exam.
+- **Skilled trades.** Electricians, plumbers and HVAC technicians are licensed at state or municipal level, and in Illinois much electrical licensing is handled locally. A foreign trade qualification rarely transfers directly; expect to demonstrate hours and pass a local examination.
+- **Healthcare beyond nursing.** Allied health professions (radiography, laboratory science, physical therapy, respiratory therapy) each have their own certifying body and state licensure route. Credential evaluation is almost always the first step.
 
-- Skip photos, marital status, and date of birth
-- Emphasize outcomes over responsibilities
-- Tailor the summary to each role
+Two habits save months. First, contact the specific state board for the state you intend to work in and ask for the requirement list in writing. Second, ask any employer or recruiter which credential they will verify on day one — that answer tells you what to prioritise.
 
-## Understand workplace culture
+## Credential evaluation
 
-Directness, punctuality, and self-advocacy are valued. Ask questions, share progress proactively, and don't wait to be told you're doing well — highlight your wins.
+Most U.S. employers and licensing boards will not assess a foreign degree themselves; they require an evaluation from a recognised service. Two of the best-known are World Education Services (WES) and Educational Credential Evaluators (ECE). Both publish current requirements and timelines on their own sites, and both offer different evaluation types — a document-by-document report for employment, a course-by-course report for licensing and university admission.
 
-> The candidates who settle in fastest treat their first 90 days as an onboarding project: clarify expectations, build relationships, and document early wins.
+Three practical notes:
 
-A staffing partner who has guided internationally-trained professionals through this process can shorten the learning curve considerably. [Contact us](/contact) to talk through your move.`,
+- **Order the right type.** A course-by-course evaluation costs more and takes longer, and it is the one licensing boards usually want. Ordering the cheaper report first means paying twice.
+- **Request sealed transcripts early.** The delay is almost always on the issuing institution's side, not the evaluator's.
+- **Keep the original report.** Employers and boards may each want a copy sent directly from the evaluator, which means a second request.
+
+## A U.S.-style résumé
+
+U.S. résumés are shorter and more results-oriented than the CVs used in many other countries. Two pages is a maximum, one page is normal for early-career candidates, and there is no place for a photograph, date of birth, marital status, nationality or a full home address.
+
+What a U.S. reader expects:
+
+- Contact details at the top — a professional email address, a phone number that takes voicemail, and a city and state.
+- A short summary of three or four lines stating what you do and the value you bring.
+- Reverse-chronological experience with results, not duties.
+- Education with the institution, the degree and the year; add the credential evaluation only if an employer asked for it.
+- A skills section with the systems and tools you actually use.
+
+Employment dates must be accurate and gaps should be explainable rather than hidden. If your job title was unusual outside your country, put the market-facing equivalent next to it so a reader does not have to guess. Our [résumé guide](/resources/blog/5-steps-to-a-standout-resume) covers the format in detail, including how to quantify work where the numbers are not obvious.
+
+## Work authorisation and tax forms
+
+Employers in the U.S. must verify identity and work authorisation using Form I-9 within the first days of employment. You will be asked for documents from the published list — commonly a passport plus a work-authorisation document, or a driver's licence plus a Social Security card. The form is completed by both parties, and it is routine rather than a red flag.
+
+Two tax documents matter in your first weeks. A **W-2** is issued by an employer to an employee; a **1099** is issued to an independent contractor. Staffing agencies and employers generally hire employees on a W-2 basis, which means payroll taxes are withheld from each pay period. If a role is offered as a 1099 contract, ask who is responsible for withholding and for workers' compensation cover — that answer differs materially between engagements.
+
+You will also need a Social Security number to be paid and to file taxes, and a U.S. bank account to receive direct deposit. Both are practical steps that are easier to arrange in your first week than in your first month.
+
+If your right to work depends on a visa, ask the employer directly and early whether they sponsor, and which categories they have sponsored before. A staffing agency placing you with a client employer may not be the sponsoring entity. Get that answer in writing before you resign anything.
+
+## Workplace culture, without the stereotypes
+
+The differences that actually trip up skilled professionals are small and specific:
+
+- **Directness is usually respect, not rudeness.** Disagreement in a meeting is expected; silence is often read as disengagement.
+- **Self-advocacy is part of the job.** Documenting your wins, asking for the next assignment and naming your ambition are normal. Waiting to be noticed is not a strategy here.
+- **Punctuality is a competence signal.** Arriving on time for interviews, calls and deadlines is read as reliability, and lateness is remembered.
+- **Written communication carries weight.** Short, clear emails with the ask stated in the first line are the norm. Long context-first messages often go unanswered.
+- **Small talk is structural, not optional.** A few minutes of personal conversation at the start of a meeting is how colleagues calibrate trust.
+
+## The first ninety days
+
+Treat onboarding as a project with deliverables. In the first two weeks: confirm your paperwork, learn who decides what, and ask your manager what success looks like at ninety days. In the first month: deliver one visible piece of work and get feedback on it. By day ninety: be able to explain how your role connects to the team's goals, and have one relationship outside your immediate team.
+
+Professionals who relocate successfully tend to do one more thing — they keep a written record of every credential, certificate, transcript and reference in one place, so that when a role moves quickly they can respond in days rather than weeks.
+
+## If you are hiring internationally trained talent
+
+Employers get value from this pool when they screen for the credential rather than the pedigree of the institution, and when they allow a realistic start date for licensing. The candidates who look "unqualified" on a keyword search are often fully licensed elsewhere and mid-process on the U.S. equivalent.
+
+If you are hiring in Chicago and want to talk through a role, [contact our team](/contact). If you are the professional making the move, start with the roles on the [opportunities page](/opportunities) and read the [guide to how staffing agencies work](/resources/blog/how-staffing-agencies-work-a-guide-for-job-seekers) so you know what a recruiter will ask you for.`,
   },
   {
     slug: "5-steps-to-a-standout-resume",
