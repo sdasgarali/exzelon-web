@@ -1,6 +1,7 @@
 /** Employer services — copy recovered verbatim from the original /for-clients page. */
 
 import { industryCountWord } from "@/content/industries";
+import { jobsEnabled } from "@/lib/site";
 
 export type Service = {
   slug: string;
@@ -65,8 +66,15 @@ export const services: Service[] = [
 export const steps = [
   {
     n: "01",
-    title: "Search Jobs",
-    description: `Browse thousands of live openings across ${industryCountWord} industries and filter by role, location, and type.`,
+    // The public board is flag-gated (`jobsEnabled`). While it is off, `/jobs` 307s to
+    // /contact and there is no search or filter UI, so the old "Browse thousands of live
+    // openings … filter by role, location, and type" line promised a product the home page
+    // could not deliver — on the site's most-crawled page, and in a sentence a crawler reads
+    // as page content. Describe the real first step in each state instead.
+    title: jobsEnabled ? "Search Jobs" : "Tell Us What You Want",
+    description: jobsEnabled
+      ? `Browse open roles across ${industryCountWord} industries and filter by role, location, and type.`
+      : `Tell a recruiter the role, shift and location you want. We work from live openings across ${industryCountWord} industries and bring you the ones that fit.`,
     icon: "search",
   },
   {
