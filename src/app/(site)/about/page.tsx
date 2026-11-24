@@ -11,7 +11,9 @@ import { jobsEnabled } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "About Us",
+  // "About Us" spent only 34 of the ~60 SERP characters and targeted nothing; the page is the
+  // site's trust surface and carried 1 click in the last 28 days while the home page lost 9.
+  title: "About Our Chicago Staffing Agency",
   description: "Exzelon — NextGen Hires is a Chicago staffing and recruitment agency. Our mission, the twelve sectors we staff, and the values we hire by.",
   path: "/about",
 });
