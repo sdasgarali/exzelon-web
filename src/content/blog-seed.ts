@@ -17,6 +17,104 @@ export type BlogSeed = {
 
 export const blogSeed: BlogSeed[] = [
   {
+    slug: "headhunters-vs-staffing-agencies-chicago",
+    title: "Headhunters vs Staffing Agencies in Chicago",
+    excerpt:
+      "A headhunter fills a permanent seat; a staffing agency employs the worker and places them on assignment. Which fits your Chicago hire, and what to ask.",
+    category: "Hiring",
+    author: "Marcus Bell",
+    date: "2026-11-26",
+    body: `A headhunter is paid to fill a permanent seat: they find, approach and place one specific person, usually someone who is already employed and not applying anywhere. A staffing agency employs the worker and supplies them to you — hourly, weekly, temp-to-hire — carrying the payroll, the workers' compensation and the employment paperwork while they work on your site. Chicago employers use both, just not for the same hire. This guide sets out what each model is for, how the money works, and the questions that reveal which kind of firm you are actually talking to.
+
+## The words people use interchangeably
+
+### Headhunter
+
+"Headhunter" is the trade's informal name for a recruiter who approaches candidates rather than waiting for applications. In practice the word is used for two different businesses: a contingency recruiter working a permanent role on commission, and a retained search firm working an exclusive, senior assignment. They behave very differently on a search, so when someone calls themselves a headhunter, the useful question is which of those two they are.
+
+### Recruiter
+
+A recruiter is the person doing the work, whoever employs them. An in-house recruiter works for you. An agency recruiter works for a firm that has been engaged to fill your role. The title says nothing about the commercial model, which is why "recruiter" and "headhunter" get used for the same job by different people on the same day.
+
+### Staffing agency
+
+A staffing agency is an employer. When it places someone on assignment it hires that person onto its own payroll, pays them, withholds tax, carries workers' compensation, and invoices you for hours worked. You direct the work; the agency handles the employment. That structure is what makes a staffing agency able to put someone on your site next week — and it is also why a staffing agency is a good way to try before you hire: [temp, temp-to-hire and direct hire](/resources/blog/electrical-staffing-agency-temp-vs-temp-to-hire-vs-direct-hire) are three different deals with three different risk profiles.
+
+### Retained and executive search
+
+A retained firm is paid in stages to run a search exclusively, usually for a senior, confidential or otherwise market-sensitive role. The commitment buys a dedicated search: research, direct approach, and a firm that is not simultaneously running your role for a competitor. Retained search is the right model when the seat is genuinely hard, or when the fact that the seat is open is itself information you do not want in the market.
+
+## Four differences that change the search
+
+The label matters much less than four practical questions.
+
+### Who employs the person on day one
+
+With a staffing agency, the worker's employer is the agency for the length of the assignment. With a headhunter or direct-hire recruiter, the person becomes your employee on their start date and the agency is out of the employment relationship entirely. This is the difference that decides payroll, benefits, unemployment claims and who handles a performance problem in week two.
+
+### Who pays, and when
+
+Temporary and contract work is billed hourly, at a rate that has to cover the worker's pay, the employer's statutory costs and the agency's margin. Permanent work is billed as a placement fee, normally expressed as a percentage of first-year base salary. Contingency means you pay when you hire someone the firm introduced. Retained means you pay in stages whether or not the search ends in a hire. [What each of those has to fund](/resources/blog/staffing-agency-fees-chicago), and which line items actually move the number, is worth reading before you compare two quotes.
+
+### Whether the search is exclusive
+
+A contingency recruiter's incentive is to be the agency whose candidate you hire, so several may be working your role at once. That can produce a fast shortlist and a crowded one. An exclusive or retained search puts one firm on the role and expects it to own the outcome. Most mid-level Chicago searches run contingency; senior and confidential ones run retained or exclusive. Working three agencies on the same role without telling them is how duplicate submittals and fee disputes start.
+
+### Where the candidates come from
+
+Headhunters earn their fee by reaching people who are not looking: they work a network, a discipline-specific database and direct approach. Staffing agencies work from a pool they have already screened and can deploy, which is why an agency can often cover a shift next week and cannot always produce a passive principal engineer. The best hire usually comes from whichever of those two pools actually contains the person you need.
+
+## Which model fits which hire
+
+- **A defined period of cover — a leave, a peak, a project with an end date.** Staffing agency, billed hourly.
+- **A seat you want to try before committing to.** Temp-to-hire through an agency, with the conversion terms agreed in writing before the first shift.
+- **A mid-level permanent role in a discipline with an active candidate market.** A contingency recruiter who works that discipline.
+- **A senior, confidential or market-sensitive replacement.** Retained or exclusive search. Contingency here usually means the search leaks before it closes.
+- **A hard technical specialism — a licensed PE, a master electrician, controls and instrumentation.** A specialist in that discipline, on whichever model fits the employment type. Generalist firms rarely hold these candidates.
+
+## What "headhunter" means in engineering and construction
+
+Two sectors make up most of the Chicago searches where the word gets used, and in both the discipline knowledge is what separates a good firm from a busy one.
+
+On the **engineering** side, the screening that matters is credential and scope: which licence the seat actually requires, what the candidate personally designed or signed off, and at what scale. A recruiter who cannot tell a process engineer from a project engineer will send you a shortlist you cannot use. The role definition work is set out in [how to hire engineers in Chicago](/resources/blog/engineering-recruiters-chicago-how-to-hire).
+
+On the **construction and electrical** side, the constraint is licensing and labour structure. Electrical licensing in Illinois is handled locally rather than by a single state board, so the City of Chicago and many suburbs each license, and a candidate's card matters as much as their CV. Commercial and industrial work draw on different code knowledge and different site experience, and much of the metro's skilled trades hiring runs through union hiring halls with their own referral rules. None of that is visible on a job board, which is why construction and electrical searches go wrong when they are run like office hiring.
+
+## Questions that tell you which firm you are talking to
+
+Ask these before you sign anything.
+
+1. **Who signs the paycheque on day one?** The answer tells you whether you are buying an employee or an assignment.
+2. **Is this search exclusive?** If not, ask how many other firms are working it, and expect a straight answer.
+3. **What happens if the person leaves in the first sixty or ninety days?** A replacement guarantee is normal on permanent placements; read what it actually promises.
+4. **What is the conversion fee if we hire an assignee directly?** Get the formula, not the principle. This is the clause that decides what a temp-to-hire costs in total.
+5. **Which roles in this discipline have you filled in the last year?** A firm that works your sector can describe the market without naming clients; a firm that does not will talk about process instead.
+6. **Who runs the first screen?** A recruiter who has worked the discipline, or a coordinator reading a checklist. The difference shows up in the second interview.
+
+## The contract terms worth reading
+
+Five clauses decide most of the commercial outcome: the fee basis and what it includes, the replacement guarantee and its window, exclusivity, who owns a candidate if two firms submit them, and payment terms. They matter more than the headline percentage, because two quotes that look ten points apart can end up within a few hundred dollars of each other once the fee basis is aligned. The [six terms that move the number](/resources/blog/staffing-agency-fees-chicago) covers each one, and [how to compare agencies](/resources/blog/best-staffing-agencies-in-chicago-how-to-choose) covers the evaluation itself.
+
+## Three ways employers get this wrong
+
+- **Running a confidential replacement through three contingency firms.** The search becomes visible in the market, which is exactly what a confidential replacement cannot afford.
+- **Hiring a temp for a seat that needs ownership.** Someone good will not leave a permanent role for an open-ended assignment. If the seat needs continuity, hire for it directly.
+- **Choosing on fee alone.** A cheaper fee on a search that takes twice as long and produces a mis-hire is not cheaper. The cost of the vacancy and the cost of the wrong person both sit outside the invoice.
+
+## A short decision path
+
+1. **Write the seat, not the title.** What the person has to own in the first ninety days, which credentials are genuinely required, and what the market rate looks like.
+2. **Decide the employment type.** Permanent, contract, or try-before-you-hire. This decides the model more than any other choice.
+3. **Pick the firm by discipline depth.** The model you choose matters less than whether the firm actually works your sector.
+4. **Agree the terms in writing.** Fee basis, guarantee, conversion, exclusivity, payment.
+5. **Run one intake properly.** A single well-briefed call produces a better shortlist than three rushed ones.
+
+## Where we sit
+
+Exzelon is a staffing agency: we employ the people we place on contract and temp-to-hire assignments, and we run direct-hire searches across the same twelve sectors, from [engineering](/opportunities/engineering) to [construction](/opportunities/construction). If your hire is contract, temp-to-hire or a permanent role in a sector we specialise in, [tell us what you are hiring for](/for-clients) and a sector recruiter will come back to you with a shortlist built against the brief rather than the job title.
+`,
+  },
+  {
     slug: "staffing-agency-fees-chicago",
     title: "Staffing Agency Fees in Chicago: What You Pay For",
     excerpt:
