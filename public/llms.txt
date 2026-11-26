@@ -1,6 +1,6 @@
 # Exzelon — NextGen Hires
 # https://llmstxt.org
-# Generated: 2026-11-23
+# Generated: 2026-11-26
 # Full content: https://www.exzelon.com/llms-full.txt
 
 > Exzelon is a Chicago-based recruitment and staffing agency that connects skilled
@@ -42,6 +42,8 @@
 ## Recent Guides
 
 - [Staffing Agency Fees in Chicago: What You Pay For](https://www.exzelon.com/resources/blog/staffing-agency-fees-chicago): Every component of a bill rate and a placement fee, and the six contract terms that decide what an employer actually pays.
+- [Administrative Staffing in Chicago: How to Hire Office Staff](https://www.exzelon.com/resources/blog/administrative-staffing-chicago): Executive assistants, office managers and coordinators are hired on different evidence — what each seat screens for, and what drives the rate.
+- [IT Staffing in Chicago: How to Hire Tech Talent](https://www.exzelon.com/resources/blog/it-staffing-chicago-how-to-hire): Chicago IT searches stall on scope, not on talent — defining the role, screening engineers in two conversations, and choosing contract or permanent.
 - [Accounting Staffing in Chicago: How to Hire Accountants](https://www.exzelon.com/resources/blog/accounting-staffing-chicago): Accounting hires turn on the close calendar, the software stack and whether the seat is seasonal.
 - [Manufacturing Staffing in Chicago: How Hiring Works](https://www.exzelon.com/resources/blog/manufacturing-staffing-chicago): Shift structure, machine-level screening and the first ninety days — how Chicago production and maintenance hiring actually works.
 - [Staffing Agency Alternatives in Chicago: How to Switch](https://www.exzelon.com/resources/blog/staffing-agency-alternatives-chicago): Comparing providers on fees, fill rates and contract terms, and switching without breaking a placement.

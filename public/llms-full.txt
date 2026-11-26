@@ -1,6 +1,6 @@
 # Exzelon — NextGen Hires | Full Content Reference
 # https://llmstxt.org
-# Generated: 2026-11-23
+# Generated: 2026-11-26
 
 > Exzelon is a Chicago-based recruitment and staffing agency that connects skilled
 > professionals with employers across twelve industries: Healthcare, Construction,
@@ -134,6 +134,8 @@ ready-to-start talent.
 ## Published Guides (blog)
 
 - [Staffing Agency Fees in Chicago: What You Pay For](https://www.exzelon.com/resources/blog/staffing-agency-fees-chicago): Temporary work is an hourly bill rate; permanent work is a percentage of first-year salary. What each has to fund, the six terms that move the number, and how to compare two quotes.
+- [Administrative Staffing in Chicago: How to Hire Office Staff](https://www.exzelon.com/resources/blog/administrative-staffing-chicago): Executive assistants, office managers and coordinators are hired on different evidence. What each seat screens for, what drives the rate, and how the search runs in metro Chicago.
+- [IT Staffing in Chicago: How to Hire Tech Talent](https://www.exzelon.com/resources/blog/it-staffing-chicago-how-to-hire): Chicago IT searches stall on scope, not on talent. How to define the role, screen engineers in two conversations, and choose contract or permanent.
 - [Accounting Staffing in Chicago: How to Hire Accountants](https://www.exzelon.com/resources/blog/accounting-staffing-chicago): Accounting hires turn on the close calendar, the software stack and whether the seat is seasonal. How Chicago employers define, screen and fill the role.
 - [Manufacturing Staffing in Chicago: How Hiring Works](https://www.exzelon.com/resources/blog/manufacturing-staffing-chicago): Chicago manufacturing hires turn on shift structure, machine-level screening and the first ninety days. Corridors, credentials, screening and the brief.
 - [Staffing Agency Alternatives in Chicago: How to Switch](https://www.exzelon.com/resources/blog/staffing-agency-alternatives-chicago): How Chicago employers compare staffing providers on fees, fill rates and contract terms — and how to switch without breaking a placement.
