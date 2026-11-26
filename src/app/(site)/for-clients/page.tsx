@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { StaggerGroup, staggerItem } from "@/components/motion/reveal";
@@ -89,6 +90,41 @@ const employerFaqs = [
   {
     q: "Where do you place candidates?",
     a: "We're headquartered in Chicago and place candidates across the Chicago metro and nationwide.",
+  },
+];
+
+/**
+ * Employer-side reading. Every published guide links to /for-clients, but this page — the one
+ * employers land on, and the one every sector page and article points at — linked no article at
+ * all. The five below are the employer-intent guides (fees, choosing an agency, contract terms,
+ * alternatives, cost of a bad placement); they get a stable inbound link from the commercial page
+ * instead of only from the blog index. Slugs must stay in sync with the published posts.
+ */
+const employerGuides = [
+  {
+    slug: "staffing-agency-fees-chicago",
+    title: "Staffing agency fees in Chicago",
+    desc: "Bill rate versus placement fee, what each has to fund, and the six contract terms that move the number.",
+  },
+  {
+    slug: "how-to-hire-through-a-staffing-agency-chicago",
+    title: "How to hire through a staffing agency",
+    desc: "When an agency beats a direct search, who carries the risk at each step, and how to run the intake.",
+  },
+  {
+    slug: "best-staffing-agencies-in-chicago-how-to-choose",
+    title: "How to choose a staffing agency",
+    desc: "What to compare agencies on — fill rate, submittal quality, guarantees — and the questions to ask first.",
+  },
+  {
+    slug: "evaluating-staffing-agencies-permanent-placements",
+    title: "Evaluating an agency for permanent placement",
+    desc: "Fee model, replacement guarantee and submittal quality on the searches where a miss is most expensive.",
+  },
+  {
+    slug: "staffing-agency-alternatives-chicago",
+    title: "Staffing agency alternatives in Chicago",
+    desc: "In-house recruiting, RPO and direct hire compared with an agency — and how to switch without breaking a placement.",
   },
 ];
 
@@ -272,6 +308,35 @@ export default function ForClientsPage() {
             </MotionItem>
           ))}
         </StaggerGroup>
+      </Section>
+
+      {/* Employer guides — the commercial page's missing link to the editorial library */}
+      <Section>
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+          <SectionHeading
+            title="Hiring guides for employers"
+            description="What we would tell you on the intake call, written down: fees, contract terms, and how to compare providers."
+          />
+          <ul className="divide-y divide-sand-200">
+            {employerGuides.map((g) => (
+              <li key={g.slug}>
+                <Link
+                  href={`/resources/blog/${g.slug}`}
+                  className="group flex flex-col gap-1 py-5 transition-colors hover:text-brand-700 sm:flex-row sm:items-baseline sm:gap-6"
+                >
+                  <span className="flex-1 text-base font-semibold text-ink-900 transition-colors group-hover:text-brand-700">
+                    {g.title}
+                    <Icon
+                      name="arrow-right"
+                      className="ml-2 inline h-4 w-4 -translate-y-px text-brand-400 transition-transform group-hover:translate-x-1"
+                    />
+                  </span>
+                  <span className="flex-1 text-sm leading-relaxed text-slate-600 sm:text-right">{g.desc}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </Section>
 
       <CtaBanner
