@@ -131,6 +131,7 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "Keep powered-industrial-truck and other equipment certifications current; plants ask for proof rather than a promise.",
     ],
     relatedGuides: [
+      { slug: "manufacturing-staffing-chicago", label: "Manufacturing Staffing in Chicago" },
       { slug: "where-to-hire-in-chicago-talent-clusters", label: "Where to Hire in Chicago" },
       { slug: "distribution-staffing-chicago-how-to-hire", label: "Distribution Staffing in Chicago" },
     ],
@@ -151,6 +152,7 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "Keep a repository or portfolio link ready. It shortens screening more than any summary paragraph.",
     ],
     relatedGuides: [
+      { slug: "it-staffing-chicago-how-to-hire", label: "IT Staffing in Chicago: How to Hire" },
       { slug: "will-ai-take-over-software-developer-jobs", label: "Will AI Take Over Developer Jobs?" },
       { slug: "which-jobs-are-most-affected-by-ai", label: "Which Jobs Are Most Affected by AI?" },
     ],
@@ -232,6 +234,7 @@ export const industryGuides: Record<string, IndustryGuide> = {
       "Line up two references who can speak to your reliability and judgement, not only to your manner with people.",
     ],
     relatedGuides: [
+      { slug: "administrative-staffing-chicago", label: "Administrative Staffing in Chicago" },
       { slug: "5-steps-to-a-standout-resume", label: "5 Resume Tips That Actually Get You Noticed" },
       { slug: "how-staffing-agencies-work-a-guide-for-job-seekers", label: "How Staffing Agencies Work" },
     ],
