@@ -15,8 +15,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Freshness signal for the static marketing pages. A fixed date (bumped on content
   // changes) is honest — unlike `new Date()`, which would claim edits on every hourly
   // regeneration. Update when static page copy meaningfully changes.
-  // 2026-11-11: /resources now lists the pillar guides and /opportunities gained a section heading.
-  const SITE_UPDATED = new Date("2026-11-11");
+  // 2026-11-26: /for-clients gained the employer-guide block, /resources/blog a heading, and the
+  // home page a query-bearing H1 — all after the previous 2026-11-11 stamp.
+  const SITE_UPDATED = new Date("2026-11-26");
 
   const staticRoutes = [
     "", "/about", "/for-clients", "/opportunities", ...(jobsEnabled ? ["/jobs"] : []), "/contact",
